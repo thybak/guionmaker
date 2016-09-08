@@ -3,7 +3,7 @@
   "version": "0.1.3",
   "dependencies": {
     "jquery": "~3.0.0",
-    "react": "latest",
+    "angular": "latest",
     "semantic-ui": "~2.2.2"
   }
 }

@@ -12,20 +12,20 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: './bower_components/react',
-            dest: './libs/react',
+            cwd: './bower_components/angular',
+            dest: './public/libs/angular',
             flatten: true,
             filter: 'isFile',
             src:
             [
-              'react.min.js',
-              'react-dom.min.js'
+              'angular.min.js',
+              'angular.min.js.map'
             ]
           },
           {
             expand: true,
             cwd: './bower_components',
-            dest: './libs/jquery',
+            dest: './public/libs/jquery',
             flatten: true,
             filter: 'isFile',
             src:
@@ -37,7 +37,7 @@ module.exports = function (grunt) {
           {
             expand: true,
             cwd: './bower_components/semantic-ui/dist',
-            dest: './libs/semantic-ui',
+            dest: './public/libs/semantic-ui',
             src: 
             [
               'semantic.min.css',

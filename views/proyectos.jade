@@ -1,0 +1,50 @@
+extends layout
+
+block content
+     div(class='ui container')
+        h1 GuionMaker > Gestión de proyectos
+        h2 Proyectos
+        table(class='ui celled padded table')
+            colgroup
+                col 
+                col 
+                col 
+                col 
+            tr
+                th Nombre
+                th Sinopsis
+                th Fecha de creación
+                th Fecha de modificación
+            each proyecto in model
+                tr
+                    td #{proyecto.nombre}
+                    td #{proyecto.sinopsis}
+                    td #{proyecto.fechaCreacion}
+                    td #{proyecto.fechaModificacion}
+        h2 Datos de proyecto
+        form(class='ui fluid form', method='POST', action='/proyectos/set')
+            div(class='field')
+                label(for='nombre') Nombre
+                input(type='text', name='nombre', id='nombre', placeholder='Nombre...')
+                input(type='hidden', name='ProyectoID', id='ProyectoID')
+            br
+            div(class='field')
+                label(for='sinopsis') Sinopsis
+                textarea(name='sinopsis', id='sinopsis', placeholder='Sinopsis...')
+            br
+            div(class='field')
+                label(for='fechaCreacion') Fecha de creación
+                input(type='text', name='fechaCreacion', id='fechaCreacion', readonly='readonly')
+            br
+            div(class='field')
+                label(for='fechaModificacion') Fecha de modificación 
+                input(type='text', name='fechaModificacion', id='fechaModificacion', readonly='readonly')
+            br
+            div(class='field')
+                button(type='submit', name='BtnGuardar', id='BtnGuardar', class='ui primary button') Guardar
+                    i(class='save icon')  
+                button(type='button', name='BtnBorrar', id='BtnBorrar', class='ui button') Borrar
+                    i(class='remove icon')                      
+
+block footer
+    h3 Someday, some place, then you.

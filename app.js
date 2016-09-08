@@ -1,8 +1,8 @@
 var express = require('express');
 
-/*var mongoose = require("mongoose");
-// requires de modelos
-mongoose.connect("mongodb://192.168.1.129/guionMaker");*/
+var mongoose = require("mongoose");
+var proyectosModel = require('./models/Proyectos.js');
+mongoose.connect("mongodb://192.168.1.129/guionMaker");
 
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -12,6 +12,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var proyectos = require('./routes/proyectos');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/proyectos', proyectos);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -60,6 +62,8 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+app.listen(8080);
 
 
 module.exports = app;
