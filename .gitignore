@@ -31,11 +31,15 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-# Dependency directories
+# Dependency directories and Visual Studio ones
 node_modules
 jspm_packages
 bower_components
 lib
+typings
+bin
+obj
+.vs
 
 # Optional npm cache directory
 .npm

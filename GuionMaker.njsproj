@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{d4aee021-9cbb-406e-828a-a2c53517ca4f}</ProjectGuid>
+    <ProjectHome />
+    <ProjectView>ShowAllFiles</ProjectView>
+    <StartupFile>app.js</StartupFile>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <NodejsPort>1337</NodejsPort>
+    <StartWebBrowser>True</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Content Include="bower.json" />
+    <Content Include="jsconfig.json" />
+    <Content Include="package.json" />
+    <Compile Include="app.js" />
+    <Compile Include="GruntFile.js" />
+    <Compile Include="models\Proyectos.js" />
+    <Compile Include="routes\index.js" />
+    <Compile Include="routes\proyectos.js" />
+    <Compile Include="routes\users.js" />
+    <Content Include="views\error.jade" />
+    <Content Include="views\index.jade" />
+    <Content Include="views\layout.jade" />
+    <Content Include="views\proyectos.jade" />
+    <Compile Include="lib\angular\angular.js" />
+    <Compile Include="lib\jquery\jquery.js" />
+    <Compile Include="lib\semantic-ui\semantic.js" />
+    <Content Include="public\stylesheets\style.css" />
+    <Compile Include="public\libs\angular\angular.min.js" />
+    <Compile Include="public\libs\jquery\jquery.min.js" />
+    <Content Include="public\libs\semantic-ui\semantic.min.css" />
+    <Compile Include="public\libs\semantic-ui\semantic.min.js" />
+    <Content Include="public\libs\semantic-ui\components\accordion.css" />
+    <Content Include="public\libs\semantic-ui\components\accordion.min.css" />
+    <Content Include="public\libs\semantic-ui\components\ad.css" />
+    <Content Include="public\libs\semantic-ui\components\ad.min.css" />
+    <Content Include="public\libs\semantic-ui\components\breadcrumb.css" />
+    <Content Include="public\libs\semantic-ui\components\breadcrumb.min.css" />
+    <Content Include="public\libs\semantic-ui\components\button.css" />
+    <Content Include="public\libs\semantic-ui\components\button.min.css" />
+    <Content Include="public\libs\semantic-ui\components\card.css" />
+    <Content Include="public\libs\semantic-ui\components\card.min.css" />
+    <Content Include="public\libs\semantic-ui\components\checkbox.css" />
+    <Content Include="public\libs\semantic-ui\components\checkbox.min.css" />
+    <Content Include="public\libs\semantic-ui\components\comment.css" />
+    <Content Include="public\libs\semantic-ui\components\comment.min.css" />
+    <Content Include="public\libs\semantic-ui\components\container.css" />
+    <Content Include="public\libs\semantic-ui\components\container.min.css" />
+    <Content Include="public\libs\semantic-ui\components\dimmer.css" />
+    <Content Include="public\libs\semantic-ui\components\dimmer.min.css" />
+    <Content Include="public\libs\semantic-ui\components\divider.css" />
+    <Content Include="public\libs\semantic-ui\components\divider.min.css" />
+    <Content Include="public\libs\semantic-ui\components\dropdown.css" />
+    <Content Include="public\libs\semantic-ui\components\dropdown.min.css" />
+    <Content Include="public\libs\semantic-ui\components\embed.css" />
+    <Content Include="public\libs\semantic-ui\components\embed.min.css" />
+    <Content Include="public\libs\semantic-ui\components\feed.css" />
+    <Content Include="public\libs\semantic-ui\components\feed.min.css" />
+    <Content Include="public\libs\semantic-ui\components\flag.css" />
+    <Content Include="public\libs\semantic-ui\components\flag.min.css" />
+    <Content Include="public\libs\semantic-ui\components\form.css" />
+    <Content Include="public\libs\semantic-ui\components\form.min.css" />
+    <Content Include="public\libs\semantic-ui\components\grid.css" />
+    <Content Include="public\libs\semantic-ui\components\grid.min.css" />
+    <Content Include="public\libs\semantic-ui\components\header.css" />
+    <Content Include="public\libs\semantic-ui\components\header.min.css" />
+    <Content Include="public\libs\semantic-ui\components\icon.css" />
+    <Content Include="public\libs\semantic-ui\components\icon.min.css" />
+    <Content Include="public\libs\semantic-ui\components\image.css" />
+    <Content Include="public\libs\semantic-ui\components\image.min.css" />
+    <Content Include="public\libs\semantic-ui\components\input.css" />
+    <Content Include="public\libs\semantic-ui\components\input.min.css" />
+    <Content Include="public\libs\semantic-ui\components\item.css" />
+    <Content Include="public\libs\semantic-ui\components\item.min.css" />
+    <Content Include="public\libs\semantic-ui\components\label.css" />
+    <Content Include="public\libs\semantic-ui\components\label.min.css" />
+    <Content Include="public\libs\semantic-ui\components\list.css" />
+    <Content Include="public\libs\semantic-ui\components\list.min.css" />
+    <Content Include="public\libs\semantic-ui\components\loader.css" />
+    <Content Include="public\libs\semantic-ui\components\loader.min.css" />
+    <Content Include="public\libs\semantic-ui\components\menu.css" />
+    <Content Include="public\libs\semantic-ui\components\menu.min.css" />
+    <Content Include="public\libs\semantic-ui\components\message.css" />
+    <Content Include="public\libs\semantic-ui\components\message.min.css" />
+    <Content Include="public\libs\semantic-ui\components\modal.css" />
+    <Content Include="public\libs\semantic-ui\components\modal.min.css" />
+    <Content Include="public\libs\semantic-ui\components\nag.css" />
+    <Content Include="public\libs\semantic-ui\components\nag.min.css" />
+    <Content Include="public\libs\semantic-ui\components\popup.css" />
+    <Content Include="public\libs\semantic-ui\components\popup.min.css" />
+    <Content Include="public\libs\semantic-ui\components\progress.css" />
+    <Content Include="public\libs\semantic-ui\components\progress.min.css" />
+    <Content Include="public\libs\semantic-ui\components\rail.css" />
+    <Content Include="public\libs\semantic-ui\components\rail.min.css" />
+    <Content Include="public\libs\semantic-ui\components\rating.css" />
+    <Content Include="public\libs\semantic-ui\components\rating.min.css" />
+    <Content Include="public\libs\semantic-ui\components\reset.css" />
+    <Content Include="public\libs\semantic-ui\components\reset.min.css" />
+    <Content Include="public\libs\semantic-ui\components\reveal.css" />
+    <Content Include="public\libs\semantic-ui\components\reveal.min.css" />
+    <Content Include="public\libs\semantic-ui\components\search.css" />
+    <Content Include="public\libs\semantic-ui\components\search.min.css" />
+    <Content Include="public\libs\semantic-ui\components\segment.css" />
+    <Content Include="public\libs\semantic-ui\components\segment.min.css" />
+    <Content Include="public\libs\semantic-ui\components\shape.css" />
+    <Content Include="public\libs\semantic-ui\components\shape.min.css" />
+    <Content Include="public\libs\semantic-ui\components\sidebar.css" />
+    <Content Include="public\libs\semantic-ui\components\sidebar.min.css" />
+    <Content Include="public\libs\semantic-ui\components\site.css" />
+    <Content Include="public\libs\semantic-ui\components\site.min.css" />
+    <Content Include="public\libs\semantic-ui\components\statistic.css" />
+    <Content Include="public\libs\semantic-ui\components\statistic.min.css" />
+    <Content Include="public\libs\semantic-ui\components\step.css" />
+    <Content Include="public\libs\semantic-ui\components\step.min.css" />
+    <Content Include="public\libs\semantic-ui\components\sticky.css" />
+    <Content Include="public\libs\semantic-ui\components\sticky.min.css" />
+    <Content Include="public\libs\semantic-ui\components\tab.css" />
+    <Content Include="public\libs\semantic-ui\components\tab.min.css" />
+    <Content Include="public\libs\semantic-ui\components\table.css" />
+    <Content Include="public\libs\semantic-ui\components\table.min.css" />
+    <Content Include="public\libs\semantic-ui\components\transition.css" />
+    <Content Include="public\libs\semantic-ui\components\transition.min.css" />
+    <Content Include="public\libs\semantic-ui\components\video.css" />
+    <Content Include="public\libs\semantic-ui\components\video.min.css" />
+    <Compile Include="public\libs\semantic-ui\components\accordion.js" />
+    <Compile Include="public\libs\semantic-ui\components\accordion.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\api.js" />
+    <Compile Include="public\libs\semantic-ui\components\api.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\checkbox.js" />
+    <Compile Include="public\libs\semantic-ui\components\checkbox.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\colorize.js" />
+    <Compile Include="public\libs\semantic-ui\components\colorize.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\dimmer.js" />
+    <Compile Include="public\libs\semantic-ui\components\dimmer.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\dropdown.js" />
+    <Compile Include="public\libs\semantic-ui\components\dropdown.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\embed.js" />
+    <Compile Include="public\libs\semantic-ui\components\embed.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\form.js" />
+    <Compile Include="public\libs\semantic-ui\components\form.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\modal.js" />
+    <Compile Include="public\libs\semantic-ui\components\modal.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\nag.js" />
+    <Compile Include="public\libs\semantic-ui\components\nag.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\popup.js" />
+    <Compile Include="public\libs\semantic-ui\components\popup.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\progress.js" />
+    <Compile Include="public\libs\semantic-ui\components\progress.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\rating.js" />
+    <Compile Include="public\libs\semantic-ui\components\rating.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\search.js" />
+    <Compile Include="public\libs\semantic-ui\components\search.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\shape.js" />
+    <Compile Include="public\libs\semantic-ui\components\shape.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\sidebar.js" />
+    <Compile Include="public\libs\semantic-ui\components\sidebar.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\site.js" />
+    <Compile Include="public\libs\semantic-ui\components\site.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\state.js" />
+    <Compile Include="public\libs\semantic-ui\components\state.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\sticky.js" />
+    <Compile Include="public\libs\semantic-ui\components\sticky.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\tab.js" />
+    <Compile Include="public\libs\semantic-ui\components\tab.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\transition.js" />
+    <Compile Include="public\libs\semantic-ui\components\transition.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\video.js" />
+    <Compile Include="public\libs\semantic-ui\components\video.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\visibility.js" />
+    <Compile Include="public\libs\semantic-ui\components\visibility.min.js" />
+    <Compile Include="public\libs\semantic-ui\components\visit.js" />
+    <Compile Include="public\libs\semantic-ui\components\visit.min.js" />
+    <Content Include="public\libs\semantic-ui\themes\basic\assets\fonts\icons.svg" />
+    <Content Include="public\libs\semantic-ui\themes\default\assets\fonts\icons.svg" />
+    <Content Include="public\libs\semantic-ui\themes\default\assets\images\flags.png" />
+    <Content Include="public\libs\semantic-ui\themes\github\assets\fonts\octicons.svg" />
+    <Content Include="public\libs\semantic-ui\themes\material\assets\fonts\icons.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin" />
+    <Folder Include="lib" />
+    <Folder Include="lib\angular" />
+    <Folder Include="lib\jquery" />
+    <Folder Include="lib\semantic-ui" />
+    <Folder Include="models" />
+    <Folder Include="public" />
+    <Folder Include="public\images" />
+    <Folder Include="public\libs" />
+    <Folder Include="public\libs\angular" />
+    <Folder Include="public\libs\jquery" />
+    <Folder Include="public\libs\semantic-ui" />
+    <Folder Include="public\libs\semantic-ui\components" />
+    <Folder Include="public\libs\semantic-ui\themes" />
+    <Folder Include="public\libs\semantic-ui\themes\basic" />
+    <Folder Include="public\libs\semantic-ui\themes\basic\assets" />
+    <Folder Include="public\libs\semantic-ui\themes\basic\assets\fonts" />
+    <Folder Include="public\libs\semantic-ui\themes\default" />
+    <Folder Include="public\libs\semantic-ui\themes\default\assets" />
+    <Folder Include="public\libs\semantic-ui\themes\default\assets\fonts" />
+    <Folder Include="public\libs\semantic-ui\themes\default\assets\images" />
+    <Folder Include="public\libs\semantic-ui\themes\github" />
+    <Folder Include="public\libs\semantic-ui\themes\github\assets" />
+    <Folder Include="public\libs\semantic-ui\themes\github\assets\fonts" />
+    <Folder Include="public\libs\semantic-ui\themes\material" />
+    <Folder Include="public\libs\semantic-ui\themes\material\assets" />
+    <Folder Include="public\libs\semantic-ui\themes\material\assets\fonts" />
+    <Folder Include="public\stylesheets" />
+    <Folder Include="routes" />
+    <Folder Include="typings\" />
+    <Folder Include="typings\globals\" />
+    <Folder Include="typings\globals\body-parser\" />
+    <Folder Include="typings\globals\cookie-parser\" />
+    <Folder Include="typings\globals\debug\" />
+    <Folder Include="typings\globals\ejs\" />
+    <Folder Include="typings\globals\express\" />
+    <Folder Include="typings\globals\jade\" />
+    <Folder Include="typings\globals\mongoose\" />
+    <Folder Include="typings\globals\morgan\" />
+    <Folder Include="typings\globals\node\" />
+    <Folder Include="typings\globals\serve-favicon\" />
+    <Folder Include="views" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="typings\globals\body-parser\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\cookie-parser\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\debug\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\ejs\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\express\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\jade\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\mongoose\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\morgan\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\node\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\serve-favicon\index.d.ts" />
+    <TypeScriptCompile Include="typings\index.d.ts" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

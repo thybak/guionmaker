@@ -7,7 +7,7 @@ router.get('/get', function(req, res, next){
     proyecto.find(function(err, proyecto){
         if (err) { return next(err); }
         res.json(proyecto);
-    })
+    });
 });
 
 router.post('/set', function(req, res, next){
@@ -15,7 +15,7 @@ router.post('/set', function(req, res, next){
     nuevoProyecto.save(function(err, nuevoProyecto){
         if (err){ return next(err); }
         res.redirect('/proyectos');
-    })
+    });
 });
 
 router.get('/', function(req, res, next){
