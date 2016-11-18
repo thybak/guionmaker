@@ -1,0 +1,54 @@
+extends ..\layout
+
+block breadcrumb
+    div(class='ui breadcrumb')
+        a(class='section' href='/') GuionMaker
+        i(class='right angle icon divider')
+        span(class='active section') Gestión de proyectos
+block content
+    h2 Proyectos
+    table(class='ui celled padded table')
+        colgroup
+            col
+            col 
+            col 
+            col 
+            col 
+        tr
+            th
+            th Nombre
+            th Sinopsis
+            th Fecha de creación
+            th Fecha de modificación
+        each proyecto in model
+            tr
+                td
+                    a(href='/proyectos/portada/' + proyecto._id)
+                        i(class='edit icon')
+                        | Ver
+                td #{proyecto.nombre}
+                td #{proyecto.sinopsis}
+                td #{proyecto.fechaCreacion}
+                td #{proyecto.fechaModificacion}
+    h2 Datos de proyecto
+    form(class='ui fluid form', method='POST', action='/proyectos/set')
+        div(class='field')
+            label(for='nombre') Nombre
+            input(type='text', name='nombre', id='nombre', placeholder='Nombre...')
+            input(type='hidden', name='ProyectoID', id='ProyectoID')
+        br
+        div(class='field')
+            label(for='sinopsis') Sinopsis
+            textarea(name='sinopsis', id='sinopsis', placeholder='Sinopsis...')
+        br
+        div(class='field')
+            label(for='fechaModificacion') Fecha de modificación 
+            input(type='text', name='fechaModificacion', id='fechaModificacion', readonly='readonly')
+        br
+        div(class='field')
+            button(type='submit', name='BtnGuardar', id='BtnGuardar', class='ui primary button')
+                i(class='save icon')
+                | Guardar
+            button(type='button', name='BtnBorrar', id='BtnBorrar', class='ui button') 
+                i(class='remove icon')
+                | Borrar                     

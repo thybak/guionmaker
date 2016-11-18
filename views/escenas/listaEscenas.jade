@@ -1,0 +1,19 @@
+﻿extends ..\layout
+
+block breadcrumb
+    div(class='ui breadcrumb')
+        a(class='section' href='/') GuionMaker
+        i(class='right angle icon divider')
+        a(class='section' href='/proyectos') Gestión de proyectos
+        i(class='right angle icon divider')
+        a(class='section') <Nombre>
+        i(class='right angle icon divider')
+        span(class='active section') Gestión de escenas
+
+block content
+    div(ng-app='guionMaker' ng-controller='escenasCtrl')
+        form(class='ui fluid form')
+            div(class='field')
+                input(ng-model='nombre' type='text')
+                p {{nombre}}
+    script(type='text/javascript' src='/controllers/escenasCtrl.js')

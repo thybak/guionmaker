@@ -23,9 +23,19 @@ router.get('/', function(req, res, next){
     .populate('Proyecto')
     .exec(function(err, proyecto){
         if (err) { return next(err); }
-        res.render('proyectos', { title: 'Proyectos!', model: proyecto });
+        res.render('proyectos/listaProyectos', { title: 'Listado de proyectos | GuionMaker', model: proyecto });
     });
-    
+});
+
+router.get('/portada/:proyectoId', function (req, res, next) {
+    if (req.params.proyectoId) {
+        proyecto.findById(req.params.proyectoId)
+            .exec(function (err, _proyecto) {
+                res.render('proyectos/detalleProyecto', {
+                title: _proyecto.nombre + ' | Proyectos | GuionMaker', model: _proyecto
+            });
+        });   
+    }
 });
 
 module.exports = router;

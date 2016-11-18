@@ -1,8 +1,15 @@
 var express = require('express');
 
 var mongoose = require("mongoose");
+var usuariosModel = require('./models/Usuarios.js');
+var clasificacionesModel = require('./models/Clasificaciones.js');
+var generosModel = require('./models/Generos.js');
 var proyectosModel = require('./models/Proyectos.js');
-mongoose.connect("mongodb://192.168.1.129/guionMaker");
+var detallesTecnicosModel = require('./models/DetallesTecnicos.js');
+var detallesLiterariosModel = require('./models/DetallesLiterarios.js');
+var escenasModel = require('./models/Escenas.js');
+
+mongoose.connect("mongodb://192.168.1.135/guionMaker");
 
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,9 +18,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var usuarios = require('./routes/usuarios');
 var proyectos = require('./routes/proyectos');
-
+var guiones = require('./routes/guiones');
+var escenas = require('./routes/escenas');
 var app = express();
 
 // view engine setup
@@ -29,8 +37,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/usuarios', usuarios);
 app.use('/proyectos', proyectos);
+app.use('/guiones', guiones);
+app.use('/escenas', escenas);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -63,5 +73,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
+app.listen(1337);
 
 module.exports = app;

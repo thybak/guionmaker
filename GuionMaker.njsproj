@@ -18,19 +18,31 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Compile Include="public\controllers\escenasCtrl.js" />
+    <Compile Include="routes\escenas.js" />
+    <Compile Include="routes\usuarios.js" />
+    <None Include="_references.js" />
     <Content Include="bower.json" />
     <Content Include="jsconfig.json" />
     <Content Include="package.json" />
     <Compile Include="app.js" />
     <Compile Include="GruntFile.js" />
+    <Compile Include="models\Clasificaciones.js" />
+    <Compile Include="models\DetallesLiterarios.js" />
+    <Compile Include="models\DetallesTecnicos.js" />
+    <Compile Include="models\Escenas.js" />
+    <Compile Include="models\Generos.js" />
     <Compile Include="models\Proyectos.js" />
+    <Compile Include="models\Usuarios.js" />
+    <Compile Include="routes\guiones.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\proyectos.js" />
-    <Compile Include="routes\users.js" />
     <Content Include="views\error.jade" />
+    <Content Include="views\escenas\listaEscenas.jade" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
-    <Content Include="views\proyectos.jade" />
+    <Content Include="views\proyectos\detalleProyecto.jade" />
+    <Content Include="views\proyectos\listaProyectos.jade" />
     <Compile Include="lib\angular\angular.js" />
     <Compile Include="lib\jquery\jquery.js" />
     <Compile Include="lib\semantic-ui\semantic.js" />
@@ -192,6 +204,7 @@
     <Folder Include="lib\jquery" />
     <Folder Include="lib\semantic-ui" />
     <Folder Include="models" />
+    <Folder Include="public\controllers\" />
     <Folder Include="public" />
     <Folder Include="public\images" />
     <Folder Include="public\libs" />
@@ -228,6 +241,8 @@
     <Folder Include="typings\globals\node\" />
     <Folder Include="typings\globals\serve-favicon\" />
     <Folder Include="views" />
+    <Folder Include="views\escenas\" />
+    <Folder Include="views\proyectos\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="typings\globals\body-parser\index.d.ts" />
