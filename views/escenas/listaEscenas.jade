@@ -6,14 +6,28 @@ block breadcrumb
         i(class='right angle icon divider')
         a(class='section' href='/proyectos') Gestión de proyectos
         i(class='right angle icon divider')
-        a(class='section') <Nombre>
+        a(class='section') -Nombre-
         i(class='right angle icon divider')
         span(class='active section') Gestión de escenas
 
 block content
     div(ng-app='guionMaker' ng-controller='escenasCtrl')
-        form(class='ui fluid form')
-            div(class='field')
-                input(ng-model='nombre' type='text')
-                p {{nombre}}
+        form(class='ui fluid form' name='listadoEscenas')
+            div(id='escenasList' class='ui segments')
+                div(class='ui segment' ng-repeat='escena in escenas' ng-click='listadoEscenas.$setDirty();' ng-sortable)
+                    div(class='ui grid')
+                        div(class='one wide column')
+                            button(class='ui compact icon red button')
+                                i(class='remove icon')
+                        div(class='thirteen wide column')
+                            {{ escena.nombre }}
+                            i(class='flag outline icon')
+                        div(class='two wide column')
+                            i(class='move icon')
+        p {{listadoEscenas.$dirty}}
     script(type='text/javascript' src='/controllers/escenasCtrl.js')
+    script(type='text/javascript' src='/libs/sortablejs/Sortable.min.js')
+    script(type='text/javascript' src='/libs/sortablejs/ng-sortable.js')
+    script.
+        Sortable.create(document.getElementById('escenasList', { chosenClass:'ui inverted segment', handle: '.move.icon' } ));
+    

@@ -4,6 +4,7 @@
   "dependencies": {
     "jquery": "~3.0.0",
     "angular": "latest",
-    "semantic-ui": "~2.2.2"
+    "semantic-ui": "~2.2.2",
+    "sortablejs": "latest"
   }
 }
