@@ -3,7 +3,7 @@ var Route;
 (function (Route) {
     class IndexRoute {
         index(req, res, next) {
-            res.render("../views/index");
+            res.render("index.html");
         }
     }
     Route.IndexRoute = IndexRoute;

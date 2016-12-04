@@ -6,7 +6,7 @@ module Route
 {
     export class IndexRoute {
         public index(req: express.Request, res: express.Response, next: express.NextFunction) {
-            res.render("../views/index");
+            res.render("index.html");
         }
     }
 }

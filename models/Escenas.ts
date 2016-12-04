@@ -4,6 +4,15 @@ import { DetalleTecnico } from "./DetallesTecnicos";
 import { DetalleLiterario } from "./DetallesLiterarios";
 import { Proyecto } from "./Proyectos";
 
+export class EscenaModel {
+    titulo: String;
+    orden: Number;
+    destacado: Boolean;
+    detalleTecnico: mongoose.Schema.Types.ObjectId;
+    detalleLiterario: mongoose.Schema.Types.ObjectId;
+    proyecto: mongoose.Schema.Types.ObjectId;
+}
+
 export class Escena {
     schema: mongoose.Schema;
     static current: Escena = new Escena();

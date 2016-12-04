@@ -32,9 +32,7 @@ class Server {
         this.api.use(bodyParser.json());
         this.api.use(bodyParser.urlencoded({ extended: true }));
         this.api.use(cookieParser());
-        this.api.use(express.static(path.join(__dirname, 'public')));
-        this.api.set("views", path.join(__dirname, "views"));
-        this.api.set("view engine", "jade");
+        this.api.use(express.static(path.join(__dirname, '/public/dist')));
         this.api.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
             var error = new Error("Not Found");
             err.status = 404;
