@@ -12,14 +12,20 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: './bower_components/semantic-ui/dist',
-                        dest: './public/libs/semantic-ui',
+                        cwd: './bower_components/bootstrap/dist',
+                        dest: './public/src/assets/bootstrap',
                         src:
                         [
-                            'semantic.min.css',
-                            'semantic.min.js',
-                            'components/**',
-                            'themes/**'
+                            '**/**'
+                        ]
+                    },
+                    {
+                        expand: true,
+                        cwd: './bower_components/jquery/dist',
+                        dest: './public/src/assets/jquery',
+                        src:
+                        [
+                            'jquery.min.*'
                         ]
                     }
                 ]

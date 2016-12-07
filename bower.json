@@ -2,6 +2,7 @@
   "name": "dependencias-frontend",
   "version": "0.1.4",
   "dependencies": {
-    "semantic-ui": "~2.2.2"
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1"
   }
 }

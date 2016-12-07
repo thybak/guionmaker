@@ -17,6 +17,9 @@ module Route {
         public getEscenas(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.getAll(EscenaRoute.model, res);
         }
+        public getEscenasByFilter(req: express.Request, res: express.Response, next: express.NextFunction) {
+            APIHelper.getByFilter(EscenaRoute.model, JSON.stringify(req.body), res);
+        }
         public getEscenaById(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.getById(EscenaRoute.model, req.params.id, res);
         }

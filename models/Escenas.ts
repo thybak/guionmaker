@@ -4,15 +4,6 @@ import { DetalleTecnico } from "./DetallesTecnicos";
 import { DetalleLiterario } from "./DetallesLiterarios";
 import { Proyecto } from "./Proyectos";
 
-export class EscenaModel {
-    titulo: String;
-    orden: Number;
-    destacado: Boolean;
-    detalleTecnico: mongoose.Schema.Types.ObjectId;
-    detalleLiterario: mongoose.Schema.Types.ObjectId;
-    proyecto: mongoose.Schema.Types.ObjectId;
-}
-
 export class Escena {
     schema: mongoose.Schema;
     static current: Escena = new Escena();
@@ -22,6 +13,7 @@ export class Escena {
             titulo: String,
             orden: Number,
             destacado: Boolean,
+            fechaCreacion: { type: Date, default: Date.now() },
             detalleTecnico: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(DetalleTecnico.name).schema },
             detalleLiterario: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(DetalleLiterario.name).schema },
             proyecto: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Proyecto.name).schema }

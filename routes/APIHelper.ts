@@ -19,25 +19,25 @@ export class APIHelper {
     private static buildJsonGeneric(estado: ResponseStatus) {
         let respuesta: RespuestaJson = new RespuestaJson();
         respuesta.estado = estado;
-        return JSON.stringify(respuesta);
+        return respuesta;
     }
     private static buildJsonError(mensaje: String) {
         let respuesta: RespuestaJson = new RespuestaJson();
         respuesta.estado = ResponseStatus.KO;
         respuesta.error = mensaje;
-        return JSON.stringify(respuesta);
+        return respuesta;
     }
     private static buildJsonConsulta(resultado: mongoose.Document[]) {
         let respuesta: RespuestaJson = new RespuestaJson();
         respuesta.estado = ResponseStatus.OK;
         respuesta.consulta = resultado;
-        return JSON.stringify(respuesta);
+        return respuesta;
     }
     private static buildJsonInsercion(resultado: mongoose.Document) {
         let respuesta: RespuestaJson = new RespuestaJson();
         respuesta.estado = ResponseStatus.OK;
         respuesta.insertado = resultado;
-        return JSON.stringify(respuesta);
+        return respuesta;
     }
     public static getAll(model: mongoose.Model<mongoose.Document>, res: express.Response): void {
         model.find().exec(function (err, _resultados) {
@@ -102,4 +102,13 @@ export class APIHelper {
             res.json(APIHelper.buildJsonError("No se ha aportado ninguna ID de la entidad " + model.modelName + "."));
         }
     }
+    public static getByFilter(model: mongoose.Model<mongoose.Document>, filter: string, res: express.Response): void {
+        model.find(JSON.parse(filter)).exec(function (err, _res) {
+            if (err) {
+                APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + filter + ". Más info: " + err);
+            } else {
+                res.json(APIHelper.buildJsonConsulta(_res));
+            }
+        });
+    } 
 }

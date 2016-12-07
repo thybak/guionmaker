@@ -14,6 +14,9 @@ var Route;
         getEscenas(req, res, next) {
             APIHelper_1.APIHelper.getAll(EscenaRoute.model, res);
         }
+        getEscenasByFilter(req, res, next) {
+            APIHelper_1.APIHelper.getByFilter(EscenaRoute.model, JSON.stringify(req.body), res);
+        }
         getEscenaById(req, res, next) {
             APIHelper_1.APIHelper.getById(EscenaRoute.model, req.params.id, res);
         }

@@ -1,3 +1,19 @@
-<h1>
-  {{escena.title}} LOL!
-</h1>
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2 class="panel-title">Lista de escenas del proyecto</h2>
+    </div>
+    <div class="panel-body">
+        <button class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Añadir escena</button>
+        <button class="btn btn-default"><i class="glyphicon glyphicon-export"></i> Exportar</button>
+        <ul class="list-group" [sortablejs]>
+            <li class="list-group-item" *ngFor="let escena of escenas">
+                <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></button>
+                <span>Escena {{escena.orden}}. {{escena.titulo}}</span>
+                <button *ngIf="escena.destacado" class="btn btn-default"><i class="glyphicon glyphicon-ban-circle"></i> No destacar</button>
+                <button *ngIf="!escena.destacado" class="btn btn-default"><i class="glyphicon glyphicon-flag"></i> Destacar</button>
+            </li>
+        </ul>
+        <button class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Guardar cambios</button>
+    </div>
+</div>
+

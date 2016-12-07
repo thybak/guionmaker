@@ -10,25 +10,25 @@ class APIHelper {
     static buildJsonGeneric(estado) {
         let respuesta = new RespuestaJson();
         respuesta.estado = estado;
-        return JSON.stringify(respuesta);
+        return respuesta;
     }
     static buildJsonError(mensaje) {
         let respuesta = new RespuestaJson();
         respuesta.estado = ResponseStatus.KO;
         respuesta.error = mensaje;
-        return JSON.stringify(respuesta);
+        return respuesta;
     }
     static buildJsonConsulta(resultado) {
         let respuesta = new RespuestaJson();
         respuesta.estado = ResponseStatus.OK;
         respuesta.consulta = resultado;
-        return JSON.stringify(respuesta);
+        return respuesta;
     }
     static buildJsonInsercion(resultado) {
         let respuesta = new RespuestaJson();
         respuesta.estado = ResponseStatus.OK;
         respuesta.insertado = resultado;
-        return JSON.stringify(respuesta);
+        return respuesta;
     }
     static getAll(model, res) {
         model.find().exec(function (err, _resultados) {
@@ -102,6 +102,16 @@ class APIHelper {
         else {
             res.json(APIHelper.buildJsonError("No se ha aportado ninguna ID de la entidad " + model.modelName + "."));
         }
+    }
+    static getByFilter(model, filter, res) {
+        model.find(JSON.parse(filter)).exec(function (err, _res) {
+            if (err) {
+                APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + filter + ". Más info: " + err);
+            }
+            else {
+                res.json(APIHelper.buildJsonConsulta(_res));
+            }
+        });
     }
 }
 exports.APIHelper = APIHelper;
