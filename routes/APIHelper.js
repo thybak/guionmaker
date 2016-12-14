@@ -6,6 +6,8 @@ var ResponseStatus;
 })(ResponseStatus || (ResponseStatus = {}));
 class RespuestaJson {
 }
+class PeticionJson {
+}
 class APIHelper {
     static buildJsonGeneric(estado) {
         let respuesta = new RespuestaJson();
@@ -67,7 +69,7 @@ class APIHelper {
     }
     static add(model, req, res) {
         if (req.body != undefined) {
-            var nuevoRegistro = new model(req.body);
+            let nuevoRegistro = new model(req.body);
             nuevoRegistro.save(function (err, _resultado) {
                 if (err) {
                     res.json(APIHelper.buildJsonError("Error al intentar insertar un nuevo registro en la entidad " + model.modelName + ". Más info: " + err));
@@ -79,6 +81,21 @@ class APIHelper {
         }
         else {
             res.json(APIHelper.buildJsonError("No se ha transferido ningún objeto a guardar para la entidad " + model.modelName + "."));
+        }
+    }
+    static update(model, req, res) {
+        if (req.body != undefined) {
+            model.update({ "_id": req.body._id }, req.body, function (err, _resultado) {
+                if (err) {
+                    res.json(APIHelper.buildJsonError("Error al intentar actualizar un registro en la entidad " + model.modelName + ". Más info: " + err + ". Modelo: " + req.body));
+                }
+                else {
+                    res.json(APIHelper.buildJsonGeneric(ResponseStatus.OK));
+                }
+            });
+        }
+        else {
+            res.json(APIHelper.buildJsonError("No se puede actualizar ningún registro sin body en la petición para la entidad " + model.modelName + "."));
         }
     }
     static delete(model, id, res) {
@@ -103,10 +120,13 @@ class APIHelper {
             res.json(APIHelper.buildJsonError("No se ha aportado ninguna ID de la entidad " + model.modelName + "."));
         }
     }
-    static getByFilter(model, filter, res) {
-        model.find(JSON.parse(filter)).exec(function (err, _res) {
+    static getByFilterAndSort(model, reqBody, res) {
+        let objReqBody = JSON.parse(reqBody);
+        let sort = objReqBody.sort == undefined ? { "_id": "1" } : objReqBody.sort; // por omisión se ordena por _id
+        let find = objReqBody.find == undefined ? { "_id": "1" } : objReqBody.find; // por omisión se busca el _id = 1 forzando error
+        model.find(find).sort(sort).exec(function (err, _res) {
             if (err) {
-                APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + filter + ". Más info: " + err);
+                APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + reqBody + ". Más info: " + err);
             }
             else {
                 res.json(APIHelper.buildJsonConsulta(_res));

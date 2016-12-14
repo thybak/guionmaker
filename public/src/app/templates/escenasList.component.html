@@ -3,17 +3,21 @@
         <h2 class="panel-title">Lista de escenas del proyecto</h2>
     </div>
     <div class="panel-body">
-        <button class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Añadir escena</button>
-        <button class="btn btn-default"><i class="glyphicon glyphicon-export"></i> Exportar</button>
-        <ul class="list-group" [sortablejs]>
+        <confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>
+        <div class="btn-group" role="group">
+            <button class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Añadir escena</button>
+            <button class="btn btn-default"><i class="glyphicon glyphicon-export"></i> Exportar</button>
+        </div>
+        <ul class="list-group" [sortablejs]="escenas" [sortablejsOptions]="sortOptions">
             <li class="list-group-item" *ngFor="let escena of escenas">
                 <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></button>
                 <span>Escena {{escena.orden}}. {{escena.titulo}}</span>
-                <button *ngIf="escena.destacado" class="btn btn-default"><i class="glyphicon glyphicon-ban-circle"></i> No destacar</button>
-                <button *ngIf="!escena.destacado" class="btn btn-default"><i class="glyphicon glyphicon-flag"></i> Destacar</button>
+                <button *ngIf="escena.destacado" class="btn btn-default" (click)="onDestacar(false, escena)"><i class="glyphicon glyphicon-ban-circle"></i> No destacar</button>
+                <button *ngIf="!escena.destacado" class="btn btn-default" (click)="onDestacar(true, escena)"><i class="glyphicon glyphicon-flag"></i> Destacar</button>
+                <i class="glyphicon glyphicon-move pull-right"></i>
             </li>
         </ul>
-        <button class="btn btn-primary"><i class="glyphicon glyphicon-save"></i> Guardar cambios</button>
+        <button class="btn btn-primary" (click)="onGuardarCambios()"><i class="glyphicon glyphicon-save"></i> Guardar cambios</button>
     </div>
 </div>
 

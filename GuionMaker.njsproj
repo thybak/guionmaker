@@ -270,6 +270,7 @@
     <Content Include="public\dist\main.bundle.map" />
     <Content Include="public\dist\styles.bundle.map" />
     <Content Include="public\e2e\tsconfig.json" />
+    <Content Include="public\src\app\templates\confirmacionGuardado.component.html" />
     <Content Include="public\src\app\templates\escenasList.component.html" />
     <Content Include="public\src\assets\.gitkeep" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.css" />
@@ -392,6 +393,7 @@
     <Content Include="public\src\assets\semantic-ui\themes\material\assets\fonts\icons.svg" />
     <Content Include="public\src\assets\semantic-ui\themes\material\assets\fonts\icons.ttf" />
     <Content Include="public\src\assets\semantic-ui\themes\material\assets\fonts\icons.woff" />
+    <Content Include="public\src\assets\styles.css" />
     <Content Include="public\src\favicon.ico" />
     <Content Include="public\src\index.html" />
     <Content Include="public\src\styles.css" />
@@ -578,6 +580,9 @@
     <Folder Include="public\dist\assets\semantic-ui\themes\material\assets\fonts\" />
     <Folder Include="public\e2e\" />
     <Folder Include="public\images" />
+    <Folder Include="public\libs\" />
+    <Folder Include="public\libs\semantic-ui\" />
+    <Folder Include="public\libs\semantic-ui\components\" />
     <Folder Include="public\libs\semantic-ui\themes" />
     <Folder Include="public\libs\semantic-ui\themes\basic" />
     <Folder Include="public\libs\semantic-ui\themes\basic\assets" />
@@ -602,7 +607,22 @@
     <Folder Include="public\src\assets\bootstrap\fonts\" />
     <Folder Include="public\src\assets\bootstrap\js\" />
     <Folder Include="public\src\assets\jquery\" />
+    <Folder Include="public\src\assets\semantic-ui\" />
+    <Folder Include="public\src\assets\semantic-ui\components\" />
+    <Folder Include="public\src\assets\semantic-ui\themes\" />
+    <Folder Include="public\src\assets\semantic-ui\themes\basic\" />
+    <Folder Include="public\src\assets\semantic-ui\themes\basic\assets\" />
+    <Folder Include="public\src\assets\semantic-ui\themes\basic\assets\fonts\" />
+    <Folder Include="public\src\assets\semantic-ui\themes\default\" />
+    <Folder Include="public\src\assets\semantic-ui\themes\default\assets\" />
+    <Folder Include="public\src\assets\semantic-ui\themes\default\assets\fonts\" />
     <Folder Include="public\src\assets\semantic-ui\themes\default\assets\images\" />
+    <Folder Include="public\src\assets\semantic-ui\themes\github\" />
+    <Folder Include="public\src\assets\semantic-ui\themes\github\assets\" />
+    <Folder Include="public\src\assets\semantic-ui\themes\github\assets\fonts\" />
+    <Folder Include="public\src\assets\semantic-ui\themes\material\" />
+    <Folder Include="public\src\assets\semantic-ui\themes\material\assets\" />
+    <Folder Include="public\src\assets\semantic-ui\themes\material\assets\fonts\" />
     <Folder Include="public\src\environments\" />
     <Folder Include="routes" />
   </ItemGroup>
@@ -611,6 +631,7 @@
     <TypeScriptCompile Include="models\EscenasModel.ts" />
     <TypeScriptCompile Include="public\e2e\app.e2e-spec.ts" />
     <TypeScriptCompile Include="public\e2e\app.po.ts" />
+    <TypeScriptCompile Include="public\src\app\confirmacionGuardado.component.ts" />
     <TypeScriptCompile Include="public\src\app\escenasList.component.ts" />
     <TypeScriptCompile Include="public\src\app\app.module.ts" />
     <TypeScriptCompile Include="public\src\app\index.ts" />

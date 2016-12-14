@@ -14,8 +14,8 @@ var Route;
         getEscenas(req, res, next) {
             APIHelper_1.APIHelper.getAll(EscenaRoute.model, res);
         }
-        getEscenasByFilter(req, res, next) {
-            APIHelper_1.APIHelper.getByFilter(EscenaRoute.model, JSON.stringify(req.body), res);
+        getEscenasByFilterAndSort(req, res, next) {
+            APIHelper_1.APIHelper.getByFilterAndSort(EscenaRoute.model, JSON.stringify(req.body), res);
         }
         getEscenaById(req, res, next) {
             APIHelper_1.APIHelper.getById(EscenaRoute.model, req.params.id, res);
@@ -25,6 +25,9 @@ var Route;
         }
         deleteEscena(req, res, next) {
             APIHelper_1.APIHelper.delete(EscenaRoute.model, req.params.id, res);
+        }
+        updateEscena(req, res, next) {
+            APIHelper_1.APIHelper.update(EscenaRoute.model, req, res);
         }
     }
     Route.EscenaRoute = EscenaRoute;

@@ -68,8 +68,9 @@ class Server {
         router.get('/api/clasificacion/:id', _clasificacionesRoute.getClasificacionById.bind(_clasificacionesRoute.getClasificacionById));
         router.delete('/api/clasificacion/:id', _clasificacionesRoute.deleteClasificacion.bind(_clasificacionesRoute.deleteClasificacion));
         router.get('/api/escenas', _escenasRoute.getEscenas.bind(_escenasRoute.getEscenas));
-        router.post('/api/escenasPorFiltro', _escenasRoute.getEscenasByFilter.bind(_escenasRoute.getEscenasByFilter));
+        router.post('/api/escenasPorFiltro', _escenasRoute.getEscenasByFilterAndSort.bind(_escenasRoute.getEscenasByFilterAndSort));
         router.post('/api/escena/', _escenasRoute.addEscena.bind(_escenasRoute.addEscena));
+        router.post('/api/escena/actualizar/', _escenasRoute.updateEscena.bind(_escenasRoute.updateEscena));
         router.get('/api/escena/:id', _escenasRoute.getEscenaById.bind(_escenasRoute.getEscenaById));
         router.delete('/escena/:id', _escenasRoute.deleteEscena.bind(_escenasRoute.deleteEscena));
         router.get('/api/detallesTecnicos', _detallesTecnicosRoute.getDetallesTecnicos.bind(_detallesTecnicosRoute.getDetallesTecnicos));

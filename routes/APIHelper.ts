@@ -1,5 +1,4 @@
-﻿"use strict"
-
+﻿"use strict";
 import * as mongoose from "mongoose";
 import * as express from "express";
 
@@ -13,6 +12,11 @@ class RespuestaJson {
     error: String;
     consulta: mongoose.Document[];
     insertado: mongoose.Document;
+}
+
+class PeticionJson {
+    find: any;
+    sort: any;
 }
 
 export class APIHelper {
@@ -71,7 +75,7 @@ export class APIHelper {
     }
     public static add(model: mongoose.Model<mongoose.Document>, req: express.Request, res: express.Response) : void {
         if (req.body != undefined) {
-            var nuevoRegistro = new model(req.body);
+            let nuevoRegistro = new model(req.body);
             nuevoRegistro.save(function (err, _resultado) {
                 if (err) {
                     res.json(APIHelper.buildJsonError("Error al intentar insertar un nuevo registro en la entidad " + model.modelName + ". Más info: " + err));
@@ -81,6 +85,19 @@ export class APIHelper {
             });
         } else {
             res.json(APIHelper.buildJsonError("No se ha transferido ningún objeto a guardar para la entidad " + model.modelName + "."));
+        }
+    }
+    public static update(model: mongoose.Model<mongoose.Document>, req: express.Request, res: express.Response): void {
+        if (req.body != undefined) {
+            model.update({ "_id": req.body._id }, req.body, function (err, _resultado) {
+                if (err) {
+                    res.json(APIHelper.buildJsonError("Error al intentar actualizar un registro en la entidad " + model.modelName + ". Más info: " + err + ". Modelo: " + req.body));
+                } else {
+                    res.json(APIHelper.buildJsonGeneric(ResponseStatus.OK));
+                }
+            });
+        } else {
+            res.json(APIHelper.buildJsonError("No se puede actualizar ningún registro sin body en la petición para la entidad " + model.modelName + "."));
         }
     }
     public static delete(model: mongoose.Model<mongoose.Document>, id: mongoose.Schema.Types.ObjectId, res: express.Response) : void {
@@ -102,10 +119,14 @@ export class APIHelper {
             res.json(APIHelper.buildJsonError("No se ha aportado ninguna ID de la entidad " + model.modelName + "."));
         }
     }
-    public static getByFilter(model: mongoose.Model<mongoose.Document>, filter: string, res: express.Response): void {
-        model.find(JSON.parse(filter)).exec(function (err, _res) {
+    public static getByFilterAndSort(model: mongoose.Model<mongoose.Document>, reqBody: string, res: express.Response): void {
+        let objReqBody = JSON.parse(reqBody) as PeticionJson;
+        let sort = objReqBody.sort == undefined ? { "_id": "1" } : objReqBody.sort; // por omisión se ordena por _id
+        let find = objReqBody.find == undefined ? { "_id": "1" } : objReqBody.find; // por omisión se busca el _id = 1 forzando error
+        
+        model.find(find).sort(sort).exec(function (err, _res) {
             if (err) {
-                APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + filter + ". Más info: " + err);
+                APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + reqBody + ". Más info: " + err);
             } else {
                 res.json(APIHelper.buildJsonConsulta(_res));
             }

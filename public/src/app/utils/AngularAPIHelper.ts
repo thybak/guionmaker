@@ -15,6 +15,16 @@ export class RespuestaJson {
     insertado: any;
 }
 
+export class PeticionJson {
+    find: any;
+    sort: any;
+
+    constructor(find, sort) {
+        this.find = find;
+        this.sort = sort;
+    }
+}
+
 @Injectable()
 export class AngularAPIHelper {
     static URL: string = "http://localhost:1337/api/";
@@ -22,14 +32,18 @@ export class AngularAPIHelper {
     constructor(private http: Http) {
     }
 
+    private handleError(error: Response) {
+        let errMsg = 'Error en el AngularAPIHelper.';
+        console.error(errMsg);
+        return Observable.throw(errMsg);
+    }
+
     parse(response: string): RespuestaJson {
         return JSON.parse(response) as RespuestaJson;
     }
 
-    private handleError(error: Response) {
-        let errMsg = 'Error al obtener JSON';
-        console.error(errMsg);
-        return Observable.throw(errMsg);
+    buildPeticion(find: any, sort: any) : PeticionJson {
+        return new PeticionJson(find, sort);
     }
 
     getById(entity: string, id: string) {
@@ -38,5 +52,9 @@ export class AngularAPIHelper {
 
     getByFilter(entity: string, filter: string) {
         return this.http.post(AngularAPIHelper.URL + entity, JSON.parse(filter)).map(response => this.parse(response.text())).catch(this.handleError);
+    }
+
+    postEntry(entity: string, entry: string) {
+        return this.http.post(AngularAPIHelper.URL + entity, JSON.parse(entry)).map(response => this.parse(response.text())).catch(this.handleError);
     }
 }
