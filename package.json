@@ -19,7 +19,7 @@
     "@angular/platform-browser": "2.2.1",
     "@angular/platform-browser-dynamic": "2.2.1",
     "@angular/router": "3.2.1",
-    "angular-sortablejs": "^1.0.1",
+    "angular-sortablejs": "latest",
     "body-parser": "~1.15.1",
     "bower": "^1.7.9",
     "cookie-parser": "~1.4.3",

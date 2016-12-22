@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { EscenaModel } from '../../../models/EscenasModel';
-import { RespuestaJson, AngularAPIHelper } from './utils/AngularAPIHelper';
+import { EscenaModel } from '../../../../models/EscenasModel';
+import { RespuestaJson, AngularAPIHelper } from '../utils/AngularAPIHelper';
 import { SortablejsOptions } from 'angular-sortablejs';
-import { ConfirmacionGuardado } from './confirmacionGuardado.component';
+import { ConfirmacionGuardado } from '../utils/confirmacionGuardado.component';
 
 @Component({
-    selector: 'escenas-list',
+    selector: 'lista-escenas',
     templateUrl: './templates/escenasList.component.html',
     providers: [AngularAPIHelper]
 })
@@ -18,14 +18,15 @@ export class EscenasListComponent {
     }
     constructor(angularAPIHelper: AngularAPIHelper) {
         this.angularAPIHelper = angularAPIHelper;
-        this.escenas = []; // esto es para forzar que el componente sortablejs se vincule a la propiedad del modelo
         this.confirmacionGuardado = new ConfirmacionGuardado();
         this.cargarEscenas();
     }
     private guardarCambios() {
+        let isOk: boolean = true;
         for (let escena of this.escenas) {
-            this.angularAPIHelper.postEntry('escena/actualizar', JSON.stringify(escena)).subscribe(response => this.confirmacionGuardado.setEstadoGuardado(true), error => this.confirmacionGuardado.setEstadoGuardado(false));
+            this.angularAPIHelper.postEntry('escena/actualizar', JSON.stringify(escena)).subscribe(error => isOk = false);
         }
+        this.confirmacionGuardado.setEstadoGuardado(isOk);
     }
     private cambiarOrdenEscenas() {
         let idx: number = 1;

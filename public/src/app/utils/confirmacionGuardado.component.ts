@@ -12,7 +12,6 @@ export class ConfirmacionGuardado {
         this.timeoutVal = undefined;
     }
     setTimeoutRetirarAviso(timeOutMs: number = 5000) {
-        console.log(this.guardadoOk);
         this.timeoutVal = setTimeout(() => { this.retirarAviso() }, timeOutMs);
     }
     setEstadoGuardado(guardadoOk: boolean) {
