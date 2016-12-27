@@ -5,12 +5,12 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li role="presentation" class="active"><a href="">Inicio</a></li>
-                <li role="presentation"><a href="">Proyectos</a></li>
-                <li role="presentation"><a href="">Guiones</a></li>
-                <li role="presentation"><a href="">Biblias literarias</a></li>
+                <li role="presentation"><a href="" routerLink="">Inicio</a></li>
+                <li role="presentation" routerLinkActive="active"><a href="" routerLink="/proyectos">Proyectos</a></li>
+                <li role="presentation" routerLinkActive="active"><a routerLink="/escenas">Guiones</a></li>
+                <li role="presentation" routerLinkActive="active"><a routerLink="/biblias">Biblias literarias</a></li>
             </ul>
         </div>
     </div>
 </nav>
-<lista-escenas></lista-escenas>
+<router-outlet></router-outlet>
