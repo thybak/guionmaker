@@ -1,11 +1,18 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { EscenasListComponent } from './escenasList.component';
+import { EscenasListComponent } from './escenas-lista.component';
+import { DetalleEscenaComponent } from './escena-detalle.component';
 
-const escenasRoutes: Routes = 
+const escenasRoutes: Routes =
     [
-        { path: 'escenas', component: EscenasListComponent }
+        {
+            path: 'escenas',
+            children: [
+                { path: '', component: EscenasListComponent },
+                { path: ':id', component: DetalleEscenaComponent }
+            ]
+        },
     ];
 
 @NgModule({

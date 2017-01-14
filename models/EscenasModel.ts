@@ -1,6 +1,7 @@
 ﻿"use strict";
 
 export class EscenaModel {
+    _id: string;
     titulo: string;
     orden: number;
     destacado: boolean;
@@ -10,6 +11,5 @@ export class EscenaModel {
     fechaCreacion: Date;
 
     constructor() {
-        this.titulo = "todo ok!";
     }
 }

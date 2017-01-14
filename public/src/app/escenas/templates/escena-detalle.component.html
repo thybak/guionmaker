@@ -1,0 +1,23 @@
+﻿<div *ngIf="escena != undefined" class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Edición de la escena {{escena.titulo}}</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-responsive">
+            <tr>
+                <td><input type="text" /></td>
+            </tr>
+            <tr>
+                <td>Aquí irán todos los gestores de encabezados</td>
+            </tr>
+            <tr>
+                <td><textarea></textarea></td>
+            </tr>
+            <tr>
+                <td>
+                    <botones-guardado [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

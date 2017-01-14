@@ -22,7 +22,7 @@ export class ConfirmacionGuardado {
 
 @Component({
     selector: 'confirmacion-guardado',
-    templateUrl: './templates/confirmacionGuardado.component.html'
+    templateUrl: './templates/confirmacion-guardado.component.html'
 })
 export class ConfirmacionGuardadoComponent {
     @Input()

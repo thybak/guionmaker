@@ -269,10 +269,12 @@
     <Content Include="public\dist\main.bundle.map" />
     <Content Include="public\dist\styles.bundle.map" />
     <Content Include="public\e2e\tsconfig.json" />
+    <Content Include="public\src\app\escenas\templates\escena-detalle.component.html" />
     <Content Include="public\src\app\templates\app.component.html" />
     <Content Include="public\src\app\templates\index.component.html" />
-    <Content Include="public\src\app\utils\templates\confirmacionGuardado.component.html" />
-    <Content Include="public\src\app\escenas\templates\escenasList.component.html" />
+    <Content Include="public\src\app\utils\templates\botones-guardado.component.html" />
+    <Content Include="public\src\app\utils\templates\confirmacion-guardado.component.html" />
+    <Content Include="public\src\app\escenas\templates\escenas-lista.component.html" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.css" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.min.css" />
@@ -614,20 +616,24 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="models\DetallesLiterariosModel.ts" />
+    <TypeScriptCompile Include="models\DetallesTecnicosModel.ts" />
     <TypeScriptCompile Include="models\EscenasModel.ts" />
     <TypeScriptCompile Include="public\e2e\app.e2e-spec.ts" />
     <TypeScriptCompile Include="public\e2e\app.po.ts" />
     <TypeScriptCompile Include="public\src\app\app-routing.module.ts" />
     <TypeScriptCompile Include="public\src\app\app.component.ts" />
+    <TypeScriptCompile Include="public\src\app\escenas\escena-detalle.component.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\escenas-routing.module.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\escenas.module.ts" />
     <TypeScriptCompile Include="public\src\app\index.component.ts" />
     <TypeScriptCompile Include="public\src\app\pageNotFound.component.ts" />
-    <TypeScriptCompile Include="public\src\app\utils\confirmacionGuardado.component.ts" />
-    <TypeScriptCompile Include="public\src\app\escenas\escenasList.component.ts" />
+    <TypeScriptCompile Include="public\src\app\utils\confirmacion-guardado.component.ts" />
+    <TypeScriptCompile Include="public\src\app\escenas\escenas-lista.component.ts" />
     <TypeScriptCompile Include="public\src\app\app.module.ts" />
     <TypeScriptCompile Include="public\src\app\index.ts" />
     <TypeScriptCompile Include="public\src\app\utils\AngularAPIHelper.ts" />
+    <TypeScriptCompile Include="public\src\app\utils\botones-guardado.component.ts" />
     <TypeScriptCompile Include="public\src\app\utils\rxjsUtils.ts" />
     <TypeScriptCompile Include="public\src\app\utils\utils.module.ts" />
     <TypeScriptCompile Include="public\src\environments\environment.prod.ts" />

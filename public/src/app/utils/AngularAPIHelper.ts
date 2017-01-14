@@ -49,11 +49,7 @@ export class AngularAPIHelper {
         return this.http.get(AngularAPIHelper.URL + entity + "/" + id).map(response => this.parse(response.text())).catch(this.handleError);
     }
 
-    getByFilter(entity: string, filter: string) {
-        return this.http.post(AngularAPIHelper.URL + entity, JSON.parse(filter)).map(response => this.parse(response.text())).catch(this.handleError);
-    }
-
-    postEntry(entity: string, entry: string) {
-        return this.http.post(AngularAPIHelper.URL + entity, JSON.parse(entry)).map(response => this.parse(response.text())).catch(this.handleError);
+    postEntryOrFilter(entity: string, entryOrFilter: string) {
+        return this.http.post(AngularAPIHelper.URL + entity, JSON.parse(entryOrFilter)).map(response => this.parse(response.text())).catch(this.handleError);
     }
 }

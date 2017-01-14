@@ -5,11 +5,12 @@ import { SortablejsModule } from 'angular-sortablejs';
 import { UtilsModule } from '../utils/utils.module';
 import { EscenasRoutingModule } from './escenas-routing.module';
 
-import { EscenasListComponent } from './escenasList.component';
+import { EscenasListComponent } from './escenas-lista.component';
+import { DetalleEscenaComponent } from './escena-detalle.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, SortablejsModule, UtilsModule, EscenasRoutingModule],
-    declarations: [EscenasListComponent],
+    declarations: [EscenasListComponent, DetalleEscenaComponent],
     providers: [],
     exports: [EscenasListComponent]
 })
