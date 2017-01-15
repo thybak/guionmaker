@@ -1,3 +1,19 @@
-﻿<button class="btn btn-primary" (click)="onGuardarCambios()" *ngIf="oBotonesGuardado.mostrarGuardado"><i class="glyphicon glyphicon-save"></i> Guardar cambios</button>
-<button class="btn btn-danger" (click)="onEliminar()" *ngIf="oBotonesGuardado.mostrarBorrado"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>
-<button class="btn btn-default" (click)="onVolver()" *ngIf="oBotonesGuardado.mostrarVolver"><i class="glyphicon glyphicon glyphicon-chevron-left"></i> Volver</button>
+﻿<button class="btn btn-default" (click)="onVolver()" *ngIf="oBotonesGuardado.mostrarVolver"><i class="glyphicon glyphicon glyphicon-chevron-left"></i> Volver</button>
+<button class="btn btn-primary" (click)="onGuardarCambios()" *ngIf="oBotonesGuardado.mostrarGuardado"><i class="glyphicon glyphicon-save"></i> Guardar cambios</button>
+<button class="btn btn-danger" (click)="onEliminar()" data-toggle="modal" data-target="#mdlBorrado" *ngIf="oBotonesGuardado.mostrarBorrado"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>
+<div class="modal fade" id="mdlBorrado" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Confirmación de borrado</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que quieres eliminar este elemento? Este cambio no se podrá deshacer una vez confirmado.</p>
+                <button class="btn btn-primary" type="button">Aceptar</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+

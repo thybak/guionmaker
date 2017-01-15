@@ -69,15 +69,21 @@ class APIHelper {
     }
     static add(model, req, res) {
         if (req.body != undefined) {
-            let nuevoRegistro = new model(req.body);
-            nuevoRegistro.save(function (err, _resultado) {
-                if (err) {
-                    res.json(APIHelper.buildJsonError("Error al intentar insertar un nuevo registro en la entidad " + model.modelName + ". Más info: " + err));
-                }
-                else {
-                    res.json(APIHelper.buildJsonInsercion(_resultado));
-                }
-            });
+            console.log(req.body);
+            if (req.body._id == undefined) {
+                let nuevoRegistro = new model(req.body);
+                nuevoRegistro.save(function (err, _resultado) {
+                    if (err) {
+                        res.json(APIHelper.buildJsonError("Error al intentar insertar un nuevo registro en la entidad " + model.modelName + ". Más info: " + err));
+                    }
+                    else {
+                        res.json(APIHelper.buildJsonInsercion(_resultado));
+                    }
+                });
+            }
+            else {
+                this.update(model, req, res);
+            }
         }
         else {
             res.json(APIHelper.buildJsonError("No se ha transferido ningún objeto a guardar para la entidad " + model.modelName + "."));

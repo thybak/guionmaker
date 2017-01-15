@@ -5,6 +5,7 @@ import { DetalleTecnicoModel } from '../../../../models/DetallesTecnicosModel';
 import { RespuestaJson, AngularAPIHelper } from '../utils/AngularAPIHelper';
 import { ConfirmacionGuardado } from '../utils/confirmacion-guardado.component';
 import { BotonesGuardado, TipoOperacionGuardado } from '../utils/botones-guardado.component';
+import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
 
 @Component({
     templateUrl: './templates/escena-detalle.component.html',
@@ -45,10 +46,22 @@ export class DetalleEscenaComponent {
         }
     }
 
-    private guardarCambios() {
+    private guardarEscena(response): boolean {
         let isOk: boolean = true;
+        let resultadoDetalleLiterario = (response as RespuestaJson).insertado as DetalleLiterarioModel
+        if (resultadoDetalleLiterario != undefined) {
+            this.escena.detalleLiterario = resultadoDetalleLiterario._id;
+            this.detalleLiterario = resultadoDetalleLiterario;
+        }
         this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(this.escena)).subscribe(error => isOk = false);
-        this.angularAPIHelper.postEntryOrFilter('detalleLiterario', JSON.stringify(this.detalleLiterario)).subscribe(error => isOk = false);
+        return isOk;
+    }
+
+    private guardarCambios() {
+        let isOk: boolean = true; // primero hay que guardar los detalles y luego las escenas
+        this.angularAPIHelper.postEntryOrFilter('detalleLiterario', JSON.stringify(this.detalleLiterario))
+            .subscribe(response => isOk = this.guardarEscena(response),
+            error => isOk = false);
         this.confirmacionGuardado.setEstadoGuardado(isOk);
     }
 

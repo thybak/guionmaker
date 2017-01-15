@@ -1,17 +1,26 @@
-﻿<div *ngIf="escena != undefined" class="panel panel-default">
+﻿<div *ngIf="escena != undefined && detalleLiterario != undefined" class="panel panel-default">
     <div class="panel-heading">
-        <h3>Edición de la escena {{escena.titulo}}</h3>
+        <h3 class="panel-title">Edición de la escena {{escena.titulo}}</h3>
     </div>
     <div class="panel-body">
+        <confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>
         <table class="table table-responsive">
             <tr>
-                <td><input type="text" /></td>
+                <td><input type="text" class="form-control" [(ngModel)]="escena.titulo" /></td>
             </tr>
             <tr>
-                <td>Aquí irán todos los gestores de encabezados</td>
+                <td>
+                    <table class="table table-borderless">
+                        <tr>
+                            <td class="col-md-4"><select class="form-control"><option>Personajes...</option></select></td>
+                            <td class="col-md-4"><select class="form-control"><option>Escenarios</option></select></td>
+                            <td class="col-md-8"></td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
             <tr>
-                <td><textarea></textarea></td>
+                <td><ng2-summernote lang="es-ES" [(ngModel)]="detalleLiterario.texto"></ng2-summernote></td>
             </tr>
             <tr>
                 <td>

@@ -27,6 +27,15 @@ module.exports = function (grunt) {
                         [
                             'jquery.min.*'
                         ]
+                    },
+                    {
+                        expand: true,
+                        cwd: './bower_components/summernote/dist',
+                        dest: './public/src/assets/summernote',
+                        src:
+                        [
+                            '**/**'
+                        ]
                     }
                 ]
             }
