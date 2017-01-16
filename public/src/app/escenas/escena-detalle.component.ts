@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ElementRef } from '@angular/core';
 import { EscenaModel } from '../../../../models/EscenasModel';
 import { DetalleLiterarioModel } from '../../../../models/DetallesLiterariosModel';
 import { DetalleTecnicoModel } from '../../../../models/DetallesTecnicosModel';
@@ -16,15 +16,17 @@ export class DetalleEscenaComponent {
     confirmacionGuardado: ConfirmacionGuardado;
     angularAPIHelper: AngularAPIHelper;
     escena: EscenaModel;
+    mostrarDetalleTecnico: boolean;
     detalleLiterario: DetalleLiterarioModel;
-    detalleTecnico: DetalleTecnicoModel; // por ahora solo literario!!
+    detalleTecnico: DetalleTecnicoModel; 
     botonesGuardado: BotonesGuardado;
 
-    constructor(angularAPIHelper: AngularAPIHelper) {
+    constructor(angularAPIHelper: AngularAPIHelper, private el: ElementRef) {
         this.angularAPIHelper = angularAPIHelper;
         this.botonesGuardado = new BotonesGuardado();
         this.botonesGuardado.mostrarCompleto();
         this.confirmacionGuardado = new ConfirmacionGuardado();
+        this.mostrarDetalleTecnico = true; // donde aquí está el booleano debe ser uno de los parámetros que debe venir por la ruta.
         let id: string = '5846fbbbef72c01298cfd5ad'; // donde aquí está el id en el futuro se debe incluir el parámetro que venga desde la ruta.
         if (id != "-1" && id.length == 24) { // mejorable la comprobación de si tiene formato de object id en mongodb
             this.angularAPIHelper.getById('escena', id)
@@ -43,26 +45,53 @@ export class DetalleEscenaComponent {
             } else {
                 this.detalleLiterario = new DetalleLiterarioModel();
             }
+            if (this.escena.detalleTecnico != undefined) {
+                this.angularAPIHelper.getById('detalleTecnico', this.escena.detalleTecnico)
+                    .subscribe(response => this.detalleTecnico = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel,
+                    error => console.log('Error: ' + error));
+            } else {
+                this.detalleTecnico = new DetalleTecnicoModel();
+            }
         }
     }
 
     private guardarEscena(response): boolean {
         let isOk: boolean = true;
-        let resultadoDetalleLiterario = (response as RespuestaJson).insertado as DetalleLiterarioModel
+        let resultadoDetalleTecnico = (response as RespuestaJson).insertado as DetalleTecnicoModel;
+        if (resultadoDetalleTecnico != undefined) {
+            this.escena.detalleTecnico = resultadoDetalleTecnico._id;
+            this.detalleTecnico = resultadoDetalleTecnico;
+        }
+        this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(this.escena)).subscribe(error => isOk = false);
+        return isOk;
+    }
+
+    private guardarDetalles(response): boolean {
+        let isOk: boolean = true;
+        let resultadoDetalleLiterario = (response as RespuestaJson).insertado as DetalleLiterarioModel;
         if (resultadoDetalleLiterario != undefined) {
             this.escena.detalleLiterario = resultadoDetalleLiterario._id;
             this.detalleLiterario = resultadoDetalleLiterario;
         }
-        this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(this.escena)).subscribe(error => isOk = false);
+        this.angularAPIHelper.postEntryOrFilter('detalleTecnico', JSON.stringify(this.detalleTecnico))
+            .subscribe(response => isOk = this.guardarEscena(response),
+            error => isOk = false);
         return isOk;
     }
 
     private guardarCambios() {
         let isOk: boolean = true; // primero hay que guardar los detalles y luego las escenas
         this.angularAPIHelper.postEntryOrFilter('detalleLiterario', JSON.stringify(this.detalleLiterario))
-            .subscribe(response => isOk = this.guardarEscena(response),
+            .subscribe(response => isOk = this.guardarDetalles(response),
             error => isOk = false);
         this.confirmacionGuardado.setEstadoGuardado(isOk);
+    }
+
+    onSubidaImagen() {
+        let input: HTMLInputElement = this.el.nativeElement.querySelector('[id="imgTecnica"]');
+        if (input.files.length > 0) {
+            // leer el array de bytes para guardar el base64.
+        }
     }
 
     onAccionGuardado(event) {

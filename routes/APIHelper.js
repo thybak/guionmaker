@@ -69,7 +69,6 @@ class APIHelper {
     }
     static add(model, req, res) {
         if (req.body != undefined) {
-            console.log(req.body);
             if (req.body._id == undefined) {
                 let nuevoRegistro = new model(req.body);
                 nuevoRegistro.save(function (err, _resultado) {

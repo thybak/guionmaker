@@ -1,8 +1,11 @@
 ﻿"use strict";
 
 export class DetalleTecnicoModel {
+    _id: string;
     imagen: string;
-    texto: string;
+    texto: String;
 
-    constructor() { }
+    constructor() {
+        this.texto = new String('');
+    }
 }

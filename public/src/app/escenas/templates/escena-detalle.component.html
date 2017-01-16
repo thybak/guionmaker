@@ -1,32 +1,89 @@
-﻿<div *ngIf="escena != undefined && detalleLiterario != undefined" class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Edición de la escena {{escena.titulo}}</h3>
+﻿<confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>
+<div class="well" *ngIf="escena != undefined">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2 text-right">
+                    <h4>
+                        <label for="escena.titulo">Título:</label>
+                    </h4>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" [(ngModel)]="escena.titulo" class="form-control mg-btm" />
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
     </div>
-    <div class="panel-body">
-        <confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>
-        <table class="table table-responsive">
-            <tr>
-                <td><input type="text" class="form-control" [(ngModel)]="escena.titulo" /></td>
-            </tr>
-            <tr>
-                <td>
-                    <table class="table table-borderless">
-                        <tr>
-                            <td class="col-md-4"><select class="form-control"><option>Personajes...</option></select></td>
-                            <td class="col-md-4"><select class="form-control"><option>Escenarios</option></select></td>
-                            <td class="col-md-8"></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td><ng2-summernote lang="es-ES" [(ngModel)]="detalleLiterario.texto"></ng2-summernote></td>
-            </tr>
-            <tr>
-                <td>
-                    <botones-guardado [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
-                </td>
-            </tr>
-        </table>
+    <div *ngIf="detalleLiterario != undefined" class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Edición literaria de la escena {{escena.titulo}}</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-responsive">
+                <tr>
+                    <td>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td class="col-md-4"><select class="form-control"><option>Personajes...</option></select></td>
+                                <td class="col-md-4"><select class="form-control"><option>Escenarios...</option></select></td>
+                                <td class="col-md-4"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td><ng2-summernote lang="es-ES" [(ngModel)]="detalleLiterario.texto"></ng2-summernote></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="mostrarDetalleTecnico && detalleTecnico != undefined" class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Edición técnica de la escena {{ escena.titulo }}</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-responsive">
+                <tr>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <a href="#" class="thumbnail">
+                                    <i class="glyphicon glyphicon-picture" *ngIf="detalleTecnico.imagen == undefined"></i>
+                                    <img src="detalleTecnico.imagen" *ngIf="detalleTecnico.imagen != undefined" />
+                                </a>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <input type="file" class="form-control" id="imgTecnica" />
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-success" (click)="onSubidaImagen()"><i class="glyphicon glyphicon-upload"></i> Cargar</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ng2-summernote lang="es-ES" [(ngModel)]="detalleTecnico.texto"></ng2-summernote>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 text-center">
+            <botones-guardado [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
+        </div>
+        <div class="col-md-4"></div>
     </div>
 </div>

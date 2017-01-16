@@ -2,6 +2,9 @@
 
 export class DetalleLiterarioModel {
     _id: string;
-    texto: string;
-    constructor() { }
+    texto: String;
+
+    constructor() {
+        this.texto = new String('');
+    }
 }
