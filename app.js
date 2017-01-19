@@ -29,7 +29,7 @@ class Server {
     }
     setModules() {
         this.api.use(morgan('dev'));
-        this.api.use(bodyParser.json());
+        this.api.use(bodyParser.json({ limit: 1024 * 1024 * 2 }));
         this.api.use(bodyParser.urlencoded({ extended: true }));
         this.api.use(cookieParser());
         this.api.use(express.static(path.join(__dirname, '/public/dist')));
@@ -89,5 +89,4 @@ class Server {
         this.api.listen(this.API_PORT);
     }
 }
-let server = Server.init();
-module.exports = server.api;
+module.exports = Server.init().api;

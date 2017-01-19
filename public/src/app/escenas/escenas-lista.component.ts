@@ -21,15 +21,15 @@ export class EscenasListComponent {
     constructor(angularAPIHelper: AngularAPIHelper) {
         this.angularAPIHelper = angularAPIHelper;
         this.confirmacionGuardado = new ConfirmacionGuardado();
+        this.confirmacionGuardado.multiguardado = true;
         this.botonesGuardado = new BotonesGuardado();
         this.cargarEscenas();
     }
     private guardarCambios() {
-        let isOk: boolean = true;
         for (let escena of this.escenas) {
-            this.angularAPIHelper.postEntryOrFilter('escena/actualizar', JSON.stringify(escena)).subscribe(error => isOk = false);
+            let escenaaux = escena;
+            this.angularAPIHelper.postEntryOrFilter('escena/actualizar', JSON.stringify(escena)).subscribe(null, error => this.confirmacionGuardado.setEstadoMultiguardado(escenaaux.titulo, false), () => this.confirmacionGuardado.setEstadoMultiguardado(escenaaux.titulo, true));
         }
-        this.confirmacionGuardado.setEstadoGuardado(isOk);
     }
     private cambiarOrdenEscenas() {
         let idx: number = 1;
@@ -41,8 +41,7 @@ export class EscenasListComponent {
         let peticion = this.angularAPIHelper.buildPeticion({ 'proyecto': '57f1687fe942851c18cec84b' }, { 'orden': '1' });
         this.angularAPIHelper.postEntryOrFilter('escenasPorFiltro', JSON.stringify(peticion))
             .subscribe(response => this.escenas = (response as RespuestaJson).consulta as EscenaModel[],
-            error => console.error('Error: ' + error),
-            () => console.log('Actualizado'));
+            error => console.error('Error: ' + error));
     }
     onDestacar(destacar: boolean, escena: EscenaModel) {
         escena.destacado = destacar;

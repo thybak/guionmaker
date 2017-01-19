@@ -26,14 +26,15 @@ export class PeticionJson {
 
 @Injectable()
 export class AngularAPIHelper {
-    static URL: string = "http://localhost:1337/api/";
+    static readonly URL: string = "http://localhost:1337/api/";
+    static readonly maximoSizeByFichero: number = 1024 * 1024 * 2;
+    static readonly mimeTypesPermitidos: string[] = ["image/jpeg", "image/jpg", "image/png"];
 
     constructor(private http: Http) {
     }
 
     private handleError(error: Response) {
-        let errMsg = 'Error en el AngularAPIHelper.';
-        console.error(errMsg);
+        let errMsg = 'Error en el AngularAPIHelper.' + error;
         return Observable.throw(errMsg);
     }
 
@@ -41,7 +42,7 @@ export class AngularAPIHelper {
         return JSON.parse(response) as RespuestaJson;
     }
 
-    buildPeticion(find: any, sort: any) : PeticionJson {
+    buildPeticion(find: any, sort: any): PeticionJson {
         return new PeticionJson(find, sort);
     }
 
@@ -51,5 +52,14 @@ export class AngularAPIHelper {
 
     postEntryOrFilter(entity: string, entryOrFilter: string) {
         return this.http.post(AngularAPIHelper.URL + entity, JSON.parse(entryOrFilter)).map(response => this.parse(response.text())).catch(this.handleError);
+    }
+
+    mimeTypePermitido(mime: string): boolean {
+        let mimeEncontrado: string = AngularAPIHelper.mimeTypesPermitidos.find(x => x == mime);
+        return mimeEncontrado == mime;
+    }
+
+    sizeOfFicheroAdecuado(size: number): boolean {
+        return size <= AngularAPIHelper.maximoSizeByFichero;
     }
 }

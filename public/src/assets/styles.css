@@ -1,4 +1,7 @@
-﻿.mg-btm {
+﻿body {
+    padding-top: 70px;
+}
+.mg-btm {
     margin-bottom: 20px;
 }
 .table-borderless tbody tr td,
@@ -9,4 +12,14 @@
 .table-borderless tfoot tr td
 {
     border: none;
+}
+.fixedTop {
+    position:fixed;
+    top:50px;
+    left: 0;
+    z-index:9998;
+    width: 100%;
+    max-height: 50%;
+    overflow: auto;
+    text-align: center;
 }

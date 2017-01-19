@@ -1,4 +1,5 @@
 ﻿import { Component, ElementRef } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { EscenaModel } from '../../../../models/EscenasModel';
 import { DetalleLiterarioModel } from '../../../../models/DetallesLiterariosModel';
 import { DetalleTecnicoModel } from '../../../../models/DetallesTecnicosModel';
@@ -20,8 +21,9 @@ export class DetalleEscenaComponent {
     detalleLiterario: DetalleLiterarioModel;
     detalleTecnico: DetalleTecnicoModel; 
     botonesGuardado: BotonesGuardado;
+    base64Imagen: SafeUrl;
 
-    constructor(angularAPIHelper: AngularAPIHelper, private el: ElementRef) {
+    constructor(angularAPIHelper: AngularAPIHelper, private el: ElementRef, private sanitizer: DomSanitizer) {
         this.angularAPIHelper = angularAPIHelper;
         this.botonesGuardado = new BotonesGuardado();
         this.botonesGuardado.mostrarCompleto();
@@ -47,7 +49,7 @@ export class DetalleEscenaComponent {
             }
             if (this.escena.detalleTecnico != undefined) {
                 this.angularAPIHelper.getById('detalleTecnico', this.escena.detalleTecnico)
-                    .subscribe(response => this.detalleTecnico = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel,
+                    .subscribe(response => { this.detalleTecnico = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel; this.base64Imagen = this.sanitizer.bypassSecurityTrustUrl("data:image/png;base64," + this.detalleTecnico.imagen); } , // temporal hasta sacar mimetype
                     error => console.log('Error: ' + error));
             } else {
                 this.detalleTecnico = new DetalleTecnicoModel();
@@ -55,43 +57,63 @@ export class DetalleEscenaComponent {
         }
     }
 
-    private guardarEscena(response): boolean {
-        let isOk: boolean = true;
+    private guardarEscena(response){
         let resultadoDetalleTecnico = (response as RespuestaJson).insertado as DetalleTecnicoModel;
         if (resultadoDetalleTecnico != undefined) {
             this.escena.detalleTecnico = resultadoDetalleTecnico._id;
             this.detalleTecnico = resultadoDetalleTecnico;
         }
-        this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(this.escena)).subscribe(error => isOk = false);
-        return isOk;
+        this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(this.escena)).subscribe(null, error => this.confirmacionGuardado.setEstadoGuardado(false), () => this.confirmacionGuardado.setEstadoGuardado(true));
     }
 
-    private guardarDetalles(response): boolean {
-        let isOk: boolean = true;
+    private guardarDetalles(response){
         let resultadoDetalleLiterario = (response as RespuestaJson).insertado as DetalleLiterarioModel;
         if (resultadoDetalleLiterario != undefined) {
             this.escena.detalleLiterario = resultadoDetalleLiterario._id;
             this.detalleLiterario = resultadoDetalleLiterario;
         }
         this.angularAPIHelper.postEntryOrFilter('detalleTecnico', JSON.stringify(this.detalleTecnico))
-            .subscribe(response => isOk = this.guardarEscena(response),
-            error => isOk = false);
-        return isOk;
+            .subscribe(response => this.guardarEscena(response),
+            error => this.confirmacionGuardado.setEstadoGuardado(false));
     }
 
     private guardarCambios() {
-        let isOk: boolean = true; // primero hay que guardar los detalles y luego las escenas
         this.angularAPIHelper.postEntryOrFilter('detalleLiterario', JSON.stringify(this.detalleLiterario))
-            .subscribe(response => isOk = this.guardarDetalles(response),
-            error => isOk = false);
-        this.confirmacionGuardado.setEstadoGuardado(isOk);
+            .subscribe(response => this.guardarDetalles(response),
+            error => this.confirmacionGuardado.setEstadoGuardado(false));
     }
 
     onSubidaImagen() {
         let input: HTMLInputElement = this.el.nativeElement.querySelector('[id="imgTecnica"]');
         if (input.files.length > 0) {
-            // leer el array de bytes para guardar el base64.
+            let reader = new FileReader();
+            let mimeType: string = input.files[0].type;
+            let size: number = input.files[0].size;
+            if (this.angularAPIHelper.mimeTypePermitido(mimeType) && this.angularAPIHelper.sizeOfFicheroAdecuado(size)) {
+                reader.onloadend = () => {
+                    let array = new Uint8Array(reader.result);
+                    let CHUNK_SZ = 0x8000;
+                    let c = [];
+                    for (var i = 0; i < array.length; i += CHUNK_SZ) {
+                        c.push(String.fromCharCode.apply(null, array.subarray(i, i + CHUNK_SZ)));
+                    }
+                    let arrayString = c.join("");
+                    this.detalleTecnico.imagen = btoa(arrayString);
+                    this.base64Imagen = this.sanitizer.bypassSecurityTrustUrl("data:{mimeType};base64," + this.detalleTecnico.imagen);
+                }
+                reader.readAsArrayBuffer(input.files[0]);
+            } else {
+                alert("Asegúrate de subir uno de los formatos permitidos en la aplicación. Máximo " + AngularAPIHelper.maximoSizeByFichero + "  bytes.");
+            }
         }
+    }
+
+    borrarImagen() {
+        this.detalleTecnico.imagen = "";
+    }
+
+    imagenSubida(): boolean {
+        return this.detalleTecnico.imagen != undefined && this.detalleTecnico.imagen != "";
     }
 
     onAccionGuardado(event) {

@@ -9,5 +9,9 @@
     "mongoose": "registry:dt/mongoose#4.5.9+20161010180758",
     "morgan": "registry:dt/morgan#1.7.0+20160524142355",
     "serve-static": "registry:dt/serve-static#0.0.0+20160606155157"
+  },
+  "dependencies": {
+    "ejs": "registry:dt/ejs#2.3.3+20161128184045",
+    "express": "registry:dt/express#4.0.0+20170118060322"
   }
 }

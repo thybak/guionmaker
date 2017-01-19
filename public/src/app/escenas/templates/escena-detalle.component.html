@@ -15,11 +15,15 @@
             </div>
         </div>
     </div>
-    <div *ngIf="detalleLiterario != undefined" class="panel panel-default">
+    <div *ngIf="detalleLiterario != undefined" class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Edición literaria de la escena {{escena.titulo}}</h3>
+            <h3 class="panel-title">
+                <a role="button" data-toggle="collapse" href="#detalleLiterario" aria-expanded="false" aria-controls="detalleLiterario">
+                    Edición literaria de la escena '{{escena.titulo}}' (click para ocultar/mostrar)
+                </a>
+            </h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body collapse in" id="detalleLiterario">
             <table class="table table-responsive">
                 <tr>
                     <td>
@@ -38,20 +42,26 @@
             </table>
         </div>
     </div>
-    <div *ngIf="mostrarDetalleTecnico && detalleTecnico != undefined" class="panel panel-default">
+    <div *ngIf="mostrarDetalleTecnico && detalleTecnico != undefined" class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Edición técnica de la escena {{ escena.titulo }}</h3>
+            <h3 class="panel-title">
+                <a role="button" data-toggle="collapse" href="#detalleTecnico" aria-controls="detalleTecnico" aria-expanded="false">
+                    Edición técnica de la escena '{{ escena.titulo }}' (click para ocultar/mostrar)
+                </a>
+            </h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body collapse in" id="detalleTecnico">
             <table class="table table-responsive">
                 <tr>
                     <td>
                         <div class="row">
                             <div class="col-md-4"></div>
                             <div class="col-md-4">
-                                <a href="#" class="thumbnail">
-                                    <i class="glyphicon glyphicon-picture" *ngIf="detalleTecnico.imagen == undefined"></i>
-                                    <img src="detalleTecnico.imagen" *ngIf="detalleTecnico.imagen != undefined" />
+                                <a href="" class="thumbnail">
+                                    <div *ngIf="!imagenSubida()">
+                                        <i class="glyphicon glyphicon-picture" *ngIf="!imagenSubida()"></i> No existe una imagen asociada al detalle técnico.
+                                    </div>
+                                    <img [src]="base64Imagen" *ngIf="imagenSubida()" />
                                 </a>
                             </div>
                             <div class="col-md-4"></div>
@@ -63,10 +73,11 @@
                         <div class="row">
                             <div class="col-md-4"></div>
                             <div class="col-md-4">
-                                <input type="file" class="form-control" id="imgTecnica" />
+                                <input type="file" class="form-control" id="imgTecnica" accept=".jpg,.png,.jpeg" />
                             </div>
                             <div class="col-md-4">
                                 <button type="button" class="btn btn-success" (click)="onSubidaImagen()"><i class="glyphicon glyphicon-upload"></i> Cargar</button>
+                                <button type="button" class="btn btn-danger" (click)="borrarImagen()" *ngIf="imagenSubida()">Borrar</button>
                             </div>
                         </div>
                     </td>

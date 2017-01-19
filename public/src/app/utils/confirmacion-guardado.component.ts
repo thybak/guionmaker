@@ -3,11 +3,25 @@
 export class ConfirmacionGuardado {
     guardadoOk: boolean;
     guardadoKo: boolean;
+    multiguardado: boolean;
+    estadosMultiguardado: string[] = [];
     timeoutVal: any;
 
+    limpiarEstadosMultiguardado() {
+        this.estadosMultiguardado = [];
+    }
+    setEstadoMultiguardado(elemento: string, isOk: boolean) {
+        console.log(elemento);
+        if (isOk) {
+            this.estadosMultiguardado.push("El elemento " + elemento + " se ha guardado correctamente");
+        } else {
+            this.estadosMultiguardado.push("El elemento " + elemento + " no se ha guardado correctamente");
+        }
+    }
     retirarAviso() {
         this.guardadoOk = false;
         this.guardadoKo = false;
+        this.limpiarEstadosMultiguardado();
         clearTimeout(this.timeoutVal);
         this.timeoutVal = undefined;
     }

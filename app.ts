@@ -30,7 +30,7 @@ class Server {
 
     private setModules(): void {
         this.api.use(morgan('dev'));
-        this.api.use(bodyParser.json());
+        this.api.use(bodyParser.json({ limit: 1024 * 1024 * 2 }));
         this.api.use(bodyParser.urlencoded({ extended: true }));
         this.api.use(cookieParser());
         this.api.use(express.static(path.join(__dirname, '/public/dist')));
@@ -109,5 +109,4 @@ class Server {
     }
 }
 
-let server: Server = Server.init();
-export = server.api;
+export =  Server.init().api
