@@ -1,5 +1,7 @@
 ﻿"use strict";
 
+import { AngularAPIHelper } from '../../utils/AngularAPIHelper';
+
 export class EscenaModel {
     _id: string;
     titulo: string;
@@ -11,5 +13,6 @@ export class EscenaModel {
     fechaCreacion: Date;
 
     constructor() {
+        this.titulo = 'Nueva escena';
     }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { EscenaModel } from '../../../../models/EscenasModel';
+import { EscenaModel } from './models/EscenasModel';
 import { RespuestaJson, AngularAPIHelper } from '../utils/AngularAPIHelper';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { ConfirmacionGuardado } from '../utils/confirmacion-guardado.component';
@@ -45,6 +45,12 @@ export class EscenasListComponent {
     }
     onDestacar(destacar: boolean, escena: EscenaModel) {
         escena.destacado = destacar;
+    }
+    onNuevaEscena() {
+        let escena: EscenaModel = new EscenaModel();
+        escena.proyecto = '57f1687fe942851c18cec84b'; // a sustituir por el proyecto actual con el que se ha cargado la página
+        escena.orden = this.escenas.length + 1;
+        this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(escena)).subscribe(response => this.escenas.push((response as RespuestaJson).insertado as EscenaModel)); // por probar el asunto del orden
     }
     onGuardarCambios() {
         this.cambiarOrdenEscenas();

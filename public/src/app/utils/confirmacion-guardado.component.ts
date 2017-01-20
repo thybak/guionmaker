@@ -13,9 +13,9 @@ export class ConfirmacionGuardado {
     setEstadoMultiguardado(elemento: string, isOk: boolean) {
         console.log(elemento);
         if (isOk) {
-            this.estadosMultiguardado.push("El elemento " + elemento + " se ha guardado correctamente");
+            this.estadosMultiguardado.push(elemento + " guardado OK.");
         } else {
-            this.estadosMultiguardado.push("El elemento " + elemento + " no se ha guardado correctamente");
+            this.estadosMultiguardado.push(elemento + " no guardado.");
         }
     }
     retirarAviso() {

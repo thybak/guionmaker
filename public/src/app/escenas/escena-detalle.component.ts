@@ -1,11 +1,15 @@
 ﻿import { Component, ElementRef } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { EscenaModel } from '../../../../models/EscenasModel';
-import { DetalleLiterarioModel } from '../../../../models/DetallesLiterariosModel';
-import { DetalleTecnicoModel } from '../../../../models/DetallesTecnicosModel';
+
+import { EscenaModel } from './models/EscenasModel';
+import { DetalleLiterarioModel } from './models/DetallesLiterariosModel';
+import { DetalleTecnicoModel } from './models/DetallesTecnicosModel';
+
 import { RespuestaJson, AngularAPIHelper } from '../utils/AngularAPIHelper';
 import { ConfirmacionGuardado } from '../utils/confirmacion-guardado.component';
 import { BotonesGuardado, TipoOperacionGuardado } from '../utils/botones-guardado.component';
+
 import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
 
 @Component({
@@ -17,24 +21,20 @@ export class DetalleEscenaComponent {
     confirmacionGuardado: ConfirmacionGuardado;
     angularAPIHelper: AngularAPIHelper;
     escena: EscenaModel;
-    mostrarDetalleTecnico: boolean;
     detalleLiterario: DetalleLiterarioModel;
-    detalleTecnico: DetalleTecnicoModel; 
+    detalleTecnico: DetalleTecnicoModel;
     botonesGuardado: BotonesGuardado;
     base64Imagen: SafeUrl;
 
-    constructor(angularAPIHelper: AngularAPIHelper, private el: ElementRef, private sanitizer: DomSanitizer) {
+    constructor(angularAPIHelper: AngularAPIHelper, private el: ElementRef, private sanitizer: DomSanitizer, private router: Router, private route: ActivatedRoute) {
         this.angularAPIHelper = angularAPIHelper;
         this.botonesGuardado = new BotonesGuardado();
         this.botonesGuardado.mostrarCompleto();
         this.confirmacionGuardado = new ConfirmacionGuardado();
-        this.mostrarDetalleTecnico = true; // donde aquí está el booleano debe ser uno de los parámetros que debe venir por la ruta.
-        let id: string = '5846fbbbef72c01298cfd5ad'; // donde aquí está el id en el futuro se debe incluir el parámetro que venga desde la ruta.
-        if (id != "-1" && id.length == 24) { // mejorable la comprobación de si tiene formato de object id en mongodb
-            this.angularAPIHelper.getById('escena', id)
-                .subscribe(response => this.cargarModelo(response),
-                error => console.log('Error:' + error));
-        }
+        //let id: string = '5846fbbbef72c01298cfd5ad';
+        this.route.params.switchMap((params: Params) => this.angularAPIHelper.getById('escena', params['id'])).
+            subscribe(response => this.cargarModelo(response),
+            error => console.log('Error:' + error));
     }
 
     private cargarModelo(response) {
@@ -49,7 +49,7 @@ export class DetalleEscenaComponent {
             }
             if (this.escena.detalleTecnico != undefined) {
                 this.angularAPIHelper.getById('detalleTecnico', this.escena.detalleTecnico)
-                    .subscribe(response => { this.detalleTecnico = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel; this.base64Imagen = this.sanitizer.bypassSecurityTrustUrl("data:image/png;base64," + this.detalleTecnico.imagen); } , // temporal hasta sacar mimetype
+                    .subscribe(response => { this.detalleTecnico = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel; this.base64Imagen = this.sanitizer.bypassSecurityTrustUrl("data:image/png;base64," + this.detalleTecnico.imagen); }, // temporal hasta sacar mimetype
                     error => console.log('Error: ' + error));
             } else {
                 this.detalleTecnico = new DetalleTecnicoModel();
@@ -57,7 +57,7 @@ export class DetalleEscenaComponent {
         }
     }
 
-    private guardarEscena(response){
+    private guardarEscena(response) {
         let resultadoDetalleTecnico = (response as RespuestaJson).insertado as DetalleTecnicoModel;
         if (resultadoDetalleTecnico != undefined) {
             this.escena.detalleTecnico = resultadoDetalleTecnico._id;
@@ -66,7 +66,7 @@ export class DetalleEscenaComponent {
         this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(this.escena)).subscribe(null, error => this.confirmacionGuardado.setEstadoGuardado(false), () => this.confirmacionGuardado.setEstadoGuardado(true));
     }
 
-    private guardarDetalles(response){
+    private guardarDetalles(response) {
         let resultadoDetalleLiterario = (response as RespuestaJson).insertado as DetalleLiterarioModel;
         if (resultadoDetalleLiterario != undefined) {
             this.escena.detalleLiterario = resultadoDetalleLiterario._id;
@@ -81,6 +81,10 @@ export class DetalleEscenaComponent {
         this.angularAPIHelper.postEntryOrFilter('detalleLiterario', JSON.stringify(this.detalleLiterario))
             .subscribe(response => this.guardarDetalles(response),
             error => this.confirmacionGuardado.setEstadoGuardado(false));
+    }
+
+    private eliminarEscena() {
+        this.angularAPIHelper.deleteById('escena', this.escena._id).subscribe(null, null, () => this.router.navigate(['/escenas']));
     }
 
     onSubidaImagen() {
@@ -120,6 +124,10 @@ export class DetalleEscenaComponent {
         if (event == TipoOperacionGuardado.Guardar) {
             this.guardarCambios();
             this.confirmacionGuardado.setTimeoutRetirarAviso();
-        } // queda añadir el borrado
+        } else if (event == TipoOperacionGuardado.Volver) {
+            this.router.navigate(['/escenas']);
+        } else if (event == TipoOperacionGuardado.Eliminar) {
+            this.eliminarEscena();
+        }
     }
 }

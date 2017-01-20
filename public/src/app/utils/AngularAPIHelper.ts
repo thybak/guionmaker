@@ -27,14 +27,14 @@ export class PeticionJson {
 @Injectable()
 export class AngularAPIHelper {
     static readonly URL: string = "http://localhost:1337/api/";
-    static readonly maximoSizeByFichero: number = 1024 * 1024 * 2;
+    static readonly maximoSizeByFichero: number = 1024 * 1024 * 2.1;
     static readonly mimeTypesPermitidos: string[] = ["image/jpeg", "image/jpg", "image/png"];
 
     constructor(private http: Http) {
     }
 
     private handleError(error: Response) {
-        let errMsg = 'Error en el AngularAPIHelper.' + error;
+        let errMsg = 'Error en el AngularAPIHelper:' + error;
         return Observable.throw(errMsg);
     }
 
@@ -48,6 +48,10 @@ export class AngularAPIHelper {
 
     getById(entity: string, id: string) {
         return this.http.get(AngularAPIHelper.URL + entity + "/" + id).map(response => this.parse(response.text())).catch(this.handleError);
+    }
+
+    deleteById(entity: string, id: string) {
+        return this.http.delete(AngularAPIHelper.URL + entity + '/' + id).map(response => this.parse(response.text())).catch(this.handleError);
     }
 
     postEntryOrFilter(entity: string, entryOrFilter: string) {

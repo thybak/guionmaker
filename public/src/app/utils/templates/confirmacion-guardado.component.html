@@ -2,10 +2,15 @@
     <div *ngIf="oConfirm.guardadoOk" class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> ¡Los cambios se han guardado con éxito!</div>
     <div *ngIf="oConfirm.guardadoKo" class="alert alert-danger"><i class="glyphicon glyphicon-alert"></i> No se han podido guardar los cambios. Inténtalo de nuevo dentro de unos momentos.</div>
 </div>
-<div *ngIf="oConfirm.multiguardado && oConfirm.estadosMultiguardado.length > 0" class="alert alert-info fixedTop">
-    <ul class="list-group">
-        <li class="list-group-item" *ngFor="let estado of oConfirm.estadosMultiguardado">
-            <i class="glyphicon glyphicon-info-sign"></i> {{estado}}
-        </li>
-    </ul>
+<div *ngIf="oConfirm.multiguardado && oConfirm.estadosMultiguardado.length > 0" class="alert alert-info multiSaveFixedBottom">
+    <div class="row">
+        <div class="col-md-1"><a role="button" (click)="oConfirm.retirarAviso()"><i class="glyphicon glyphicon-remove"></i></a></div>
+        <div class="col-md-11">
+            <ul>
+                <li *ngFor="let estado of oConfirm.estadosMultiguardado">
+                    {{estado}}
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>

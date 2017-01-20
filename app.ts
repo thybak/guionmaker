@@ -80,7 +80,7 @@ class Server {
         router.post('/api/escena/', _escenasRoute.addEscena.bind(_escenasRoute.addEscena));
         router.post('/api/escena/actualizar/', _escenasRoute.updateEscena.bind(_escenasRoute.updateEscena));
         router.get('/api/escena/:id', _escenasRoute.getEscenaById.bind(_escenasRoute.getEscenaById));
-        router.delete('/escena/:id', _escenasRoute.deleteEscena.bind(_escenasRoute.deleteEscena));
+        router.delete('/api/escena/:id', _escenasRoute.deleteEscena.bind(_escenasRoute.deleteEscena));
 
         router.get('/api/detallesTecnicos', _detallesTecnicosRoute.getDetallesTecnicos.bind(_detallesTecnicosRoute.getDetallesTecnicos));
         router.post('/api/detalleTecnico/', _detallesTecnicosRoute.addDetalleTecnico.bind(_detallesTecnicosRoute.addDetalleTecnico));

@@ -5,7 +5,7 @@
     <div class="panel-body">
         <confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>
         <div class="btn-group mg-btm" role="group">
-            <button class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Añadir escena</button>
+            <button class="btn btn-default" (click)="onNuevaEscena()"><i class="glyphicon glyphicon-plus"></i> Añadir escena</button>
             <button class="btn btn-default"><i class="glyphicon glyphicon-export"></i> Exportar</button>
         </div>
         <ul class="list-group" [sortablejs]="escenas" [sortablejsOptions]="sortOptions">

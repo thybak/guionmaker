@@ -677,6 +677,7 @@
     <Folder Include="public\src\" />
     <Folder Include="public\src\app\" />
     <Folder Include="public\src\app\escenas\" />
+    <Folder Include="public\src\app\escenas\models\" />
     <Folder Include="public\src\app\escenas\templates\" />
     <Folder Include="public\src\app\utils\" />
     <Folder Include="public\src\app\templates\" />
@@ -715,9 +716,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
-    <TypeScriptCompile Include="models\DetallesLiterariosModel.ts" />
-    <TypeScriptCompile Include="models\DetallesTecnicosModel.ts" />
-    <TypeScriptCompile Include="models\EscenasModel.ts" />
+    <TypeScriptCompile Include="public\src\app\escenas\models\DetallesLiterariosModel.ts" />
+    <TypeScriptCompile Include="public\src\app\escenas\models\DetallesTecnicosModel.ts" />
+    <TypeScriptCompile Include="public\src\app\escenas\models\EscenasModel.ts" />
     <TypeScriptCompile Include="public\e2e\app.e2e-spec.ts" />
     <TypeScriptCompile Include="public\e2e\app.po.ts" />
     <TypeScriptCompile Include="public\src\app\app-routing.module.ts" />
