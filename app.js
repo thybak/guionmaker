@@ -14,6 +14,7 @@ const ClasificacionRoute_1 = require("./routes/ClasificacionRoute");
 const DetalleTecnicoRoute_1 = require("./routes/DetalleTecnicoRoute");
 const DetalleLiterarioRoute_1 = require("./routes/DetalleLiterarioRoute");
 const EscenaRoute_1 = require("./routes/EscenaRoute");
+const PlantillaRoute_1 = require("./routes/PlantillaRoute");
 class Server {
     constructor() {
         this.IP = "192.168.1.135";
@@ -29,7 +30,7 @@ class Server {
     }
     setModules() {
         this.api.use(morgan('dev'));
-        this.api.use(bodyParser.json({ limit: 1024 * 1024 * 2 }));
+        this.api.use(bodyParser.json({ limit: 1024 * 1024 * 3 }));
         this.api.use(bodyParser.urlencoded({ extended: true }));
         this.api.use(cookieParser());
         this.api.use(express.static(path.join(__dirname, '/public/dist')));
@@ -50,6 +51,7 @@ class Server {
         let _detallesTecnicosRoute = new DetalleTecnicoRoute_1.DetalleTecnicoRoute();
         let _detallesLiterariosRoute = new DetalleLiterarioRoute_1.DetalleLiterarioRoute();
         let _escenasRoute = new EscenaRoute_1.EscenaRoute();
+        let _plantillasRoute = new PlantillaRoute_1.PlantillaRoute();
         router.get('/', _indexRoute.index.bind(_indexRoute.index));
         router.get('/api/proyectos', _proyectosRoute.getProyectos.bind(_proyectosRoute.getProyectos));
         router.get('/api/proyecto/:id', _proyectosRoute.getProyectoById.bind(_proyectosRoute.getProyectoById));
@@ -81,6 +83,11 @@ class Server {
         router.post('/api/detalleLiterario/', _detallesLiterariosRoute.addDetalleLiterario.bind(_detallesLiterariosRoute.addDetalleLiterario));
         router.get('/api/detalleLiterario/:id', _detallesLiterariosRoute.getDetalleLiterarioById.bind(_detallesLiterariosRoute.getDetalleLiterarioById));
         router.delete('/api/detalleLiterario/:id', _detallesLiterariosRoute.deleteDetalleLiterario.bind(_detallesLiterariosRoute.deleteDetalleLiterario));
+        router.get('/api/plantillas', _plantillasRoute.getPlantillas.bind(_plantillasRoute.getPlantillas));
+        router.post('/api/plantillasPorFiltro', _plantillasRoute.getPlantillasByFilterAndSort.bind(_plantillasRoute.getPlantillasByFilterAndSort));
+        router.post('/api/plantilla/', _plantillasRoute.addPlantilla.bind(_plantillasRoute.addPlantilla));
+        router.get('/api/plantilla/:id', _plantillasRoute.getPlantillaById.bind(_plantillasRoute.getPlantillaById));
+        router.delete('/api/plantilla/:id', _plantillasRoute.deletePlantilla.bind(_plantillasRoute.deletePlantilla));
         this.api.use(router);
     }
     setConfig() {

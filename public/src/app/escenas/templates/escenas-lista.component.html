@@ -6,7 +6,7 @@
         <confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>
         <div class="btn-group mg-btm" role="group">
             <button class="btn btn-default" (click)="onNuevaEscena()"><i class="glyphicon glyphicon-plus"></i> Añadir escena</button>
-            <button class="btn btn-default"><i class="glyphicon glyphicon-export"></i> Exportar</button>
+            <button class="btn btn-default" data-toggle="modal" data-target="#mdlExportacion" *ngIf="escenas != undefined && escenas.length > 0"><i class="glyphicon glyphicon-export"></i> Exportar</button>
         </div>
         <ul class="list-group" [sortablejs]="escenas" [sortablejsOptions]="sortOptions">
             <li class="list-group-item" *ngFor="let escena of escenas">
@@ -20,4 +20,23 @@
         <botones-guardado [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
     </div>
 </div>
-
+<div class="modal fade" id="mdlExportacion" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Exportación de guiones</h4>
+            </div>
+            <div class="modal-body">
+                <p>Haz click en el botón correspondiente al tipo de exportación que quieras realizar.</p>
+                <ul>
+                    <li>El guión literario sólo contiene los detalles literarios del guión separados por escenas.</li>
+                    <li>El guión técnico sólo contiene los detalles técnicos, incluidas las imágenes.</li>
+                </ul>
+                <p></p>
+                <button type="button" class="btn btn-primary" (click)="exportarGuion(true)" data-dismiss="modal">Exportar guión literario</button>
+                <button type="button" class="btn btn-primary" (click)="exportarGuion(false)" data-dismiss="modal">Exportar guión técnico</button>
+            </div>
+        </div>
+    </div>
+</div>

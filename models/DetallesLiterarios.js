@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 class DetalleLiterario {
     constructor() {
         this.schema = new mongoose.Schema({
-            texto: String
+            texto: { type: String, default: new String('') }
         });
         mongoose.model(DetalleLiterario.name, this.schema);
     }

@@ -17,6 +17,7 @@ import { ClasificacionRoute } from "./routes/ClasificacionRoute";
 import { DetalleTecnicoRoute } from "./routes/DetalleTecnicoRoute";
 import { DetalleLiterarioRoute } from "./routes/DetalleLiterarioRoute";
 import { EscenaRoute } from "./routes/EscenaRoute";
+import { PlantillaRoute } from "./routes/PlantillaRoute";
 
 class Server {
     public api: express.Application;
@@ -30,7 +31,7 @@ class Server {
 
     private setModules(): void {
         this.api.use(morgan('dev'));
-        this.api.use(bodyParser.json({ limit: 1024 * 1024 * 2 }));
+        this.api.use(bodyParser.json({ limit: 1024 * 1024 * 3 }));
         this.api.use(bodyParser.urlencoded({ extended: true }));
         this.api.use(cookieParser());
         this.api.use(express.static(path.join(__dirname, '/public/dist')));
@@ -52,6 +53,7 @@ class Server {
         let _detallesTecnicosRoute: DetalleTecnicoRoute = new DetalleTecnicoRoute();
         let _detallesLiterariosRoute: DetalleLiterarioRoute = new DetalleLiterarioRoute();
         let _escenasRoute: EscenaRoute = new EscenaRoute();
+        let _plantillasRoute: PlantillaRoute = new PlantillaRoute();
 
         router.get('/', _indexRoute.index.bind(_indexRoute.index));
 
@@ -91,6 +93,12 @@ class Server {
         router.post('/api/detalleLiterario/', _detallesLiterariosRoute.addDetalleLiterario.bind(_detallesLiterariosRoute.addDetalleLiterario));
         router.get('/api/detalleLiterario/:id', _detallesLiterariosRoute.getDetalleLiterarioById.bind(_detallesLiterariosRoute.getDetalleLiterarioById));
         router.delete('/api/detalleLiterario/:id', _detallesLiterariosRoute.deleteDetalleLiterario.bind(_detallesLiterariosRoute.deleteDetalleLiterario));
+
+        router.get('/api/plantillas', _plantillasRoute.getPlantillas.bind(_plantillasRoute.getPlantillas));
+        router.post('/api/plantillasPorFiltro', _plantillasRoute.getPlantillasByFilterAndSort.bind(_plantillasRoute.getPlantillasByFilterAndSort));
+        router.post('/api/plantilla/', _plantillasRoute.addPlantilla.bind(_plantillasRoute.addPlantilla));
+        router.get('/api/plantilla/:id', _plantillasRoute.getPlantillaById.bind(_plantillasRoute.getPlantillaById));
+        router.delete('/api/plantilla/:id', _plantillasRoute.deletePlantilla.bind(_plantillasRoute.deletePlantilla));
 
         this.api.use(router);
     }

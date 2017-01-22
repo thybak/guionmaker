@@ -8,7 +8,8 @@ export class DetalleTecnico {
     private constructor() {
         this.schema = new mongoose.Schema({
             imagen: String,
-            texto: String
+            mimeType: String,
+            texto: { type: String, default: new String('') }
         });
         mongoose.model(DetalleTecnico.name, this.schema);
     }

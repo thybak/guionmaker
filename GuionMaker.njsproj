@@ -679,6 +679,8 @@
     <Folder Include="public\src\app\escenas\" />
     <Folder Include="public\src\app\escenas\models\" />
     <Folder Include="public\src\app\escenas\templates\" />
+    <Folder Include="public\src\app\plantillas\" />
+    <Folder Include="public\src\app\plantillas\models\" />
     <Folder Include="public\src\app\utils\" />
     <Folder Include="public\src\app\templates\" />
     <Folder Include="public\src\app\utils\templates\" />
@@ -716,6 +718,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="models\Plantillas.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\models\DetallesLiterariosModel.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\models\DetallesTecnicosModel.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\models\EscenasModel.ts" />
@@ -728,6 +731,7 @@
     <TypeScriptCompile Include="public\src\app\escenas\escenas.module.ts" />
     <TypeScriptCompile Include="public\src\app\index.component.ts" />
     <TypeScriptCompile Include="public\src\app\pageNotFound.component.ts" />
+    <TypeScriptCompile Include="public\src\app\plantillas\models\PlantillasModel.ts" />
     <TypeScriptCompile Include="public\src\app\utils\confirmacion-guardado.component.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\escenas-lista.component.ts" />
     <TypeScriptCompile Include="public\src\app\app.module.ts" />
@@ -749,6 +753,7 @@
     <TypeScriptCompile Include="routes\EscenaRoute.ts" />
     <TypeScriptCompile Include="routes\GeneroRoute.ts" />
     <TypeScriptCompile Include="routes\IndexRoute.ts" />
+    <TypeScriptCompile Include="routes\PlantillaRoute.ts" />
     <TypeScriptCompile Include="routes\ProyectoRoute.ts" />
     <TypeScriptCompile Include="_all.d.ts" />
   </ItemGroup>

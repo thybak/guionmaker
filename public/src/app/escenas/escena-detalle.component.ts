@@ -19,19 +19,16 @@ import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
 })
 export class DetalleEscenaComponent {
     confirmacionGuardado: ConfirmacionGuardado;
-    angularAPIHelper: AngularAPIHelper;
     escena: EscenaModel;
     detalleLiterario: DetalleLiterarioModel;
     detalleTecnico: DetalleTecnicoModel;
     botonesGuardado: BotonesGuardado;
     base64Imagen: SafeUrl;
 
-    constructor(angularAPIHelper: AngularAPIHelper, private el: ElementRef, private sanitizer: DomSanitizer, private router: Router, private route: ActivatedRoute) {
-        this.angularAPIHelper = angularAPIHelper;
+    constructor(private angularAPIHelper: AngularAPIHelper, private el: ElementRef, private sanitizer: DomSanitizer, private router: Router, private route: ActivatedRoute) {
         this.botonesGuardado = new BotonesGuardado();
         this.botonesGuardado.mostrarCompleto();
         this.confirmacionGuardado = new ConfirmacionGuardado();
-        //let id: string = '5846fbbbef72c01298cfd5ad';
         this.route.params.switchMap((params: Params) => this.angularAPIHelper.getById('escena', params['id'])).
             subscribe(response => this.cargarModelo(response),
             error => console.log('Error:' + error));
@@ -42,14 +39,21 @@ export class DetalleEscenaComponent {
         if (this.escena != undefined) {
             if (this.escena.detalleLiterario != undefined) {
                 this.angularAPIHelper.getById('detalleLiterario', this.escena.detalleLiterario)
-                    .subscribe(response => this.detalleLiterario = (response as RespuestaJson).consulta[0] as DetalleLiterarioModel,
+                    .subscribe(response => {
+                        this.detalleLiterario = (response as RespuestaJson).consulta[0] as DetalleLiterarioModel;
+                        this.detalleLiterario.texto = this.detalleLiterario.texto == "" ? new String('') : this.detalleLiterario.texto; // workaround por culpa del componente ng2-summernote donde con "" no se muestra nada.
+                    },
                     error => console.log('Error:' + error));
             } else {
                 this.detalleLiterario = new DetalleLiterarioModel();
             }
             if (this.escena.detalleTecnico != undefined) {
                 this.angularAPIHelper.getById('detalleTecnico', this.escena.detalleTecnico)
-                    .subscribe(response => { this.detalleTecnico = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel; this.base64Imagen = this.sanitizer.bypassSecurityTrustUrl("data:image/png;base64," + this.detalleTecnico.imagen); }, // temporal hasta sacar mimetype
+                    .subscribe(response => {
+                        this.detalleTecnico = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel;
+                        this.base64Imagen = this.sanitizer.bypassSecurityTrustUrl("data:" + this.detalleTecnico.mimeType + ";base64," + this.detalleTecnico.imagen);
+                        this.detalleTecnico.texto = this.detalleTecnico.texto == "" ? new String('') : this.detalleTecnico.texto;
+                    }, 
                     error => console.log('Error: ' + error));
             } else {
                 this.detalleTecnico = new DetalleTecnicoModel();
@@ -103,6 +107,7 @@ export class DetalleEscenaComponent {
                     }
                     let arrayString = c.join("");
                     this.detalleTecnico.imagen = btoa(arrayString);
+                    this.detalleTecnico.mimeType = mimeType; 
                     this.base64Imagen = this.sanitizer.bypassSecurityTrustUrl("data:{mimeType};base64," + this.detalleTecnico.imagen);
                 }
                 reader.readAsArrayBuffer(input.files[0]);

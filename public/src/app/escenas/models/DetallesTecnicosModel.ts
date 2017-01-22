@@ -3,6 +3,7 @@
 export class DetalleTecnicoModel {
     _id: string;
     imagen: string;
+    mimeType: string;
     texto: String;
 
     constructor() {
