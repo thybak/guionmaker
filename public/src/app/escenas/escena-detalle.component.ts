@@ -51,7 +51,7 @@ export class DetalleEscenaComponent {
                 this.angularAPIHelper.getById('detalleTecnico', this.escena.detalleTecnico)
                     .subscribe(response => {
                         this.detalleTecnico = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel;
-                        this.base64Imagen = this.sanitizer.bypassSecurityTrustUrl("data:" + this.detalleTecnico.mimeType + ";base64," + this.detalleTecnico.imagen);
+                        this.base64Imagen = this.sanitizer.bypassSecurityTrustUrl(DetalleTecnicoModel.getDataUrl(this.detalleTecnico));
                         this.detalleTecnico.texto = this.detalleTecnico.texto == "" ? new String('') : this.detalleTecnico.texto;
                     }, 
                     error => console.log('Error: ' + error));
@@ -87,10 +87,6 @@ export class DetalleEscenaComponent {
             error => this.confirmacionGuardado.setEstadoGuardado(false));
     }
 
-    private eliminarEscena() {
-        this.angularAPIHelper.deleteById('escena', this.escena._id).subscribe(null, null, () => this.router.navigate(['/escenas']));
-    }
-
     onSubidaImagen() {
         let input: HTMLInputElement = this.el.nativeElement.querySelector('[id="imgTecnica"]');
         if (input.files.length > 0) {
@@ -108,11 +104,11 @@ export class DetalleEscenaComponent {
                     let arrayString = c.join("");
                     this.detalleTecnico.imagen = btoa(arrayString);
                     this.detalleTecnico.mimeType = mimeType; 
-                    this.base64Imagen = this.sanitizer.bypassSecurityTrustUrl("data:{mimeType};base64," + this.detalleTecnico.imagen);
+                    this.base64Imagen = this.sanitizer.bypassSecurityTrustUrl(DetalleTecnicoModel.getDataUrl(this.detalleTecnico));
                 }
                 reader.readAsArrayBuffer(input.files[0]);
             } else {
-                alert("Asegúrate de subir uno de los formatos permitidos en la aplicación. Máximo " + AngularAPIHelper.maximoSizeByFichero + "  bytes.");
+                alert("Asegúrate de subir uno de los formatos permitidos en la aplicación (" + AngularAPIHelper.mimeTypesPermitidos +  "). Máximo " + AngularAPIHelper.maximoSizeByFichero + "  bytes.");
             }
         }
     }
@@ -132,7 +128,8 @@ export class DetalleEscenaComponent {
         } else if (event == TipoOperacionGuardado.Volver) {
             this.router.navigate(['/escenas']);
         } else if (event == TipoOperacionGuardado.Eliminar) {
-            this.eliminarEscena();
+            let escena = EscenaModel.cargarEscena(this.escena);
+            escena.eliminar(this.angularAPIHelper, this.router);
         }
     }
 }

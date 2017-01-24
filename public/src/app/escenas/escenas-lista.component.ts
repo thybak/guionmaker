@@ -15,6 +15,7 @@ import { PlantillaModel, TipoPlantilla } from '../plantillas/models/PlantillasMo
 })
 export class EscenasListComponent {
     escenas: EscenaModel[];
+    escenaAEliminar: any;
     confirmacionGuardado: ConfirmacionGuardado;
     botonesGuardado: BotonesGuardado;
     sortOptions: SortablejsOptions = {
@@ -50,6 +51,13 @@ export class EscenasListComponent {
             },
             error => console.error('Error: ' + error));
     }
+    private generarHtmlImagen(detalle: any): string {
+        let htmlImagen: string = "";
+        if (detalle.imagen != undefined && detalle.mimeType != undefined) {
+            htmlImagen = "<img src=\"" + DetalleTecnicoModel.getDataUrl(detalle) + "\";base64,\" style=\"max-width: 50%; height: auto; margin: 0 auto;\" /><br />";
+        }
+        return htmlImagen;
+    }
     private generarHtmlExportacion(literario: boolean, plantillaEscena: PlantillaModel) {
         this.exportacionWindow = window.open();
         this.exportacionWindow.document.title = "Vista completa del guión - GuionMaker";
@@ -63,7 +71,7 @@ export class EscenasListComponent {
                 } else {
                     detalle = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel;
                 }
-                this.htmlExportado += plantillaModificada.replace("{{contenidoEscena}}", detalle.texto);
+                this.htmlExportado += plantillaModificada.replace("{{contenidoEscena}}", this.generarHtmlImagen(detalle) + detalle.texto);
                 this.exportacionWindow.document.documentElement.innerHTML = this.htmlExportado;
             });
         }
@@ -101,6 +109,16 @@ export class EscenasListComponent {
     onAccionGuardado(event) {
         if (event == TipoOperacionGuardado.Guardar) {
             this.onGuardarCambios();
+        } else if (event == TipoOperacionGuardado.Eliminar) {
+            this.onEliminar();
         }
+    }
+    onSeleccionEscenaAEliminar(escena: any) {
+        this.escenaAEliminar = escena;
+    }
+    onEliminar() {
+        let escena: EscenaModel = EscenaModel.cargarEscena(this.escenaAEliminar);
+        escena.eliminar(this.angularAPIHelper, undefined);
+        this.cargarEscenas();
     }
 }

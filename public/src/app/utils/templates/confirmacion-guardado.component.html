@@ -4,7 +4,6 @@
 </div>
 <div *ngIf="oConfirm.multiguardado && oConfirm.estadosMultiguardado.length > 0" class="alert alert-info multiSaveFixedBottom">
     <div class="row">
-        <div class="col-md-1"><a role="button" (click)="oConfirm.retirarAviso()"><i class="glyphicon glyphicon-remove"></i></a></div>
         <div class="col-md-11">
             <ul>
                 <li *ngFor="let estado of oConfirm.estadosMultiguardado">
@@ -12,5 +11,6 @@
                 </li>
             </ul>
         </div>
+        <div class="col-md-1"><a role="button" (click)="oConfirm.retirarAviso()"><i class="glyphicon glyphicon-remove"></i></a></div>
     </div>
 </div>

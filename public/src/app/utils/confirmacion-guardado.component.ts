@@ -11,7 +11,6 @@ export class ConfirmacionGuardado {
         this.estadosMultiguardado = [];
     }
     setEstadoMultiguardado(elemento: string, isOk: boolean) {
-        console.log(elemento);
         if (isOk) {
             this.estadosMultiguardado.push(elemento + " guardado OK.");
         } else {

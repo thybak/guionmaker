@@ -10,7 +10,7 @@
         </div>
         <ul class="list-group" [sortablejs]="escenas" [sortablejsOptions]="sortOptions">
             <li class="list-group-item" *ngFor="let escena of escenas">
-                <button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></button>
+                <button class="btn btn-danger" data-target="#mdlBorrado" data-toggle="modal" (click)="onSeleccionEscenaAEliminar(escena)"><i class="glyphicon glyphicon-remove"></i></button>
                 <span><a routerLink="{{escena._id}}">Escena {{escena.orden}}. {{escena.titulo}}</a></span>
                 <button *ngIf="escena.destacado" class="btn btn-default" (click)="onDestacar(false, escena)"><i class="glyphicon glyphicon-ban-circle"></i> No destacar</button>
                 <button *ngIf="!escena.destacado" class="btn btn-default" (click)="onDestacar(true, escena)"><i class="glyphicon glyphicon-flag"></i> Destacar</button>
