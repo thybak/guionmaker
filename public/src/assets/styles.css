@@ -23,14 +23,9 @@
     overflow: auto;
     text-align: center;
 }
-
-.multiSaveFixedBottom {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 30%;
-    max-height: 50%;
-    overflow: auto;
-    text-align: center;
-    z-index: 9998;
+.pdn-1 {
+    padding: 1em;
+}
+.pdn-btm-1 {
+    padding-bottom: 1em;
 }
