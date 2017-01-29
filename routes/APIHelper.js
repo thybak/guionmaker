@@ -110,15 +110,17 @@ class APIHelper {
                     res.json(APIHelper.buildJsonError("Ha habido un error al eliminar el registro " + id + ". Más info: " + err));
                 }
                 else {
-                    model.remove(_resultado).exec((err) => {
-                        if (err) {
-                            res.json(APIHelper.buildJsonError("Ha habido un error al eliminar el registro " + _resultado + ". Más info: " + err));
-                        }
-                        else {
-                            _resultado.remove();
-                            res.json(APIHelper.buildJsonGeneric(ResponseStatus.OK));
-                        }
-                    });
+                    if (_resultado != undefined) {
+                        model.remove(_resultado).exec((err) => {
+                            if (err) {
+                                res.json(APIHelper.buildJsonError("Ha habido un error al eliminar el registro " + _resultado + ". Más info: " + err));
+                            }
+                            else {
+                                _resultado.remove();
+                                res.json(APIHelper.buildJsonGeneric(ResponseStatus.OK));
+                            }
+                        });
+                    }
                 }
             });
         }

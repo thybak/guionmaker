@@ -129,7 +129,7 @@ export class DetalleEscenaComponent {
             this.router.navigate(['/escenas']);
         } else if (event == TipoOperacionGuardado.Eliminar) {
             let escena = EscenaModel.cargarEscena(this.escena);
-            escena.eliminar(this.angularAPIHelper, this.router);
+            escena.eliminar(this.angularAPIHelper).subscribe(null, null, () => this.router.navigate(['/escenas']));
         }
     }
 }

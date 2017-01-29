@@ -113,12 +113,19 @@ export class EscenasListComponent {
             this.onEliminar();
         }
     }
+    getTemporalidadString(escena: any): string {
+        let _escena: EscenaModel = EscenaModel.cargarEscena(escena);
+        return _escena.getTemporalidadString();
+    }
+    getSituacionString(escena: any): string {
+        let _escena : EscenaModel = EscenaModel.cargarEscena(escena);
+        return _escena.getSituacionString();
+    }
     onSeleccionEscenaAEliminar(escena: any) {
         this.escenaAEliminar = escena;
     }
     onEliminar() {
         let escena: EscenaModel = EscenaModel.cargarEscena(this.escenaAEliminar);
-        escena.eliminar(this.angularAPIHelper, undefined);
-        this.cargarEscenas();
+        escena.eliminar(this.angularAPIHelper).subscribe(null, null, () => this.cargarEscenas());
     }
 }

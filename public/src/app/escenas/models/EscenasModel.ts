@@ -7,9 +7,13 @@ export class EscenaModel {
     titulo: string;
     orden: number;
     destacado: boolean;
+    noche: boolean;
+    exterior: boolean;
     detalleTecnico: string;
     detalleLiterario: string;
     proyecto: string;
+    nocheString: string;
+    exteriorString: string;
     fechaCreacion: Date;
 
     constructor() {
@@ -22,6 +26,8 @@ export class EscenaModel {
         _escena.titulo = escena.titulo;
         _escena.orden = escena.orden;
         _escena.destacado = escena.destacado;
+        _escena.noche = escena.noche;
+        _escena.exterior = escena.exterior;
         _escena.detalleTecnico = escena.detalleTecnico;
         _escena.detalleLiterario = escena.detalleLiterario;
         _escena.proyecto = escena.proyecto;
@@ -29,11 +35,23 @@ export class EscenaModel {
         return _escena;
     }
 
-    eliminar(angularAPIHelper: AngularAPIHelper, router: Router) {
-        angularAPIHelper.deleteById('escena', this._id).subscribe(null, null, () => {
-            if (router != undefined) {
-                router.navigate(['/escenas']);
-            }
-        });
+    eliminar(angularAPIHelper: AngularAPIHelper) {
+        return angularAPIHelper.deleteById('escena', this._id);
+    }
+
+    getTemporalidadString(): string {
+        if (this.noche) {
+            return "NOCHE";
+        } else {
+            return "DÍA";
+        }
+    }
+
+    getSituacionString(): string {
+        if (this.exterior) {
+            return "EXT.";
+        } else {
+            return "INT.";
+        }
     }
 }

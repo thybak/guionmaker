@@ -13,6 +13,14 @@
                 </div>
                 <div class="col-md-2"></div>
             </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <input type="checkbox" [(ngModel)]="escena.noche" id="noche" />&nbsp;<label for="noche">¿Sucede de noche?</label>
+                    <input type="checkbox" [(ngModel)]="escena.exterior" id="exterior" />&nbsp;<label for="exterior">¿Sucede en exterior?</label>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
         </div>
     </div>
     <div *ngIf="detalleLiterario != undefined" class="panel panel-primary">
@@ -57,7 +65,7 @@
                         <div class="row">
                             <div class="col-md-4"></div>
                             <div class="col-md-4">
-                                <a href="" class="thumbnail">
+                                <a class="thumbnail">
                                     <div *ngIf="!imagenSubida()">
                                         <i class="glyphicon glyphicon-picture" *ngIf="!imagenSubida()"></i> No existe una imagen asociada al detalle técnico.
                                     </div>

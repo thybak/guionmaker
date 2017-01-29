@@ -9,6 +9,8 @@ class Escena {
             titulo: String,
             orden: Number,
             destacado: Boolean,
+            noche: Boolean,
+            exterior: Boolean,
             fechaCreacion: { type: Date, default: Date.now() },
             detalleTecnico: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(DetallesTecnicos_1.DetalleTecnico.name).schema },
             detalleLiterario: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(DetallesLiterarios_1.DetalleLiterario.name).schema },

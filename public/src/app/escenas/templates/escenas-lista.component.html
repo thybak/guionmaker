@@ -11,7 +11,7 @@
         <ul class="list-group" [sortablejs]="escenas" [sortablejsOptions]="sortOptions">
             <li class="list-group-item" *ngFor="let escena of escenas">
                 <div class="pdn-1">
-                    <div class="row pdn-btm-1"><span class="glyphicon glyphicon-move"></span> <span>ESCENA {{escena.orden}}. {{escena.titulo}}</span></div>
+                    <div class="row pdn-btm-1"><span class="glyphicon glyphicon-move"></span> <span>ESCENA {{escena.orden}}. {{getTemporalidadString(escena)}}. {{escena.titulo}}. {{getSituacionString(escena)}}</span></div>
                     <div class="row">
                         <button type="button" class="btn btn-default btn-sm" data-target="#mdlBorrado" data-toggle="modal" (click)="onSeleccionEscenaAEliminar(escena)"><i class="glyphicon glyphicon-trash"></i></button>
                         <button type="button" class="btn btn-default btn-sm" *ngIf="escena.destacado" (click)="onDestacar(false, escena)"><span class="glyphicon glyphicon-star"></span></button>
