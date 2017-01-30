@@ -356,6 +356,8 @@
     <Content Include="public\dist\styles.bundle.map" />
     <Content Include="public\e2e\tsconfig.json" />
     <Content Include="public\src\app\escenas\templates\escena-detalle.component.html" />
+    <Content Include="public\src\app\proyectos\templates\proyecto-detalle.component.html" />
+    <Content Include="public\src\app\proyectos\templates\proyectos-lista.component.html" />
     <Content Include="public\src\app\templates\app.component.html" />
     <Content Include="public\src\app\templates\index.component.html" />
     <Content Include="public\src\app\utils\templates\botones-guardado.component.html" />
@@ -679,8 +681,11 @@
     <Folder Include="public\src\app\escenas\" />
     <Folder Include="public\src\app\escenas\models\" />
     <Folder Include="public\src\app\escenas\templates\" />
+    <Folder Include="public\src\app\proyectos\" />
     <Folder Include="public\src\app\plantillas\" />
     <Folder Include="public\src\app\plantillas\models\" />
+    <Folder Include="public\src\app\proyectos\models\" />
+    <Folder Include="public\src\app\proyectos\templates\" />
     <Folder Include="public\src\app\utils\" />
     <Folder Include="public\src\app\templates\" />
     <Folder Include="public\src\app\utils\templates\" />
@@ -732,6 +737,11 @@
     <TypeScriptCompile Include="public\src\app\index.component.ts" />
     <TypeScriptCompile Include="public\src\app\pageNotFound.component.ts" />
     <TypeScriptCompile Include="public\src\app\plantillas\models\PlantillasModel.ts" />
+    <TypeScriptCompile Include="public\src\app\proyectos\models\ProyectosModel.ts" />
+    <TypeScriptCompile Include="public\src\app\proyectos\proyecto-detalle.component.ts" />
+    <TypeScriptCompile Include="public\src\app\proyectos\proyectos-lista.component.ts" />
+    <TypeScriptCompile Include="public\src\app\proyectos\proyectos-routing.module.ts" />
+    <TypeScriptCompile Include="public\src\app\proyectos\proyectos.module.ts" />
     <TypeScriptCompile Include="public\src\app\utils\confirmacion-guardado.component.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\escenas-lista.component.ts" />
     <TypeScriptCompile Include="public\src\app\app.module.ts" />

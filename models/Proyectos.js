@@ -13,7 +13,8 @@ class Proyecto {
             autor: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Usuarios_1.Usuario.name).schema },
             publico: Boolean,
             fechaCreacion: { type: Date, default: Date.now() },
-            fechaModificacion: { type: Date }
+            fechaModificacion: { type: Date },
+            cancelado: Boolean
         });
         mongoose.model(Proyecto.name, this.schema);
     }

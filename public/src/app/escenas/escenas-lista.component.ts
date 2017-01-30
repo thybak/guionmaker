@@ -47,7 +47,7 @@ export class EscenasListComponent {
         this.angularAPIHelper.postEntryOrFilter('escenasPorFiltro', JSON.stringify(peticion))
             .subscribe(response => {
                 this.escenas = (response as RespuestaJson).consulta as EscenaModel[];
-                this.escenas = this.escenas == undefined ? [] : this.escenas;
+                this.escenas = this.escenas == undefined ? [] : this.escenas; // workaround para el componente de listado ordenable
             },
             error => console.error('Error: ' + error));
     }

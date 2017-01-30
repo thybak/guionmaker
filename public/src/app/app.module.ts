@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { EscenasModule } from './escenas/escenas.module';
+import { ProyectosModule } from './proyectos/proyectos.module';
 import { UtilsModule } from './utils/utils.module';
 import { AppRoutingModule } from './app-routing.module'
 
@@ -17,6 +18,7 @@ import { IndexComponent } from './index.component';
         FormsModule,
         HttpModule,
         EscenasModule,
+        ProyectosModule,
         UtilsModule,
         AppRoutingModule    
     ],

@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { ConfirmacionGuardadoComponent } from './confirmacion-guardado.component';
 import { BotonesGuardadoComponent } from './botones-guardado.component';
+import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
 
 @NgModule({
-    declarations: [ConfirmacionGuardadoComponent, BotonesGuardadoComponent],
+    declarations: [ConfirmacionGuardadoComponent, BotonesGuardadoComponent, Ng2Summernote],
     imports: [CommonModule, FormsModule],
-    exports: [ConfirmacionGuardadoComponent, BotonesGuardadoComponent]
+    exports: [ConfirmacionGuardadoComponent, BotonesGuardadoComponent, Ng2Summernote]
 })
 export class UtilsModule { }

@@ -17,6 +17,9 @@ module Route {
         public getProyectos(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.getAll(ProyectoRoute.model, res);
         }
+        public getProyectosByFilterAndSort(req: express.Request, res: express.Response, next: express.NextFunction) {
+            APIHelper.getByFilterAndSort(ProyectoRoute.model, JSON.stringify(req.body), res);
+        }
         public getProyectoById(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.getById(ProyectoRoute.model, req.params.id, res);
         }

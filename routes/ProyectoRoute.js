@@ -14,6 +14,9 @@ var Route;
         getProyectos(req, res, next) {
             APIHelper_1.APIHelper.getAll(ProyectoRoute.model, res);
         }
+        getProyectosByFilterAndSort(req, res, next) {
+            APIHelper_1.APIHelper.getByFilterAndSort(ProyectoRoute.model, JSON.stringify(req.body), res);
+        }
         getProyectoById(req, res, next) {
             APIHelper_1.APIHelper.getById(ProyectoRoute.model, req.params.id, res);
         }

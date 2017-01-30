@@ -24,6 +24,11 @@ export class BotonesGuardado {
         this.mostrarGuardado = true;
         this.mostrarBorrado = true;
     }
+
+    mostrarSoloVolver() {
+        this.mostrarGuardado = false;
+        this.mostrarVolver = true;
+    }
 }
 @Component({
     templateUrl: './templates/botones-guardado.component.html',
