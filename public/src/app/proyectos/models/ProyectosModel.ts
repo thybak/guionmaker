@@ -1,6 +1,9 @@
-﻿export class ProyectoModel {
+﻿"use strict";
+
+export class ProyectoModel {
+    _id: string;
     nombre: string;
-    sinopsis: string;
+    sinopsis: String;
     genero: string;
     clasificacion: string;
     autor: string;

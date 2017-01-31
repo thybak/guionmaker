@@ -10,7 +10,7 @@ import { BotonesGuardadoComponent, BotonesGuardado, TipoOperacionGuardado } from
 })
 export class ProyectosListComponent {
     proyectos: ProyectoModel[];
-    proyectoACancelar: ProyectoModel;
+    proyectoAModificar: ProyectoModel;
     mostrarCancelados: boolean;
     botonesGuardado: BotonesGuardado;
 
@@ -25,13 +25,17 @@ export class ProyectosListComponent {
         this.angularAPIHelper.postEntryOrFilter('proyectosPorFiltro', JSON.stringify(peticion)).subscribe(
             response => { this.proyectos = (response as RespuestaJson).consulta as ProyectoModel[]; }, null, null);
     }
+    private actualizarProyectoAModificar(cancelado: boolean) {
+        this.proyectoAModificar.cancelado = cancelado;
+        this.angularAPIHelper.postEntryOrFilter('proyecto', JSON.stringify(this.proyectoAModificar)).subscribe(null, null, () => this.cargarProyectos());
+    }
     onNuevoProyecto() {
         let proyecto: ProyectoModel = new ProyectoModel();
         proyecto.autor = '582e0dbffb1e5a33184cdf39'; // sustituir por el usuario que está logeado
         this.angularAPIHelper.postEntryOrFilter('proyecto', JSON.stringify(proyecto)).subscribe(null, null, () => this.proyectos.push(proyecto));
     }
-    onCancelarProyecto(proyecto: any) {
-        this.proyectoACancelar = proyecto as ProyectoModel;
+    onModificar(proyecto: any) {
+        this.proyectoAModificar = proyecto as ProyectoModel;
     }
     toggleMostrarCancelados() {
         this.mostrarCancelados = !this.mostrarCancelados;
@@ -39,8 +43,10 @@ export class ProyectosListComponent {
     }
     onAccionGuardado(event) {
         if (event == TipoOperacionGuardado.Eliminar) {
-            this.proyectoACancelar.cancelado = true;
-            this.angularAPIHelper.postEntryOrFilter('proyecto', JSON.stringify(this.proyectoACancelar)).subscribe(null, null, () => this.cargarProyectos());
+            this.actualizarProyectoAModificar(true);
+        } else if (event == TipoOperacionGuardado.Restaurar) {
+            this.actualizarProyectoAModificar(false);
         }
     }
+
 }

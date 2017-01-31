@@ -737,6 +737,8 @@
     <TypeScriptCompile Include="public\src\app\index.component.ts" />
     <TypeScriptCompile Include="public\src\app\pageNotFound.component.ts" />
     <TypeScriptCompile Include="public\src\app\plantillas\models\PlantillasModel.ts" />
+    <TypeScriptCompile Include="public\src\app\proyectos\models\ClasificacionesModel.ts" />
+    <TypeScriptCompile Include="public\src\app\proyectos\models\GenerosModel.ts" />
     <TypeScriptCompile Include="public\src\app\proyectos\models\ProyectosModel.ts" />
     <TypeScriptCompile Include="public\src\app\proyectos\proyecto-detalle.component.ts" />
     <TypeScriptCompile Include="public\src\app\proyectos\proyectos-lista.component.ts" />

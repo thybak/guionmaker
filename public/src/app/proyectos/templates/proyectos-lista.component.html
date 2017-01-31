@@ -16,8 +16,9 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-default btn-sm" (click)="onCancelarProyecto(proyecto)" data-toggle="modal" data-target="#mdlCancelar"><i class="glyphicon glyphicon-trash"></i></button>
-                        <button type="button" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-cog"></i></button>
+                        <button *ngIf="!mostrarCancelados" type="button" class="btn btn-default btn-sm" (click)="onModificar(proyecto)" data-toggle="modal" data-target="#mdlCancelar"><i class="glyphicon glyphicon-trash"></i></button>
+                        <button *ngIf="mostrarCancelados" type="button" class="btn btn-default btn-sm" (click)="onModificar(proyecto)" data-toggle="modal" data-target="#mdlRestaurar"><i class="glyphicon glyphicon-repeat"></i></button>
+                        <button *ngIf="!mostrarCancelados" type="button" class="btn btn-default btn-sm" routerLink="{{proyecto._id}}"><i class="glyphicon glyphicon-cog"></i></button>
                     </div>
                 </div>
             </div>

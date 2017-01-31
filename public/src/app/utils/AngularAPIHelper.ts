@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-enum ResponseStatus {
+export enum ResponseStatus {
     OK = 0,
     KO
 }
@@ -44,6 +44,10 @@ export class AngularAPIHelper {
 
     buildPeticion(find: any, sort: any): PeticionJson {
         return new PeticionJson(find, sort);
+    }
+
+    getAll(entity: string) {
+        return this.http.get(AngularAPIHelper.URL + entity).map(response => this.parse(response.text())).catch(this.handleError);
     }
 
     getById(entity: string, id: string) {

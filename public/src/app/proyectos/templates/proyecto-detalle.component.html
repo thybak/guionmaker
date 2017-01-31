@@ -1,1 +1,51 @@
-﻿
+﻿<div class="panel panel-primary" *ngIf="proyecto != undefined">
+    <div class="panel-heading">
+        <h2 class="panel-title">Detalles del proyecto "{{proyecto.nombre}}"</h2>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6"><label for="nombre">Nombre del proyecto</label><input type="text" [(ngModel)]="proyecto.nombre" class="form-control" id="nombre" /></div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="checkbox" [(ngModel)]="proyecto.publico" id="publico" /><label for="publico">&nbsp;Proyecto público</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="text" [(ngModel)]="proyecto.fechaModificacion" readonly="readonly" class="form-control" id="fechaModificacion" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mgn-top-1">
+            <div class="col-md-6">
+                <label for="genero">Género</label>
+                <select class="form-control" id="genero" [(ngModel)]="proyecto.genero">
+                    <option value="{{genero._id}}" *ngFor="let genero of generos">{{genero.nombre}}</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="clasificacion">Clasificación</label>
+                <select class="form-control" id="clasificacion" [(ngModel)]="proyecto.clasificacion">
+                    <option value="{{clasificacion._id}}" *ngFor="let clasificacion of clasificaciones">{{clasificacion.nombre}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mgn-top-1">
+            <div class="col-md-12">
+                <label for="sinopsis">Sinopsis</label>
+                <ng2-summernote lang="es-ES" [(ngModel)]="proyecto.sinopsis" id="sinopsis"></ng2-summernote>
+            </div>
+        </div>
+        <div class="row mgn-top-1">
+            <div class="col-md-12">
+                <botones-guardado [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="alert alert-info" *ngIf="proyecto == undefined">
+    <i class="glyphicon glyphicon-icon-sign"></i> No se ha encontrado el proyecto al que se ha hecho referencia. <a routerLink="/proyectos">Volver</a>
+</div>
+<confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>

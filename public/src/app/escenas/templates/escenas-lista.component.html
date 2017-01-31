@@ -14,8 +14,8 @@
                     <div class="row pdn-btm-1"><span class="glyphicon glyphicon-move"></span> <span>ESCENA {{escena.orden}}. {{getTemporalidadString(escena)}}. {{escena.titulo}}. {{getSituacionString(escena)}}</span></div>
                     <div class="row">
                         <button type="button" class="btn btn-default btn-sm" data-target="#mdlBorrado" data-toggle="modal" (click)="onSeleccionEscenaAEliminar(escena)"><i class="glyphicon glyphicon-trash"></i></button>
-                        <button type="button" class="btn btn-default btn-sm" *ngIf="escena.destacado" (click)="onDestacar(false, escena)"><span class="glyphicon glyphicon-star"></span></button>
-                        <button type="button" class="btn btn-default btn-sm" *ngIf="!escena.destacado" (click)="onDestacar(true, escena)"><span class="glyphicon glyphicon-star-empty"></span></button>
+                        <button type="button" class="btn btn-default btn-sm" *ngIf="escena.destacado" (click)="onDestacar(false, escena)"><span class="glyphicon glyphicon-heart"></span></button>
+                        <button type="button" class="btn btn-default btn-sm" *ngIf="!escena.destacado" (click)="onDestacar(true, escena)"><span class="glyphicon glyphicon-heart-empty"></span></button>
                         <button type="button" class="btn btn-default btn-sm" routerLink="{{escena._id}}"><i class="glyphicon glyphicon-eye-open"></i></button>
                     </div>
                 </div>
