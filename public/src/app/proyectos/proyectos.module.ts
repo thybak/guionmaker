@@ -6,10 +6,11 @@ import { ProyectosRoutingModule } from './proyectos-routing.module';
 
 import { ProyectosListComponent } from './proyectos-lista.component';
 import { DetalleProyectoComponent } from './proyecto-detalle.component';
+import { GestorColaboracionesComponent } from './gestor-colaboraciones.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, UtilsModule, ProyectosRoutingModule],
-    declarations: [ProyectosListComponent, DetalleProyectoComponent],
+    declarations: [ProyectosListComponent, DetalleProyectoComponent, GestorColaboracionesComponent],
     providers: [],
     exports: []
 })

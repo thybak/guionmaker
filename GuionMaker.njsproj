@@ -356,6 +356,7 @@
     <Content Include="public\dist\styles.bundle.map" />
     <Content Include="public\e2e\tsconfig.json" />
     <Content Include="public\src\app\escenas\templates\escena-detalle.component.html" />
+    <Content Include="public\src\app\proyectos\templates\gestor-colaboraciones.component.html" />
     <Content Include="public\src\app\proyectos\templates\proyecto-detalle.component.html" />
     <Content Include="public\src\app\proyectos\templates\proyectos-lista.component.html" />
     <Content Include="public\src\app\templates\app.component.html" />
@@ -723,6 +724,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="models\Colaboraciones.ts" />
     <TypeScriptCompile Include="models\Plantillas.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\models\DetallesLiterariosModel.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\models\DetallesTecnicosModel.ts" />
@@ -737,6 +739,8 @@
     <TypeScriptCompile Include="public\src\app\index.component.ts" />
     <TypeScriptCompile Include="public\src\app\pageNotFound.component.ts" />
     <TypeScriptCompile Include="public\src\app\plantillas\models\PlantillasModel.ts" />
+    <TypeScriptCompile Include="public\src\app\proyectos\gestor-colaboraciones.component.ts" />
+    <TypeScriptCompile Include="public\src\app\proyectos\models\ColaboracionesModel.ts" />
     <TypeScriptCompile Include="public\src\app\proyectos\models\ClasificacionesModel.ts" />
     <TypeScriptCompile Include="public\src\app\proyectos\models\GenerosModel.ts" />
     <TypeScriptCompile Include="public\src\app\proyectos\models\ProyectosModel.ts" />
@@ -760,6 +764,7 @@
     <TypeScriptCompile Include="public\src\typings.d.ts" />
     <TypeScriptCompile Include="routes\APIHelper.ts" />
     <TypeScriptCompile Include="routes\ClasificacionRoute.ts" />
+    <TypeScriptCompile Include="routes\ColaboracionRoute.ts" />
     <TypeScriptCompile Include="routes\DetalleLiterarioRoute.ts" />
     <TypeScriptCompile Include="routes\DetalleTecnicoRoute.ts" />
     <TypeScriptCompile Include="routes\EscenaRoute.ts" />

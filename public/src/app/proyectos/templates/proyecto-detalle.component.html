@@ -34,6 +34,11 @@
         </div>
         <div class="row mgn-top-1">
             <div class="col-md-12">
+                <gestor-colaboraciones [gestorColaboraciones]="gestorColaboraciones"></gestor-colaboraciones>
+            </div>
+        </div>
+        <div class="row mgn-top-1">
+            <div class="col-md-12">
                 <label for="sinopsis">Sinopsis</label>
                 <ng2-summernote lang="es-ES" [(ngModel)]="proyecto.sinopsis" id="sinopsis"></ng2-summernote>
             </div>

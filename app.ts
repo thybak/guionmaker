@@ -18,6 +18,7 @@ import { DetalleTecnicoRoute } from "./routes/DetalleTecnicoRoute";
 import { DetalleLiterarioRoute } from "./routes/DetalleLiterarioRoute";
 import { EscenaRoute } from "./routes/EscenaRoute";
 import { PlantillaRoute } from "./routes/PlantillaRoute";
+import { ColaboracionRoute } from "./routes/ColaboracionRoute";
 
 class Server {
     public api: express.Application;
@@ -36,7 +37,6 @@ class Server {
         this.api.use(cookieParser());
         this.api.use(express.static(path.join(__dirname, '/public/dist')));
         this.api.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
-            var error = new Error("Not Found");
             err.status = 404;
             next(err);
         });
@@ -54,6 +54,7 @@ class Server {
         let _detallesLiterariosRoute: DetalleLiterarioRoute = new DetalleLiterarioRoute();
         let _escenasRoute: EscenaRoute = new EscenaRoute();
         let _plantillasRoute: PlantillaRoute = new PlantillaRoute();
+        let _colaboracionesRoute: ColaboracionRoute = new ColaboracionRoute();
 
         router.get('/', _indexRoute.index.bind(_indexRoute.index));
 
@@ -100,6 +101,12 @@ class Server {
         router.post('/api/plantilla/', _plantillasRoute.addPlantilla.bind(_plantillasRoute.addPlantilla));
         router.get('/api/plantilla/:id', _plantillasRoute.getPlantillaById.bind(_plantillasRoute.getPlantillaById));
         router.delete('/api/plantilla/:id', _plantillasRoute.deletePlantilla.bind(_plantillasRoute.deletePlantilla));
+
+        router.get('/api/colaboraciones', _colaboracionesRoute.getColaboraciones.bind(_colaboracionesRoute.getColaboraciones));
+        router.post('/api/colaboracionesPorFiltro', _colaboracionesRoute.getColaboracionesByFilterAndSort.bind(_colaboracionesRoute.getColaboracionesByFilterAndSort));
+        router.post('/api/colaboracion/', _colaboracionesRoute.addColaboracion.bind(_colaboracionesRoute.addColaboracion));
+        router.get('/api/colaboracion/:id', _colaboracionesRoute.getColaboracionById.bind(_colaboracionesRoute.getColaboracionById));
+        router.delete('/api/colaboracion/:id', _colaboracionesRoute.deleteColaboracion.bind(_colaboracionesRoute.deleteColaboracion));
 
         this.api.use(router);
     }

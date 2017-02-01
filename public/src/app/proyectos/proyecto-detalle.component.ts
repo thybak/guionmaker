@@ -7,6 +7,7 @@ import { ConfirmacionGuardado } from '../utils/confirmacion-guardado.component';
 import { ProyectoModel } from './models/ProyectosModel';
 import { GeneroModel } from './models/GenerosModel';
 import { ClasificacionModel } from './models/ClasificacionesModel';
+import { GestorColaboraciones } from './gestor-colaboraciones.component';
 
 import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
 
@@ -23,6 +24,7 @@ export class DetalleProyectoComponent {
     respuesta: RespuestaJson;
     generos: GeneroModel[];
     clasificaciones: ClasificacionModel[];
+    gestorColaboraciones: GestorColaboraciones;
 
     constructor(private angularAPIHelper: AngularAPIHelper, private router : Router, private route : ActivatedRoute) {
         this.confirmacionGuardado = new ConfirmacionGuardado();
@@ -39,6 +41,7 @@ export class DetalleProyectoComponent {
     }
     private cargarModelo(proyecto: any) {
         this.proyecto = (proyecto as RespuestaJson).consulta[0] as ProyectoModel;
+        this.gestorColaboraciones = new GestorColaboraciones(this.angularAPIHelper, this.proyecto._id);// carga de colaboradores
         this.proyecto.sinopsis = this.proyecto.sinopsis == undefined ? new String('') : this.proyecto.sinopsis; // workaround ng2-summernote
     }
     private guardarCambios(exit: boolean) {

@@ -1,0 +1,32 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            Colaboradores en el proyecto
+        </h4>
+    </div>
+    <div class="panel-body">
+        <label for="email">E-mail</label>
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="email" />
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus-sign"></i> Añadir</button>
+            </div>
+        </div>
+        <div class="row mgn-top-1">
+            <div class="col-md-8">
+                <label for="listaColaboradores">Lista de colaboradores asociados</label>
+                <div class="list-group" *ngIf="gestorColaboraciones.colaboraciones != undefined && gestorColaboraciones.colaboraciones.length > 0" id="listaColaboradores">
+                    <div class="list-group-item" *ngFor="let colaboracion of gestorColaboraciones.colaboraciones">
+                        {{colaboracion.usuario}} - {{colaboracion.fecha}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div class="alert alert-info" *ngIf="gestorColaboraciones.colaboraciones == undefined || gestorColaboraciones.colaboraciones.length == 0">
+            <i class="glyphicon glyphicon-info"></i> No se han encontrado colaboradores asociados al proyecto.
+        </div>
+    </div>
+</div>
