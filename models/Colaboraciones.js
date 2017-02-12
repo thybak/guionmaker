@@ -15,6 +15,7 @@ class Colaboracion {
             fecha: Date,
             permisos: Number
         });
+        this.schema.index({ usuario: 1, proyecto: 1 }, { unique: true });
         mongoose.model(Colaboracion.name, this.schema);
     }
 }

@@ -42,7 +42,7 @@ export class ProyectosListComponent {
         this.cargarProyectos();
     }
     onAccionGuardado(event) {
-        if (event == TipoOperacionGuardado.Eliminar) {
+        if (event == TipoOperacionGuardado.CancelarRegistro) {
             this.actualizarProyectoAModificar(true);
         } else if (event == TipoOperacionGuardado.Restaurar) {
             this.actualizarProyectoAModificar(false);

@@ -382,11 +382,14 @@
     <Folder Include="public\src\app\escenas\" />
     <Folder Include="public\src\app\escenas\models\" />
     <Folder Include="public\src\app\escenas\templates\" />
+    <Folder Include="public\src\app\usuarios\" />
     <Folder Include="public\src\app\proyectos\" />
     <Folder Include="public\src\app\plantillas\" />
     <Folder Include="public\src\app\plantillas\models\" />
     <Folder Include="public\src\app\proyectos\models\" />
     <Folder Include="public\src\app\proyectos\templates\" />
+    <Folder Include="public\src\app\usuarios\models\" />
+    <Folder Include="public\src\app\usuarios\templates\" />
     <Folder Include="public\src\app\utils\" />
     <Folder Include="public\src\app\templates\" />
     <Folder Include="public\src\app\utils\templates\" />
@@ -432,6 +435,9 @@
     <TypeScriptCompile Include="public\src\app\proyectos\proyectos-lista.component.ts" />
     <TypeScriptCompile Include="public\src\app\proyectos\proyectos-routing.module.ts" />
     <TypeScriptCompile Include="public\src\app\proyectos\proyectos.module.ts" />
+    <TypeScriptCompile Include="public\src\app\usuarios\models\UsuarioModel.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\utils\confirmacion-guardado.component.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\escenas-lista.component.ts" />
     <TypeScriptCompile Include="public\src\app\app.module.ts" />

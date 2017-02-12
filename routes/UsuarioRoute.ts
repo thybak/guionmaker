@@ -26,6 +26,9 @@ module Route {
         public deleteUsuario(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.delete(UsuarioRoute.model, req.params.id, res);
         }
+        public getUsuariosByFilterAndSort(req: express.Request, res: express.Response, next: express.NextFunction) {
+            APIHelper.getByFilterAndSort(UsuarioRoute.model, JSON.stringify(req.body), res); 
+        }
     }
 }
 

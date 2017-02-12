@@ -4,7 +4,9 @@ export enum TipoOperacionGuardado {
     Guardar,
     Eliminar,
     Volver,
-    Restaurar
+    Restaurar,
+    CancelarEliminacion,
+    CancelarRegistro
 }
 export class BotonesGuardado {
     mostrarGuardado: boolean;
@@ -54,5 +56,11 @@ export class BotonesGuardadoComponent {
     }
     onRestaurar() {
         this.onAccionGuardado.emit(TipoOperacionGuardado.Restaurar);
+    }
+    onCancelarEliminar() {
+        this.onAccionGuardado.emit(TipoOperacionGuardado.CancelarEliminacion);
+    }
+    onCancelar() {
+        this.onAccionGuardado.emit(TipoOperacionGuardado.CancelarRegistro);
     }
 }

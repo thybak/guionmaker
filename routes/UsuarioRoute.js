@@ -23,6 +23,9 @@ var Route;
         deleteUsuario(req, res, next) {
             APIHelper_1.APIHelper.delete(UsuarioRoute.model, req.params.id, res);
         }
+        getUsuariosByFilterAndSort(req, res, next) {
+            APIHelper_1.APIHelper.getByFilterAndSort(UsuarioRoute.model, JSON.stringify(req.body), res);
+        }
     }
     Route.UsuarioRoute = UsuarioRoute;
 })(Route || (Route = {}));

@@ -70,11 +70,15 @@ export class DetalleProyectoComponent {
     onAccionGuardado(event) {
         if (event == TipoOperacionGuardado.Guardar) {
             this.guardarCambios(false);
-        } else if (event == TipoOperacionGuardado.Eliminar) {
+        } else if (event == TipoOperacionGuardado.Eliminar) { // solo se lanzará en el caso de eliminación de colaboraciones
+            this.gestorColaboraciones.eliminarColaboracion();
+        } else if (event == TipoOperacionGuardado.CancelarRegistro) {
             this.proyecto.cancelado = true;
             this.guardarCambios(true);
-        } else if (event == TipoOperacionGuardado.Volver) { 
+        } else if (event == TipoOperacionGuardado.Volver) {
             this.router.navigate(['/proyectos']);
+        } else if (event == TipoOperacionGuardado.CancelarEliminacion) {
+            this.gestorColaboraciones.cancelarEliminacion();
         }
     }
 }

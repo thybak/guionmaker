@@ -12,7 +12,7 @@
             <div class="modal-body">
                 <p>¿Estás seguro de que quieres eliminar este elemento? Este cambio no se podrá deshacer una vez confirmado.</p>
                 <button class="btn btn-primary" type="button" (click)="onEliminar()" data-dismiss="modal">Aceptar</button>
-                <button class="btn btn-default" type="button" data-dismiss="modal">Cancelar</button>
+                <button class="btn btn-default" type="button" (click)="onCancelarEliminar()" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
             </div>
             <div class="modal-body">
                 <p>¿Estás seguro de que quieres cancelar este elemento? Este cambio se podrá deshacer retirando el elemento de la lista de cancelados.</p>
-                <button class="btn btn-primary" type="button" (click)="onEliminar()" data-dismiss="modal">Aceptar</button>
+                <button class="btn btn-primary" type="button" (click)="onCancelar()" data-dismiss="modal">Aceptar</button>
                 <button class="btn btn-default" type="button" data-dismiss="modal">Cancelar</button>
             </div>
         </div>

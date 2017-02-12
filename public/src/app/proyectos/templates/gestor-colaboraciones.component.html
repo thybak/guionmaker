@@ -5,13 +5,19 @@
         </h4>
     </div>
     <div class="panel-body">
+        <div *ngIf="usuarioNoEncontrado" class="alert alert-danger">
+          <p>El email introducido no es el de ninguno de los usuarios de GuionMaker. Prueba con otro.</p>
+        </div>
+        <div *ngIf="emailInvalido" class="alert alert-danger">
+          <p>El email introducido es inválido</p>
+        </div>
         <label for="email">E-mail</label>
         <div class="row">
             <div class="col-md-6">
-                <input type="text" class="form-control" id="email" />
+                <input type="email" class="form-control" id="email" [(ngModel)]="email" />
             </div>
             <div class="col-md-6">
-                <button type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus-sign"></i> Añadir</button>
+                <button type="button" class="btn btn-success" (click)="onCrearColaboracion()"><i class="glyphicon glyphicon-plus-sign"></i> Añadir</button>
             </div>
         </div>
         <div class="row mgn-top-1">
@@ -19,7 +25,12 @@
                 <label for="listaColaboradores">Lista de colaboradores asociados</label>
                 <div class="list-group" *ngIf="gestorColaboraciones.colaboraciones != undefined && gestorColaboraciones.colaboraciones.length > 0" id="listaColaboradores">
                     <div class="list-group-item" *ngFor="let colaboracion of gestorColaboraciones.colaboraciones">
-                        {{colaboracion.usuario}} - {{colaboracion.fecha}}
+                      <div class="row">
+                        <div class="col-md-12">
+                          {{colaboracion.nombreUsuario}} - {{colaboracion.fecha}}
+                          <a role="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#mdlBorrado" (click)="gestorColaboraciones.prepararAEliminar(colaboracion)"><i class="glyphicon glyphicon-trash"></i></a>
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>
