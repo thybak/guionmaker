@@ -44,6 +44,11 @@ export class GestorColaboraciones {
         }
     }
 
+    public actualizar(colaboracion: any) {
+        let _colaboracion: ColaboracionModel = ColaboracionModel.cargar(colaboracion, this.angularAPIHelper);
+        this.angularAPIHelper.postEntryOrFilter('colaboracion', JSON.stringify(_colaboracion)).subscribe(null, null, null);
+    }
+
     public nuevoColaborador(usuario: UsuarioModel) {
         let colaboracion: ColaboracionModel = new ColaboracionModel(usuario._id);
         colaboracion.proyecto = this.proyectoID;
@@ -54,7 +59,7 @@ export class GestorColaboraciones {
                 let respuesta: RespuestaJson = response as RespuestaJson;
                 if (respuesta.estado == ResponseStatus.OK) {
                     colaboracion = respuesta.insertado as ColaboracionModel;
-                    colaboracion.nombreUsuario = usuario.nombreUsuario; // atributo sintético
+                    colaboracion.email = usuario.email; // atributo sintético
                     this.colaboraciones.push(colaboracion);
                 } else {
                     alert('Ha ocurrido un error al guardar la colaboración. Verifica que el usuario no esté en la lista.');
@@ -74,6 +79,11 @@ export class GestorColaboracionesComponent {
     email: string;
     usuarioNoEncontrado: boolean;
     emailInvalido: boolean;
+    tiposPermiso: any[];
+
+    constructor() {
+        this.tiposPermiso = ColaboracionModel.obtenerTiposPermiso();
+    }
 
     onCrearColaboracion() {
         if (this.email != undefined && this.email != "") {
@@ -89,5 +99,21 @@ export class GestorColaboracionesComponent {
         } else {
             this.emailInvalido = true;
         }
+    }
+
+    mostrarNombrePermiso(permiso: any): string{
+        let nombrePermiso: string = "";
+        switch (permiso.id) {
+            case PermisosColaboracion.SoloLectura:
+                nombrePermiso = "Sólo lectura";
+                break;
+            case PermisosColaboracion.Edicion:
+                nombrePermiso = "Edición";
+                break;
+            default:
+                nombrePermiso = permiso.nombre;
+        }
+
+        return nombrePermiso;
     }
 }

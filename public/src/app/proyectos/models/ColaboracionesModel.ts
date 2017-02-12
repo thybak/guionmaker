@@ -13,10 +13,23 @@ export class ColaboracionModel {
     proyecto: string;
     fecha: Date;
     permisos: number;
-    nombreUsuario: string; // sintético
+    email: string; // sintético
 
     constructor(usuarioId: string = "582e0dbffb1e5a33184cdf39") {
         this.usuario = usuarioId;
+    }
+
+    private setEmail(angularAPIHelper: AngularAPIHelper) {
+        UsuarioModel.getObservableUsuarioById(angularAPIHelper, this.usuario).subscribe(
+            response => {
+                let respuesta = response as RespuestaJson;
+                if (respuesta.estado == ResponseStatus.OK) {
+                    let resultadoUsuarios = respuesta.consulta as UsuarioModel[];
+                    if (resultadoUsuarios.length >= 1) {
+                        this.email = resultadoUsuarios[0].email;
+                    }
+                }
+            });
     }
 
     public static cargar(colaboracion: any, angularAPIHelper: AngularAPIHelper): ColaboracionModel {
@@ -25,20 +38,19 @@ export class ColaboracionModel {
         _colaboracion.fecha = colaboracion.fecha;
         _colaboracion.permisos = colaboracion.permisos;
         _colaboracion._id = colaboracion._id;
-        _colaboracion.setNombreUsuario(angularAPIHelper);
+        _colaboracion.setEmail(angularAPIHelper);
         return _colaboracion;
     }
 
-    private setNombreUsuario(angularAPIHelper: AngularAPIHelper) {
-        UsuarioModel.getObservableUsuarioById(angularAPIHelper, this.usuario).subscribe(
-            response => {
-                let respuesta = response as RespuestaJson;
-                if (respuesta.estado == ResponseStatus.OK) {
-                    let resultadoUsuarios = respuesta.consulta as UsuarioModel[];
-                    if (resultadoUsuarios.length >= 1) {
-                        this.nombreUsuario = resultadoUsuarios[0].nombreUsuario;
-                    }
-                }
-            });
+    public static obtenerTiposPermiso() {  
+        let permisos = [];
+        let idx = 0; // se asume que la enumeración no va a alterar los enteros que se le asignan por orden
+        for (let permiso in PermisosColaboracion) {
+            if (isNaN(parseInt(permiso, 10))) {
+                permisos.push({ "nombre": permiso, "id": idx });
+                idx++;
+            }
+        }
+        return permisos;
     }
 }

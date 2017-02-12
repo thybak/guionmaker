@@ -27,9 +27,18 @@
                     <div class="list-group-item" *ngFor="let colaboracion of gestorColaboraciones.colaboraciones">
                       <div class="row">
                         <div class="col-md-12">
-                          {{colaboracion.nombreUsuario}} - {{colaboracion.fecha}}
+                          {{colaboracion.email}} - {{colaboracion.fecha}}
                           <a role="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#mdlBorrado" (click)="gestorColaboraciones.prepararAEliminar(colaboracion)"><i class="glyphicon glyphicon-trash"></i></a>
                         </div>
+                      </div>
+                      <div class="row mgn-top-1">
+                        <div class="col-md-3">
+                          <label for="permisos">Permisos del colaborador</label>
+                          <select name="permisos" id="permisos" class="form-control" [(ngModel)]="colaboracion.permisos" (change)="gestorColaboraciones.actualizar(colaboracion)">
+                            <option *ngFor="let permiso of tiposPermiso" value="{{permiso.id}}">{{mostrarNombrePermiso(permiso)}}</option>
+                          </select>
+                        </div>
+                        <div class="col-md-9"></div>
                       </div>
                     </div>
                 </div>
