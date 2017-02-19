@@ -1,5 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { AngularAPIHelper, RespuestaJson } from '../utils/AngularAPIHelper';
+import { LocalStorageService } from '../utils/LocalStorageService';
 import { ProyectoModel } from './models/ProyectosModel';
 import { BotonesGuardadoComponent, BotonesGuardado, TipoOperacionGuardado } from '../utils/botones-guardado.component';
 
@@ -14,15 +15,14 @@ export class ProyectosListComponent {
     mostrarCancelados: boolean;
     botonesGuardado: BotonesGuardado;
 
-    constructor(private angularAPIHelper: AngularAPIHelper) {
+    constructor(private angularAPIHelper: AngularAPIHelper, private localStorageService : LocalStorageService) {
         this.mostrarCancelados = false;
         this.botonesGuardado = new BotonesGuardado();
-        this.botonesGuardado.mostrarSoloVolver();
+        this.botonesGuardado.cargarSoloModales();
         this.cargarProyectos();
     }
     private cargarProyectos() {
-        let peticion = this.angularAPIHelper.buildPeticion({ 'autor': '582e0dbffb1e5a33184cdf39', 'cancelado' : this.mostrarCancelados }, { 'orden': '1' });
-        this.angularAPIHelper.postEntryOrFilter('proyectosPorFiltro', JSON.stringify(peticion)).subscribe(
+        ProyectoModel.getProyectosByAutorAndEstado(this.localStorageService.getPropiedad('usuarioLogeado'), this.mostrarCancelados, this.angularAPIHelper).subscribe(
             response => { this.proyectos = (response as RespuestaJson).consulta as ProyectoModel[]; }, null, null);
     }
     private actualizarProyectoAModificar(cancelado: boolean) {
@@ -31,8 +31,8 @@ export class ProyectosListComponent {
     }
     onNuevoProyecto() {
         let proyecto: ProyectoModel = new ProyectoModel();
-        proyecto.autor = '582e0dbffb1e5a33184cdf39'; // sustituir por el usuario que está logeado
-        this.angularAPIHelper.postEntryOrFilter('proyecto', JSON.stringify(proyecto)).subscribe(null, null, () => this.proyectos.push(proyecto));
+        proyecto.autor = this.localStorageService.getPropiedad('usuarioLogeado');
+        this.angularAPIHelper.postEntryOrFilter('proyecto', JSON.stringify(proyecto)).subscribe(null, null, () => this.cargarProyectos());
     }
     onModificar(proyecto: any) {
         this.proyectoAModificar = proyecto as ProyectoModel;

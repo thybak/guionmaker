@@ -3,6 +3,7 @@ import { EscenaModel } from './models/EscenasModel';
 import { DetalleLiterarioModel } from './models/DetallesLiterariosModel';
 import { DetalleTecnicoModel } from './models/DetallesTecnicosModel';
 import { RespuestaJson, AngularAPIHelper } from '../utils/AngularAPIHelper';
+import { LocalStorageService } from '../utils/LocalStorageService';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { ConfirmacionGuardado } from '../utils/confirmacion-guardado.component';
 import { BotonesGuardado, TipoOperacionGuardado } from '../utils/botones-guardado.component';
@@ -11,7 +12,7 @@ import { PlantillaModel, TipoPlantilla } from '../plantillas/models/PlantillasMo
 @Component({
     selector: 'lista-escenas',
     templateUrl: './templates/escenas-lista.component.html',
-    providers: [AngularAPIHelper]
+    providers: [AngularAPIHelper, LocalStorageService]
 })
 export class EscenasListComponent {
     escenas: EscenaModel[];
@@ -24,7 +25,7 @@ export class EscenasListComponent {
     htmlExportado: string;
     exportacionWindow: Window;
 
-    constructor(private angularAPIHelper: AngularAPIHelper) {
+    constructor(private angularAPIHelper: AngularAPIHelper, private localStorageService: LocalStorageService) {
         this.confirmacionGuardado = new ConfirmacionGuardado();
         this.confirmacionGuardado.multiguardado = true;
         this.botonesGuardado = new BotonesGuardado();
@@ -43,7 +44,7 @@ export class EscenasListComponent {
         }
     }
     private cargarEscenas(proyectoId: string = "", orden: number = 1) {
-        let peticion = this.angularAPIHelper.buildPeticion({ 'proyecto': '57f1687fe942851c18cec84b' }, { 'orden': '1' });
+        let peticion = this.angularAPIHelper.buildPeticion({ 'proyecto': this.localStorageService.getPropiedad('proyectoActual') }, { 'orden': '1' });
         this.angularAPIHelper.postEntryOrFilter('escenasPorFiltro', JSON.stringify(peticion))
             .subscribe(response => {
                 this.escenas = (response as RespuestaJson).consulta as EscenaModel[];
@@ -97,7 +98,7 @@ export class EscenasListComponent {
     }
     onNuevaEscena() {
         let escena: EscenaModel = new EscenaModel();
-        escena.proyecto = '57f1687fe942851c18cec84b'; // a sustituir por el proyecto actual con el que se ha cargado la página desde el selector de proyecto
+        escena.proyecto = this.localStorageService.getPropiedad('proyectoActual');
         escena.orden = this.escenas.length + 1;
         this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(escena)).subscribe(response => this.escenas.push((response as RespuestaJson).insertado as EscenaModel)); // por mejorar el asunto del orden
     }

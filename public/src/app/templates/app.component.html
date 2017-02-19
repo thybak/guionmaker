@@ -12,8 +12,9 @@
             <ul class="nav navbar-nav">
                 <li role="presentation"><a href="" routerLink="">Inicio</a></li>
                 <li role="presentation" routerLinkActive="active"><a routerLink="/proyectos">Proyectos</a></li>
-                <li role="presentation" routerLinkActive="active"><a routerLink="/escenas">Escenas</a></li>
-                <li role="presentation" routerLinkActive="active"><a routerLink="/biblia">Biblia literaria</a></li>
+                <li role="presentation" routerLinkActive="active" *ngIf="localStorageService.propiedades['proyectoActual'] != null"><a routerLink="/escenas">Escenas</a></li>
+                <li role="presentation" routerLinkActive="active" *ngIf="localStorageService.propiedades['proyectoActual'] != null"><a routerLink="/biblia">Biblia literaria</a></li>
+                <li role="presentation"><p class="navbar-text" *ngIf="localStorageService.propiedades['nombreProyectoActual'] != null"><i>Trabajando sobre <b>{{localStorageService.propiedades['nombreProyectoActual']}}</b></i></p></li>
             </ul>
         </div>
     </div>

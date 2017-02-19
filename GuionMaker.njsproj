@@ -444,6 +444,9 @@
     <TypeScriptCompile Include="public\src\app\index.ts" />
     <TypeScriptCompile Include="public\src\app\utils\AngularAPIHelper.ts" />
     <TypeScriptCompile Include="public\src\app\utils\botones-guardado.component.ts" />
+    <TypeScriptCompile Include="public\src\app\utils\LocalStorageService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\utils\rxjsUtils.ts" />
     <TypeScriptCompile Include="public\src\app\utils\utils.module.ts" />
     <TypeScriptCompile Include="public\src\environments\environment.prod.ts" />

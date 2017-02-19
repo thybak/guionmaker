@@ -42,10 +42,11 @@ export class DetalleProyectoComponent {
     private cargarModelo(proyecto: any) {
         this.proyecto = (proyecto as RespuestaJson).consulta[0] as ProyectoModel;
         this.gestorColaboraciones = new GestorColaboraciones(this.angularAPIHelper, this.proyecto._id);// carga de colaboradores
-        this.proyecto.sinopsis = this.proyecto.sinopsis == undefined ? new String('') : this.proyecto.sinopsis; // workaround ng2-summernote
+        this.proyecto.sinopsis = this.proyecto.sinopsis == "" || this.proyecto.sinopsis == undefined  ? new String('') : this.proyecto.sinopsis; // workaround por culpa del componente ng2-summernote donde con "" no se muestra nada.
     }
     private guardarCambios(exit: boolean) {
         this.proyecto.fechaModificacion = new Date();
+        this.proyecto.sinopsis = this.proyecto.sinopsis == undefined ? new String('') : this.proyecto.sinopsis; // wa para el módulo ng-summernote con undefined
         this.angularAPIHelper.postEntryOrFilter('proyecto', JSON.stringify(this.proyecto)).subscribe(
             response => {
                 this.respuesta = response as RespuestaJson

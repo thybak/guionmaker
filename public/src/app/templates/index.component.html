@@ -1,17 +1,35 @@
-﻿<div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="panel-title">GuionMaker app: bienvenidos a la aplicación de gestión de documentos de pre-producción audiovisual</h4>
+﻿<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h4 class="panel-title">GuionMaker app: bienvenidos a la aplicación de gestión de documentos de pre-producción audiovisual</h4>
+  </div>
+  <div class="panel-body">
+    <p>Éste es un sitio dedicado enteramente a artistas audiovisuales con apuros en la gestión de la documentación en fase de pre-producción</p>
+    <p>Aquí podrás llevar a cabo la gestión de:</p>
+    <ul>
+      <li>Proyectos</li>
+      <li>Guiones</li>
+      <li>Biblias literarias</li>
+      <li>Escenas</li>
+      <li>Personajes</li>
+      <li>y más...</li>
+    </ul>
+    <div class="panel panel-primary" *ngIf="proyectos != undefined && proyectos.length > 0">
+      <div class="panel-heading">Selecciona un proyecto de la lista y comienza a trabajar con él</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-5">
+            <select name="proyectoActual" id="proyectoActual" class="form-control" [(ngModel)]="proyectoActual">
+              <option *ngFor="let proyecto of proyectos" value="{{proyecto._id}}">{{proyecto.nombre}}</option>
+            </select>
+          </div>
+          <div class="col-md-7">
+            <button type="button" (click)="setProyectoActual()" class="btn btn-primary">Fijar</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="panel-body">
-        <p>Éste es un sitio dedicado enteramente a artistas audiovisuales con apuros en la gestión de la documentación en fase de pre-producción</p>
-        <p>Aquí podrás llevar a cabo la gestión de:</p>
-        <ul>
-            <li>Proyectos</li>
-            <li>Guiones</li>
-            <li>Biblias literarias</li>
-            <li>Escenas</li>
-            <li>Personajes</li>
-            <li>y más...</li>
-        </ul>
+    <div class="alert alert-info" *ngIf="proyectos == undefined || proyectos.length == 0">
+      <p><i class="glyphicon glyphicon-info-sign"></i> No hay ningún proyecto en la base de datos. ¿Quieres crear <a routerLink="/proyectos">uno nuevo</a>?</p>
     </div>
+  </div>
 </div>

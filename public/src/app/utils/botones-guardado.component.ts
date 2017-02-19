@@ -35,6 +35,9 @@ export class BotonesGuardado {
         this.mostrarGuardado = false;
         this.mostrarVolver = true;
     }
+    cargarSoloModales() {
+        this.mostrarGuardado = false;
+    }
 }
 @Component({
     templateUrl: './templates/botones-guardado.component.html',
