@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{d4aee021-9cbb-406e-828a-a2c53517ca4f}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile>app.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -308,6 +308,9 @@
     <Content Include="public\dist\main.bundle.map" />
     <Content Include="public\dist\styles.bundle.map" />
     <Content Include="public\e2e\tsconfig.json" />
+    <Content Include="public\src\app\biblia\templates\biblia.component.html" />
+    <Content Include="public\src\app\biblia\templates\escenarios-lista.component.html" />
+    <Content Include="public\src\app\biblia\templates\personajes-lista.component.html" />
     <Content Include="public\src\app\escenas\templates\escena-detalle.component.html" />
     <Content Include="public\src\app\proyectos\templates\gestor-colaboraciones.component.html" />
     <Content Include="public\src\app\proyectos\templates\proyecto-detalle.component.html" />
@@ -379,9 +382,12 @@
     <Folder Include="public\e2e\" />
     <Folder Include="public\src\" />
     <Folder Include="public\src\app\" />
+    <Folder Include="public\src\app\biblia\models\" />
+    <Folder Include="public\src\app\biblia\templates\" />
     <Folder Include="public\src\app\escenas\" />
     <Folder Include="public\src\app\escenas\models\" />
     <Folder Include="public\src\app\escenas\templates\" />
+    <Folder Include="public\src\app\biblia\" />
     <Folder Include="public\src\app\usuarios\" />
     <Folder Include="public\src\app\proyectos\" />
     <Folder Include="public\src\app\plantillas\" />
@@ -412,7 +418,24 @@
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
     <TypeScriptCompile Include="models\Colaboraciones.ts" />
+    <TypeScriptCompile Include="models\Escenarios.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="models\Personajes.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="models\Plantillas.ts" />
+    <TypeScriptCompile Include="public\src\app\biblia\biblia-routing.module.ts" />
+    <TypeScriptCompile Include="public\src\app\biblia\biblia.component.ts" />
+    <TypeScriptCompile Include="public\src\app\biblia\biblia.module.ts" />
+    <TypeScriptCompile Include="public\src\app\biblia\escenarios-lista.component.ts" />
+    <TypeScriptCompile Include="public\src\app\biblia\models\EscenariosModel.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="public\src\app\biblia\models\PersonajesModel.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="public\src\app\biblia\personajes-lista.component.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\models\DetallesLiterariosModel.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\models\DetallesTecnicosModel.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\models\EscenasModel.ts" />
@@ -460,9 +483,15 @@
     <TypeScriptCompile Include="routes\ColaboracionRoute.ts" />
     <TypeScriptCompile Include="routes\DetalleLiterarioRoute.ts" />
     <TypeScriptCompile Include="routes\DetalleTecnicoRoute.ts" />
+    <TypeScriptCompile Include="routes\EscenarioRoute.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="routes\EscenaRoute.ts" />
     <TypeScriptCompile Include="routes\GeneroRoute.ts" />
     <TypeScriptCompile Include="routes\IndexRoute.ts" />
+    <TypeScriptCompile Include="routes\PersonajeRoute.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="routes\PlantillaRoute.ts" />
     <TypeScriptCompile Include="routes\ProyectoRoute.ts" />
     <TypeScriptCompile Include="_all.d.ts" />

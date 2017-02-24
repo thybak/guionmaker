@@ -1,10 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
+﻿import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { EscenasModule } from './escenas/escenas.module';
 import { ProyectosModule } from './proyectos/proyectos.module';
 import { UtilsModule } from './utils/utils.module';
+import { BibliaModule } from './biblia/biblia.module';
 import { AppRoutingModule } from './app-routing.module'
 
 import { AppComponent } from './app.component';
@@ -20,6 +21,7 @@ import { IndexComponent } from './index.component';
         EscenasModule,
         ProyectosModule,
         UtilsModule,
+        BibliaModule,
         AppRoutingModule    
     ],
     bootstrap: [AppComponent]

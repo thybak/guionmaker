@@ -16,6 +16,8 @@ const DetalleLiterarioRoute_1 = require("./routes/DetalleLiterarioRoute");
 const EscenaRoute_1 = require("./routes/EscenaRoute");
 const PlantillaRoute_1 = require("./routes/PlantillaRoute");
 const ColaboracionRoute_1 = require("./routes/ColaboracionRoute");
+const PersonajeRoute_1 = require("./routes/PersonajeRoute");
+const EscenarioRoute_1 = require("./routes/EscenarioRoute");
 class Server {
     constructor() {
         this.IP = "192.168.1.135";
@@ -53,6 +55,8 @@ class Server {
         let _escenasRoute = new EscenaRoute_1.EscenaRoute();
         let _plantillasRoute = new PlantillaRoute_1.PlantillaRoute();
         let _colaboracionesRoute = new ColaboracionRoute_1.ColaboracionRoute();
+        let _escenariosRoute = new EscenarioRoute_1.EscenarioRoute();
+        let _personajesRoute = new PersonajeRoute_1.PersonajeRoute();
         router.get('/', _indexRoute.index.bind(_indexRoute.index));
         router.get('/api/proyectos', _proyectosRoute.getProyectos.bind(_proyectosRoute.getProyectos));
         router.post('/api/proyectosPorFiltro', _proyectosRoute.getProyectosByFilterAndSort.bind(_proyectosRoute.getProyectosByFilterAndSort));
@@ -96,6 +100,16 @@ class Server {
         router.post('/api/colaboracion/', _colaboracionesRoute.addColaboracion.bind(_colaboracionesRoute.addColaboracion));
         router.get('/api/colaboracion/:id', _colaboracionesRoute.getColaboracionById.bind(_colaboracionesRoute.getColaboracionById));
         router.delete('/api/colaboracion/:id', _colaboracionesRoute.deleteColaboracion.bind(_colaboracionesRoute.deleteColaboracion));
+        router.get('/api/escenarios', _escenariosRoute.getEscenarios.bind(_escenariosRoute.getEscenarios));
+        router.post('/api/escenariosPorFiltro', _escenariosRoute.getEscenariosByFilterAndSort.bind(_escenariosRoute.getEscenariosByFilterAndSort));
+        router.post('/api/escenario/', _escenariosRoute.addEscenario.bind(_escenariosRoute.addEscenario));
+        router.get('/api/escenario/:id', _escenariosRoute.getEscenarioById.bind(_escenariosRoute.getEscenarioById));
+        router.delete('/api/escenario/:id', _escenariosRoute.deleteEscenario.bind(_escenariosRoute.deleteEscenario));
+        router.get('/api/personajes', _personajesRoute.getPersonajes.bind(_personajesRoute.getPersonajes));
+        router.post('/api/personajesPorFiltro', _personajesRoute.getPersonajesByFilterAndSort.bind(_personajesRoute.getPersonajesByFilterAndSort));
+        router.post('/api/personaje/', _personajesRoute.addPersonaje.bind(_personajesRoute.addPersonaje));
+        router.get('/api/personaje/:id', _personajesRoute.getPersonajeById.bind(_personajesRoute.getPersonajeById));
+        router.delete('/api/personaje/:id', _personajesRoute.deletePersonaje.bind(_personajesRoute.deletePersonaje));
         this.api.use(router);
     }
     setConfig() {

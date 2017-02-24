@@ -19,6 +19,8 @@ import { DetalleLiterarioRoute } from "./routes/DetalleLiterarioRoute";
 import { EscenaRoute } from "./routes/EscenaRoute";
 import { PlantillaRoute } from "./routes/PlantillaRoute";
 import { ColaboracionRoute } from "./routes/ColaboracionRoute";
+import { PersonajeRoute } from "./routes/PersonajeRoute";
+import { EscenarioRoute } from "./routes/EscenarioRoute";
 
 class Server {
     public api: express.Application;
@@ -55,6 +57,8 @@ class Server {
         let _escenasRoute: EscenaRoute = new EscenaRoute();
         let _plantillasRoute: PlantillaRoute = new PlantillaRoute();
         let _colaboracionesRoute: ColaboracionRoute = new ColaboracionRoute();
+        let _escenariosRoute: EscenarioRoute = new EscenarioRoute();
+        let _personajesRoute: PersonajeRoute = new PersonajeRoute();
 
         router.get('/', _indexRoute.index.bind(_indexRoute.index));
 
@@ -108,6 +112,18 @@ class Server {
         router.post('/api/colaboracion/', _colaboracionesRoute.addColaboracion.bind(_colaboracionesRoute.addColaboracion));
         router.get('/api/colaboracion/:id', _colaboracionesRoute.getColaboracionById.bind(_colaboracionesRoute.getColaboracionById));
         router.delete('/api/colaboracion/:id', _colaboracionesRoute.deleteColaboracion.bind(_colaboracionesRoute.deleteColaboracion));
+
+        router.get('/api/escenarios', _escenariosRoute.getEscenarios.bind(_escenariosRoute.getEscenarios));
+        router.post('/api/escenariosPorFiltro', _escenariosRoute.getEscenariosByFilterAndSort.bind(_escenariosRoute.getEscenariosByFilterAndSort));
+        router.post('/api/escenario/', _escenariosRoute.addEscenario.bind(_escenariosRoute.addEscenario));
+        router.get('/api/escenario/:id', _escenariosRoute.getEscenarioById.bind(_escenariosRoute.getEscenarioById));
+        router.delete('/api/escenario/:id', _escenariosRoute.deleteEscenario.bind(_escenariosRoute.deleteEscenario));
+
+        router.get('/api/personajes', _personajesRoute.getPersonajes.bind(_personajesRoute.getPersonajes));
+        router.post('/api/personajesPorFiltro', _personajesRoute.getPersonajesByFilterAndSort.bind(_personajesRoute.getPersonajesByFilterAndSort));
+        router.post('/api/personaje/', _personajesRoute.addPersonaje.bind(_personajesRoute.addPersonaje));
+        router.get('/api/personaje/:id', _personajesRoute.getPersonajeById.bind(_personajesRoute.getPersonajeById));
+        router.delete('/api/personaje/:id', _personajesRoute.deletePersonaje.bind(_personajesRoute.deletePersonaje));
 
         this.api.use(router);
     }

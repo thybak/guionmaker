@@ -21,7 +21,8 @@
                 </div>
             </li>
         </ul>
-        <botones-guardado [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
+        <div *ngIf="escenas == undefined || escenas.length == 0" class="alert alert-info"><i class="glyphicon glyphicon-info-sign"></i> No se han almacenado escenas para este proyecto.</div>
+        <botones-guardado *ngIf="escenas != undefined && escenas.length > 0" [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
     </div>
 </div>
 <div class="modal fade" id="mdlExportacion" role="dialog">
