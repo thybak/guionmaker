@@ -9,5 +9,8 @@ export class PersonajeModel {
     descripcionLogica: string;
     proyecto: string;
 
-    constructor() {}
+    constructor() {
+        this.nombre = "Nuevo personaje";
+        this.edad = 0;
+    }
 }

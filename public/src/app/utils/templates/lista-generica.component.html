@@ -1,0 +1,35 @@
+﻿<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2 class="panel-title">{{listaGenerica.titulo}}</h2>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn btn-primary" (click)="onNuevoElemento()"><i class="glyphicon glyphicon-plus"></i> Añadir {{listaGenerica.entidad}}</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="list-group mgn-top-1" *ngIf="elementos != undefined && elementos.length > 0">
+          <div class="list-group-item " *ngFor="let elemento of elementos">
+            <div class="row">
+              <div class="col-md-12">
+                {{elemento.nombre}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#mdlBorrado" (click)="setElementoAEliminar(elemento)"><i class="glyphicon glyphicon-trash"></i></button>
+                <button type="button" class="btn btn-default btn-sm" routerLink=""><i class="glyphicon glyphicon-edit"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-info mgn-top-1" *ngIf="elementos == undefined || elementos.length == 0">
+      <p><i class="glyphicon glyphicon-info-sign"></i> No se han encontrado elementos.</p>
+    </div>
+    <botones-guardado [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
+  </div>
+</div>

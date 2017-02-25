@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{d4aee021-9cbb-406e-828a-a2c53517ca4f}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile>app.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -320,6 +320,9 @@
     <Content Include="public\src\app\utils\templates\botones-guardado.component.html" />
     <Content Include="public\src\app\utils\templates\confirmacion-guardado.component.html" />
     <Content Include="public\src\app\escenas\templates\escenas-lista.component.html" />
+    <Content Include="public\src\app\utils\templates\lista-generica.component.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.css" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.min.css" />
@@ -467,6 +470,9 @@
     <TypeScriptCompile Include="public\src\app\index.ts" />
     <TypeScriptCompile Include="public\src\app\utils\AngularAPIHelper.ts" />
     <TypeScriptCompile Include="public\src\app\utils\botones-guardado.component.ts" />
+    <TypeScriptCompile Include="public\src\app\utils\lista-generica.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\utils\LocalStorageService.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

@@ -10,9 +10,7 @@ import { EscenariosListaComponent } from './escenarios-lista.component';
 import { PersonajesListaComponent } from './personajes-lista.component';
 
 @NgModule({
-  imports: [
-    CommonModule, FormsModule, UtilsModule, BibliaRoutingModule
-  ],
+  imports: [CommonModule, FormsModule, UtilsModule, BibliaRoutingModule],
   declarations: [BibliaComponent, EscenariosListaComponent, PersonajesListaComponent]
 })
 export class BibliaModule { }

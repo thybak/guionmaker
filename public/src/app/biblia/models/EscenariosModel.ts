@@ -6,5 +6,7 @@ export class EscenarioModel {
     descripcion: string;
     proyecto: string;
 
-    constructor() {}
+    constructor() {
+        this.nombre = "Nuevo escenario";
+    }
 }
