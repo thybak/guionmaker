@@ -19,15 +19,6 @@ const ColaboracionRoute_1 = require("./routes/ColaboracionRoute");
 const PersonajeRoute_1 = require("./routes/PersonajeRoute");
 const EscenarioRoute_1 = require("./routes/EscenarioRoute");
 class Server {
-    constructor() {
-        this.IP = "192.168.1.135";
-        this.COLLECTION_NAME = "guionMaker";
-        this.API_PORT = 1337;
-        this.api = express();
-        this.setConfig();
-        require('mongoose').Promise = global.Promise;
-        mongoose.connect("mongodb://" + this.IP + "/" + this.COLLECTION_NAME);
-    }
     static init() {
         return new Server();
     }
@@ -115,7 +106,15 @@ class Server {
     setConfig() {
         this.setModules();
         this.setRoutes();
-        this.api.listen(this.API_PORT);
+        this.api.listen(this.config.apiPort);
+    }
+    constructor() {
+        this.config = require('./public/dist/assets/apiconfig.json');
+        this.api = express();
+        this.setConfig();
+        require('mongoose').Promise = global.Promise;
+        console.log(this.config);
+        mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName);
     }
 }
 module.exports = Server.init().api;

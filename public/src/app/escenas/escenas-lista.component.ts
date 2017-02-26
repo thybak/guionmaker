@@ -64,7 +64,7 @@ export class EscenasListComponent {
         this.exportacionWindow.document.title = "Vista completa del guión - GuionMaker";
         for (let escena of this.escenas) {
             let escenaActual: EscenaModel = escena;
-            let plantillaModificada: string = plantillaEscena.html.replace("{{tituloEscena}}", escenaActual.titulo);
+            let plantillaModificada: string = plantillaEscena.html.replace("{{tituloEscena}}", escenaActual.orden + ". " + this.getSituacionString(escenaActual) + ". " +  escenaActual.titulo.toUpperCase() + ". " + this.getTemporalidadString(escenaActual));
             this.angularAPIHelper.getById(literario ? 'detalleLiterario' : 'detalleTecnico', literario ? escenaActual.detalleLiterario : escenaActual.detalleTecnico).subscribe(response => {
                 let detalle: any;
                 if (literario) {
@@ -86,7 +86,8 @@ export class EscenasListComponent {
                 this.angularAPIHelper.getById("plantilla", "5884c982e369b82e24883386").subscribe(response2 => { // id variable por join
                     let plantillaPortada = (response2 as RespuestaJson).consulta[0] as PlantillaModel;
                     if (plantillaPortada != undefined) {
-                        this.htmlExportado += plantillaPortada.html.replace("{{tipoGuion}}", literario ? "Guión literario" : "Guión técnico"); // hasta que no haya gestión de proyectos por ahora se queda sin tratar.
+                        plantillaPortada.html = plantillaPortada.html.replace("{{tituloProyecto}}", this.localStorageService.getPropiedad('nombreProyectoActual'));
+                        this.htmlExportado += plantillaPortada.html.replace("{{tipoGuion}}", literario ? "Guión literario" : "Guión técnico");
                         this.generarHtmlExportacion(literario, plantillaEscena);
                     }
                 });

@@ -24,9 +24,7 @@ import { EscenarioRoute } from "./routes/EscenarioRoute";
 
 class Server {
     public api: express.Application;
-    private IP: string = "192.168.1.135";
-    private COLLECTION_NAME: string = "guionMaker";
-    private API_PORT: number = 1337;
+    config: any;
 
     public static init(): Server {
         return new Server();
@@ -131,14 +129,17 @@ class Server {
     private setConfig(): void {
         this.setModules();
         this.setRoutes();
-        this.api.listen(this.API_PORT);
+        this.api.listen(this.config.apiPort);
     }
 
     constructor() {
+        this.config = require('./public/dist/assets/apiconfig.json');
         this.api = express();
         this.setConfig();
         require('mongoose').Promise = global.Promise;
-        mongoose.connect("mongodb://" + this.IP + "/" + this.COLLECTION_NAME);
+        console.log(this.config);
+        
+        mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName);
     }
 }
 

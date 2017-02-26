@@ -27,6 +27,10 @@ export class ProyectosListComponent {
     }
     private actualizarProyectoAModificar(cancelado: boolean) {
         this.proyectoAModificar.cancelado = cancelado;
+        if (this.proyectoAModificar.cancelado && this.proyectoAModificar._id == this.localStorageService.getPropiedad('proyectoActual')) {
+            this.localStorageService.deletePropiedad('proyectoActual');
+            this.localStorageService.deletePropiedad('nombreProyectoActual');
+        }
         this.angularAPIHelper.postEntryOrFilter('proyecto', JSON.stringify(this.proyectoAModificar)).subscribe(null, null, () => this.cargarProyectos());
     }
     onNuevoProyecto() {

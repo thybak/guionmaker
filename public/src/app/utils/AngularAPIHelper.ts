@@ -26,9 +26,9 @@ export class PeticionJson {
 
 @Injectable()
 export class AngularAPIHelper {
-    static readonly URL: string = "http://localhost:1337/api/";
-    static readonly maximoSizeByFichero: number = 1024 * 1024 * 2.1;
-    static readonly mimeTypesPermitidos: string[] = ["image/jpeg", "image/jpg", "image/png"];
+    static URL: string = "";
+    static maximoSizeByFichero: number = 0;
+    static mimeTypesPermitidos: string[] = [];
 
     constructor(private http: Http) {
     }
@@ -36,6 +36,16 @@ export class AngularAPIHelper {
     private handleError(error: Response) {
         let errMsg = 'Error en el AngularAPIHelper:' + error;
         return Observable.throw(errMsg);
+    }
+
+    cargarConfiguracion() {
+        return this.http.get('/assets/apiconfig.json').toPromise().
+            then(config => {
+                let _config = config.json();
+                AngularAPIHelper.maximoSizeByFichero = _config.maxFileSizeBytes;
+                AngularAPIHelper.URL = 'http://' + _config.apiURL + ':' + _config.apiPort + '/api/';
+                AngularAPIHelper.mimeTypesPermitidos = _config.mimeTypesPermitidos;
+            });
     }
 
     parse(response: string): RespuestaJson {

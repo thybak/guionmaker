@@ -8,6 +8,7 @@ import { ProyectoModel } from './models/ProyectosModel';
 import { GeneroModel } from './models/GenerosModel';
 import { ClasificacionModel } from './models/ClasificacionesModel';
 import { GestorColaboraciones } from './gestor-colaboraciones.component';
+import { LocalStorageService } from '../utils/LocalStorageService';
 
 import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
 
@@ -26,7 +27,7 @@ export class DetalleProyectoComponent {
     clasificaciones: ClasificacionModel[];
     gestorColaboraciones: GestorColaboraciones;
 
-    constructor(private angularAPIHelper: AngularAPIHelper, private router : Router, private route : ActivatedRoute) {
+    constructor(private angularAPIHelper: AngularAPIHelper, private router : Router, private route : ActivatedRoute, private localStorageService: LocalStorageService) {
         this.confirmacionGuardado = new ConfirmacionGuardado();
         this.botonesGuardado = new BotonesGuardado();
         this.botonesGuardado.mostrarCompletoCancelar();
@@ -70,11 +71,16 @@ export class DetalleProyectoComponent {
     }
     onAccionGuardado(event) {
         if (event == TipoOperacionGuardado.Guardar) {
+            this.localStorageService.setPropiedad('nombreProyectoActual', this.proyecto.nombre);
             this.guardarCambios(false);
         } else if (event == TipoOperacionGuardado.Eliminar) { // solo se lanzará en el caso de eliminación de colaboraciones
             this.gestorColaboraciones.eliminarColaboracion();
         } else if (event == TipoOperacionGuardado.CancelarRegistro) {
             this.proyecto.cancelado = true;
+            if (this.proyecto._id == this.localStorageService.getPropiedad('proyectoActual')) {
+                this.localStorageService.deletePropiedad('proyectoActual');
+                this.localStorageService.deletePropiedad('nombreProyectoActual');
+            }
             this.guardarCambios(true);
         } else if (event == TipoOperacionGuardado.Volver) {
             this.router.navigate(['/proyectos']);

@@ -49,9 +49,9 @@ export class EscenaModel {
 
     getSituacionString(): string {
         if (this.exterior) {
-            return "EXT.";
+            return "EXT";
         } else {
-            return "INT.";
+            return "INT";
         }
     }
 }

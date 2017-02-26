@@ -25,4 +25,8 @@ export class LocalStorageService {
         return localStorage.getItem(clave);
     }
 
+    deletePropiedad(clave: string) {
+        delete this.propiedades[clave];
+        return localStorage.removeItem(clave);
+    }
 }
