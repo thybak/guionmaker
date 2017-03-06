@@ -129,7 +129,7 @@ class Server {
     private setConfig(): void {
         this.setModules();
         this.setRoutes();
-        this.api.listen(this.config.apiPort);
+        this.api.listen(this.config.privateApiPort);
     }
 
     constructor() {
