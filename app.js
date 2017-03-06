@@ -48,7 +48,6 @@ class Server {
         let _colaboracionesRoute = new ColaboracionRoute_1.ColaboracionRoute();
         let _escenariosRoute = new EscenarioRoute_1.EscenarioRoute();
         let _personajesRoute = new PersonajeRoute_1.PersonajeRoute();
-        router.get('/', _indexRoute.index.bind(_indexRoute.index));
         router.get('/api/proyectos', _proyectosRoute.getProyectos.bind(_proyectosRoute.getProyectos));
         router.post('/api/proyectosPorFiltro', _proyectosRoute.getProyectosByFilterAndSort.bind(_proyectosRoute.getProyectosByFilterAndSort));
         router.get('/api/proyecto/:id', _proyectosRoute.getProyectoById.bind(_proyectosRoute.getProyectoById));
@@ -102,6 +101,9 @@ class Server {
         router.get('/api/personaje/:id', _personajesRoute.getPersonajeById.bind(_personajesRoute.getPersonajeById));
         router.delete('/api/personaje/:id', _personajesRoute.deletePersonaje.bind(_personajesRoute.deletePersonaje));
         this.api.use(router);
+        this.api.all('/*', function (req, res) {
+            res.sendFile(path.join(__dirname, '/public/dist/index.html'));
+        });
     }
     setConfig() {
         this.setModules();

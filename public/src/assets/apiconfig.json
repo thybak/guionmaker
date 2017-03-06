@@ -1,6 +1,6 @@
 ﻿{
   "apiURL": "localhost",
-  "publicApiPort": "80",
+  "publicApiPort": "1337",
   "privateApiPort": "1337",
   "dbURL": "192.168.1.135",
   "dbCollectionName": "guionMaker",
