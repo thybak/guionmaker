@@ -20,7 +20,7 @@
             <div class="row">
               <div class="col-md-12">
                 <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#mdlBorrado" (click)="setElementoAEliminar(elemento)"><i class="glyphicon glyphicon-trash"></i></button>
-                <button type="button" class="btn btn-default btn-sm" routerLink=""><i class="glyphicon glyphicon-edit"></i></button>
+                <button type="button" class="btn btn-default btn-sm" [routerLink]="[elemento._id]"><i class="glyphicon glyphicon-edit"></i></button>
               </div>
             </div>
           </div>

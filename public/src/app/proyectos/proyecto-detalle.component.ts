@@ -30,7 +30,7 @@ export class DetalleProyectoComponent {
     constructor(private angularAPIHelper: AngularAPIHelper, private router : Router, private route : ActivatedRoute, private localStorageService: LocalStorageService) {
         this.confirmacionGuardado = new ConfirmacionGuardado();
         this.botonesGuardado = new BotonesGuardado();
-        this.botonesGuardado.mostrarCompletoCancelar();
+        this.botonesGuardado.mostrarCompletoCancelar(false);
         this.cargarSelects();
         this.route.params.switchMap((params: Params) =>
             this.angularAPIHelper.postEntryOrFilter('proyectosPorFiltro', JSON.stringify(this.angularAPIHelper.buildPeticion({ '_id': params['id'], 'cancelado': false }, '')))).

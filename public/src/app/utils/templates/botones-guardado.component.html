@@ -1,51 +1,67 @@
 ﻿<button class="btn btn-default" (click)="onVolver()" *ngIf="oBotonesGuardado.mostrarVolver"><i class="glyphicon glyphicon glyphicon-chevron-left"></i> Volver</button>
+<button class="btn btn-default" data-toggle="modal" data-target="#mdlVolver" *ngIf="oBotonesGuardado.mostrarVolverConfirmacion"><i class="glyphicon glyphicon glyphicon-chevron-left"></i> Volver</button>
 <button class="btn btn-primary" (click)="onGuardarCambios()" *ngIf="oBotonesGuardado.mostrarGuardado"><i class="glyphicon glyphicon-save"></i> Guardar cambios</button>
 <button class="btn btn-danger" data-toggle="modal" data-target="#mdlBorrado" *ngIf="oBotonesGuardado.mostrarBorrado"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>
 <button class="btn btn-danger" data-toggle="modal" data-target="#mdlCancelar" *ngIf="oBotonesGuardado.mostrarCancelar"><i class="glyphicon glyphicon-remove"></i> Cancelar</button>
 <div class="modal fade" id="mdlBorrado" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content text-center">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Confirmación de borrado</h4>
-            </div>
-            <div class="modal-body">
-                <p>¿Estás seguro de que quieres eliminar este elemento? Este cambio no se podrá deshacer una vez confirmado.</p>
-                <button class="btn btn-primary" type="button" (click)="onEliminar()" data-dismiss="modal">Aceptar</button>
-                <button class="btn btn-default" type="button" (click)="onCancelarEliminar()" data-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirmación de borrado</h4>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro de que quieres eliminar este elemento? Este cambio no se podrá deshacer una vez confirmado.</p>
+        <button class="btn btn-primary" type="button" (click)="onEliminar()" data-dismiss="modal">Aceptar</button>
+        <button class="btn btn-default" type="button" (click)="onCancelarEliminar()" data-dismiss="modal">Cancelar</button>
+      </div>
     </div>
+  </div>
 </div>
 <div class="modal fade" id="mdlCancelar" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content text-center">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Confirmación de cancelación</h4>
-            </div>
-            <div class="modal-body">
-                <p>¿Estás seguro de que quieres cancelar este elemento? Este cambio se podrá deshacer retirando el elemento de la lista de cancelados.</p>
-                <button class="btn btn-primary" type="button" (click)="onCancelar()" data-dismiss="modal">Aceptar</button>
-                <button class="btn btn-default" type="button" data-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirmación de cancelación</h4>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro de que quieres cancelar este elemento? Este cambio se podrá deshacer retirando el elemento de la lista de cancelados.</p>
+        <button class="btn btn-primary" type="button" (click)="onCancelar()" data-dismiss="modal">Aceptar</button>
+        <button class="btn btn-default" type="button" data-dismiss="modal">Cancelar</button>
+      </div>
     </div>
+  </div>
 </div>
 <div class="modal fade" id="mdlRestaurar" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content text-center">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Confirmación de restauración</h4>
-            </div>
-            <div class="modal-body">
-                <p>¿Estás seguro de que quieres restaurar este elemento? Este cambio eliminará el elemento de la lista de elementos cancelados.</p>
-                <button class="btn btn-primary" type="button" (click)="onRestaurar()" data-dismiss="modal">Aceptar</button>
-                <button class="btn btn-default" type="button" data-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirmación de restauración</h4>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro de que quieres restaurar este elemento? Este cambio eliminará el elemento de la lista de elementos cancelados.</p>
+        <button class="btn btn-primary" type="button" (click)="onRestaurar()" data-dismiss="modal">Aceptar</button>
+        <button class="btn btn-default" type="button" data-dismiss="modal">Cancelar</button>
+      </div>
     </div>
+  </div>
+</div>
+<div id="mdlVolver" class="modal fade">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Aviso de navegación</h4>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro de que quieres volver atrás? Si no has guardado los cambios que has realizado se perderán.</p>
+        <button class="btn btn-primary" type="button" (click)="onVolver()" data-dismiss="modal">Aceptar</button>
+        <button class="btn btn-default" type="button" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 

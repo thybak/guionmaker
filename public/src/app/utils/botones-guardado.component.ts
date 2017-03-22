@@ -13,27 +13,31 @@ export class BotonesGuardado {
     mostrarBorrado: boolean;
     mostrarVolver: boolean;
     mostrarCancelar: boolean;
+    mostrarVolverConfirmacion: boolean;
 
     constructor() {
         this.mostrarGuardado = true;
     }
-    mostrarCompleto() {
+    mostrarCompleto(sinConfirmacionVolver: boolean = true) {
         this.mostrarGuardado = true;
         this.mostrarBorrado = true;
-        this.mostrarVolver = true;
+        this.mostrarVolver = sinConfirmacionVolver;
+        this.mostrarVolverConfirmacion = !sinConfirmacionVolver;
     }
     mostrarBasico() {
         this.mostrarGuardado = true;
         this.mostrarBorrado = true;
     }
-    mostrarCompletoCancelar() {
+    mostrarCompletoCancelar(sinConfirmacionVolver: boolean = true) {
         this.mostrarGuardado = true;
         this.mostrarCancelar = true;
-        this.mostrarVolver = true;
+        this.mostrarVolver = sinConfirmacionVolver;
+        this.mostrarVolverConfirmacion = !sinConfirmacionVolver;
     }
-    mostrarSoloVolver() {
+    mostrarSoloVolver(sinConfirmacion: boolean = true) {
+        this.mostrarVolver = sinConfirmacion;
+        this.mostrarVolverConfirmacion = !sinConfirmacion;
         this.mostrarGuardado = false;
-        this.mostrarVolver = true;
     }
     cargarSoloModales() {
         this.mostrarGuardado = false;

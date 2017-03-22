@@ -34,18 +34,7 @@
         <div class="panel-body collapse in" id="detalleLiterario">
             <table class="table table-responsive">
                 <tr>
-                    <td>
-                        <table class="table table-borderless">
-                            <tr>
-                                <td class="col-md-4"><select class="form-control"><option>Personajes...</option></select></td>
-                                <td class="col-md-4"><select class="form-control"><option>Escenarios...</option></select></td>
-                                <td class="col-md-4"></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td><ng2-summernote lang="es-ES" [(ngModel)]="detalleLiterario.texto"></ng2-summernote></td>
+                    <td><ng2-summernote lang="es-ES" [(ngModel)]="detalleLiterario.texto" [config]="ng2sconfig"></ng2-summernote></td>
                 </tr>
             </table>
         </div>
@@ -97,7 +86,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <ng2-summernote lang="es-ES" [(ngModel)]="detalleTecnico.texto"></ng2-summernote>
+                        <ng2-summernote lang="es-ES" [(ngModel)]="detalleTecnico.texto" [config]="ng2sconfig"></ng2-summernote>
                     </td>
                 </tr>
             </table>

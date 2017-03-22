@@ -11,6 +11,7 @@ import { ConfirmacionGuardado } from '../utils/confirmacion-guardado.component';
 import { BotonesGuardado, TipoOperacionGuardado } from '../utils/botones-guardado.component';
 
 import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
+import * as jQuery from "jquery";
 
 @Component({
     templateUrl: './templates/escena-detalle.component.html',
@@ -24,10 +25,24 @@ export class DetalleEscenaComponent {
     detalleTecnico: DetalleTecnicoModel;
     botonesGuardado: BotonesGuardado;
     base64Imagen: SafeUrl;
+    ng2sconfig: any = {
+        hint: {
+            words: ['apple', 'orange', 'watermelon', 'lemon'],
+            match: /\b(\w{1,})$/,
+            search: function (keyword, callback) {
+                callback(jQuery.grep(this.words, function (item) {
+                    return item.indexOf(keyword) === 0;
+                }));
+            }
+        },
+        minHeight: 200,
+        lang: 'es-ES',
+        placeholder: 'Escribe tu texto...'
+    };
 
     constructor(private angularAPIHelper: AngularAPIHelper, private el: ElementRef, private sanitizer: DomSanitizer, private router: Router, private route: ActivatedRoute) {
         this.botonesGuardado = new BotonesGuardado();
-        this.botonesGuardado.mostrarCompleto();
+        this.botonesGuardado.mostrarCompleto(false);
         this.confirmacionGuardado = new ConfirmacionGuardado();
         this.route.params.switchMap((params: Params) => this.angularAPIHelper.getById('escena', params['id'])).
             subscribe(response => this.cargarModelo(response),

@@ -8,6 +8,8 @@ export class PersonajeModel {
     descripcionFisica: string;
     descripcionLogica: string;
     proyecto: string;
+    imagen: string;
+    mimeType: string;
 
     constructor() {
         this.nombre = "Nuevo personaje";

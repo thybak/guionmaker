@@ -12,6 +12,8 @@ export class Escenario {
             nombre: String,
             ubicacion: String,
             descripcion: String,
+            imagen: String,
+            mimeType: String,
             proyecto: { type: mongoose.Schema.Types.ObjectId, ref: Proyecto, required: true }
         });
 

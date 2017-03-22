@@ -5,6 +5,8 @@ export class EscenarioModel {
     ubicacion: string;
     descripcion: string;
     proyecto: string;
+    imagen: string;
+    mimeType: string;
 
     constructor() {
         this.nombre = "Nuevo escenario";

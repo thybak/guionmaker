@@ -8,9 +8,10 @@ import { BibliaRoutingModule } from './biblia-routing.module';
 import { BibliaComponent } from './biblia.component';
 import { EscenariosListaComponent } from './escenarios-lista.component';
 import { PersonajesListaComponent } from './personajes-lista.component';
+import { DetallePersonajeComponent } from './personaje-detalle.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, UtilsModule, BibliaRoutingModule],
-  declarations: [BibliaComponent, EscenariosListaComponent, PersonajesListaComponent]
+  declarations: [BibliaComponent, EscenariosListaComponent, PersonajesListaComponent, DetallePersonajeComponent]
 })
 export class BibliaModule { }

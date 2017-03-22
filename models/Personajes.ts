@@ -15,6 +15,8 @@ export class Personaje {
             biografia: String,
             descripcionFisica: String,
             descripcionLogica: String,
+            imagen: String,
+            mimeType: String,
             proyecto: { type: mongoose.Schema.Types.ObjectId, ref: Proyecto, required: true }
         });
 

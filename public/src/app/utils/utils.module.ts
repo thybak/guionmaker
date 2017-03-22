@@ -1,4 +1,5 @@
 ﻿import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -9,7 +10,7 @@ import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
 
 @NgModule({
     declarations: [ConfirmacionGuardadoComponent, BotonesGuardadoComponent, Ng2Summernote, ListaGenericaComponent],
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, RouterModule],
     exports: [ConfirmacionGuardadoComponent, BotonesGuardadoComponent, Ng2Summernote, ListaGenericaComponent]
 })
 export class UtilsModule { }

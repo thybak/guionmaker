@@ -10,6 +10,8 @@ class Personaje {
             biografia: String,
             descripcionFisica: String,
             descripcionLogica: String,
+            imagen: String,
+            mimeType: String,
             proyecto: { type: mongoose.Schema.Types.ObjectId, ref: Proyectos_1.Proyecto, required: true }
         });
         mongoose.model(Personaje.name, this.schema);

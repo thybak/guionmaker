@@ -1,0 +1,50 @@
+﻿<confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>
+<div class="panel panel-primary" *ngIf="personaje != undefined">
+  <div class="panel-heading">
+    Detalle de personaje: {{personaje.nombre}}
+  </div>
+  <div class="panel-body">
+    <table class="table table-responsive">
+      <tr>
+        <td>
+          <label for="nombre">Nombre</label>
+          <input type="text" class="form-control" id="nombre" [(ngModel)]="personaje.nombre" />
+        </td>
+        <td>
+          <label for="edad">Edad</label>
+          <input type="number" class="form-control" id="edad" [(ngModel)]="personaje.edad" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <label for="procedencia">Procedencia</label>
+          <input type="text" class="form-control" id="procedencia" [(ngModel)]="personaje.procedencia" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <label for="biografia">Biografía</label>
+          <input type="text" class="form-control" id="biografia" [(ngModel)]="personaje.biografia" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <label for="descripcionFisica">Descripción física</label>
+          <input type="text" class="form-control" id="descripcionFisica" [(ngModel)]="personaje.descripcionFisica" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <label for="descripcionLogica">Descripción lógica</label>
+          <input type="text" class="form-control" id="descripcionLogica" [(ngModel)]="personaje.descripcionLogica" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          _ Subida de imagen _
+        </td>
+      </tr>
+    </table>
+    <botones-guardado [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
+  </div>
+</div>
