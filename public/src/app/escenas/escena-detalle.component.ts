@@ -1,6 +1,5 @@
 ﻿import { Component, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { EscenaModel } from './models/EscenasModel';
 import { DetalleLiterarioModel } from './models/DetallesLiterariosModel';
@@ -9,6 +8,7 @@ import { DetalleTecnicoModel } from './models/DetallesTecnicosModel';
 import { RespuestaJson, AngularAPIHelper } from '../utils/AngularAPIHelper';
 import { ConfirmacionGuardado } from '../utils/confirmacion-guardado.component';
 import { BotonesGuardado, TipoOperacionGuardado } from '../utils/botones-guardado.component';
+import { GestorSubidaComponent, Fichero } from '../utils/gestor-subida.component';
 
 import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
 import * as jQuery from "jquery";
@@ -19,12 +19,12 @@ import * as jQuery from "jquery";
     selector: 'detalle-escena'
 })
 export class DetalleEscenaComponent {
+    fichero: Fichero;
     confirmacionGuardado: ConfirmacionGuardado;
     escena: EscenaModel;
     detalleLiterario: DetalleLiterarioModel;
     detalleTecnico: DetalleTecnicoModel;
     botonesGuardado: BotonesGuardado;
-    base64Imagen: SafeUrl;
     ng2sconfig: any = {
         hint: {
             words: ['apple', 'orange', 'watermelon', 'lemon'],
@@ -40,10 +40,11 @@ export class DetalleEscenaComponent {
         placeholder: 'Escribe tu texto...'
     };
 
-    constructor(private angularAPIHelper: AngularAPIHelper, private el: ElementRef, private sanitizer: DomSanitizer, private router: Router, private route: ActivatedRoute) {
+    constructor(private angularAPIHelper: AngularAPIHelper, private el: ElementRef, private router: Router, private route: ActivatedRoute) {
         this.botonesGuardado = new BotonesGuardado();
         this.botonesGuardado.mostrarCompleto(false);
         this.confirmacionGuardado = new ConfirmacionGuardado();
+        this.fichero = new Fichero();
         this.route.params.switchMap((params: Params) => this.angularAPIHelper.getById('escena', params['id'])).
             subscribe(response => this.cargarModelo(response),
             error => console.log('Error:' + error));
@@ -66,8 +67,9 @@ export class DetalleEscenaComponent {
                 this.angularAPIHelper.getById('detalleTecnico', this.escena.detalleTecnico)
                     .subscribe(response => {
                         this.detalleTecnico = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel;
-                        this.base64Imagen = this.sanitizer.bypassSecurityTrustUrl(DetalleTecnicoModel.getDataUrl(this.detalleTecnico));
                         this.detalleTecnico.texto = this.detalleTecnico.texto == "" ? new String('') : this.detalleTecnico.texto;
+                        this.fichero.base64 = this.detalleTecnico.imagen;
+                        this.fichero.mimeType = this.detalleTecnico.mimeType;
                     }, 
                     error => console.log('Error: ' + error));
             } else {
@@ -102,42 +104,11 @@ export class DetalleEscenaComponent {
             error => this.confirmacionGuardado.setEstadoGuardado(false));
     }
 
-    onSubidaImagen() {
-        let input: HTMLInputElement = this.el.nativeElement.querySelector('[id="imgTecnica"]');
-        if (input.files.length > 0) {
-            let reader = new FileReader();
-            let mimeType: string = input.files[0].type;
-            let size: number = input.files[0].size;
-            if (this.angularAPIHelper.mimeTypePermitido(mimeType) && this.angularAPIHelper.sizeOfFicheroAdecuado(size)) {
-                reader.onloadend = () => {
-                    let array = new Uint8Array(reader.result);
-                    let CHUNK_SZ = 0x8000;
-                    let c = [];
-                    for (var i = 0; i < array.length; i += CHUNK_SZ) {
-                        c.push(String.fromCharCode.apply(null, array.subarray(i, i + CHUNK_SZ)));
-                    }
-                    let arrayString = c.join("");
-                    this.detalleTecnico.imagen = btoa(arrayString);
-                    this.detalleTecnico.mimeType = mimeType; 
-                    this.base64Imagen = this.sanitizer.bypassSecurityTrustUrl(DetalleTecnicoModel.getDataUrl(this.detalleTecnico));
-                }
-                reader.readAsArrayBuffer(input.files[0]);
-            } else {
-                alert("Asegúrate de subir uno de los formatos permitidos en la aplicación (" + AngularAPIHelper.mimeTypesPermitidos +  "). Máximo " + AngularAPIHelper.maximoSizeByFichero + "  bytes.");
-            }
-        }
-    }
-
-    borrarImagen() {
-        this.detalleTecnico.imagen = "";
-    }
-
-    imagenSubida(): boolean {
-        return this.detalleTecnico.imagen != undefined && this.detalleTecnico.imagen != "";
-    }
-
     onAccionGuardado(event) {
         if (event == TipoOperacionGuardado.Guardar) {
+            this.detalleTecnico.imagen = this.fichero.base64;
+            this.detalleTecnico.mimeType = this.fichero.mimeType;
+            console.log(this.fichero);
             this.guardarCambios();
             this.confirmacionGuardado.setTimeoutRetirarAviso();
         } else if (event == TipoOperacionGuardado.Volver) {

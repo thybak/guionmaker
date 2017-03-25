@@ -6,11 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { ConfirmacionGuardadoComponent } from './confirmacion-guardado.component';
 import { ListaGenericaComponent } from './lista-generica.component';
 import { BotonesGuardadoComponent } from './botones-guardado.component';
+import { GestorSubidaComponent } from './gestor-subida.component';
 import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
 
 @NgModule({
-    declarations: [ConfirmacionGuardadoComponent, BotonesGuardadoComponent, Ng2Summernote, ListaGenericaComponent],
+    declarations: [ConfirmacionGuardadoComponent, BotonesGuardadoComponent, Ng2Summernote, ListaGenericaComponent, GestorSubidaComponent],
     imports: [CommonModule, FormsModule, RouterModule],
-    exports: [ConfirmacionGuardadoComponent, BotonesGuardadoComponent, Ng2Summernote, ListaGenericaComponent]
+    exports: [ConfirmacionGuardadoComponent, BotonesGuardadoComponent, Ng2Summernote, ListaGenericaComponent, GestorSubidaComponent]
 })
 export class UtilsModule { }

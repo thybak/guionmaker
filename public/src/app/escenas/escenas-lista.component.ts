@@ -55,7 +55,8 @@ export class EscenasListComponent {
     private generarHtmlImagen(detalle: any): string {
         let htmlImagen: string = "";
         if (detalle.imagen != undefined && detalle.mimeType != undefined) {
-            htmlImagen = "<img src=\"" + DetalleTecnicoModel.getDataUrl(detalle) + "\";base64,\" style=\"max-width: 50%; height: auto; margin: 0 auto;\" /><br />";
+
+            htmlImagen = "<img src=\"data:" + detalle.mimeType + ";base64, " + detalle.imagen + "\" style=\"max-height: 20em; width: auto; margin: 0 auto;\" /><br />";
         }
         return htmlImagen;
     }

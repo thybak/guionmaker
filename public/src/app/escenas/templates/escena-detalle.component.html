@@ -51,37 +51,7 @@
             <table class="table table-responsive">
                 <tr>
                     <td>
-                        <div class="row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4">
-                                <a class="thumbnail">
-                                    <div *ngIf="!imagenSubida()">
-                                        <i class="glyphicon glyphicon-picture" *ngIf="!imagenSubida()"></i> No existe una imagen asociada al detalle técnico.
-                                    </div>
-                                    <img [src]="base64Imagen" *ngIf="imagenSubida()" />
-                                </a>
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4">
-                                <input type="file" class="form-control" id="imgTecnica" accept=".jpg,.png,.jpeg" />
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4 text-center">
-                                <button type="button" class="btn btn-success" (click)="onSubidaImagen()"><i class="glyphicon glyphicon-upload"></i></button>
-                                <button type="button" class="btn btn-danger" (click)="borrarImagen()" *ngIf="imagenSubida()"><span class="glyphicon glyphicon-trash"></span></button>
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
+                      <gestor-subida [fichero]="fichero"></gestor-subida>
                     </td>
                 </tr>
                 <tr>

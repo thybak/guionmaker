@@ -14,7 +14,7 @@ export class Personaje {
             procedencia: String,
             biografia: String,
             descripcionFisica: String,
-            descripcionLogica: String,
+            descripcionPsicologica: String,
             imagen: String,
             mimeType: String,
             proyecto: { type: mongoose.Schema.Types.ObjectId, ref: Proyecto, required: true }

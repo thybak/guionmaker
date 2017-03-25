@@ -1,5 +1,5 @@
 ﻿import { Component, Input, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { AngularAPIHelper, RespuestaJson, PeticionJson, ResponseStatus } from './AngularAPIHelper';
 import { BotonesGuardado, TipoOperacionGuardado } from './botones-guardado.component';
@@ -38,7 +38,7 @@ export class ListaGenericaComponent implements OnInit {
         this.cargarElementos();
     }
 
-    constructor(private angularAPIHelper: AngularAPIHelper, private _location : Location) {
+    constructor(private angularAPIHelper: AngularAPIHelper, private router : Router) {
         this.botonesGuardado = new BotonesGuardado();
         this.botonesGuardado.mostrarSoloVolver();
     }
@@ -59,7 +59,7 @@ export class ListaGenericaComponent implements OnInit {
             .subscribe(response => {
                 let respuesta = response as RespuestaJson;
                 if (respuesta.estado == ResponseStatus.OK) {
-                    this.elementos.push(elemento);
+                    this.elementos.push(respuesta.insertado); // ya incluye el identificador generado en MongoDB.
                 }
             });
     }
@@ -68,11 +68,15 @@ export class ListaGenericaComponent implements OnInit {
         this.elementoAEliminar = elemento;
     }
 
+    eliminarElemento() {
+        this.angularAPIHelper.deleteById(this.listaGenerica.entidad, this.elementoAEliminar._id).subscribe(null, null, () => this.cargarElementos());
+    }
+
     onAccionGuardado(event) {
         if (event == TipoOperacionGuardado.Volver) {
-            this._location.back();
+            this.router.navigate(['/biblia']);
         } else if (event == TipoOperacionGuardado.Eliminar) {
-            alert('Intento de eliminación');
+            this.eliminarElemento();
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿"use strict";
 
 export class PersonajeModel {
+    _id: string;
     nombre: string;
     edad: number;
     procedencia: string;
-    biografia: string;
-    descripcionFisica: string;
-    descripcionLogica: string;
+    biografia: String;
+    descripcionFisica: String;
+    descripcionPsicologica: String;
     proyecto: string;
     imagen: string;
     mimeType: string;

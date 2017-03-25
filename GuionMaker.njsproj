@@ -137,6 +137,9 @@
     <Content Include="public\src\app\biblia\templates\personaje-detalle.component.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\src\app\utils\templates\gestor-subida.component.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\src\assets\apiconfig.json">
       <SubType>Code</SubType>
     </Content>
@@ -286,6 +289,9 @@
     <TypeScriptCompile Include="public\src\app\index.ts" />
     <TypeScriptCompile Include="public\src\app\utils\AngularAPIHelper.ts" />
     <TypeScriptCompile Include="public\src\app\utils\botones-guardado.component.ts" />
+    <TypeScriptCompile Include="public\src\app\utils\gestor-subida.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\utils\lista-generica.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

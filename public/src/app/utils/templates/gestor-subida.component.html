@@ -1,0 +1,27 @@
+﻿<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <a class="thumbnail">
+      <div *ngIf="!imagenSubida()">
+        <i class="glyphicon glyphicon-picture" *ngIf="!imagenSubida()"></i> No se ha subido ninguna imagen aún.
+      </div>
+      <img [src]="'data:'+fichero.mimeType+';base64,'+fichero.base64" *ngIf="imagenSubida()" class="imagenSubida" />
+    </a>
+  </div>
+  <div class="col-md-4"></div>
+</div>
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <input type="file" class="form-control" id="imgSubida" accept=".jpg,.png,.jpeg" />
+  </div>
+  <div class="col-md-4"></div>
+</div>
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4 text-center">
+    <button type="button" class="btn btn-success" (click)="onSubidaImagen()"><i class="glyphicon glyphicon-upload"></i> Subir imagen</button>
+    <button type="button" class="btn btn-danger" (click)="borrarImagen()" *ngIf="imagenSubida()"><span class="glyphicon glyphicon-trash"></span></button>
+  </div>
+  <div class="col-md-4"></div>
+</div>
