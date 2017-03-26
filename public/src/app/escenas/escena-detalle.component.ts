@@ -6,6 +6,7 @@ import { DetalleLiterarioModel } from './models/DetallesLiterariosModel';
 import { DetalleTecnicoModel } from './models/DetallesTecnicosModel';
 
 import { RespuestaJson, AngularAPIHelper } from '../utils/AngularAPIHelper';
+import { LocalStorageService } from '../utils/LocalStorageService';
 import { ConfirmacionGuardado } from '../utils/confirmacion-guardado.component';
 import { BotonesGuardado, TipoOperacionGuardado } from '../utils/botones-guardado.component';
 import { GestorSubidaComponent, Fichero } from '../utils/gestor-subida.component';
@@ -15,7 +16,7 @@ import * as jQuery from "jquery";
 
 @Component({
     templateUrl: './templates/escena-detalle.component.html',
-    providers: [AngularAPIHelper],
+    providers: [AngularAPIHelper, LocalStorageService],
     selector: 'detalle-escena'
 })
 export class DetalleEscenaComponent {
@@ -25,28 +26,54 @@ export class DetalleEscenaComponent {
     detalleLiterario: DetalleLiterarioModel;
     detalleTecnico: DetalleTecnicoModel;
     botonesGuardado: BotonesGuardado;
-    ng2sconfig: any = {
-        hint: {
-            words: ['apple', 'orange', 'watermelon', 'lemon'],
-            match: /\b(\w{1,})$/,
-            search: function (keyword, callback) {
-                callback(jQuery.grep(this.words, function (item) {
-                    return item.indexOf(keyword) === 0;
-                }));
-            }
-        },
-        minHeight: 200,
-        lang: 'es-ES',
-        placeholder: 'Escribe tu texto...'
-    };
+    ng2sconfig: any;
+    elementosBiblia: string[];
+    activarSugerencias: boolean;
 
-    constructor(private angularAPIHelper: AngularAPIHelper, private el: ElementRef, private router: Router, private route: ActivatedRoute) {
+    constructor(private angularAPIHelper: AngularAPIHelper, private el: ElementRef, private router: Router, private route: ActivatedRoute, private localStorageService: LocalStorageService) {
         this.botonesGuardado = new BotonesGuardado();
         this.botonesGuardado.mostrarCompleto(false);
         this.confirmacionGuardado = new ConfirmacionGuardado();
         this.fichero = new Fichero();
+        this.activarSugerencias = this.localStorageService.getPropiedad('activarSugerencias') == 'true';
         this.route.params.switchMap((params: Params) => this.angularAPIHelper.getById('escena', params['id'])).
-            subscribe(response => this.cargarModelo(response),
+            subscribe(response => {
+                this.cargarModelo(response);
+                let peticion = this.angularAPIHelper.buildPeticion({ proyecto: this.escena.proyecto }, {}, "nombre");
+                this.ng2sconfig = {
+                    hint: {
+                        elementosBiblia: [],
+                        activarSugerencias: this.activarSugerencias,
+                        match: /\b(\w{1,})$/,
+                        search: function (keyword, callback) {
+                            callback(jQuery.grep(this.elementosBiblia, (item) => {
+                                if (!this.activarSugerencias) {
+                                    return false;
+                                }
+                                return item.toLowerCase().indexOf(keyword.toLowerCase()) === 0;
+                            }));
+                        }
+                    },
+                    minHeight: 200,
+                    lang: 'es-ES',
+                    placeholder: 'Escribe tu texto...'
+                };
+                this.ng2sconfig.hint.activarSugerencias = this.activarSugerencias;
+                this.angularAPIHelper.postEntryOrFilter('personajesPorFiltro', JSON.stringify(peticion)).subscribe(response => {
+                    let nombrePersonajes = (response as RespuestaJson).consulta;
+                    if (nombrePersonajes != undefined) {
+                        this.rellenarAutocompletar(nombrePersonajes);
+                    }
+                });
+                this.angularAPIHelper.postEntryOrFilter('escenariosPorFiltro', JSON.stringify(peticion)).subscribe(response => {
+                    let nombreEscenarios = (response as RespuestaJson).consulta;
+                    if (nombreEscenarios != undefined) {
+                        this.rellenarAutocompletar(nombreEscenarios);
+                    }
+                });
+
+
+            },
             error => console.log('Error:' + error));
     }
 
@@ -70,7 +97,7 @@ export class DetalleEscenaComponent {
                         this.detalleTecnico.texto = this.detalleTecnico.texto == "" ? new String('') : this.detalleTecnico.texto;
                         this.fichero.base64 = this.detalleTecnico.imagen;
                         this.fichero.mimeType = this.detalleTecnico.mimeType;
-                    }, 
+                    },
                     error => console.log('Error: ' + error));
             } else {
                 this.detalleTecnico = new DetalleTecnicoModel();
@@ -104,11 +131,21 @@ export class DetalleEscenaComponent {
             error => this.confirmacionGuardado.setEstadoGuardado(false));
     }
 
+    private rellenarAutocompletar(elementos: any[]) {
+        for (let elemento of elementos) {
+            this.ng2sconfig.hint.elementosBiblia.push(elemento.nombre);
+        }
+    }
+
+    toggleSugerencias() {
+        this.ng2sconfig.hint.activarSugerencias = this.activarSugerencias;
+        this.localStorageService.setPropiedad('activarSugerencias', this.activarSugerencias.valueOf().toString());
+    }
+
     onAccionGuardado(event) {
         if (event == TipoOperacionGuardado.Guardar) {
             this.detalleTecnico.imagen = this.fichero.base64;
             this.detalleTecnico.mimeType = this.fichero.mimeType;
-            console.log(this.fichero);
             this.guardarCambios();
             this.confirmacionGuardado.setTimeoutRetirarAviso();
         } else if (event == TipoOperacionGuardado.Volver) {

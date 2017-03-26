@@ -21,6 +21,12 @@
                 </div>
                 <div class="col-md-2"></div>
             </div>
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-10">
+                <input data-toggle="toggle" [(ngModel)]="activarSugerencias" (change)="toggleSugerencias()" type="checkbox" id="sugerencias" /> <label for="sugerencias">Mostrar sugerencias</label>
+              </div>
+            </div>
         </div>
     </div>
     <div *ngIf="detalleLiterario != undefined" class="panel panel-primary">

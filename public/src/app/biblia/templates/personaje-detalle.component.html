@@ -1,43 +1,43 @@
 ﻿<confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>
-<div class="well" *ngIf="personaje != undefined">
+<div class="well" *ngIf="elemento != undefined">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      Detalle de personaje: {{personaje.nombre}}
+      <h2 class="panel-title">Detalle de personaje: {{elemento.nombre}}</h2>
     </div>
     <div class="panel-body">
       <table class="table table-responsive">
         <tr>
           <td>
             <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" [(ngModel)]="personaje.nombre" />
+            <input type="text" class="form-control" id="nombre" [(ngModel)]="elemento.nombre" />
           </td>
           <td>
             <label for="edad">Edad</label>
-            <input type="number" class="form-control" id="edad" [(ngModel)]="personaje.edad" />
+            <input type="number" class="form-control" id="edad" [(ngModel)]="elemento.edad" />
           </td>
         </tr>
         <tr>
           <td colspan="2">
             <label for="procedencia">Procedencia</label>
-            <input type="text" class="form-control" id="procedencia" [(ngModel)]="personaje.procedencia" />
+            <input type="text" class="form-control" id="procedencia" [(ngModel)]="elemento.procedencia" />
           </td>
         </tr>
         <tr>
           <td colspan="2">
             <label for="biografia">Biografía</label>
-            <ng2-summernote id="biografia" [(ngModel)]="personaje.biografia"></ng2-summernote>
+            <ng2-summernote id="biografia" [(ngModel)]="elemento.biografia"></ng2-summernote>
           </td>
         </tr>
         <tr>
           <td colspan="2">
             <label for="descripcionFisica">Descripción física</label>
-            <ng2-summernote id="descripcionFisica" [(ngModel)]="personaje.descripcionFisica"></ng2-summernote>
+            <ng2-summernote id="descripcionFisica" [(ngModel)]="elemento.descripcionFisica"></ng2-summernote>
           </td>
         </tr>
         <tr>
           <td colspan="2">
             <label for="descripcionPsicologica">Descripción psicológica</label>
-            <ng2-summernote id="descripcionPsicologica" [(ngModel)]="personaje.descripcionPsicologica"></ng2-summernote>
+            <ng2-summernote id="descripcionPsicologica" [(ngModel)]="elemento.descripcionPsicologica"></ng2-summernote>
           </td>
         </tr>
         <tr>
@@ -57,5 +57,4 @@
     <div class="col-md-4"></div>
   </div>
 </div>
-<div class="alert alert-warning" *ngIf="personaje == undefined"><i class="glyphicon glyphicon-warning-sign"></i> No se ha encontrado el registro que se intentaba cargar.</div>
 

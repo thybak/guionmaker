@@ -132,7 +132,7 @@ class APIHelper {
         let objReqBody = JSON.parse(reqBody);
         let sort = objReqBody.sort == undefined ? { "_id": "1" } : objReqBody.sort; // por omisión se ordena por _id
         let find = objReqBody.find == undefined ? { "_id": "1" } : objReqBody.find; // por omisión se busca el _id = 1 forzando error
-        model.find(find).sort(sort).exec(function (err, _res) {
+        model.find(find).sort(sort).select(objReqBody.select).exec(function (err, _res) {
             if (err) {
                 APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + reqBody + ". Más info: " + err);
             }

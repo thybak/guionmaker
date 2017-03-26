@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-12">
               <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary" (click)="onNuevoProyecto()" *ngIf="!mostrarCancelados"><i class="glyphicon glyphicon-plus"></i> Añadir proyecto</button>
+                <button type="button" class="btn btn-default" (click)="onNuevoProyecto()" *ngIf="!mostrarCancelados"><i class="glyphicon glyphicon-plus"></i> Añadir proyecto</button>
                 <button type="button" class="btn btn-default pull-right" (click)="toggleMostrarCancelados()" *ngIf="!mostrarCancelados">Mostrar cancelados</button>
                 <button type="button" class="btn btn-default pull-right" (click)="toggleMostrarCancelados()" *ngIf="mostrarCancelados">Ocultar cancelados</button>
               </div>

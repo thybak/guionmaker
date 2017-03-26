@@ -5,6 +5,7 @@ import { BibliaComponent } from './biblia.component';
 import { EscenariosListaComponent } from './escenarios-lista.component';
 import { PersonajesListaComponent } from './personajes-lista.component';
 import { DetallePersonajeComponent } from './personaje-detalle.component';
+import { DetalleEscenarioComponent } from './escenario-detalle.component';
 
 const bibliaRoutes: Routes =
     [
@@ -19,7 +20,13 @@ const bibliaRoutes: Routes =
                         { path: ':id', component: DetallePersonajeComponent }
                     ]
                 },
-                { path: 'escenarios', component: EscenariosListaComponent}
+                {
+                    path: 'escenarios',
+                    children: [
+                        { path: '', component: EscenariosListaComponent },
+                        { path: ':id', component: DetalleEscenarioComponent }
+                     ]
+                }
             ]
         }
     ];

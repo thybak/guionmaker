@@ -1,0 +1,44 @@
+﻿<confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>
+<div class="well" *ngIf="elemento != undefined">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2 class="panel-title">Detalle de escenario: {{elemento.nombre}}</h2>
+    </div>
+    <div class="panel-body">
+      <table class="table table-responsive">
+        <tr>
+          <td>
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" [(ngModel)]="elemento.nombre" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="ubicacion">Ubicación</label>
+            <ng2-summernote id="ubicacion" [(ngModel)]="elemento.ubicacion"></ng2-summernote>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="descripcion">Descripción</label>
+            <ng2-summernote id="descripcion" [(ngModel)]="elemento.descripcion"></ng2-summernote>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="imagen">Imagen del personaje</label>
+            <gestor-subida id="imagen" [fichero]="fichero"></gestor-subida>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-center">
+      <botones-guardado [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>
+

@@ -1,6 +1,7 @@
 ﻿"use strict";
 
 export class EscenarioModel {
+    _id: string;
     nombre: string;
     ubicacion: string;
     descripcion: string;

@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="karma.conf.js" />
     <Compile Include="protractor.conf.js" />
+    <Compile Include="public\src\assets\bootstrap-toggle\bootstrap-toggle.min.js" />
     <Compile Include="public\src\assets\bootstrap\js\bootstrap.js" />
     <Compile Include="public\src\assets\bootstrap\js\bootstrap.min.js" />
     <Compile Include="public\src\assets\bootstrap\js\npm.js" />
@@ -134,6 +135,7 @@
     <Compile Include="public\src\polyfills.js" />
     <Compile Include="public\src\test.js" />
     <Compile Include="routes\UsuarioRoute.ts" />
+    <Content Include="public\src\app\biblia\templates\escenario-detalle.component.html" />
     <Content Include="public\src\app\biblia\templates\personaje-detalle.component.html">
       <SubType>Code</SubType>
     </Content>
@@ -160,6 +162,8 @@
     <Content Include="public\src\app\utils\templates\lista-generica.component.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\src\assets\bootstrap-toggle\bootstrap-toggle.min.css" />
+    <Content Include="public\src\assets\bootstrap-toggle\bootstrap-toggle.min.js.map" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.css" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.min.css" />
@@ -221,6 +225,7 @@
     <Folder Include="public\src\app\templates\" />
     <Folder Include="public\src\app\utils\templates\" />
     <Folder Include="public\src\assets\" />
+    <Folder Include="public\src\assets\bootstrap-toggle\" />
     <Folder Include="public\src\assets\bootstrap\" />
     <Folder Include="public\src\assets\bootstrap\css\" />
     <Folder Include="public\src\assets\bootstrap\fonts\" />
@@ -249,7 +254,13 @@
     <TypeScriptCompile Include="public\src\app\biblia\biblia-routing.module.ts" />
     <TypeScriptCompile Include="public\src\app\biblia\biblia.component.ts" />
     <TypeScriptCompile Include="public\src\app\biblia\biblia.module.ts" />
+    <TypeScriptCompile Include="public\src\app\biblia\escenario-detalle.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\biblia\escenarios-lista.component.ts" />
+    <TypeScriptCompile Include="public\src\app\biblia\models\DetalleElementoBiblia.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\biblia\models\EscenariosModel.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

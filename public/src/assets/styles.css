@@ -42,3 +42,11 @@
   width: auto;
   max-height: 20em;
 }
+
+.modal {
+  z-index: 9999;
+}
+
+.rojoCorazon {
+  color: #dd0000;
+}

@@ -50,5 +50,6 @@ export class GestorSubidaComponent {
 
     borrarImagen() {
         this.fichero.base64 = "";
+        this.fichero.mimeType = "";
     }
 }

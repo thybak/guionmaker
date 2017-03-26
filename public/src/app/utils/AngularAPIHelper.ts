@@ -17,10 +17,12 @@ export class RespuestaJson {
 export class PeticionJson {
     find: any;
     sort: any;
+    select: string;
 
-    constructor(find, sort) {
+    constructor(find, sort, select: string) {
         this.find = find;
         this.sort = sort;
+        this.select = select;
     }
 }
 
@@ -52,8 +54,8 @@ export class AngularAPIHelper {
         return JSON.parse(response) as RespuestaJson;
     }
 
-    buildPeticion(find: any, sort: any): PeticionJson {
-        return new PeticionJson(find, sort);
+    buildPeticion(find: any, sort: any, select: string = ""): PeticionJson {
+        return new PeticionJson(find, sort, select);
     }
 
     getAll(entity: string) {
