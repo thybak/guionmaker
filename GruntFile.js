@@ -36,24 +36,6 @@ module.exports = function (grunt) {
                         [
                             '**/**'
                         ]
-                    },
-                    {
-                        expand: true,
-                        cwd: './bower_components/bootstrap-toggle/js',
-                        dest: './public/src/assets/bootstrap-toggle',
-                        src:
-                        [
-                            'bootstrap-toggle.min*'
-                        ]
-                    },
-                    {
-                        expand: true,
-                        cwd: './bower_components/bootstrap-toggle/css',
-                        dest: './public/src/assets/bootstrap-toggle',
-                        src:
-                        [
-                            'bootstrap-toggle.min*'
-                        ]
                     }
                 ]
             }

@@ -50,3 +50,26 @@
 .rojoCorazon {
   color: #dd0000;
 }
+
+.txtTituloPersonaje {
+  margin-left: 42.86%;
+  text-transform: uppercase;
+}
+
+.txtAcotacion {
+  margin-left: 35.71%;
+}
+
+.txtDialogo {
+  margin-left: 28.57%;
+  max-width: 40%;
+  word-wrap: break-word;
+}
+
+.txtNormal {
+  margin-left: 16.7%;
+}
+
+.note-editor {
+  font-family: 'Courier New', 'sans-serif';
+}

@@ -41,6 +41,9 @@ export class DetalleEscenaComponent {
                 this.cargarModelo(response);
                 let peticion = this.angularAPIHelper.buildPeticion({ proyecto: this.escena.proyecto }, {}, "nombre");
                 this.ng2sconfig = {
+                    addclass: {
+                        debug: false
+                    },
                     hint: {
                         elementosBiblia: [],
                         activarSugerencias: this.activarSugerencias,
@@ -56,7 +59,15 @@ export class DetalleEscenaComponent {
                     },
                     minHeight: 200,
                     lang: 'es-ES',
-                    placeholder: 'Escribe tu texto...'
+                    placeholder: 'Escribe tu texto...',
+                    toolbar: [
+                    ['style', ['addclass', 'fontname', 'clear']],
+                    ['fontstyle', ['bold', 'italic', 'paragraph']],
+                    ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']],
+                    ['extra', ['table', 'height']],
+                    ['misc', ['undo', 'redo', 'codeview']]
+                    ],
+                    fontNames: ['Courier New', 'Arial', 'Arial Black', 'Sans-serif', 'Serif']
                 };
                 this.ng2sconfig.hint.activarSugerencias = this.activarSugerencias;
                 this.angularAPIHelper.postEntryOrFilter('personajesPorFiltro', JSON.stringify(peticion)).subscribe(response => {

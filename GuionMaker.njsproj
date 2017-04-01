@@ -38,7 +38,6 @@
   <ItemGroup>
     <Compile Include="karma.conf.js" />
     <Compile Include="protractor.conf.js" />
-    <Compile Include="public\src\assets\bootstrap-toggle\bootstrap-toggle.min.js" />
     <Compile Include="public\src\assets\bootstrap\js\bootstrap.js" />
     <Compile Include="public\src\assets\bootstrap\js\bootstrap.min.js" />
     <Compile Include="public\src\assets\bootstrap\js\npm.js" />
@@ -121,6 +120,7 @@
     <Compile Include="public\src\assets\summernote\lang\summernote-zh-CN.min.js" />
     <Compile Include="public\src\assets\summernote\lang\summernote-zh-TW.js" />
     <Compile Include="public\src\assets\summernote\lang\summernote-zh-TW.min.js" />
+    <Compile Include="public\src\assets\summernote\plugin\addclass\summernote-ext-addclass.js" />
     <Compile Include="public\src\assets\summernote\plugin\databasic\summernote-ext-databasic.js" />
     <Compile Include="public\src\assets\summernote\plugin\databasic\summernote-ext-databasic.min.js" />
     <Compile Include="public\src\assets\summernote\plugin\hello\summernote-ext-hello.js" />
@@ -162,8 +162,6 @@
     <Content Include="public\src\app\utils\templates\lista-generica.component.html">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="public\src\assets\bootstrap-toggle\bootstrap-toggle.min.css" />
-    <Content Include="public\src\assets\bootstrap-toggle\bootstrap-toggle.min.js.map" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.css" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.min.css" />
@@ -182,6 +180,8 @@
     <Content Include="public\src\assets\summernote\font\summernote.eot" />
     <Content Include="public\src\assets\summernote\font\summernote.ttf" />
     <Content Include="public\src\assets\summernote\font\summernote.woff" />
+    <Content Include="public\src\assets\summernote\plugin\addclass\LICENSE" />
+    <Content Include="public\src\assets\summernote\plugin\addclass\README.md" />
     <Content Include="public\src\assets\summernote\plugin\databasic\summernote-ext-databasic.css" />
     <Content Include="public\src\assets\summernote\plugin\databasic\summernote-ext-databasic.min.css" />
     <Content Include="public\src\assets\summernote\summernote.css" />
@@ -225,7 +225,6 @@
     <Folder Include="public\src\app\templates\" />
     <Folder Include="public\src\app\utils\templates\" />
     <Folder Include="public\src\assets\" />
-    <Folder Include="public\src\assets\bootstrap-toggle\" />
     <Folder Include="public\src\assets\bootstrap\" />
     <Folder Include="public\src\assets\bootstrap\css\" />
     <Folder Include="public\src\assets\bootstrap\fonts\" />
@@ -235,6 +234,7 @@
     <Folder Include="public\src\assets\summernote\font\" />
     <Folder Include="public\src\assets\summernote\lang\" />
     <Folder Include="public\src\assets\summernote\plugin\" />
+    <Folder Include="public\src\assets\summernote\plugin\addclass\" />
     <Folder Include="public\src\assets\summernote\plugin\databasic\" />
     <Folder Include="public\src\assets\summernote\plugin\hello\" />
     <Folder Include="public\src\assets\summernote\plugin\specialchars\" />
