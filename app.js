@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const path = require("path");
 const cors = require("cors");
+const jwtes = require("express-jwt");
 const IndexRoute_1 = require("./routes/IndexRoute");
 const ProyectoRoute_1 = require("./routes/ProyectoRoute");
 const UsuarioRoute_1 = require("./routes/UsuarioRoute");
@@ -48,16 +49,18 @@ class Server {
         let _colaboracionesRoute = new ColaboracionRoute_1.ColaboracionRoute();
         let _escenariosRoute = new EscenarioRoute_1.EscenarioRoute();
         let _personajesRoute = new PersonajeRoute_1.PersonajeRoute();
+        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario/'] }));
         router.get('/api/proyectos', _proyectosRoute.getProyectos.bind(_proyectosRoute.getProyectos));
         router.post('/api/proyectosPorFiltro', _proyectosRoute.getProyectosByFilterAndSort.bind(_proyectosRoute.getProyectosByFilterAndSort));
         router.get('/api/proyecto/:id', _proyectosRoute.getProyectoById.bind(_proyectosRoute.getProyectoById));
         router.delete('/api/proyecto/:id', _proyectosRoute.deleteProyecto.bind(_proyectosRoute.deleteProyecto));
         router.post('/api/proyecto/', _proyectosRoute.addProyecto.bind(_proyectosRoute.addProyecto));
-        router.get('/api/usuarios', _usuariosRoute.getUsuarios.bind(_usuariosRoute.getUsuarios));
-        router.post('/api/usuariosPorFiltro', _usuariosRoute.getUsuariosByFilterAndSort.bind(_usuariosRoute.getUsuariosByFilterAndSort));
+        //router.get('/api/usuarios', _usuariosRoute.getUsuarios.bind(_usuariosRoute.getUsuarios));
+        //router.post('/api/usuariosPorFiltro', _usuariosRoute.getUsuariosByFilterAndSort.bind(_usuariosRoute.getUsuariosByFilterAndSort));
         router.post('/api/usuario/', _usuariosRoute.addUsuario.bind(_usuariosRoute.addUsuario));
-        router.get('/api/usuario/:id', _usuariosRoute.getUsuarioById.bind(_usuariosRoute.getUsuarioById));
-        router.delete('/api/usuario/:id', _usuariosRoute.deleteUsuario.bind(_usuariosRoute.deleteUsuario));
+        //router.get('/api/usuario/:id', _usuariosRoute.getUsuarioById.bind(_usuariosRoute.getUsuarioById));
+        //router.delete('/api/usuario/:id', _usuariosRoute.deleteUsuario.bind(_usuariosRoute.deleteUsuario));
+        router.post('/api/usuario/login', _usuariosRoute.login.bind(_usuariosRoute.login));
         router.get('/api/generos', _generosRoute.getGeneros.bind(_generosRoute.getGeneros));
         router.post('/api/genero/', _generosRoute.addGenero.bind(_generosRoute.addGenero));
         router.get('/api/genero/:id', _generosRoute.getGeneroById.bind(_generosRoute.getGeneroById));
@@ -112,6 +115,7 @@ class Server {
     }
     constructor() {
         this.config = require('./public/dist/assets/apiconfig.json');
+        this.config.secreto = "g423gj8f_GfsldGLPxcz";
         this.api = express();
         this.setConfig();
         require('mongoose').Promise = global.Promise;

@@ -9,6 +9,8 @@ class Usuario {
             nombreUsuario: String,
             pass: String
         });
+        this.schema.index({ nombreUsuario: 1 }, { unique: true });
+        this.schema.index({ email: 1 }, { unique: true });
         mongoose.model(Usuario.name, this.schema);
     }
 }

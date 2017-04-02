@@ -26,6 +26,12 @@ class APIHelper {
         respuesta.consulta = resultado;
         return respuesta;
     }
+    static buildJsonLogin(resultado) {
+        let respuesta = new RespuestaJson();
+        respuesta.estado = ResponseStatus.OK;
+        respuesta.login = resultado;
+        return respuesta;
+    }
     static buildJsonInsercion(resultado) {
         let respuesta = new RespuestaJson();
         respuesta.estado = ResponseStatus.OK;

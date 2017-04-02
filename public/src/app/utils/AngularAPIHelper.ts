@@ -1,6 +1,7 @@
-﻿import { Http, Response } from '@angular/http';
+﻿import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { LocalStorageService } from './LocalStorageService';
 
 export enum ResponseStatus {
     OK = 0,
@@ -11,6 +12,7 @@ export class RespuestaJson {
     estado: ResponseStatus;
     error: String;
     consulta: any[];
+    login: any;
     insertado: any;
 }
 
@@ -50,6 +52,12 @@ export class AngularAPIHelper {
             });
     }
 
+    usuarioLogeado(localStorageService: LocalStorageService) {
+        let usuario = localStorageService.getPropiedad('usuarioLogeado');
+        let token = localStorageService.getPropiedad('tokenUsuario');
+        return token != undefined && usuario != undefined;
+    }
+
     parse(response: string): RespuestaJson {
         return JSON.parse(response) as RespuestaJson;
     }
@@ -58,20 +66,30 @@ export class AngularAPIHelper {
         return new PeticionJson(find, sort, select);
     }
 
+    crearCabeceraAuth() : RequestOptions {
+        let requestOptions: RequestOptions = null;
+        let token = localStorage.getItem('tokenUsuario');
+        if (token != undefined){
+            let headers: Headers = new Headers({ 'Authorization': 'Bearer ' + token });
+            requestOptions = new RequestOptions({ headers: headers });
+        }
+        return requestOptions;
+    }
+
     getAll(entity: string) {
-        return this.http.get(AngularAPIHelper.URL + entity).map(response => this.parse(response.text())).catch(this.handleError);
+        return this.http.get(AngularAPIHelper.URL + entity, this.crearCabeceraAuth()).map(response => this.parse(response.text())).catch(this.handleError);
     }
 
     getById(entity: string, id: string) {
-        return this.http.get(AngularAPIHelper.URL + entity + "/" + id).map(response => this.parse(response.text())).catch(this.handleError);
+        return this.http.get(AngularAPIHelper.URL + entity + "/" + id, this.crearCabeceraAuth()).map(response => this.parse(response.text())).catch(this.handleError);
     }
 
     deleteById(entity: string, id: string) {
-        return this.http.delete(AngularAPIHelper.URL + entity + '/' + id).map(response => this.parse(response.text())).catch(this.handleError);
+        return this.http.delete(AngularAPIHelper.URL + entity + '/' + id, this.crearCabeceraAuth()).map(response => this.parse(response.text())).catch(this.handleError);
     }
 
     postEntryOrFilter(entity: string, entryOrFilter: string) {
-        return this.http.post(AngularAPIHelper.URL + entity, JSON.parse(entryOrFilter)).map(response => this.parse(response.text())).catch(this.handleError);
+        return this.http.post(AngularAPIHelper.URL + entity, JSON.parse(entryOrFilter), this.crearCabeceraAuth()).map(response => this.parse(response.text())).catch(this.handleError);
     }
 
     mimeTypePermitido(mime: string): boolean {

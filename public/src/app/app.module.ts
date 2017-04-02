@@ -12,12 +12,14 @@ import { AngularAPIHelper } from './utils/AngularAPIHelper';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './pageNotFound.component';
 import { IndexComponent } from './index.component';
+import { LoginComponent } from './login.component';
+import { RegistroComponent } from './registro.component';
 
 export function cargarConfiguracion(api: AngularAPIHelper): Function {
     return () => api.cargarConfiguracion();
 }
 @NgModule({
-    declarations: [ AppComponent, PageNotFoundComponent, IndexComponent ],
+    declarations: [ AppComponent, PageNotFoundComponent, IndexComponent, LoginComponent, RegistroComponent ],
     imports: [
         BrowserModule,
         FormsModule,

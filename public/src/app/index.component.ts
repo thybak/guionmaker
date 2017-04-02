@@ -1,4 +1,5 @@
 ﻿import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProyectoModel } from './proyectos/models/ProyectosModel';
 import { AngularAPIHelper, RespuestaJson } from './utils/AngularAPIHelper';
 import { LocalStorageService } from './utils/LocalStorageService';
@@ -11,16 +12,20 @@ export class IndexComponent {
     proyectos: ProyectoModel[];
     proyectoActual: string;
 
-    constructor(private angularAPIHelper: AngularAPIHelper, private localStorageService: LocalStorageService) {
-        this.setUsuarioActual();
-        ProyectoModel.getProyectosByAutorAndEstado(this.localStorageService.getPropiedad('usuarioLogeado'), false, angularAPIHelper).subscribe( 
-            response => {
-                this.proyectos = (response as RespuestaJson).consulta as ProyectoModel[];
-                this.proyectoActual = localStorage.getItem('proyectoActual');
-                if (this.proyectoActual == null && this.proyectos != undefined && this.proyectos.length > 0) {
-                    this.proyectoActual = this.proyectos[0]._id;
-                }
-            });
+    constructor(private angularAPIHelper: AngularAPIHelper, private localStorageService: LocalStorageService, private router: Router) {
+        if (this.angularAPIHelper.usuarioLogeado(this.localStorageService)) {
+            ProyectoModel.getProyectosByAutorAndEstado(this.localStorageService.getPropiedad('usuarioLogeado'), false, angularAPIHelper).subscribe(
+                response => {
+                    this.proyectos = (response as RespuestaJson).consulta as ProyectoModel[];
+                    this.proyectoActual = localStorage.getItem('proyectoActual');
+                    if (this.proyectoActual == null && this.proyectos != undefined && this.proyectos.length > 0) {
+                        this.proyectoActual = this.proyectos[0]._id;
+                    }
+                });
+        } else {
+            this.router.navigate(['login']);
+        }
+
     }
 
     setProyectoActual() {
@@ -31,7 +36,5 @@ export class IndexComponent {
         }
     }
 
-    setUsuarioActual() {
-        this.localStorageService.setPropiedad('usuarioLogeado', '582e0dbffb1e5a33184cdf39');
-    }
+    
 }

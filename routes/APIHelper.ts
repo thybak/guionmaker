@@ -1,6 +1,7 @@
 ﻿"use strict";
 import * as mongoose from "mongoose";
 import * as express from "express";
+import { RespuestaLogin } from "../models/Utils";
 
 enum ResponseStatus {
     OK = 0,
@@ -10,6 +11,7 @@ enum ResponseStatus {
 class RespuestaJson {
     estado: ResponseStatus;
     error: String;
+    login: RespuestaLogin;
     consulta: mongoose.Document[];
     insertado: mongoose.Document;
 }
@@ -21,24 +23,30 @@ class PeticionJson {
 }
 
 export class APIHelper {
-    private static buildJsonGeneric(estado: ResponseStatus) {
+    public static buildJsonGeneric(estado: ResponseStatus) {
         let respuesta: RespuestaJson = new RespuestaJson();
         respuesta.estado = estado;
         return respuesta;
     }
-    private static buildJsonError(mensaje: String) {
+    public static buildJsonError(mensaje: String) {
         let respuesta: RespuestaJson = new RespuestaJson();
         respuesta.estado = ResponseStatus.KO;
         respuesta.error = mensaje;
         return respuesta;
     }
-    private static buildJsonConsulta(resultado: mongoose.Document[]) {
+    public static buildJsonConsulta(resultado: mongoose.Document[]) {
         let respuesta: RespuestaJson = new RespuestaJson();
         respuesta.estado = ResponseStatus.OK;
         respuesta.consulta = resultado;
         return respuesta;
     }
-    private static buildJsonInsercion(resultado: mongoose.Document) {
+    public static buildJsonLogin(resultado: RespuestaLogin) {
+        let respuesta: RespuestaJson = new RespuestaJson();
+        respuesta.estado = ResponseStatus.OK;
+        respuesta.login = resultado;
+        return respuesta;
+    }
+    public static buildJsonInsercion(resultado: mongoose.Document) {
         let respuesta: RespuestaJson = new RespuestaJson();
         respuesta.estado = ResponseStatus.OK;
         respuesta.insertado = resultado;

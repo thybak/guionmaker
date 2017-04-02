@@ -139,6 +139,10 @@
     <Content Include="public\src\app\biblia\templates\personaje-detalle.component.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\src\app\templates\registro.component.html" />
+    <Content Include="public\src\app\templates\login.component.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\src\app\utils\templates\gestor-subida.component.html">
       <SubType>Code</SubType>
     </Content>
@@ -201,6 +205,27 @@
     <Compile Include="models\Usuarios.ts" />
     <Content Include="tslint.json" />
     <Content Include="typings.json" />
+    <Content Include="typings\globals\angular\typings.json" />
+    <Content Include="typings\globals\body-parser\typings.json" />
+    <Content Include="typings\globals\cookie-parser\typings.json" />
+    <Content Include="typings\globals\cors\typings.json" />
+    <Content Include="typings\globals\debug\typings.json" />
+    <Content Include="typings\globals\ejs\typings.json" />
+    <Content Include="typings\globals\express-serve-static-core\typings.json" />
+    <Content Include="typings\globals\express\typings.json" />
+    <Content Include="typings\globals\jade\typings.json" />
+    <Content Include="typings\globals\mime\typings.json" />
+    <Content Include="typings\globals\mongodb\typings.json" />
+    <Content Include="typings\globals\mongoose\typings.json" />
+    <Content Include="typings\globals\morgan\typings.json" />
+    <Content Include="typings\globals\node\typings.json" />
+    <Content Include="typings\globals\serve-favicon\typings.json" />
+    <Content Include="typings\globals\serve-static\typings.json" />
+    <Content Include="typings\globals\typescript\typings.json" />
+    <Content Include="typings\modules\ejs\typings.json" />
+    <Content Include="typings\modules\express-jwt\typings.json" />
+    <Content Include="typings\modules\express\typings.json" />
+    <Content Include="typings\modules\jsonwebtoken\typings.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="models" />
@@ -240,6 +265,30 @@
     <Folder Include="public\src\assets\summernote\plugin\specialchars\" />
     <Folder Include="public\src\environments\" />
     <Folder Include="routes" />
+    <Folder Include="typings\" />
+    <Folder Include="typings\globals\" />
+    <Folder Include="typings\globals\angular\" />
+    <Folder Include="typings\globals\body-parser\" />
+    <Folder Include="typings\globals\cookie-parser\" />
+    <Folder Include="typings\globals\cors\" />
+    <Folder Include="typings\globals\debug\" />
+    <Folder Include="typings\globals\ejs\" />
+    <Folder Include="typings\globals\express-serve-static-core\" />
+    <Folder Include="typings\globals\express\" />
+    <Folder Include="typings\globals\jade\" />
+    <Folder Include="typings\globals\mime\" />
+    <Folder Include="typings\globals\mongodb\" />
+    <Folder Include="typings\globals\mongoose\" />
+    <Folder Include="typings\globals\morgan\" />
+    <Folder Include="typings\globals\node\" />
+    <Folder Include="typings\globals\serve-favicon\" />
+    <Folder Include="typings\globals\serve-static\" />
+    <Folder Include="typings\globals\typescript\" />
+    <Folder Include="typings\modules\" />
+    <Folder Include="typings\modules\ejs\" />
+    <Folder Include="typings\modules\express-jwt\" />
+    <Folder Include="typings\modules\express\" />
+    <Folder Include="typings\modules\jsonwebtoken\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
@@ -251,6 +300,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="models\Plantillas.ts" />
+    <TypeScriptCompile Include="models\Utils.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\biblia\biblia-routing.module.ts" />
     <TypeScriptCompile Include="public\src\app\biblia\biblia.component.ts" />
     <TypeScriptCompile Include="public\src\app\biblia\biblia.module.ts" />
@@ -280,6 +332,9 @@
     <TypeScriptCompile Include="public\src\app\escenas\escenas-routing.module.ts" />
     <TypeScriptCompile Include="public\src\app\escenas\escenas.module.ts" />
     <TypeScriptCompile Include="public\src\app\index.component.ts" />
+    <TypeScriptCompile Include="public\src\app\login.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\pageNotFound.component.ts" />
     <TypeScriptCompile Include="public\src\app\plantillas\models\PlantillasModel.ts" />
     <TypeScriptCompile Include="public\src\app\proyectos\gestor-colaboraciones.component.ts" />
@@ -291,6 +346,9 @@
     <TypeScriptCompile Include="public\src\app\proyectos\proyectos-lista.component.ts" />
     <TypeScriptCompile Include="public\src\app\proyectos\proyectos-routing.module.ts" />
     <TypeScriptCompile Include="public\src\app\proyectos\proyectos.module.ts" />
+    <TypeScriptCompile Include="public\src\app\registro.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\usuarios\models\UsuarioModel.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -333,6 +391,28 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="routes\PlantillaRoute.ts" />
     <TypeScriptCompile Include="routes\ProyectoRoute.ts" />
+    <TypeScriptCompile Include="typings\globals\angular\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\body-parser\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\cookie-parser\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\cors\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\debug\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\ejs\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\express-serve-static-core\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\express\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\jade\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\mime\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\mongodb\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\mongoose\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\morgan\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\node\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\serve-favicon\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\serve-static\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\typescript\index.d.ts" />
+    <TypeScriptCompile Include="typings\index.d.ts" />
+    <TypeScriptCompile Include="typings\modules\ejs\index.d.ts" />
+    <TypeScriptCompile Include="typings\modules\express-jwt\index.d.ts" />
+    <TypeScriptCompile Include="typings\modules\express\index.d.ts" />
+    <TypeScriptCompile Include="typings\modules\jsonwebtoken\index.d.ts" />
     <TypeScriptCompile Include="_all.d.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />

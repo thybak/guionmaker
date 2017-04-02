@@ -1,0 +1,27 @@
+﻿<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h1 class="panel-title">Inicia sesión en GuionMaker</h1>
+  </div>
+  <div class="panel-body">
+    <p>Para comenzar a trabajar en GuionMaker debes iniciar sesión con tu cuenta:</p>
+    <div class="alert alert-danger" *ngIf="error">
+      <p>El usuario y contraseña introducidos no existen, por lo que no has podido iniciar sesión.</p>
+    </div>
+    <table class="table table-responsive">
+      <tr>
+        <td><label for="usuario">Usuario:</label></td>
+        <td><input type="text" [(ngModel)]="peticion.nombreUsuario" id="usuario" class="form-control" /></td>
+      </tr>
+      <tr>
+        <td><label for="pass">Contraseña:</label></td>
+        <td><input type="password" [(ngModel)]="peticion.pass" id="pass" class="form-control" /></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button type="button" class="btn btn-primary" (click)="onLogin()"><i class=""></i> Iniciar sesión</button>
+        </td>
+      </tr>
+    </table>
+    <p>¿Aun no tienes cuenta? Deberías probar <a href="/registro">a crearte una.</a></p>
+  </div>
+</div>

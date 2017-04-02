@@ -12,6 +12,9 @@
   },
   "dependencies": {
     "ejs": "registry:dt/ejs#2.3.3+20161128184045",
-    "express": "registry:dt/express#4.0.0+20170118060322"
+    "express": "registry:dt/express#4.0.0+20170118060322",
+    "express-jwt": "registry:dt/express-jwt#0.0.0+20170127155847",
+    "jsonwebtoken": "registry:dt/jsonwebtoken#7.2.0+20161229235100",
+    "jssha": "registry:dt/jssha#0.0.0+20160620211513"
   }
 }
