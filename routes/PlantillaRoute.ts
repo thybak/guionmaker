@@ -15,19 +15,19 @@ module Route {
         }
 
         public getPlantillas(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getAll(PlantillaRoute.model, res);
+            APIHelper.getAll(PlantillaRoute.model, req, res);
         }
         public getPlantillaById(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getById(PlantillaRoute.model, req.params.id, res);
+            APIHelper.getById(PlantillaRoute.model, req, res);
         }
         public addPlantilla(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.add(PlantillaRoute.model, req, res);
         }
         public deletePlantilla(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.delete(PlantillaRoute.model, req.params.id, res);
+            APIHelper.delete(PlantillaRoute.model, req, res);
         }
         public getPlantillasByFilterAndSort(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getByFilterAndSort(PlantillaRoute.model, JSON.stringify(req.body), res);
+            APIHelper.getByFilterAndSort(PlantillaRoute.model, req, res);
         }
     }
 }

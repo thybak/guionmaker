@@ -9,7 +9,7 @@ class Escenario {
             descripcion: String,
             imagen: String,
             mimeType: String,
-            proyecto: { type: mongoose.Schema.Types.ObjectId, ref: Proyectos_1.Proyecto, required: true }
+            proyecto: { type: mongoose.Schema.Types.ObjectId, ref: Proyectos_1.Proyecto.name, required: true }
         });
         mongoose.model(Escenario.name, this.schema);
     }

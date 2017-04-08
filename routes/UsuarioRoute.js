@@ -14,29 +14,31 @@ var Route;
             return UsuarioRoute._model;
         }
         getUsuarios(req, res, next) {
-            APIHelper_1.APIHelper.getAll(UsuarioRoute.model, res);
+            APIHelper_1.APIHelper.getAll(UsuarioRoute.model, req, res);
         }
         addUsuario(req, res, next) {
             APIHelper_1.APIHelper.add(UsuarioRoute.model, req, res);
         }
         getUsuarioById(req, res, next) {
-            APIHelper_1.APIHelper.getById(UsuarioRoute.model, req.params.id, res);
+            let filtro = new APIHelper_1.PeticionJson();
+            filtro.select = "_id nombreUsuario email";
+            APIHelper_1.APIHelper.getById(UsuarioRoute.model, req, res, filtro);
         }
         deleteUsuario(req, res, next) {
-            APIHelper_1.APIHelper.delete(UsuarioRoute.model, req.params.id, res);
+            APIHelper_1.APIHelper.delete(UsuarioRoute.model, req, res);
         }
         getUsuariosByFilterAndSort(req, res, next) {
-            APIHelper_1.APIHelper.getByFilterAndSort(UsuarioRoute.model, JSON.stringify(req.body), res);
+            APIHelper_1.APIHelper.getByFilterAndSort(UsuarioRoute.model, req, res);
         }
         login(req, res, next) {
             if (req.body != undefined) {
-                console.log(req.body);
                 UsuarioRoute.model.find({ 'nombreUsuario': req.body.nombreUsuario, 'pass': req.body.pass }).exec(function (err, _res) {
                     if (err) {
                         res.json(APIHelper_1.APIHelper.buildJsonError("Ha habido un error iniciando sesión para el usuario: " + req.body.nombreUsuario));
                     }
                     else {
                         if (_res.length == 1) {
+                            req.body.usuarioLogeado = _res[0]._id;
                             let respuestaLogin = new Utils_1.RespuestaLogin(jsonwebtoken.sign(req.body, "g423gj8f_GfsldGLPxcz"), _res[0]._id);
                             res.json(APIHelper_1.APIHelper.buildJsonLogin(respuestaLogin));
                         }

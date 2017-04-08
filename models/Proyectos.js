@@ -8,9 +8,9 @@ class Proyecto {
         this.schema = new mongoose.Schema({
             nombre: String,
             sinopsis: String,
-            genero: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Generos_1.Genero.name).schema },
-            clasificacion: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Clasificaciones_1.Clasificacion.name).schema },
-            autor: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Usuarios_1.Usuario.name).schema },
+            genero: { type: mongoose.Schema.Types.ObjectId, ref: Generos_1.Genero.name },
+            clasificacion: { type: mongoose.Schema.Types.ObjectId, ref: Clasificaciones_1.Clasificacion.name },
+            autor: { type: mongoose.Schema.Types.ObjectId, ref: Usuarios_1.Usuario.name },
             publico: Boolean,
             fechaCreacion: { type: Date, default: Date.now() },
             fechaModificacion: { type: Date },

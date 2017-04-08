@@ -2,7 +2,8 @@
 import * as express from "express";
 import * as mongoose from "mongoose";
 import { Escena } from "../models/Escenas";
-import { APIHelper } from "./APIHelper";
+import { APIHelper, PeticionJson } from "./APIHelper";
+import { ProyectoRoute } from "./ProyectoRoute";
 
 module Route {
     export class EscenaRoute {
@@ -15,22 +16,22 @@ module Route {
         }
 
         public getEscenas(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getAll(EscenaRoute.model, res);
+            APIHelper.getAll(EscenaRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public getEscenasByFilterAndSort(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getByFilterAndSort(EscenaRoute.model, JSON.stringify(req.body), res);
+            APIHelper.getByFilterAndSort(EscenaRoute.model, ProyectoRoute.alterarFiltroConProyecto(req), res);
         }
         public getEscenaById(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getById(EscenaRoute.model, req.params.id, res);
+            APIHelper.getById(EscenaRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public addEscena(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.add(EscenaRoute.model, req, res);
+            APIHelper.add(EscenaRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public deleteEscena(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.delete(EscenaRoute.model, req.params.id, res);
+            APIHelper.delete(EscenaRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public updateEscena(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.update(EscenaRoute.model, req, res);
+            APIHelper.update(EscenaRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
     }
 }

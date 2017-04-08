@@ -12,16 +12,16 @@ var Route;
             return DetalleLiterarioRoute._model;
         }
         getDetallesLiterarios(req, res, next) {
-            APIHelper_1.APIHelper.getAll(DetalleLiterarioRoute.model, res);
+            APIHelper_1.APIHelper.getAll(DetalleLiterarioRoute.model, req, res);
         }
         addDetalleLiterario(req, res, next) {
             APIHelper_1.APIHelper.add(DetalleLiterarioRoute.model, req, res);
         }
         getDetalleLiterarioById(req, res, next) {
-            APIHelper_1.APIHelper.getById(DetalleLiterarioRoute.model, req.params.id, res);
+            APIHelper_1.APIHelper.getById(DetalleLiterarioRoute.model, req, res);
         }
         deleteDetalleLiterario(req, res, next) {
-            APIHelper_1.APIHelper.delete(DetalleLiterarioRoute.model, req.params.id, res);
+            APIHelper_1.APIHelper.delete(DetalleLiterarioRoute.model, req, res);
         }
     }
     Route.DetalleLiterarioRoute = DetalleLiterarioRoute;

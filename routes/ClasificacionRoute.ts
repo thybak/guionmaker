@@ -15,16 +15,16 @@ module Route {
         }
 
         public getClasificaciones(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getAll(ClasificacionRoute.model, res);
+            APIHelper.getAll(ClasificacionRoute.model, req, res);
         }
         public addClasificacion(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.add(ClasificacionRoute.model, req, res);
         }
         public getClasificacionById(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getById(ClasificacionRoute.model, req.params.id, res);
+            APIHelper.getById(ClasificacionRoute.model, req, res);
         }
         public deleteClasificacion(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.delete(ClasificacionRoute.model, req.params.id, res);
+            APIHelper.delete(ClasificacionRoute.model, req, res);
         }
     }
 }

@@ -73,7 +73,7 @@ class Server {
         //router.get('/api/usuarios', _usuariosRoute.getUsuarios.bind(_usuariosRoute.getUsuarios));
         //router.post('/api/usuariosPorFiltro', _usuariosRoute.getUsuariosByFilterAndSort.bind(_usuariosRoute.getUsuariosByFilterAndSort));
         router.post('/api/usuario/', _usuariosRoute.addUsuario.bind(_usuariosRoute.addUsuario));
-        //router.get('/api/usuario/:id', _usuariosRoute.getUsuarioById.bind(_usuariosRoute.getUsuarioById));
+        router.get('/api/usuario/:id', _usuariosRoute.getUsuarioById.bind(_usuariosRoute.getUsuarioById));
         //router.delete('/api/usuario/:id', _usuariosRoute.deleteUsuario.bind(_usuariosRoute.deleteUsuario));
         router.post('/api/usuario/login', _usuariosRoute.login.bind(_usuariosRoute.login));
 
@@ -146,9 +146,8 @@ class Server {
         this.api = express();
         this.setConfig();
         require('mongoose').Promise = global.Promise;
-        console.log(this.config);
-        
         mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName);
+        console.log(this.config);
     }
 }
 

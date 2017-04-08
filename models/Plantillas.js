@@ -11,7 +11,7 @@ class Plantilla {
         this.schema = new mongoose.Schema({
             html: String,
             tipo: Number,
-            autor: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Usuarios_1.Usuario.name).schema },
+            autor: { type: mongoose.Schema.Types.ObjectId, ref: Usuarios_1.Usuario.name },
             fechaCreacion: { type: Date, default: Date.now },
             fechaModificacion: Date
         });

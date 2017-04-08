@@ -12,16 +12,16 @@ var Route;
             return GeneroRoute._model;
         }
         getGeneros(req, res, next) {
-            APIHelper_1.APIHelper.getAll(GeneroRoute.model, res);
+            APIHelper_1.APIHelper.getAll(GeneroRoute.model, req, res);
         }
         addGenero(req, res, next) {
             APIHelper_1.APIHelper.add(GeneroRoute.model, req, res);
         }
         getGeneroById(req, res, next) {
-            APIHelper_1.APIHelper.getById(GeneroRoute.model, req.params.id, res);
+            APIHelper_1.APIHelper.getById(GeneroRoute.model, req, res);
         }
         deleteGenero(req, res, next) {
-            APIHelper_1.APIHelper.delete(GeneroRoute.model, req.params.id, res);
+            APIHelper_1.APIHelper.delete(GeneroRoute.model, req, res);
         }
     }
     Route.GeneroRoute = GeneroRoute;

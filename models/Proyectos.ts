@@ -13,9 +13,9 @@ export class Proyecto {
         this.schema = new mongoose.Schema({
             nombre: String,
             sinopsis: String,
-            genero: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Genero.name).schema },
-            clasificacion: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Clasificacion.name).schema },
-            autor: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Usuario.name).schema },
+            genero: { type: mongoose.Schema.Types.ObjectId, ref: Genero.name },
+            clasificacion: { type: mongoose.Schema.Types.ObjectId, ref: Clasificacion.name },
+            autor: { type: mongoose.Schema.Types.ObjectId, ref: Usuario.name },
             publico: Boolean,
             fechaCreacion: { type: Date, default: Date.now() },
             fechaModificacion: { type: Date },

@@ -15,16 +15,16 @@ module Route {
         }
 
         public getGeneros(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getAll(GeneroRoute.model, res);
+            APIHelper.getAll(GeneroRoute.model, req, res);
         }
         public addGenero(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.add(GeneroRoute.model, req, res);
         }
         public getGeneroById(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getById(GeneroRoute.model, req.params.id, res);
+            APIHelper.getById(GeneroRoute.model, req, res);
         }
         public deleteGenero(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.delete(GeneroRoute.model, req.params.id, res);
+            APIHelper.delete(GeneroRoute.model, req, res);
         }
     }
 }

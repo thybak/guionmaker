@@ -15,16 +15,16 @@ module Route {
         }
 
         public getDetallesLiterarios(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getAll(DetalleLiterarioRoute.model, res);
+            APIHelper.getAll(DetalleLiterarioRoute.model, req, res);
         }
         public addDetalleLiterario(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.add(DetalleLiterarioRoute.model, req, res);
         }
         public getDetalleLiterarioById(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getById(DetalleLiterarioRoute.model, req.params.id, res);
+            APIHelper.getById(DetalleLiterarioRoute.model, req, res);
         }
         public deleteDetalleLiterario(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.delete(DetalleLiterarioRoute.model, req.params.id, res);
+            APIHelper.delete(DetalleLiterarioRoute.model, req, res);
         }
     }
 }

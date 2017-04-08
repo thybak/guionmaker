@@ -12,16 +12,16 @@ var Route;
             return ClasificacionRoute._model;
         }
         getClasificaciones(req, res, next) {
-            APIHelper_1.APIHelper.getAll(ClasificacionRoute.model, res);
+            APIHelper_1.APIHelper.getAll(ClasificacionRoute.model, req, res);
         }
         addClasificacion(req, res, next) {
             APIHelper_1.APIHelper.add(ClasificacionRoute.model, req, res);
         }
         getClasificacionById(req, res, next) {
-            APIHelper_1.APIHelper.getById(ClasificacionRoute.model, req.params.id, res);
+            APIHelper_1.APIHelper.getById(ClasificacionRoute.model, req, res);
         }
         deleteClasificacion(req, res, next) {
-            APIHelper_1.APIHelper.delete(ClasificacionRoute.model, req.params.id, res);
+            APIHelper_1.APIHelper.delete(ClasificacionRoute.model, req, res);
         }
     }
     Route.ClasificacionRoute = ClasificacionRoute;

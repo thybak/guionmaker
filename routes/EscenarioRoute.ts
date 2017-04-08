@@ -3,6 +3,7 @@ import * as express from "express";
 import * as mongoose from "mongoose";
 import { Escenario } from "../models/Escenarios";
 import { APIHelper } from "./APIHelper";
+import { ProyectoRoute } from "./ProyectoRoute";
 
 module Route {
     export class EscenarioRoute {
@@ -15,19 +16,19 @@ module Route {
         }
 
         public getEscenarios(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getAll(EscenarioRoute.model, res);
+            APIHelper.getAll(EscenarioRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public getEscenarioById(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getById(EscenarioRoute.model, req.params.id, res);
+            APIHelper.getById(EscenarioRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public addEscenario(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.add(EscenarioRoute.model, req, res);
+            APIHelper.add(EscenarioRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public deleteEscenario(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.delete(EscenarioRoute.model, req.params.id, res);
+            APIHelper.delete(EscenarioRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public getEscenariosByFilterAndSort(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getByFilterAndSort(EscenarioRoute.model, JSON.stringify(req.body), res);
+            APIHelper.getByFilterAndSort(EscenarioRoute.model, ProyectoRoute.alterarFiltroConProyecto(req), res);
         }
     }
 }

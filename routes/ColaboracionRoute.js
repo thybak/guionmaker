@@ -12,19 +12,19 @@ var Route;
             return ColaboracionRoute._model;
         }
         getColaboraciones(req, res, next) {
-            APIHelper_1.APIHelper.getAll(ColaboracionRoute.model, res);
+            APIHelper_1.APIHelper.getAll(ColaboracionRoute.model, req, res);
         }
         addColaboracion(req, res, next) {
             APIHelper_1.APIHelper.add(ColaboracionRoute.model, req, res);
         }
         getColaboracionById(req, res, next) {
-            APIHelper_1.APIHelper.getById(ColaboracionRoute.model, req.params.id, res);
+            APIHelper_1.APIHelper.getById(ColaboracionRoute.model, req, res);
         }
         deleteColaboracion(req, res, next) {
-            APIHelper_1.APIHelper.delete(ColaboracionRoute.model, req.params.id, res);
+            APIHelper_1.APIHelper.delete(ColaboracionRoute.model, req, res);
         }
         getColaboracionesByFilterAndSort(req, res, next) {
-            APIHelper_1.APIHelper.getByFilterAndSort(ColaboracionRoute.model, JSON.stringify(req.body), res);
+            APIHelper_1.APIHelper.getByFilterAndSort(ColaboracionRoute.model, req, res);
         }
     }
     Route.ColaboracionRoute = ColaboracionRoute;

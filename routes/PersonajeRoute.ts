@@ -3,6 +3,7 @@ import * as express from "express";
 import * as mongoose from "mongoose";
 import { Personaje } from "../models/Personajes";
 import { APIHelper } from "./APIHelper";
+import { ProyectoRoute } from "./ProyectoRoute";
 
 module Route {
     export class PersonajeRoute {
@@ -15,19 +16,19 @@ module Route {
         }
 
         public getPersonajes(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getAll(PersonajeRoute.model, res);
+            APIHelper.getAll(PersonajeRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public getPersonajeById(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getById(PersonajeRoute.model, req.params.id, res);
+            APIHelper.getById(PersonajeRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public addPersonaje(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.add(PersonajeRoute.model, req, res);
+            APIHelper.add(PersonajeRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public deletePersonaje(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.delete(PersonajeRoute.model, req.params.id, res);
+            APIHelper.delete(PersonajeRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public getPersonajesByFilterAndSort(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getByFilterAndSort(PersonajeRoute.model, JSON.stringify(req.body), res);
+            APIHelper.getByFilterAndSort(PersonajeRoute.model, ProyectoRoute.alterarFiltroConProyecto(req), res);
         }
     }
 }

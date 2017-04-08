@@ -15,16 +15,16 @@ module Route {
         }
 
         public getDetallesTecnicos(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getAll(DetalleTecnicoRoute.model, res);
+            APIHelper.getAll(DetalleTecnicoRoute.model, req, res);
         }
         public addDetalleTecnico(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.add(DetalleTecnicoRoute.model, req, res);
         }
         public getDetalleTecnicoById(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getById(DetalleTecnicoRoute.model, req.params.id, res);
+            APIHelper.getById(DetalleTecnicoRoute.model, req, res);
         }
         public deleteDetalleTecnico(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.delete(DetalleTecnicoRoute.model, req.params.id, res);
+            APIHelper.delete(DetalleTecnicoRoute.model, req, res);
         }
     }
 }

@@ -15,8 +15,8 @@ export class Colaboracion {
 
     private constructor() {
         this.schema = new mongoose.Schema({
-            usuario: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Usuario.name).schema },
-            proyecto: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Proyecto.name).schema },
+            usuario: { type: mongoose.Schema.Types.ObjectId, ref: Usuario.name },
+            proyecto: { type: mongoose.Schema.Types.ObjectId, ref: Proyecto.name },
             fecha: Date,
             permisos: Number
         });

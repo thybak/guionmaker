@@ -2,33 +2,71 @@
 import * as express from "express";
 import * as mongoose from "mongoose";
 import { Proyecto } from "../models/Proyectos";
-import { APIHelper } from "./APIHelper";
+import { APIHelper, PeticionJson } from "./APIHelper";
 
 module Route {
     export class ProyectoRoute {
         static _model: mongoose.Model<mongoose.Document>;
         static get model(): mongoose.Model<mongoose.Document> {
             if (ProyectoRoute._model == undefined) {
-                ProyectoRoute._model = mongoose.model(Proyecto.name); 
+                ProyectoRoute._model = mongoose.model(Proyecto.name);
             }
             return ProyectoRoute._model;
         }
 
+        public static crearFiltroAutor(req: express.Request): PeticionJson {
+            let filtro = new PeticionJson();
+            filtro.find = { "autor": req.user.usuarioLogeado };
+            return filtro;
+        }
+
+        public static crearFiltroProyecto(req: express.Request) {
+            let filtro = new PeticionJson();
+            filtro.populate = "proyecto";
+            filtro.populateFind = { "autor": req.user.usuarioLogeado };
+            return filtro;
+        }
+
+        public static alterarFiltroConProyecto(req: express.Request) : express.Request {
+            let filtro = ProyectoRoute.crearFiltroProyecto(req);
+            req.body.populate = filtro.populate;
+            req.body.populateFind = filtro.populateFind;
+            return req;
+        }
+
         public getProyectos(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getAll(ProyectoRoute.model, res);
+            APIHelper.getAll(ProyectoRoute.model, req, res, ProyectoRoute.crearFiltroAutor(req));
         }
         public getProyectosByFilterAndSort(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getByFilterAndSort(ProyectoRoute.model, JSON.stringify(req.body), res);
+            if (req.body.find != undefined) {
+                req.body.find.autor = req.user.usuarioLogeado;
+            } else {
+                req.body.find = { "autor": req.user.usuarioLogeado };
+            }
+            APIHelper.getByFilterAndSort(ProyectoRoute.model, req, res);
         }
         public getProyectoById(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getById(ProyectoRoute.model, req.params.id, res);
+            APIHelper.getById(ProyectoRoute.model, req, res, ProyectoRoute.crearFiltroAutor(req));
         }
         public addProyecto(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.add(ProyectoRoute.model, req, res);
+            APIHelper.add(ProyectoRoute.model, req, res, ProyectoRoute.crearFiltroAutor(req));
         }
         public deleteProyecto(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.delete(ProyectoRoute.model, req.params.id, res);
+            APIHelper.delete(ProyectoRoute.model, req, res, ProyectoRoute.crearFiltroAutor(req));
         }
+        /*public static getProyectosDeAutor(id: mongoose.Schema.Types.ObjectId): string[] {
+            let ids: string[] = [];
+            ProyectoRoute.model.find({ "autor": id }).exec(function (err, res) {
+                if (err) {
+                    console.log("Error obteniendo proyectos del usuario " + id);
+                } else if (res != undefined && res.length > 0) {
+                    for (let idx = 0; idx < res.length; idx++) {
+                        ids.push(res[idx]._id);
+                    }
+                }
+            });
+            return ids;
+        }*/
     }
 }
 

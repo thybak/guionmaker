@@ -34,7 +34,12 @@ export class EscenasListComponent {
     private guardarCambios() {
         for (let escena of this.escenas) {
             let escenaaux = escena;
-            this.angularAPIHelper.postEntryOrFilter('escena/actualizar', JSON.stringify(escena)).subscribe(null, error => this.confirmacionGuardado.setEstadoMultiguardado(escenaaux.titulo, false), () => this.confirmacionGuardado.setEstadoMultiguardado(escenaaux.titulo, true));
+            this.angularAPIHelper.postEntryOrFilter('escena/actualizar', JSON.stringify(escenaaux)).subscribe(null,
+                error => this.confirmacionGuardado.setEstadoMultiguardado(escenaaux.titulo, false),
+                () => {
+                    this.confirmacionGuardado.setEstadoMultiguardado(escenaaux.titulo, true);
+                    this.cargarEscenas();
+                });
         }
     }
     private cambiarOrdenEscenas() {

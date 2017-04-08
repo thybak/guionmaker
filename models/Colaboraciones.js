@@ -10,8 +10,8 @@ var PermisosColaboracion;
 class Colaboracion {
     constructor() {
         this.schema = new mongoose.Schema({
-            usuario: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Usuarios_1.Usuario.name).schema },
-            proyecto: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Proyectos_1.Proyecto.name).schema },
+            usuario: { type: mongoose.Schema.Types.ObjectId, ref: Usuarios_1.Usuario.name },
+            proyecto: { type: mongoose.Schema.Types.ObjectId, ref: Proyectos_1.Proyecto.name },
             fecha: Date,
             permisos: Number
         });

@@ -21,10 +21,7 @@ export class AppComponent {
     }
 
     cerrarSesion() {
-        this.localStorageService.deletePropiedad('usuarioLogeado');
-        this.localStorageService.deletePropiedad('tokenUsuario');
-        this.localStorageService.deletePropiedad('proyectoActual');
-        this.localStorageService.deletePropiedad('nombreProyectoActual');
+        this.localStorageService.borrar();
         this.router.navigate(['/']);
     }
 }

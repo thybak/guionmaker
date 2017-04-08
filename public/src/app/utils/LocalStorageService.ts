@@ -29,4 +29,9 @@ export class LocalStorageService {
         delete this.propiedades[clave];
         return localStorage.removeItem(clave);
     }
+
+    borrar(){
+        this.propiedades = {};
+        localStorage.clear();
+    }
 }

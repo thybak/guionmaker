@@ -12,12 +12,11 @@ class Escena {
             noche: Boolean,
             exterior: Boolean,
             fechaCreacion: { type: Date, default: Date.now() },
-            detalleTecnico: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(DetallesTecnicos_1.DetalleTecnico.name).schema },
-            detalleLiterario: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(DetallesLiterarios_1.DetalleLiterario.name).schema },
-            proyecto: { type: mongoose.Schema.Types.ObjectId, ref: mongoose.model(Proyectos_1.Proyecto.name).schema }
+            detalleTecnico: { type: mongoose.Schema.Types.ObjectId, ref: DetallesTecnicos_1.DetalleTecnico.name },
+            detalleLiterario: { type: mongoose.Schema.Types.ObjectId, ref: DetallesLiterarios_1.DetalleLiterario.name },
+            proyecto: { type: mongoose.Schema.Types.ObjectId, ref: Proyectos_1.Proyecto.name }
         });
         this.schema.pre('remove', function (next) {
-            console.log(this);
             mongoose.model(DetallesTecnicos_1.DetalleTecnico.name).remove({ _id: this.detalleTecnico }).exec();
             mongoose.model(DetallesLiterarios_1.DetalleLiterario.name).remove({ _id: this.detalleLiterario }).exec();
             next();

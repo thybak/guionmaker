@@ -12,19 +12,19 @@ var Route;
             return PlantillaRoute._model;
         }
         getPlantillas(req, res, next) {
-            APIHelper_1.APIHelper.getAll(PlantillaRoute.model, res);
+            APIHelper_1.APIHelper.getAll(PlantillaRoute.model, req, res);
         }
         getPlantillaById(req, res, next) {
-            APIHelper_1.APIHelper.getById(PlantillaRoute.model, req.params.id, res);
+            APIHelper_1.APIHelper.getById(PlantillaRoute.model, req, res);
         }
         addPlantilla(req, res, next) {
             APIHelper_1.APIHelper.add(PlantillaRoute.model, req, res);
         }
         deletePlantilla(req, res, next) {
-            APIHelper_1.APIHelper.delete(PlantillaRoute.model, req.params.id, res);
+            APIHelper_1.APIHelper.delete(PlantillaRoute.model, req, res);
         }
         getPlantillasByFilterAndSort(req, res, next) {
-            APIHelper_1.APIHelper.getByFilterAndSort(PlantillaRoute.model, JSON.stringify(req.body), res);
+            APIHelper_1.APIHelper.getByFilterAndSort(PlantillaRoute.model, req, res);
         }
     }
     Route.PlantillaRoute = PlantillaRoute;

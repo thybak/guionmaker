@@ -15,19 +15,19 @@ module Route {
         }
 
         public getColaboraciones(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getAll(ColaboracionRoute.model, res);
+            APIHelper.getAll(ColaboracionRoute.model, req, res);
         }
         public addColaboracion(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.add(ColaboracionRoute.model, req, res);
         }
         public getColaboracionById(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getById(ColaboracionRoute.model, req.params.id, res);
+            APIHelper.getById(ColaboracionRoute.model, req, res);
         }
         public deleteColaboracion(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.delete(ColaboracionRoute.model, req.params.id, res);
+            APIHelper.delete(ColaboracionRoute.model, req, res);
         }
         public getColaboracionesByFilterAndSort(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getByFilterAndSort(ColaboracionRoute.model, JSON.stringify(req.body), res);
+            APIHelper.getByFilterAndSort(ColaboracionRoute.model, req, res);
         }
     }
 }

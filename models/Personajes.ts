@@ -17,7 +17,7 @@ export class Personaje {
             descripcionPsicologica: String,
             imagen: String,
             mimeType: String,
-            proyecto: { type: mongoose.Schema.Types.ObjectId, ref: Proyecto, required: true }
+            proyecto: { type: mongoose.Schema.Types.ObjectId, ref: Proyecto.name, required: true }
         });
 
         mongoose.model(Personaje.name, this.schema);
