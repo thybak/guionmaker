@@ -54,19 +54,6 @@ module Route {
         public deleteProyecto(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.delete(ProyectoRoute.model, req, res, ProyectoRoute.crearFiltroAutor(req));
         }
-        /*public static getProyectosDeAutor(id: mongoose.Schema.Types.ObjectId): string[] {
-            let ids: string[] = [];
-            ProyectoRoute.model.find({ "autor": id }).exec(function (err, res) {
-                if (err) {
-                    console.log("Error obteniendo proyectos del usuario " + id);
-                } else if (res != undefined && res.length > 0) {
-                    for (let idx = 0; idx < res.length; idx++) {
-                        ids.push(res[idx]._id);
-                    }
-                }
-            });
-            return ids;
-        }*/
     }
 }
 
