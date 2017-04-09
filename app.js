@@ -49,7 +49,7 @@ class Server {
         let _colaboracionesRoute = new ColaboracionRoute_1.ColaboracionRoute();
         let _escenariosRoute = new EscenarioRoute_1.EscenarioRoute();
         let _personajesRoute = new PersonajeRoute_1.PersonajeRoute();
-        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario'] }));
+        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', /^(?!\/api).+/] }));
         router.get('/api/proyectos', _proyectosRoute.getProyectos.bind(_proyectosRoute.getProyectos));
         router.post('/api/proyectosPorFiltro', _proyectosRoute.getProyectosByFilterAndSort.bind(_proyectosRoute.getProyectosByFilterAndSort));
         router.get('/api/proyecto/:id', _proyectosRoute.getProyectoById.bind(_proyectosRoute.getProyectoById));

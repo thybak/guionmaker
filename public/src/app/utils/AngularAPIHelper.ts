@@ -47,7 +47,7 @@ export class AngularAPIHelper {
             then(config => {
                 let _config = config.json();
                 AngularAPIHelper.maximoSizeByFichero = _config.maxFileSizeBytes;
-                AngularAPIHelper.URL = 'http://' + _config.apiURL + ':' + _config.publicApiPort + '/api/';
+                AngularAPIHelper.URL = _config.apiURL + ':' + _config.publicApiPort + '/api/';
                 AngularAPIHelper.mimeTypesPermitidos = _config.mimeTypesPermitidos;
             });
     }

@@ -62,7 +62,7 @@ class Server {
         let _escenariosRoute: EscenarioRoute = new EscenarioRoute();
         let _personajesRoute: PersonajeRoute = new PersonajeRoute();
 
-        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario'] }));
+        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', /^(?!\/api).+/ ] }));
 
         router.get('/api/proyectos', _proyectosRoute.getProyectos.bind(_proyectosRoute.getProyectos));
         router.post('/api/proyectosPorFiltro', _proyectosRoute.getProyectosByFilterAndSort.bind(_proyectosRoute.getProyectosByFilterAndSort));

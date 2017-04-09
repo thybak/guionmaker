@@ -1,5 +1,5 @@
 ﻿{
-  "apiURL": "localhost",
+  "apiURL": "http://localhost",
   "publicApiPort": "1337",
   "privateApiPort": "1337",
   "dbURL": "localhost",

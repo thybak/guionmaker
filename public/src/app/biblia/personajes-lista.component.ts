@@ -20,7 +20,7 @@ export class PersonajesListaComponent {
             ("Listado de personajes de la biblia literaria",
             "personaje",
             "personajesPorFiltro",
-            this.angularAPIHelper.buildPeticion({ proyecto: this.localStorageService.getPropiedad('proyectoActual') }, {}),
+            this.angularAPIHelper.buildPeticion({ proyecto: this.localStorageService.getPropiedad('proyectoActual') }, {}, "_id nombre"),
             nuevoPersonaje);
     }
 }
