@@ -1,4 +1,4 @@
-﻿import { Component } from "@angular/core";
+﻿import { Component, KeyValueDiffers } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { EscenarioModel } from "./models/EscenariosModel";
@@ -17,8 +17,8 @@ import { LocalStorageService } from "../utils/LocalStorageService";
     providers: [LocalStorageService, AngularAPIHelper]
 })
 export class DetalleEscenarioComponent extends DetalleElementoBiblia {
-    constructor(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService, route: ActivatedRoute, router: Router) {
-        super(angularAPIHelper, localStorageService, route, router, "escenario");
+    constructor(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService, route: ActivatedRoute, router: Router, differs: KeyValueDiffers) {
+        super(angularAPIHelper, localStorageService, route, router, "escenario", differs);
     }
     cargarModelo(respuesta: RespuestaJson) {
         if (respuesta.estado == ResponseStatus.OK) {
@@ -29,4 +29,5 @@ export class DetalleEscenarioComponent extends DetalleElementoBiblia {
             this.fichero.mimeType = this.elemento.mimeType == undefined ? "" : this.elemento.mimeType;
         }
     }
+    
 }

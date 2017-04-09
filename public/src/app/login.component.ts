@@ -1,4 +1,5 @@
 ﻿import { Component } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AngularAPIHelper, RespuestaJson, ResponseStatus } from "./utils/AngularAPIHelper";
 import { Utils, PeticionLogin, RespuestaLogin } from "../../../models/Utils";
@@ -11,12 +12,17 @@ import { LocalStorageService } from "./utils/LocalStorageService";
 })
 export class LoginComponent {
     peticion: PeticionLogin;
+    formLogin: FormGroup;
     error: boolean;
 
-    constructor(private angularAPIHelper: AngularAPIHelper, private localStorageService: LocalStorageService, private router: Router) {
+    constructor(private angularAPIHelper: AngularAPIHelper, private localStorageService: LocalStorageService, private router: Router, private fb : FormBuilder) {
         if (this.angularAPIHelper.usuarioLogeado(this.localStorageService)) {
             this.router.navigate(['/']);
         }
+        this.formLogin = this.fb.group({
+            'nombreUsuario': [null, Validators.required],
+            'pass': [null, Validators.required]
+        });
         this.peticion = new PeticionLogin();
     }
 

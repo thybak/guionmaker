@@ -1,1 +1,45 @@
-﻿<h1>Hola mundo</h1>
+﻿<div class="well">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h1 class="panel-title">Registro de nuevo usuario en GuionMaker</h1>
+    </div>
+    <div class="panel-body" *ngIf="!usuarioGuardado">
+      <div class="alert alert-danger" *ngIf="errorAlGuardarUsuario">
+        <i class="glyphicon glyphicon-remove"></i> Se ha producido un error al guardar el usuario: {{ mensajeError }}
+      </div>
+      <table class="table table-responsive">
+        <tr>
+          <td><label for="nombre">Nombre <i class="glyphicon glyphicon-asterisk" *ngIf="!formRegistro.controls['nombre'].valid"></i></label>
+          <input type="text" [(ngModel)]="usuario.nombre" class="form-control" id="nombre" [formControl]="formRegistro.controls['nombre']" required /></td>
+          <td><label for="apellidos">Apellidos <i class="glyphicon glyphicon-asterisk" *ngIf="!formRegistro.controls['apellidos'].valid"></i></label>
+          <input type="text" [(ngModel)]="usuario.apellidos" class="form-control" id="apellidos" [formControl]="formRegistro.controls['apellidos']" required /></td>
+        </tr>
+        <tr>
+          <td><label for="nombreUsuario">Nombre de usuario <i class="glyphicon glyphicon-asterisk" *ngIf="!formRegistro.controls['nombreUsuario'].valid"></i></label>
+          <input type="text" [(ngModel)]="usuario.nombreUsuario" class="form-control" id="nombreUsuario" [formControl]="formRegistro.controls['nombreUsuario']" required /></td>
+          <td><label for="email">Email <i class="glyphicon glyphicon-asterisk" *ngIf="!formRegistro.controls['email'].valid"></i></label>
+          <input type="email" [(ngModel)]="usuario.email" class="form-control" [formControl]="formRegistro.controls['email']" id="email" required /></td>
+        </tr>
+        <tr>
+          <td><label for="pass">Contraseña <i class="glyphicon glyphicon-asterisk" *ngIf="!formRegistro.controls['pass'].valid"></i></label>
+          <input type="password" [(ngModel)]="usuario.pass" class="form-control" id="pass" [formControl]="formRegistro.controls['pass']" required /></td>
+          <td><label for="passConfirm">Confirmación de contraseña <i class="glyphicon glyphicon-asterisk" *ngIf="!formRegistro.controls['passConfirm'].valid"></i></label>
+          <input type="password" [(ngModel)]="passConfirm" class="form-control" id="passConfirm" [formControl]="formRegistro.controls['passConfirm']" required /></td>
+        </tr>
+      </table>
+    </div>
+    <div class="panel-body" *ngIf="usuarioGuardado">
+      <div class="alert alert-success">
+        <i class="glyphicon glyphicon-ok"></i> El usuario {{ usuario.nombreUsuario }} se ha guardado con éxito. <a routerLink="/">Inicia sesión</a>.
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-center">
+      <botones-guardado [oBotonesGuardado]="oBotonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
+      <button type="button" class="btn btn-primary" (click)="guardarCambios()" [disabled]="!formRegistro.valid" *ngIf="!usuarioGuardado"><i class="glyphicon glyphicon-save"></i> Registrarse</button>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>

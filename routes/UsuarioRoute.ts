@@ -16,6 +16,18 @@ module Route {
             return UsuarioRoute._model;
         }
 
+        public static crearFiltroSeleccion(): PeticionJson {
+            let filtro = new PeticionJson();
+            filtro.select = "_id nombreUsuario email";
+            return filtro;
+        }
+        public static alterarFiltro(req: express.Request): express.Request {
+            if (req.body.select == undefined || req.body.select == "") {
+                req.body.select = "_id nombreUsuario email";
+            }
+            return req;
+        }
+
         public getUsuarios(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.getAll(UsuarioRoute.model, req, res);
         }
@@ -23,15 +35,13 @@ module Route {
             APIHelper.add(UsuarioRoute.model, req, res);
         }
         public getUsuarioById(req: express.Request, res: express.Response, next: express.NextFunction) {
-            let filtro = new PeticionJson();
-            filtro.select = "_id nombreUsuario email";
-            APIHelper.getById(UsuarioRoute.model, req, res, filtro);
+            APIHelper.getById(UsuarioRoute.model, req, res, UsuarioRoute.crearFiltroSeleccion());
         }
         public deleteUsuario(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.delete(UsuarioRoute.model, req, res);
         }
         public getUsuariosByFilterAndSort(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.getByFilterAndSort(UsuarioRoute.model, req, res);
+            APIHelper.getByFilterAndSort(UsuarioRoute.model, UsuarioRoute.alterarFiltro(req), res);
         }
         public login(req: express.Request, res: express.Response, next: express.NextFunction) {
             if (req.body != undefined) {

@@ -84,16 +84,15 @@
                             if (typeof context.options.addclass !== 'undefined' && typeof context.options.addclass.debug !== 'undefined' && context.options.addclass.debug) {
                                 console.debug(context.invoke("restoreTarget"), $node, "toggling class: " + value, window.getSelection());
                             }
-                            
+
                             if ($node.parent().prop("tagName") == "P") {
-                                debugger;
                                 $node.parent().attr("class", value);
-                                console.log("manipulado el padre");
                             }
 
                             if ("PFONT".indexOf($node.prop("tagName")) >= 0) {
                                 $node.attr("class", value);
                             }
+                            
                         }
                     })
                 ]).render();

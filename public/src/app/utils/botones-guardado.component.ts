@@ -24,6 +24,9 @@ export class BotonesGuardado {
         this.mostrarVolver = sinConfirmacionVolver;
         this.mostrarVolverConfirmacion = !sinConfirmacionVolver;
     }
+    mostrarBasicoVolver() {
+        this.mostrarVolver = true;
+    }
     mostrarBasico() {
         this.mostrarGuardado = true;
         this.mostrarBorrado = true;

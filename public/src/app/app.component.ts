@@ -22,6 +22,6 @@ export class AppComponent {
 
     cerrarSesion() {
         this.localStorageService.borrar();
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
     }
 }

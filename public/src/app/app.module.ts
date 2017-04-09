@@ -1,6 +1,6 @@
 ﻿import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { EscenasModule } from './escenas/escenas.module';
 import { ProyectosModule } from './proyectos/proyectos.module';
@@ -23,6 +23,7 @@ export function cargarConfiguracion(api: AngularAPIHelper): Function {
     imports: [
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpModule,
         EscenasModule,
         ProyectosModule,

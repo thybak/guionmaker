@@ -1,4 +1,4 @@
-﻿import { Component } from "@angular/core";
+﻿import { Component, KeyValueDiffers } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { PersonajeModel } from "./models/PersonajesModel";
@@ -17,8 +17,8 @@ import { LocalStorageService } from "../utils/LocalStorageService";
     providers: [LocalStorageService, AngularAPIHelper]
 })
 export class DetallePersonajeComponent extends DetalleElementoBiblia {
-    constructor(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService, route: ActivatedRoute, router: Router) {
-        super(angularAPIHelper, localStorageService, route, router, "personaje");
+    constructor(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService, route: ActivatedRoute, router: Router, differs: KeyValueDiffers) {
+        super(angularAPIHelper, localStorageService, route, router, "personaje", differs);
     }
     cargarModelo(respuesta: RespuestaJson) {
         if (respuesta.estado == ResponseStatus.OK) {

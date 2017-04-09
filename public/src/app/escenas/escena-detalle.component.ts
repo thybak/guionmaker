@@ -1,4 +1,4 @@
-﻿import { Component, ElementRef } from '@angular/core';
+﻿import { Component, ElementRef, DoCheck, KeyValueDiffers } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { EscenaModel } from './models/EscenasModel';
@@ -19,7 +19,7 @@ import * as jQuery from "jquery";
     providers: [AngularAPIHelper, LocalStorageService],
     selector: 'detalle-escena'
 })
-export class DetalleEscenaComponent {
+export class DetalleEscenaComponent implements DoCheck {
     fichero: Fichero;
     confirmacionGuardado: ConfirmacionGuardado;
     escena: EscenaModel;
@@ -29,13 +29,15 @@ export class DetalleEscenaComponent {
     ng2sconfig: any;
     elementosBiblia: string[];
     activarSugerencias: boolean;
+    differ: any;
 
-    constructor(private angularAPIHelper: AngularAPIHelper, private el: ElementRef, private router: Router, private route: ActivatedRoute, private localStorageService: LocalStorageService) {
+    constructor(private angularAPIHelper: AngularAPIHelper, private el: ElementRef, private router: Router, private route: ActivatedRoute, private localStorageService: LocalStorageService, private differs: KeyValueDiffers) {
         this.botonesGuardado = new BotonesGuardado();
-        this.botonesGuardado.mostrarCompleto(false);
+        this.botonesGuardado.mostrarCompleto();
         this.confirmacionGuardado = new ConfirmacionGuardado();
         this.fichero = new Fichero();
         this.activarSugerencias = this.localStorageService.getPropiedad('activarSugerencias') == 'true';
+        this.differ = this.differs.find({}).create(null);
         this.route.params.switchMap((params: Params) => this.angularAPIHelper.getById('escena', params['id'])).
             subscribe(response => {
                 this.cargarModelo(response);
@@ -122,7 +124,7 @@ export class DetalleEscenaComponent {
             this.escena.detalleTecnico = resultadoDetalleTecnico._id;
             this.detalleTecnico = resultadoDetalleTecnico;
         }
-        this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(this.escena)).subscribe(null, error => this.confirmacionGuardado.setEstadoGuardado(false), () => this.confirmacionGuardado.setEstadoGuardado(true));
+        this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(this.escena)).subscribe(null, error => this.confirmacionGuardado.setEstadoGuardado(false), () => { this.confirmacionGuardado.setEstadoGuardado(true); this.botonesGuardado.mostrarCompleto(); });
     }
 
     private guardarDetalles(response) {
@@ -145,6 +147,13 @@ export class DetalleEscenaComponent {
     private rellenarAutocompletar(elementos: any[]) {
         for (let elemento of elementos) {
             this.ng2sconfig.hint.elementosBiblia.push(elemento.nombre);
+        }
+    }
+
+    ngDoCheck() {
+        let changes = this.differ.diff(this.escena);
+        if (changes != undefined && changes._changesTail != undefined) {
+            this.botonesGuardado.mostrarCompleto(false);
         }
     }
 

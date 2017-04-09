@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, DoCheck, KeyValueDiffers } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { AngularAPIHelper, RespuestaJson, PeticionJson, ResponseStatus } from '../utils/AngularAPIHelper';
@@ -18,7 +18,7 @@ import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
     templateUrl: './templates/proyecto-detalle.component.html',
     providers: [AngularAPIHelper]
 })
-export class DetalleProyectoComponent {
+export class DetalleProyectoComponent implements DoCheck {
     confirmacionGuardado: ConfirmacionGuardado;
     botonesGuardado: BotonesGuardado;
     proyecto: ProyectoModel;
@@ -26,12 +26,28 @@ export class DetalleProyectoComponent {
     generos: GeneroModel[];
     clasificaciones: ClasificacionModel[];
     gestorColaboraciones: GestorColaboraciones;
+    differ: any;
+    ng2config: any;
 
-    constructor(private angularAPIHelper: AngularAPIHelper, private router : Router, private route : ActivatedRoute, private localStorageService: LocalStorageService) {
+    constructor(private angularAPIHelper: AngularAPIHelper, private router : Router, private route : ActivatedRoute, private localStorageService: LocalStorageService, private differs : KeyValueDiffers) {
         this.confirmacionGuardado = new ConfirmacionGuardado();
         this.botonesGuardado = new BotonesGuardado();
-        this.botonesGuardado.mostrarCompletoCancelar(false);
+        this.botonesGuardado.mostrarCompletoCancelar();
         this.cargarSelects();
+        this.differ = differs.find({}).create(null);
+        this.ng2config = {
+            minHeight: 200,
+            lang: 'es-ES',
+            placeholder: 'Escribe tu texto...',
+            toolbar: [
+                ['style', ['fontname', 'clear']],
+                ['fontstyle', ['bold', 'italic', 'paragraph']],
+                ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']],
+                ['extra', ['table', 'height']],
+                ['misc', ['undo', 'redo', 'codeview']]
+            ],
+            fontNames: ['Courier New', 'Arial', 'Arial Black', 'Sans-serif', 'Serif']
+        };
         this.route.params.switchMap((params: Params) =>
             this.angularAPIHelper.postEntryOrFilter('proyectosPorFiltro', JSON.stringify(this.angularAPIHelper.buildPeticion({ '_id': params['id'], 'cancelado': false }, '')))).
             subscribe(response => this.cargarModelo(response));
@@ -63,11 +79,18 @@ export class DetalleProyectoComponent {
                 }
                 this.confirmacionGuardado.setEstadoGuardado(isOk);
                 this.confirmacionGuardado.setTimeoutRetirarAviso();
+                this.botonesGuardado.mostrarCompletoCancelar();
                 if (exit && isOk) {
                     this.router.navigate(['/proyectos']);
                 }
 
             });
+    }
+    ngDoCheck() {
+        let changes = this.differ.diff(this.proyecto);
+        if (changes != undefined && changes._changesTail != undefined) {
+            this.botonesGuardado.mostrarCompletoCancelar(false);
+        }
     }
     onAccionGuardado(event) {
         if (event == TipoOperacionGuardado.Guardar) {

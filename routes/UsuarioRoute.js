@@ -13,6 +13,17 @@ var Route;
             }
             return UsuarioRoute._model;
         }
+        static crearFiltroSeleccion() {
+            let filtro = new APIHelper_1.PeticionJson();
+            filtro.select = "_id nombreUsuario email";
+            return filtro;
+        }
+        static alterarFiltro(req) {
+            if (req.body.select == undefined || req.body.select == "") {
+                req.body.select = "_id nombreUsuario email";
+            }
+            return req;
+        }
         getUsuarios(req, res, next) {
             APIHelper_1.APIHelper.getAll(UsuarioRoute.model, req, res);
         }
@@ -20,15 +31,13 @@ var Route;
             APIHelper_1.APIHelper.add(UsuarioRoute.model, req, res);
         }
         getUsuarioById(req, res, next) {
-            let filtro = new APIHelper_1.PeticionJson();
-            filtro.select = "_id nombreUsuario email";
-            APIHelper_1.APIHelper.getById(UsuarioRoute.model, req, res, filtro);
+            APIHelper_1.APIHelper.getById(UsuarioRoute.model, req, res, UsuarioRoute.crearFiltroSeleccion());
         }
         deleteUsuario(req, res, next) {
             APIHelper_1.APIHelper.delete(UsuarioRoute.model, req, res);
         }
         getUsuariosByFilterAndSort(req, res, next) {
-            APIHelper_1.APIHelper.getByFilterAndSort(UsuarioRoute.model, req, res);
+            APIHelper_1.APIHelper.getByFilterAndSort(UsuarioRoute.model, UsuarioRoute.alterarFiltro(req), res);
         }
         login(req, res, next) {
             if (req.body != undefined) {
