@@ -249,7 +249,7 @@ export class APIHelper {
         if (objReqBody.populate == undefined || objReqBody.populate == "") {
             model.find(find).sort(sort).select(objReqBody.select).exec(obtenerPorFiltroYOrden);
         } else {
-            model.find(find).populate({ path: objReqBody.populate, match: objReqBody.populateFind }).sort(sort).exec(obtenerPorFiltroYOrden);
+            model.find(find).populate({ path: objReqBody.populate, match: objReqBody.populateFind }).sort(sort).select(objReqBody.select).exec(obtenerPorFiltroYOrden);
         }
     }
 }
