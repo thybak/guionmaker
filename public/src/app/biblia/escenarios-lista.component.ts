@@ -20,7 +20,7 @@ export class EscenariosListaComponent {
             ("Listado de escenarios de la biblia literaria",
             "escenario",
             "escenariosPorFiltro",
-            this.angularAPIHelper.buildPeticion({ proyecto: this.localStorageService.getPropiedad('proyectoActual') }, {}, "_id nombre"),
+            this.angularAPIHelper.buildPeticion({ proyecto: this.localStorageService.getPropiedad('proyectoActual') }, {}, "nombre proyecto"),
             nuevoEscenario);
     }
 }

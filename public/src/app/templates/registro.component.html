@@ -3,7 +3,7 @@
     <div class="panel-heading">
       <h1 class="panel-title">Registro de nuevo usuario en GuionMaker</h1>
     </div>
-    <div class="panel-body" *ngIf="!usuarioGuardado">
+    <div class="panel-body" *ngIf="!usuarioGuardado && !usuarioGuardando">
       <div class="alert alert-danger" *ngIf="errorAlGuardarUsuario">
         <i class="glyphicon glyphicon-remove"></i> Se ha producido un error al guardar el usuario: {{ mensajeError }}
       </div>
@@ -31,6 +31,11 @@
     <div class="panel-body" *ngIf="usuarioGuardado">
       <div class="alert alert-success">
         <i class="glyphicon glyphicon-ok"></i> El usuario {{ usuario.nombreUsuario }} se ha guardado con éxito. <a routerLink="/">Inicia sesión</a>.
+      </div>
+    </div>
+    <div class="panel-body" *ngIf="usuarioGuardando">
+      <div class="alert alert-info">
+        <p>Registrando usuario...</p>
       </div>
     </div>
   </div>

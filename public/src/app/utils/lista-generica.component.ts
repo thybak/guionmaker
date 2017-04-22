@@ -50,7 +50,7 @@ export class ListaGenericaComponent implements OnInit {
                 if (respuesta.estado == ResponseStatus.OK) {
                     this.elementos = respuesta.consulta;
                 }
-            });
+            }, error => console.log(error));
     }
 
     onNuevoElemento() {

@@ -15,6 +15,7 @@ export class RegistroComponent {
     usuario: UsuarioModel;
     passConfirm: string;
     usuarioGuardado: boolean;
+    usuarioGuardando: boolean;
     passesNoCoinciden: boolean;
     errorAlGuardarUsuario: boolean;
     mensajeError: string;
@@ -36,21 +37,25 @@ export class RegistroComponent {
     }
 
     guardarCambios() {
+        this.usuarioGuardando = true;
         if (this.usuario.pass === this.passConfirm) {
             this.usuario.pass = Utils.firmarTexto(this.usuario.pass);
             this.angularAPIHelper.postEntryOrFilter('usuario', JSON.stringify(this.usuario)).subscribe(response => {
                 let respuesta = response as RespuestaJson;
                 if (respuesta.estado == ResponseStatus.OK) {
                     this.usuarioGuardado = true;
+                    this.usuarioGuardando = false;
                 } else {
                     this.errorAlGuardarUsuario = true;
                     this.mensajeError = respuesta.error.toString();
                 }
             });
         } else {
+            this.usuarioGuardando = false;
             this.errorAlGuardarUsuario = true;
             this.mensajeError = "Las contraseñas introducidas no coinciden";
         }
+        
     }
 
     onAccionGuardado(event) {

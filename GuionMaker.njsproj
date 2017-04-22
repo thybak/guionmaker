@@ -143,6 +143,9 @@
     <Content Include="public\src\app\templates\login.component.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\src\app\utils\templates\ayuda-diccionarios.component.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\src\app\utils\templates\gestor-subida.component.html">
       <SubType>Code</SubType>
     </Content>
@@ -150,7 +153,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="bower.json" />
-    <Content Include="angular-cli.json" />
+    <Content Include=".angular-cli.json" />
     <Content Include="public\src\app\biblia\templates\biblia.component.html" />
     <Content Include="public\src\app\biblia\templates\escenarios-lista.component.html" />
     <Content Include="public\src\app\biblia\templates\personajes-lista.component.html" />
@@ -193,6 +196,9 @@
     <Content Include="public\src\index.html" />
     <Content Include="public\src\styles.css" />
     <Content Include="public\src\tsconfig.json" />
+    <Content Include="public\src\tsconfig.e2e.json" />
+    <Content Include="public\src\tsconfig.spec.json" />
+    <Content Include="public\src\tsconfig.app.json" />
     <Content Include="tsconfig.json" />
     <Content Include="package.json" />
     <Compile Include="GruntFile.js" />
@@ -350,6 +356,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\usuarios\models\UsuarioModel.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="public\src\app\utils\ayuda-diccionarios.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\utils\confirmacion-guardado.component.ts" />

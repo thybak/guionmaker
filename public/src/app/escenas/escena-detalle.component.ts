@@ -10,6 +10,7 @@ import { LocalStorageService } from '../utils/LocalStorageService';
 import { ConfirmacionGuardado } from '../utils/confirmacion-guardado.component';
 import { BotonesGuardado, TipoOperacionGuardado } from '../utils/botones-guardado.component';
 import { GestorSubidaComponent, Fichero } from '../utils/gestor-subida.component';
+import { AyudaDiccionariosComponent } from '../utils/ayuda-diccionarios.component';
 
 import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
 import * as jQuery from "jquery";
@@ -41,7 +42,7 @@ export class DetalleEscenaComponent implements DoCheck {
         this.route.params.switchMap((params: Params) => this.angularAPIHelper.getById('escena', params['id'])).
             subscribe(response => {
                 this.cargarModelo(response);
-                let peticion = this.angularAPIHelper.buildPeticion({ proyecto: this.escena.proyecto }, {}, "nombre");
+                let peticion = this.angularAPIHelper.buildPeticion({ proyecto: this.escena.proyecto }, {}, "nombre proyecto");
                 this.ng2sconfig = {
                     addclass: {
                         debug: false
