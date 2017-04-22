@@ -1,1 +1,1 @@
-{"version":3,"file":"DetallesTecnicosModel.js","sourceRoot":"","sources":["../../../../../../../app/escenas/models/DetallesTecnicosModel.ts"],"names":[],"mappings":"AAAA,YAAY,CAAC;AAEb,MAAM;IAMF;QACI,IAAI,CAAC,KAAK,GAAG,IAAI,MAAM,CAAC,EAAE,CAAC,CAAC;IAChC,CAAC;CACJ"}
+{"version":3,"file":"DetallesTecnicosModel.js","sourceRoot":"","sources":["../../../../../../../app/escenas/models/DetallesTecnicosModel.ts"],"names":[],"mappings":"AAAA,YAAY,CAAC;AAEb;IAMI;QACI,IAAI,CAAC,KAAK,GAAG,IAAI,MAAM,CAAC,EAAE,CAAC,CAAC;IAChC,CAAC;IACL,0BAAC;AAAD,CAAC,AATD,IASC;AATY,kDAAmB"}

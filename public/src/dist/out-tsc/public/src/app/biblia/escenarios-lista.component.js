@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,27 +8,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
-import { AngularAPIHelper } from '../utils/AngularAPIHelper';
-import { ListaGenerica } from '../utils/lista-generica.component';
-import { LocalStorageService } from '../utils/LocalStorageService';
-import { EscenarioModel } from './models/EscenariosModel';
-let EscenariosListaComponent = class EscenariosListaComponent {
-    constructor(angularAPIHelper, localStorageService) {
+var core_1 = require("@angular/core");
+var AngularAPIHelper_1 = require("../utils/AngularAPIHelper");
+var lista_generica_component_1 = require("../utils/lista-generica.component");
+var LocalStorageService_1 = require("../utils/LocalStorageService");
+var EscenariosModel_1 = require("./models/EscenariosModel");
+var EscenariosListaComponent = (function () {
+    function EscenariosListaComponent(angularAPIHelper, localStorageService) {
         this.angularAPIHelper = angularAPIHelper;
         this.localStorageService = localStorageService;
-        let nuevoEscenario = new EscenarioModel();
+        var nuevoEscenario = new EscenariosModel_1.EscenarioModel();
         nuevoEscenario.proyecto = this.localStorageService.getPropiedad('proyectoActual');
-        this.listaGenerica = new ListaGenerica("Listado de escenarios de la biblia literaria", "escenario", "escenariosPorFiltro", this.angularAPIHelper.buildPeticion({ proyecto: this.localStorageService.getPropiedad('proyectoActual') }, {}, "nombre proyecto"), nuevoEscenario);
+        this.listaGenerica = new lista_generica_component_1.ListaGenerica("Listado de escenarios de la biblia literaria", "escenario", "escenariosPorFiltro", this.angularAPIHelper.buildPeticion({ proyecto: this.localStorageService.getPropiedad('proyectoActual') }, {}, "nombre proyecto"), nuevoEscenario);
     }
-};
+    return EscenariosListaComponent;
+}());
 EscenariosListaComponent = __decorate([
-    Component({
+    core_1.Component({
         selector: 'escenarios-lista',
         templateUrl: './templates/escenarios-lista.component.html',
-        providers: [LocalStorageService, AngularAPIHelper]
+        providers: [LocalStorageService_1.LocalStorageService, AngularAPIHelper_1.AngularAPIHelper]
     }),
-    __metadata("design:paramtypes", [AngularAPIHelper, LocalStorageService])
+    __metadata("design:paramtypes", [AngularAPIHelper_1.AngularAPIHelper, LocalStorageService_1.LocalStorageService])
 ], EscenariosListaComponent);
-export { EscenariosListaComponent };
+exports.EscenariosListaComponent = EscenariosListaComponent;
 //# sourceMappingURL=escenarios-lista.component.js.map

@@ -1,37 +1,39 @@
-﻿<div class="panel panel-primary">
+﻿<div class="well">
+  <div class="panel panel-primary">
     <div class="panel-heading">
-        <h4 class="panel-title">Listado de proyectos</h4>
+      <h4 class="panel-title">Listado de proyectos</h4>
     </div>
     <div class="panel-body">
-        <div class="row">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" (click)="onNuevoProyecto()" *ngIf="!mostrarCancelados"><i class="glyphicon glyphicon-plus"></i> Añadir proyecto</button>
+            <button type="button" class="btn btn-default pull-right" (click)="toggleMostrarCancelados()" *ngIf="!mostrarCancelados">Mostrar cancelados</button>
+            <button type="button" class="btn btn-default pull-right" (click)="toggleMostrarCancelados()" *ngIf="mostrarCancelados">Ocultar cancelados</button>
+          </div>
+        </div>
+      </div>
+      <div class="list-group" *ngIf="proyectos != undefined && proyectos.length > 0">
+        <div *ngFor="let proyecto of proyectos" class="list-group-item pdn-1 mgn-top-1">
+          <div class="row">
             <div class="col-md-12">
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default" (click)="onNuevoProyecto()" *ngIf="!mostrarCancelados"><i class="glyphicon glyphicon-plus"></i> Añadir proyecto</button>
-                <button type="button" class="btn btn-default pull-right" (click)="toggleMostrarCancelados()" *ngIf="!mostrarCancelados">Mostrar cancelados</button>
-                <button type="button" class="btn btn-default pull-right" (click)="toggleMostrarCancelados()" *ngIf="mostrarCancelados">Ocultar cancelados</button>
-              </div>
+              {{proyecto.nombre}} -
+              {{proyecto.fechaModificacion}}
             </div>
-        </div>
-        <div class="list-group" *ngIf="proyectos != undefined && proyectos.length > 0">
-            <div *ngFor="let proyecto of proyectos" class="list-group-item pdn-1 mgn-top-1">
-                <div class="row">
-                    <div class="col-md-12">
-                        {{proyecto.nombre}} -
-                        {{proyecto.fechaModificacion}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <button *ngIf="!mostrarCancelados" type="button" class="btn btn-default btn-sm" (click)="onModificar(proyecto)" data-toggle="modal" data-target="#mdlCancelar"><i class="glyphicon glyphicon-trash"></i></button>
-                        <button *ngIf="mostrarCancelados" type="button" class="btn btn-default btn-sm" (click)="onModificar(proyecto)" data-toggle="modal" data-target="#mdlRestaurar"><i class="glyphicon glyphicon-repeat"></i></button>
-                        <button *ngIf="!mostrarCancelados" type="button" class="btn btn-default btn-sm" routerLink="{{proyecto._id}}"><i class="glyphicon glyphicon-edit"></i></button>
-                    </div>
-                </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button *ngIf="!mostrarCancelados" type="button" class="btn btn-default btn-sm" (click)="onModificar(proyecto)" data-toggle="modal" data-target="#mdlCancelar"><i class="glyphicon glyphicon-trash"></i></button>
+              <button *ngIf="mostrarCancelados" type="button" class="btn btn-default btn-sm" (click)="onModificar(proyecto)" data-toggle="modal" data-target="#mdlRestaurar"><i class="glyphicon glyphicon-repeat"></i></button>
+              <button *ngIf="!mostrarCancelados" type="button" class="btn btn-default btn-sm" routerLink="{{proyecto._id}}"><i class="glyphicon glyphicon-edit"></i></button>
             </div>
+          </div>
         </div>
-        <div class="alert alert-info mgn-top-1" *ngIf="proyectos == undefined || proyectos.length == 0">
-            <i class="glyphicon glyphicon-info-sign"></i> No se han encontrado proyectos asociados a este usuario
-        </div>
-        <botones-guardado [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
+      </div>
+      <div class="alert alert-info mgn-top-1" *ngIf="proyectos == undefined || proyectos.length == 0">
+        <i class="glyphicon glyphicon-info-sign"></i> No se han encontrado proyectos asociados a este usuario
+      </div>
+      <botones-guardado [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
     </div>
+  </div>
 </div>

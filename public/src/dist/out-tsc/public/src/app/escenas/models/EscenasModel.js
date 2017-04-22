@@ -1,10 +1,10 @@
 "use strict";
-export class EscenaModel {
-    constructor() {
+var EscenaModel = (function () {
+    function EscenaModel() {
         this.titulo = 'Nueva escena';
     }
-    static cargarEscena(escena) {
-        let _escena = new EscenaModel();
+    EscenaModel.cargarEscena = function (escena) {
+        var _escena = new EscenaModel();
         _escena._id = escena._id;
         _escena.titulo = escena.titulo;
         _escena.orden = escena.orden;
@@ -16,25 +16,27 @@ export class EscenaModel {
         _escena.proyecto = escena.proyecto;
         _escena.fechaCreacion = escena.fechaCreacion;
         return _escena;
-    }
-    eliminar(angularAPIHelper) {
+    };
+    EscenaModel.prototype.eliminar = function (angularAPIHelper) {
         return angularAPIHelper.deleteById('escena', this._id);
-    }
-    getTemporalidadString() {
+    };
+    EscenaModel.prototype.getTemporalidadString = function () {
         if (this.noche) {
             return "NOCHE";
         }
         else {
             return "DÍA";
         }
-    }
-    getSituacionString() {
+    };
+    EscenaModel.prototype.getSituacionString = function () {
         if (this.exterior) {
             return "EXT";
         }
         else {
             return "INT";
         }
-    }
-}
+    };
+    return EscenaModel;
+}());
+exports.EscenaModel = EscenaModel;
 //# sourceMappingURL=EscenasModel.js.map

@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,27 +8,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
-import { AngularAPIHelper } from '../utils/AngularAPIHelper';
-import { ListaGenerica } from '../utils/lista-generica.component';
-import { LocalStorageService } from '../utils/LocalStorageService';
-import { PersonajeModel } from './models/PersonajesModel';
-let PersonajesListaComponent = class PersonajesListaComponent {
-    constructor(angularAPIHelper, localStorageService) {
+var core_1 = require("@angular/core");
+var AngularAPIHelper_1 = require("../utils/AngularAPIHelper");
+var lista_generica_component_1 = require("../utils/lista-generica.component");
+var LocalStorageService_1 = require("../utils/LocalStorageService");
+var PersonajesModel_1 = require("./models/PersonajesModel");
+var PersonajesListaComponent = (function () {
+    function PersonajesListaComponent(angularAPIHelper, localStorageService) {
         this.angularAPIHelper = angularAPIHelper;
         this.localStorageService = localStorageService;
-        let nuevoPersonaje = new PersonajeModel();
+        var nuevoPersonaje = new PersonajesModel_1.PersonajeModel();
         nuevoPersonaje.proyecto = this.localStorageService.getPropiedad('proyectoActual');
-        this.listaGenerica = new ListaGenerica("Listado de personajes de la biblia literaria", "personaje", "personajesPorFiltro", this.angularAPIHelper.buildPeticion({ proyecto: this.localStorageService.getPropiedad('proyectoActual') }, {}, "nombre proyecto"), nuevoPersonaje);
+        this.listaGenerica = new lista_generica_component_1.ListaGenerica("Listado de personajes de la biblia literaria", "personaje", "personajesPorFiltro", this.angularAPIHelper.buildPeticion({ proyecto: this.localStorageService.getPropiedad('proyectoActual') }, {}, "nombre proyecto"), nuevoPersonaje);
     }
-};
+    return PersonajesListaComponent;
+}());
 PersonajesListaComponent = __decorate([
-    Component({
+    core_1.Component({
         selector: 'personajes-lista',
         templateUrl: './templates/personajes-lista.component.html',
-        providers: [LocalStorageService, AngularAPIHelper]
+        providers: [LocalStorageService_1.LocalStorageService, AngularAPIHelper_1.AngularAPIHelper]
     }),
-    __metadata("design:paramtypes", [AngularAPIHelper, LocalStorageService])
+    __metadata("design:paramtypes", [AngularAPIHelper_1.AngularAPIHelper, LocalStorageService_1.LocalStorageService])
 ], PersonajesListaComponent);
-export { PersonajesListaComponent };
+exports.PersonajesListaComponent = PersonajesListaComponent;
 //# sourceMappingURL=personajes-lista.component.js.map

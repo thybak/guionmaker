@@ -1,24 +1,32 @@
 "use strict";
-const jssha = require("jssha");
-class Utils {
-    static firmarTexto(texto) {
-        let oJssha = new jssha("SHA3-256", "TEXT");
+var jssha = require("jssha");
+var Utils = (function () {
+    function Utils() {
+    }
+    Utils.firmarTexto = function (texto) {
+        var oJssha = new jssha("SHA3-256", "TEXT");
         oJssha.update(texto);
         return oJssha.getHash("HEX");
-    }
-}
+    };
+    return Utils;
+}());
 exports.Utils = Utils;
-class PeticionLogin {
-    constructor(nombreUsuario = "", pass = "") {
+var PeticionLogin = (function () {
+    function PeticionLogin(nombreUsuario, pass) {
+        if (nombreUsuario === void 0) { nombreUsuario = ""; }
+        if (pass === void 0) { pass = ""; }
         this.nombreUsuario = nombreUsuario;
         this.pass = pass;
     }
-}
+    return PeticionLogin;
+}());
 exports.PeticionLogin = PeticionLogin;
-class RespuestaLogin {
-    constructor(tokenUsuario, usuarioLogeado) {
+var RespuestaLogin = (function () {
+    function RespuestaLogin(tokenUsuario, usuarioLogeado) {
         this.tokenUsuario = tokenUsuario;
         this.usuarioLogeado = usuarioLogeado;
     }
-}
+    return RespuestaLogin;
+}());
 exports.RespuestaLogin = RespuestaLogin;
+//# sourceMappingURL=Utils.js.map

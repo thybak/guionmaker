@@ -1,26 +1,30 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { UtilsModule } from '../utils/utils.module';
-import { ProyectosRoutingModule } from './proyectos-routing.module';
-import { ProyectosListComponent } from './proyectos-lista.component';
-import { DetalleProyectoComponent } from './proyecto-detalle.component';
-import { GestorColaboracionesComponent } from './gestor-colaboraciones.component';
-let ProyectosModule = class ProyectosModule {
-};
+var core_1 = require("@angular/core");
+var common_1 = require("@angular/common");
+var forms_1 = require("@angular/forms");
+var utils_module_1 = require("../utils/utils.module");
+var proyectos_routing_module_1 = require("./proyectos-routing.module");
+var proyectos_lista_component_1 = require("./proyectos-lista.component");
+var proyecto_detalle_component_1 = require("./proyecto-detalle.component");
+var gestor_colaboraciones_component_1 = require("./gestor-colaboraciones.component");
+var ProyectosModule = (function () {
+    function ProyectosModule() {
+    }
+    return ProyectosModule;
+}());
 ProyectosModule = __decorate([
-    NgModule({
-        imports: [CommonModule, FormsModule, UtilsModule, ProyectosRoutingModule],
-        declarations: [ProyectosListComponent, DetalleProyectoComponent, GestorColaboracionesComponent],
+    core_1.NgModule({
+        imports: [common_1.CommonModule, forms_1.FormsModule, utils_module_1.UtilsModule, proyectos_routing_module_1.ProyectosRoutingModule],
+        declarations: [proyectos_lista_component_1.ProyectosListComponent, proyecto_detalle_component_1.DetalleProyectoComponent, gestor_colaboraciones_component_1.GestorColaboracionesComponent],
         providers: [],
         exports: []
     })
 ], ProyectosModule);
-export { ProyectosModule };
+exports.ProyectosModule = ProyectosModule;
 //# sourceMappingURL=proyectos.module.js.map

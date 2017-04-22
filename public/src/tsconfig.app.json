@@ -5,17 +5,26 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
+    "target": "es5",
     "lib": [
       "es6",
       "dom"
     ],
     "outDir": "../out-tsc/app",
-    "module": "es6",
+    "module": "commonjs",
     "baseUrl": "",
     "types": []
   },
   "exclude": [
+    "node_modules",
+    "bower_components",
+    "jspm_packages",
+    "tmp",
+    "temp",
+    "lib",
+    "typings",
+    "public",
+    "e2e",
     "test.ts",
     "**/*.spec.ts"
   ]

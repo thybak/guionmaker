@@ -1,5 +1,5 @@
 ﻿import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, Injector } from '@angular/core';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { EscenasModule } from './escenas/escenas.module';
@@ -15,8 +15,8 @@ import { IndexComponent } from './index.component';
 import { LoginComponent } from './login.component';
 import { RegistroComponent } from './registro.component';
 
-export function cargarConfiguracion(api: AngularAPIHelper): Function {
-    return () => api.cargarConfiguracion();
+export function cargarConfiguracion(api: AngularAPIHelper, injector: Injector): Function {
+    return () => api.cargarConfiguracion(injector);
 }
 @NgModule({
     declarations: [ AppComponent, PageNotFoundComponent, IndexComponent, LoginComponent, RegistroComponent ],
@@ -36,7 +36,7 @@ export function cargarConfiguracion(api: AngularAPIHelper): Function {
         {
             provide: APP_INITIALIZER,
             useFactory: cargarConfiguracion,
-            deps: [AngularAPIHelper],
+            deps: [AngularAPIHelper, Injector],
             multi: true
         }]
 })

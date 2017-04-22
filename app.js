@@ -1,29 +1,38 @@
 "use strict";
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const morgan = require("morgan");
-const path = require("path");
-const cors = require("cors");
-const jwtes = require("express-jwt");
-const IndexRoute_1 = require("./routes/IndexRoute");
-const ProyectoRoute_1 = require("./routes/ProyectoRoute");
-const UsuarioRoute_1 = require("./routes/UsuarioRoute");
-const GeneroRoute_1 = require("./routes/GeneroRoute");
-const ClasificacionRoute_1 = require("./routes/ClasificacionRoute");
-const DetalleTecnicoRoute_1 = require("./routes/DetalleTecnicoRoute");
-const DetalleLiterarioRoute_1 = require("./routes/DetalleLiterarioRoute");
-const EscenaRoute_1 = require("./routes/EscenaRoute");
-const PlantillaRoute_1 = require("./routes/PlantillaRoute");
-const ColaboracionRoute_1 = require("./routes/ColaboracionRoute");
-const PersonajeRoute_1 = require("./routes/PersonajeRoute");
-const EscenarioRoute_1 = require("./routes/EscenarioRoute");
-class Server {
-    static init() {
-        return new Server();
+var express = require("express");
+var mongoose = require("mongoose");
+var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
+var morgan = require("morgan");
+var path = require("path");
+var cors = require("cors");
+var jwtes = require("express-jwt");
+var IndexRoute_1 = require("./routes/IndexRoute");
+var ProyectoRoute_1 = require("./routes/ProyectoRoute");
+var UsuarioRoute_1 = require("./routes/UsuarioRoute");
+var GeneroRoute_1 = require("./routes/GeneroRoute");
+var ClasificacionRoute_1 = require("./routes/ClasificacionRoute");
+var DetalleTecnicoRoute_1 = require("./routes/DetalleTecnicoRoute");
+var DetalleLiterarioRoute_1 = require("./routes/DetalleLiterarioRoute");
+var EscenaRoute_1 = require("./routes/EscenaRoute");
+var PlantillaRoute_1 = require("./routes/PlantillaRoute");
+var ColaboracionRoute_1 = require("./routes/ColaboracionRoute");
+var PersonajeRoute_1 = require("./routes/PersonajeRoute");
+var EscenarioRoute_1 = require("./routes/EscenarioRoute");
+var Server = (function () {
+    function Server() {
+        this.config = require('./public/dist/assets/apiconfig.json');
+        this.config.secreto = "g423gj8f_GfsldGLPxcz";
+        this.api = express();
+        this.setConfig();
+        require('mongoose').Promise = global.Promise;
+        mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName);
+        console.log(this.config);
     }
-    setModules() {
+    Server.init = function () {
+        return new Server();
+    };
+    Server.prototype.setModules = function () {
         this.api.use(morgan('dev'));
         this.api.use(bodyParser.json({ limit: 1024 * 1024 * 3 }));
         this.api.use(bodyParser.urlencoded({ extended: true }));
@@ -34,21 +43,21 @@ class Server {
             next(err);
         });
         this.api.use(cors()); // cross-origin resource sharing
-    }
-    setRoutes() {
-        let router = express.Router();
-        let _indexRoute = new IndexRoute_1.IndexRoute();
-        let _proyectosRoute = new ProyectoRoute_1.ProyectoRoute();
-        let _usuariosRoute = new UsuarioRoute_1.UsuarioRoute();
-        let _generosRoute = new GeneroRoute_1.GeneroRoute();
-        let _clasificacionesRoute = new ClasificacionRoute_1.ClasificacionRoute();
-        let _detallesTecnicosRoute = new DetalleTecnicoRoute_1.DetalleTecnicoRoute();
-        let _detallesLiterariosRoute = new DetalleLiterarioRoute_1.DetalleLiterarioRoute();
-        let _escenasRoute = new EscenaRoute_1.EscenaRoute();
-        let _plantillasRoute = new PlantillaRoute_1.PlantillaRoute();
-        let _colaboracionesRoute = new ColaboracionRoute_1.ColaboracionRoute();
-        let _escenariosRoute = new EscenarioRoute_1.EscenarioRoute();
-        let _personajesRoute = new PersonajeRoute_1.PersonajeRoute();
+    };
+    Server.prototype.setRoutes = function () {
+        var router = express.Router();
+        var _indexRoute = new IndexRoute_1.IndexRoute();
+        var _proyectosRoute = new ProyectoRoute_1.ProyectoRoute();
+        var _usuariosRoute = new UsuarioRoute_1.UsuarioRoute();
+        var _generosRoute = new GeneroRoute_1.GeneroRoute();
+        var _clasificacionesRoute = new ClasificacionRoute_1.ClasificacionRoute();
+        var _detallesTecnicosRoute = new DetalleTecnicoRoute_1.DetalleTecnicoRoute();
+        var _detallesLiterariosRoute = new DetalleLiterarioRoute_1.DetalleLiterarioRoute();
+        var _escenasRoute = new EscenaRoute_1.EscenaRoute();
+        var _plantillasRoute = new PlantillaRoute_1.PlantillaRoute();
+        var _colaboracionesRoute = new ColaboracionRoute_1.ColaboracionRoute();
+        var _escenariosRoute = new EscenarioRoute_1.EscenarioRoute();
+        var _personajesRoute = new PersonajeRoute_1.PersonajeRoute();
         this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', /^(?!\/api).+/] }));
         router.get('/api/proyectos', _proyectosRoute.getProyectos.bind(_proyectosRoute.getProyectos));
         router.post('/api/proyectosPorFiltro', _proyectosRoute.getProyectosByFilterAndSort.bind(_proyectosRoute.getProyectosByFilterAndSort));
@@ -107,20 +116,13 @@ class Server {
         this.api.all('/*', function (req, res) {
             res.sendFile(path.join(__dirname, '/public/dist/index.html'));
         });
-    }
-    setConfig() {
+    };
+    Server.prototype.setConfig = function () {
         this.setModules();
         this.setRoutes();
         this.api.listen(this.config.privateApiPort);
-    }
-    constructor() {
-        this.config = require('./public/dist/assets/apiconfig.json');
-        this.config.secreto = "g423gj8f_GfsldGLPxcz";
-        this.api = express();
-        this.setConfig();
-        require('mongoose').Promise = global.Promise;
-        mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName);
-        console.log(this.config);
-    }
-}
+    };
+    return Server;
+}());
 module.exports = Server.init().api;
+//# sourceMappingURL=app.js.map

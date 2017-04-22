@@ -1,10 +1,10 @@
 "use strict";
-const mongoose = require("mongoose");
-const DetallesTecnicos_1 = require("./DetallesTecnicos");
-const DetallesLiterarios_1 = require("./DetallesLiterarios");
-const Proyectos_1 = require("./Proyectos");
-class Escena {
-    constructor() {
+var mongoose = require("mongoose");
+var DetallesTecnicos_1 = require("./DetallesTecnicos");
+var DetallesLiterarios_1 = require("./DetallesLiterarios");
+var Proyectos_1 = require("./Proyectos");
+var Escena = (function () {
+    function Escena() {
         this.schema = new mongoose.Schema({
             titulo: String,
             orden: Number,
@@ -23,6 +23,8 @@ class Escena {
         });
         mongoose.model(Escena.name, this.schema);
     }
-}
+    return Escena;
+}());
 Escena.current = new Escena();
 exports.Escena = Escena;
+//# sourceMappingURL=Escenas.js.map

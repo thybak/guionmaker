@@ -50,3 +50,6 @@ obj
 
 # Optional REPL history
 .node_repl_history
+
+# Source maps
+*.js.map

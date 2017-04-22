@@ -1,8 +1,8 @@
 "use strict";
-const mongoose = require("mongoose");
-const Proyectos_1 = require("./Proyectos");
-class Personaje {
-    constructor() {
+var mongoose = require("mongoose");
+var Proyectos_1 = require("./Proyectos");
+var Personaje = (function () {
+    function Personaje() {
         this.schema = new mongoose.Schema({
             nombre: String,
             edad: Number,
@@ -16,6 +16,8 @@ class Personaje {
         });
         mongoose.model(Personaje.name, this.schema);
     }
-}
+    return Personaje;
+}());
 Personaje.current = new Personaje();
 exports.Personaje = Personaje;
+//# sourceMappingURL=Personajes.js.map

@@ -1,37 +1,43 @@
 "use strict";
-const mongoose = require("mongoose");
-const Proyectos_1 = require("../models/Proyectos");
-const APIHelper_1 = require("./APIHelper");
+var mongoose = require("mongoose");
+var Proyectos_1 = require("../models/Proyectos");
+var APIHelper_1 = require("./APIHelper");
 var Route;
 (function (Route) {
-    class ProyectoRoute {
-        static get model() {
-            if (ProyectoRoute._model == undefined) {
-                ProyectoRoute._model = mongoose.model(Proyectos_1.Proyecto.name);
-            }
-            return ProyectoRoute._model;
+    var ProyectoRoute = (function () {
+        function ProyectoRoute() {
         }
-        static crearFiltroAutor(req) {
-            let filtro = new APIHelper_1.PeticionJson();
+        Object.defineProperty(ProyectoRoute, "model", {
+            get: function () {
+                if (ProyectoRoute._model == undefined) {
+                    ProyectoRoute._model = mongoose.model(Proyectos_1.Proyecto.name);
+                }
+                return ProyectoRoute._model;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        ProyectoRoute.crearFiltroAutor = function (req) {
+            var filtro = new APIHelper_1.PeticionJson();
             filtro.find = { "autor": req.user.usuarioLogeado };
             return filtro;
-        }
-        static crearFiltroProyecto(req) {
-            let filtro = new APIHelper_1.PeticionJson();
+        };
+        ProyectoRoute.crearFiltroProyecto = function (req) {
+            var filtro = new APIHelper_1.PeticionJson();
             filtro.populate = "proyecto";
             filtro.populateFind = { "autor": req.user.usuarioLogeado };
             return filtro;
-        }
-        static alterarFiltroConProyecto(req) {
-            let filtro = ProyectoRoute.crearFiltroProyecto(req);
+        };
+        ProyectoRoute.alterarFiltroConProyecto = function (req) {
+            var filtro = ProyectoRoute.crearFiltroProyecto(req);
             req.body.populate = filtro.populate;
             req.body.populateFind = filtro.populateFind;
             return req;
-        }
-        getProyectos(req, res, next) {
+        };
+        ProyectoRoute.prototype.getProyectos = function (req, res, next) {
             APIHelper_1.APIHelper.getAll(ProyectoRoute.model, req, res, ProyectoRoute.crearFiltroAutor(req));
-        }
-        getProyectosByFilterAndSort(req, res, next) {
+        };
+        ProyectoRoute.prototype.getProyectosByFilterAndSort = function (req, res, next) {
             if (req.body.find != undefined) {
                 req.body.find.autor = req.user.usuarioLogeado;
             }
@@ -39,17 +45,19 @@ var Route;
                 req.body.find = { "autor": req.user.usuarioLogeado };
             }
             APIHelper_1.APIHelper.getByFilterAndSort(ProyectoRoute.model, req, res);
-        }
-        getProyectoById(req, res, next) {
+        };
+        ProyectoRoute.prototype.getProyectoById = function (req, res, next) {
             APIHelper_1.APIHelper.getById(ProyectoRoute.model, req, res, ProyectoRoute.crearFiltroAutor(req));
-        }
-        addProyecto(req, res, next) {
+        };
+        ProyectoRoute.prototype.addProyecto = function (req, res, next) {
             APIHelper_1.APIHelper.add(ProyectoRoute.model, req, res, ProyectoRoute.crearFiltroAutor(req));
-        }
-        deleteProyecto(req, res, next) {
+        };
+        ProyectoRoute.prototype.deleteProyecto = function (req, res, next) {
             APIHelper_1.APIHelper.delete(ProyectoRoute.model, req, res, ProyectoRoute.crearFiltroAutor(req));
-        }
-    }
+        };
+        return ProyectoRoute;
+    }());
     Route.ProyectoRoute = ProyectoRoute;
 })(Route || (Route = {}));
 module.exports = Route;
+//# sourceMappingURL=ProyectoRoute.js.map

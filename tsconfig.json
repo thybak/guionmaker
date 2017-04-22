@@ -2,11 +2,15 @@
 	// See https://go.microsoft.com/fwlink/?LinkId=759670
 	// for the documentation about the jsconfig.json format
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
-    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "lib": ["es6"]
   },
   "exclude": [
     "node_modules",

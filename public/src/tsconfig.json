@@ -8,13 +8,22 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
-    "typeRoots": [
-      "../../node_modules/@types"
-    ],
+    "target": "es5",
+    "module": "commonjs",
     "lib": [
       "es6",
       "dom"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "bower_components",
+    "jspm_packages",
+    "tmp",
+    "temp",
+    "lib",
+    "typings",
+    "public",
+    "e2e"
+  ]
 }

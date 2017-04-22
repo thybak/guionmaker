@@ -1,13 +1,13 @@
 "use strict";
-const mongoose = require("mongoose");
-const Usuarios_1 = require("./Usuarios");
+var mongoose = require("mongoose");
+var Usuarios_1 = require("./Usuarios");
 var TipoPlantilla;
 (function (TipoPlantilla) {
     TipoPlantilla[TipoPlantilla["Portada"] = 0] = "Portada";
     TipoPlantilla[TipoPlantilla["Escena"] = 1] = "Escena";
 })(TipoPlantilla = exports.TipoPlantilla || (exports.TipoPlantilla = {}));
-class Plantilla {
-    constructor() {
+var Plantilla = (function () {
+    function Plantilla() {
         this.schema = new mongoose.Schema({
             html: String,
             tipo: Number,
@@ -17,6 +17,8 @@ class Plantilla {
         });
         mongoose.model(Plantilla.name, this.schema);
     }
-}
+    return Plantilla;
+}());
 Plantilla.current = new Plantilla();
 exports.Plantilla = Plantilla;
+//# sourceMappingURL=Plantillas.js.map

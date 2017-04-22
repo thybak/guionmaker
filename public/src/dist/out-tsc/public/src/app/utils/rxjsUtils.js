@@ -1,12 +1,13 @@
+"use strict";
 // Observable class extensions
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/throw';
+require("rxjs/add/observable/of");
+require("rxjs/add/observable/throw");
 // Observable operators
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/debounceTime");
+require("rxjs/add/operator/distinctUntilChanged");
+require("rxjs/add/operator/do");
+require("rxjs/add/operator/filter");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/switchMap");
 //# sourceMappingURL=rxjsUtils.js.map

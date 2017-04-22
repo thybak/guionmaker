@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,34 +8,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { LocalStorageService } from './utils/LocalStorageService';
-import { AngularAPIHelper } from './utils/AngularAPIHelper';
-let AppComponent = class AppComponent {
-    constructor(localStorageService, angularAPIHelper, router) {
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var LocalStorageService_1 = require("./utils/LocalStorageService");
+var AngularAPIHelper_1 = require("./utils/AngularAPIHelper");
+var AppComponent = (function () {
+    function AppComponent(localStorageService, angularAPIHelper, router) {
         this.localStorageService = localStorageService;
         this.angularAPIHelper = angularAPIHelper;
         this.router = router;
     }
-    hayProyecto() {
+    AppComponent.prototype.hayProyecto = function () {
         return this.hayUsuario() && this.localStorageService.propiedades['proyectoActual'] != null;
-    }
-    hayUsuario() {
+    };
+    AppComponent.prototype.hayUsuario = function () {
         return this.angularAPIHelper.usuarioLogeado(this.localStorageService);
-    }
-    cerrarSesion() {
+    };
+    AppComponent.prototype.cerrarSesion = function () {
         this.localStorageService.borrar();
         this.router.navigate(['/login']);
-    }
-};
+    };
+    return AppComponent;
+}());
 AppComponent = __decorate([
-    Component({
+    core_1.Component({
         selector: 'guionMaker',
         templateUrl: './templates/app.component.html',
-        providers: [LocalStorageService]
+        providers: [LocalStorageService_1.LocalStorageService]
     }),
-    __metadata("design:paramtypes", [LocalStorageService, AngularAPIHelper, Router])
+    __metadata("design:paramtypes", [LocalStorageService_1.LocalStorageService, AngularAPIHelper_1.AngularAPIHelper, router_1.Router])
 ], AppComponent);
-export { AppComponent };
+exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

@@ -1,29 +1,37 @@
 "use strict";
-const mongoose = require("mongoose");
-const DetallesLiterarios_1 = require("../models/DetallesLiterarios");
-const APIHelper_1 = require("./APIHelper");
+var mongoose = require("mongoose");
+var DetallesLiterarios_1 = require("../models/DetallesLiterarios");
+var APIHelper_1 = require("./APIHelper");
 var Route;
 (function (Route) {
-    class DetalleLiterarioRoute {
-        static get model() {
-            if (DetalleLiterarioRoute._model == undefined) {
-                DetalleLiterarioRoute._model = mongoose.model(DetallesLiterarios_1.DetalleLiterario.name);
-            }
-            return DetalleLiterarioRoute._model;
+    var DetalleLiterarioRoute = (function () {
+        function DetalleLiterarioRoute() {
         }
-        getDetallesLiterarios(req, res, next) {
+        Object.defineProperty(DetalleLiterarioRoute, "model", {
+            get: function () {
+                if (DetalleLiterarioRoute._model == undefined) {
+                    DetalleLiterarioRoute._model = mongoose.model(DetallesLiterarios_1.DetalleLiterario.name);
+                }
+                return DetalleLiterarioRoute._model;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        DetalleLiterarioRoute.prototype.getDetallesLiterarios = function (req, res, next) {
             APIHelper_1.APIHelper.getAll(DetalleLiterarioRoute.model, req, res);
-        }
-        addDetalleLiterario(req, res, next) {
+        };
+        DetalleLiterarioRoute.prototype.addDetalleLiterario = function (req, res, next) {
             APIHelper_1.APIHelper.add(DetalleLiterarioRoute.model, req, res);
-        }
-        getDetalleLiterarioById(req, res, next) {
+        };
+        DetalleLiterarioRoute.prototype.getDetalleLiterarioById = function (req, res, next) {
             APIHelper_1.APIHelper.getById(DetalleLiterarioRoute.model, req, res);
-        }
-        deleteDetalleLiterario(req, res, next) {
+        };
+        DetalleLiterarioRoute.prototype.deleteDetalleLiterario = function (req, res, next) {
             APIHelper_1.APIHelper.delete(DetalleLiterarioRoute.model, req, res);
-        }
-    }
+        };
+        return DetalleLiterarioRoute;
+    }());
     Route.DetalleLiterarioRoute = DetalleLiterarioRoute;
 })(Route || (Route = {}));
 module.exports = Route;
+//# sourceMappingURL=DetalleLiterarioRoute.js.map

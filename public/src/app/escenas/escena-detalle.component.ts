@@ -13,7 +13,7 @@ import { GestorSubidaComponent, Fichero } from '../utils/gestor-subida.component
 import { AyudaDiccionariosComponent } from '../utils/ayuda-diccionarios.component';
 
 import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
-import * as jQuery from "jquery";
+import * as jQuery from 'jquery';
 
 @Component({
     templateUrl: './templates/escena-detalle.component.html',

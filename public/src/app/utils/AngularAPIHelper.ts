@@ -1,5 +1,6 @@
 ﻿import { Http, Response, RequestOptions, Headers } from '@angular/http';
-import { Injectable } from '@angular/core';
+import { LOCATION_INITIALIZED } from '@angular/common';
+import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from './LocalStorageService';
 
@@ -42,14 +43,19 @@ export class AngularAPIHelper {
         return Observable.throw(errMsg);
     }
 
-    cargarConfiguracion() {
-        return this.http.get('/assets/apiconfig.json').toPromise().
-            then(config => {
-                let _config = config.json();
-                AngularAPIHelper.maximoSizeByFichero = _config.maxFileSizeBytes;
-                AngularAPIHelper.URL = _config.apiURL + ':' + _config.publicApiPort + '/api/';
-                AngularAPIHelper.mimeTypesPermitidos = _config.mimeTypesPermitidos;
-            });
+    cargarConfiguracion(injector: Injector) {
+        const locationInitialized = injector.get(LOCATION_INITIALIZED, Promise.resolve(null));
+        return locationInitialized.then(() => {
+            this.http.get('/assets/apiconfig.json').toPromise().
+                then(config => {
+                    let _config = config.json();
+                    AngularAPIHelper.maximoSizeByFichero = _config.maxFileSizeBytes;
+                    AngularAPIHelper.URL = _config.apiURL + ':' + _config.publicApiPort + '/api/';
+                    AngularAPIHelper.mimeTypesPermitidos = _config.mimeTypesPermitidos;
+                });
+        }, error => {
+            console.log(error);
+        });
     }
 
     usuarioLogeado(localStorageService: LocalStorageService) {

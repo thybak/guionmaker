@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,24 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, KeyValueDiffers } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AngularAPIHelper, ResponseStatus } from '../utils/AngularAPIHelper';
-import { BotonesGuardado, TipoOperacionGuardado } from '../utils/botones-guardado.component';
-import { ConfirmacionGuardado } from '../utils/confirmacion-guardado.component';
-import { GeneroModel } from './models/GenerosModel';
-import { ClasificacionModel } from './models/ClasificacionesModel';
-import { GestorColaboraciones } from './gestor-colaboraciones.component';
-import { LocalStorageService } from '../utils/LocalStorageService';
-let DetalleProyectoComponent = class DetalleProyectoComponent {
-    constructor(angularAPIHelper, router, route, localStorageService, differs) {
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var AngularAPIHelper_1 = require("../utils/AngularAPIHelper");
+var botones_guardado_component_1 = require("../utils/botones-guardado.component");
+var confirmacion_guardado_component_1 = require("../utils/confirmacion-guardado.component");
+var GenerosModel_1 = require("./models/GenerosModel");
+var ClasificacionesModel_1 = require("./models/ClasificacionesModel");
+var gestor_colaboraciones_component_1 = require("./gestor-colaboraciones.component");
+var LocalStorageService_1 = require("../utils/LocalStorageService");
+var DetalleProyectoComponent = (function () {
+    function DetalleProyectoComponent(angularAPIHelper, router, route, localStorageService, differs) {
+        var _this = this;
         this.angularAPIHelper = angularAPIHelper;
         this.router = router;
         this.route = route;
         this.localStorageService = localStorageService;
         this.differs = differs;
-        this.confirmacionGuardado = new ConfirmacionGuardado();
-        this.botonesGuardado = new BotonesGuardado();
+        this.confirmacionGuardado = new confirmacion_guardado_component_1.ConfirmacionGuardado();
+        this.botonesGuardado = new botones_guardado_component_1.BotonesGuardado();
         this.botonesGuardado.mostrarCompletoCancelar();
         this.cargarSelects();
         this.differ = differs.find({}).create(null);
@@ -41,54 +43,58 @@ let DetalleProyectoComponent = class DetalleProyectoComponent {
             ],
             fontNames: ['Courier New', 'Arial', 'Arial Black', 'Sans-serif', 'Serif']
         };
-        this.route.params.switchMap((params) => this.angularAPIHelper.postEntryOrFilter('proyectosPorFiltro', JSON.stringify(this.angularAPIHelper.buildPeticion({ '_id': params['id'], 'cancelado': false }, '')))).
-            subscribe(response => this.cargarModelo(response));
+        this.route.params.switchMap(function (params) {
+            return _this.angularAPIHelper.postEntryOrFilter('proyectosPorFiltro', JSON.stringify(_this.angularAPIHelper.buildPeticion({ '_id': params['id'], 'cancelado': false }, '')));
+        }).
+            subscribe(function (response) { return _this.cargarModelo(response); });
     }
-    cargarSelects() {
-        GeneroModel.getAll(this.angularAPIHelper).subscribe(response => this.generos = response.consulta);
-        ClasificacionModel.getAll(this.angularAPIHelper).subscribe(response => this.clasificaciones = response.consulta);
-    }
-    cargarModelo(proyecto) {
+    DetalleProyectoComponent.prototype.cargarSelects = function () {
+        var _this = this;
+        GenerosModel_1.GeneroModel.getAll(this.angularAPIHelper).subscribe(function (response) { return _this.generos = response.consulta; });
+        ClasificacionesModel_1.ClasificacionModel.getAll(this.angularAPIHelper).subscribe(function (response) { return _this.clasificaciones = response.consulta; });
+    };
+    DetalleProyectoComponent.prototype.cargarModelo = function (proyecto) {
         this.proyecto = proyecto.consulta[0];
-        this.gestorColaboraciones = new GestorColaboraciones(this.angularAPIHelper, this.proyecto._id); // carga de colaboradores
+        this.gestorColaboraciones = new gestor_colaboraciones_component_1.GestorColaboraciones(this.angularAPIHelper, this.proyecto._id); // carga de colaboradores
         this.proyecto.sinopsis = this.proyecto.sinopsis == "" || this.proyecto.sinopsis == undefined ? new String('') : this.proyecto.sinopsis; // workaround por culpa del componente ng2-summernote donde con "" no se muestra nada.
-    }
-    guardarCambios(exit) {
+    };
+    DetalleProyectoComponent.prototype.guardarCambios = function (exit) {
+        var _this = this;
         this.proyecto.fechaModificacion = new Date();
         this.proyecto.sinopsis = this.proyecto.sinopsis == undefined ? new String('') : this.proyecto.sinopsis; // wa para el módulo ng-summernote con undefined
-        this.angularAPIHelper.postEntryOrFilter('proyecto', JSON.stringify(this.proyecto)).subscribe(response => {
-            this.respuesta = response;
-        }, error => {
-            this.confirmacionGuardado.setEstadoGuardado(false);
-            this.confirmacionGuardado.setTimeoutRetirarAviso();
-        }, () => {
-            let isOk = this.respuesta.estado == ResponseStatus.OK;
+        this.angularAPIHelper.postEntryOrFilter('proyecto', JSON.stringify(this.proyecto)).subscribe(function (response) {
+            _this.respuesta = response;
+        }, function (error) {
+            _this.confirmacionGuardado.setEstadoGuardado(false);
+            _this.confirmacionGuardado.setTimeoutRetirarAviso();
+        }, function () {
+            var isOk = _this.respuesta.estado == AngularAPIHelper_1.ResponseStatus.OK;
             if (!isOk) {
-                console.log(this.respuesta.error);
+                console.log(_this.respuesta.error);
             }
-            this.confirmacionGuardado.setEstadoGuardado(isOk);
-            this.confirmacionGuardado.setTimeoutRetirarAviso();
-            this.botonesGuardado.mostrarCompletoCancelar();
+            _this.confirmacionGuardado.setEstadoGuardado(isOk);
+            _this.confirmacionGuardado.setTimeoutRetirarAviso();
+            _this.botonesGuardado.mostrarCompletoCancelar();
             if (exit && isOk) {
-                this.router.navigate(['/proyectos']);
+                _this.router.navigate(['/proyectos']);
             }
         });
-    }
-    ngDoCheck() {
-        let changes = this.differ.diff(this.proyecto);
+    };
+    DetalleProyectoComponent.prototype.ngDoCheck = function () {
+        var changes = this.differ.diff(this.proyecto);
         if (changes != undefined && changes._changesTail != undefined) {
             this.botonesGuardado.mostrarCompletoCancelar(false);
         }
-    }
-    onAccionGuardado(event) {
-        if (event == TipoOperacionGuardado.Guardar) {
+    };
+    DetalleProyectoComponent.prototype.onAccionGuardado = function (event) {
+        if (event == botones_guardado_component_1.TipoOperacionGuardado.Guardar) {
             this.localStorageService.setPropiedad('nombreProyectoActual', this.proyecto.nombre);
             this.guardarCambios(false);
         }
-        else if (event == TipoOperacionGuardado.Eliminar) {
+        else if (event == botones_guardado_component_1.TipoOperacionGuardado.Eliminar) {
             this.gestorColaboraciones.eliminarColaboracion();
         }
-        else if (event == TipoOperacionGuardado.CancelarRegistro) {
+        else if (event == botones_guardado_component_1.TipoOperacionGuardado.CancelarRegistro) {
             this.proyecto.cancelado = true;
             if (this.proyecto._id == this.localStorageService.getPropiedad('proyectoActual')) {
                 this.localStorageService.deletePropiedad('proyectoActual');
@@ -96,21 +102,22 @@ let DetalleProyectoComponent = class DetalleProyectoComponent {
             }
             this.guardarCambios(true);
         }
-        else if (event == TipoOperacionGuardado.Volver) {
+        else if (event == botones_guardado_component_1.TipoOperacionGuardado.Volver) {
             this.router.navigate(['/proyectos']);
         }
-        else if (event == TipoOperacionGuardado.CancelarEliminacion) {
+        else if (event == botones_guardado_component_1.TipoOperacionGuardado.CancelarEliminacion) {
             this.gestorColaboraciones.cancelarEliminacion();
         }
-    }
-};
+    };
+    return DetalleProyectoComponent;
+}());
 DetalleProyectoComponent = __decorate([
-    Component({
+    core_1.Component({
         selector: 'detalle-proyecto',
         templateUrl: './templates/proyecto-detalle.component.html',
-        providers: [AngularAPIHelper]
+        providers: [AngularAPIHelper_1.AngularAPIHelper]
     }),
-    __metadata("design:paramtypes", [AngularAPIHelper, Router, ActivatedRoute, LocalStorageService, KeyValueDiffers])
+    __metadata("design:paramtypes", [AngularAPIHelper_1.AngularAPIHelper, router_1.Router, router_1.ActivatedRoute, LocalStorageService_1.LocalStorageService, core_1.KeyValueDiffers])
 ], DetalleProyectoComponent);
-export { DetalleProyectoComponent };
+exports.DetalleProyectoComponent = DetalleProyectoComponent;
 //# sourceMappingURL=proyecto-detalle.component.js.map

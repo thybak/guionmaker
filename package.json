@@ -41,6 +41,7 @@
   "devDependencies": {
     "@angular/cli": "^1.0.0",
     "@angular/compiler-cli": "latest",
+    "@types/core-js": "^0.9.41",
     "@types/jasmine": "latest",
     "@types/node": "latest",
     "codelyzer": "^2.0.0-beta.4",

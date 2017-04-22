@@ -1,7 +1,9 @@
 "use strict";
-export class DetalleTecnicoModel {
-    constructor() {
+var DetalleTecnicoModel = (function () {
+    function DetalleTecnicoModel() {
         this.texto = new String('');
     }
-}
+    return DetalleTecnicoModel;
+}());
+exports.DetalleTecnicoModel = DetalleTecnicoModel;
 //# sourceMappingURL=DetallesTecnicosModel.js.map

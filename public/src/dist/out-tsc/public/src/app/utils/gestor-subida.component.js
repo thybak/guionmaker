@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,59 +8,65 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input, ElementRef } from '@angular/core';
-import { AngularAPIHelper } from './AngularAPIHelper';
-export class Fichero {
-}
-let GestorSubidaComponent = class GestorSubidaComponent {
-    constructor(angularAPIHelper, el) {
+var core_1 = require("@angular/core");
+var AngularAPIHelper_1 = require("./AngularAPIHelper");
+var Fichero = (function () {
+    function Fichero() {
+    }
+    return Fichero;
+}());
+exports.Fichero = Fichero;
+var GestorSubidaComponent = (function () {
+    function GestorSubidaComponent(angularAPIHelper, el) {
         this.angularAPIHelper = angularAPIHelper;
         this.el = el;
     }
-    onSubidaImagen() {
-        let input = this.el.nativeElement.querySelector('[id="imgSubida"]');
+    GestorSubidaComponent.prototype.onSubidaImagen = function () {
+        var _this = this;
+        var input = this.el.nativeElement.querySelector('[id="imgSubida"]');
         if (input.files.length > 0) {
-            let reader = new FileReader();
-            let mimeType = input.files[0].type;
-            let size = input.files[0].size;
-            if (this.angularAPIHelper.mimeTypePermitido(mimeType) && this.angularAPIHelper.sizeOfFicheroAdecuado(size)) {
-                reader.onloadend = () => {
-                    let array = new Uint8Array(reader.result);
-                    let CHUNK_SZ = 0x8000;
-                    let c = [];
+            var reader_1 = new FileReader();
+            var mimeType_1 = input.files[0].type;
+            var size = input.files[0].size;
+            if (this.angularAPIHelper.mimeTypePermitido(mimeType_1) && this.angularAPIHelper.sizeOfFicheroAdecuado(size)) {
+                reader_1.onloadend = function () {
+                    var array = new Uint8Array(reader_1.result);
+                    var CHUNK_SZ = 0x8000;
+                    var c = [];
                     for (var i = 0; i < array.length; i += CHUNK_SZ) {
                         c.push(String.fromCharCode.apply(null, array.subarray(i, i + CHUNK_SZ)));
                     }
-                    let arrayString = c.join("");
-                    this.fichero.base64 = btoa(arrayString);
-                    this.fichero.mimeType = mimeType;
+                    var arrayString = c.join("");
+                    _this.fichero.base64 = btoa(arrayString);
+                    _this.fichero.mimeType = mimeType_1;
                 };
-                reader.readAsArrayBuffer(input.files[0]);
+                reader_1.readAsArrayBuffer(input.files[0]);
             }
             else {
-                alert("Asegúrate de subir uno de los formatos permitidos en la aplicación (" + AngularAPIHelper.mimeTypesPermitidos + "). Máximo " + AngularAPIHelper.maximoSizeByFichero + "  bytes.");
+                alert("Asegúrate de subir uno de los formatos permitidos en la aplicación (" + AngularAPIHelper_1.AngularAPIHelper.mimeTypesPermitidos + "). Máximo " + AngularAPIHelper_1.AngularAPIHelper.maximoSizeByFichero + "  bytes.");
             }
         }
-    }
-    imagenSubida() {
+    };
+    GestorSubidaComponent.prototype.imagenSubida = function () {
         return this.fichero.base64 != "" && this.fichero.mimeType != "" && this.fichero.base64 != undefined && this.fichero.mimeType != undefined;
-    }
-    borrarImagen() {
+    };
+    GestorSubidaComponent.prototype.borrarImagen = function () {
         this.fichero.base64 = "";
         this.fichero.mimeType = "";
-    }
-};
+    };
+    return GestorSubidaComponent;
+}());
 __decorate([
-    Input(),
+    core_1.Input(),
     __metadata("design:type", Fichero)
 ], GestorSubidaComponent.prototype, "fichero", void 0);
 GestorSubidaComponent = __decorate([
-    Component({
+    core_1.Component({
         selector: 'gestor-subida',
         templateUrl: './templates/gestor-subida.component.html',
-        providers: [AngularAPIHelper]
+        providers: [AngularAPIHelper_1.AngularAPIHelper]
     }),
-    __metadata("design:paramtypes", [AngularAPIHelper, ElementRef])
+    __metadata("design:paramtypes", [AngularAPIHelper_1.AngularAPIHelper, core_1.ElementRef])
 ], GestorSubidaComponent);
-export { GestorSubidaComponent };
+exports.GestorSubidaComponent = GestorSubidaComponent;
 //# sourceMappingURL=gestor-subida.component.js.map

@@ -1,10 +1,10 @@
 "use strict";
-const mongoose = require("mongoose");
-const Generos_1 = require("./Generos");
-const Clasificaciones_1 = require("./Clasificaciones");
-const Usuarios_1 = require("./Usuarios");
-class Proyecto {
-    constructor() {
+var mongoose = require("mongoose");
+var Generos_1 = require("./Generos");
+var Clasificaciones_1 = require("./Clasificaciones");
+var Usuarios_1 = require("./Usuarios");
+var Proyecto = (function () {
+    function Proyecto() {
         this.schema = new mongoose.Schema({
             nombre: String,
             sinopsis: String,
@@ -18,6 +18,8 @@ class Proyecto {
         });
         mongoose.model(Proyecto.name, this.schema);
     }
-}
+    return Proyecto;
+}());
 Proyecto.current = new Proyecto();
 exports.Proyecto = Proyecto;
+//# sourceMappingURL=Proyectos.js.map

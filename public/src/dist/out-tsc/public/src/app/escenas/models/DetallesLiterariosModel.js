@@ -1,7 +1,9 @@
 "use strict";
-export class DetalleLiterarioModel {
-    constructor() {
+var DetalleLiterarioModel = (function () {
+    function DetalleLiterarioModel() {
         this.texto = new String('');
     }
-}
+    return DetalleLiterarioModel;
+}());
+exports.DetalleLiterarioModel = DetalleLiterarioModel;
 //# sourceMappingURL=DetallesLiterariosModel.js.map

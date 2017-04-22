@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,87 +8,99 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Http, RequestOptions, Headers } from '@angular/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-export var ResponseStatus;
+var http_1 = require("@angular/http");
+var core_1 = require("@angular/core");
+var rxjs_1 = require("rxjs");
+var ResponseStatus;
 (function (ResponseStatus) {
     ResponseStatus[ResponseStatus["OK"] = 0] = "OK";
     ResponseStatus[ResponseStatus["KO"] = 1] = "KO";
-})(ResponseStatus || (ResponseStatus = {}));
-export class RespuestaJson {
-}
-export class PeticionJson {
-    constructor(find, sort, select) {
+})(ResponseStatus = exports.ResponseStatus || (exports.ResponseStatus = {}));
+var RespuestaJson = (function () {
+    function RespuestaJson() {
+    }
+    return RespuestaJson;
+}());
+exports.RespuestaJson = RespuestaJson;
+var PeticionJson = (function () {
+    function PeticionJson(find, sort, select) {
         this.find = find;
         this.sort = sort;
         this.select = select;
     }
-}
-let AngularAPIHelper = AngularAPIHelper_1 = class AngularAPIHelper {
-    constructor(http) {
+    return PeticionJson;
+}());
+exports.PeticionJson = PeticionJson;
+var AngularAPIHelper = AngularAPIHelper_1 = (function () {
+    function AngularAPIHelper(http) {
         this.http = http;
     }
-    handleError(error) {
-        let errMsg = 'Error en el AngularAPIHelper:' + error;
-        return Observable.throw(errMsg);
-    }
-    cargarConfiguracion() {
+    AngularAPIHelper.prototype.handleError = function (error) {
+        var errMsg = 'Error en el AngularAPIHelper:' + error;
+        return rxjs_1.Observable.throw(errMsg);
+    };
+    AngularAPIHelper.prototype.cargarConfiguracion = function () {
         return this.http.get('/assets/apiconfig.json').toPromise().
-            then(config => {
-            let _config = config.json();
+            then(function (config) {
+            var _config = config.json();
             AngularAPIHelper_1.maximoSizeByFichero = _config.maxFileSizeBytes;
             AngularAPIHelper_1.URL = _config.apiURL + ':' + _config.publicApiPort + '/api/';
             AngularAPIHelper_1.mimeTypesPermitidos = _config.mimeTypesPermitidos;
         });
-    }
-    usuarioLogeado(localStorageService) {
-        let usuario = localStorageService.getPropiedad('usuarioLogeado');
-        let token = localStorageService.getPropiedad('tokenUsuario');
+    };
+    AngularAPIHelper.prototype.usuarioLogeado = function (localStorageService) {
+        var usuario = localStorageService.getPropiedad('usuarioLogeado');
+        var token = localStorageService.getPropiedad('tokenUsuario');
         return token != undefined && usuario != undefined;
-    }
-    parse(response) {
+    };
+    AngularAPIHelper.prototype.parse = function (response) {
         return JSON.parse(response);
-    }
-    buildPeticion(find, sort, select = "") {
+    };
+    AngularAPIHelper.prototype.buildPeticion = function (find, sort, select) {
+        if (select === void 0) { select = ""; }
         return new PeticionJson(find, sort, select);
-    }
-    crearCabeceraAuth() {
-        let requestOptions = null;
-        let token = localStorage.getItem('tokenUsuario');
+    };
+    AngularAPIHelper.prototype.crearCabeceraAuth = function () {
+        var requestOptions = null;
+        var token = localStorage.getItem('tokenUsuario');
         if (token != undefined) {
-            let headers = new Headers({ 'Authorization': 'Bearer ' + token });
-            requestOptions = new RequestOptions({ headers: headers });
+            var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + token });
+            requestOptions = new http_1.RequestOptions({ headers: headers });
         }
         return requestOptions;
-    }
-    getAll(entity) {
-        return this.http.get(AngularAPIHelper_1.URL + entity, this.crearCabeceraAuth()).map(response => this.parse(response.text())).catch(this.handleError);
-    }
-    getById(entity, id) {
-        return this.http.get(AngularAPIHelper_1.URL + entity + "/" + id, this.crearCabeceraAuth()).map(response => this.parse(response.text())).catch(this.handleError);
-    }
-    deleteById(entity, id) {
-        return this.http.delete(AngularAPIHelper_1.URL + entity + '/' + id, this.crearCabeceraAuth()).map(response => this.parse(response.text())).catch(this.handleError);
-    }
-    postEntryOrFilter(entity, entryOrFilter) {
-        return this.http.post(AngularAPIHelper_1.URL + entity, JSON.parse(entryOrFilter), this.crearCabeceraAuth()).map(response => this.parse(response.text())).catch(this.handleError);
-    }
-    mimeTypePermitido(mime) {
-        let mimeEncontrado = AngularAPIHelper_1.mimeTypesPermitidos.find(x => x == mime);
+    };
+    AngularAPIHelper.prototype.getAll = function (entity) {
+        var _this = this;
+        return this.http.get(AngularAPIHelper_1.URL + entity, this.crearCabeceraAuth()).map(function (response) { return _this.parse(response.text()); }).catch(this.handleError);
+    };
+    AngularAPIHelper.prototype.getById = function (entity, id) {
+        var _this = this;
+        return this.http.get(AngularAPIHelper_1.URL + entity + "/" + id, this.crearCabeceraAuth()).map(function (response) { return _this.parse(response.text()); }).catch(this.handleError);
+    };
+    AngularAPIHelper.prototype.deleteById = function (entity, id) {
+        var _this = this;
+        return this.http.delete(AngularAPIHelper_1.URL + entity + '/' + id, this.crearCabeceraAuth()).map(function (response) { return _this.parse(response.text()); }).catch(this.handleError);
+    };
+    AngularAPIHelper.prototype.postEntryOrFilter = function (entity, entryOrFilter) {
+        var _this = this;
+        return this.http.post(AngularAPIHelper_1.URL + entity, JSON.parse(entryOrFilter), this.crearCabeceraAuth()).map(function (response) { return _this.parse(response.text()); }).catch(this.handleError);
+    };
+    AngularAPIHelper.prototype.mimeTypePermitido = function (mime) {
+        var mimeEncontrado = AngularAPIHelper_1.mimeTypesPermitidos.find(function (x) { return x == mime; });
         return mimeEncontrado == mime;
-    }
-    sizeOfFicheroAdecuado(size) {
+    };
+    AngularAPIHelper.prototype.sizeOfFicheroAdecuado = function (size) {
         return size <= AngularAPIHelper_1.maximoSizeByFichero;
-    }
-};
+    };
+    return AngularAPIHelper;
+}());
 AngularAPIHelper.URL = "";
 AngularAPIHelper.maximoSizeByFichero = 0;
 AngularAPIHelper.mimeTypesPermitidos = [];
 AngularAPIHelper = AngularAPIHelper_1 = __decorate([
-    Injectable(),
-    __metadata("design:paramtypes", [Http])
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
 ], AngularAPIHelper);
-export { AngularAPIHelper };
+exports.AngularAPIHelper = AngularAPIHelper;
 var AngularAPIHelper_1;
 //# sourceMappingURL=AngularAPIHelper.js.map

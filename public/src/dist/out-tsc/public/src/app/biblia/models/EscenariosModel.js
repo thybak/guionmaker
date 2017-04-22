@@ -1,7 +1,9 @@
 "use strict";
-export class EscenarioModel {
-    constructor() {
+var EscenarioModel = (function () {
+    function EscenarioModel() {
         this.nombre = "Nuevo escenario";
     }
-}
+    return EscenarioModel;
+}());
+exports.EscenarioModel = EscenarioModel;
 //# sourceMappingURL=EscenariosModel.js.map

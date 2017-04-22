@@ -1,28 +1,32 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { PageNotFoundComponent } from './pageNotFound.component';
-import { IndexComponent } from './index.component';
-import { LoginComponent } from './login.component';
-import { RegistroComponent } from './registro.component';
-const appRoutes = [
-    { path: '', component: IndexComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'registro', component: RegistroComponent },
-    { path: '**', component: PageNotFoundComponent }
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var pageNotFound_component_1 = require("./pageNotFound.component");
+var index_component_1 = require("./index.component");
+var login_component_1 = require("./login.component");
+var registro_component_1 = require("./registro.component");
+var appRoutes = [
+    { path: '', component: index_component_1.IndexComponent },
+    { path: 'login', component: login_component_1.LoginComponent },
+    { path: 'registro', component: registro_component_1.RegistroComponent },
+    { path: '**', component: pageNotFound_component_1.PageNotFoundComponent }
 ];
-let AppRoutingModule = class AppRoutingModule {
-};
+var AppRoutingModule = (function () {
+    function AppRoutingModule() {
+    }
+    return AppRoutingModule;
+}());
 AppRoutingModule = __decorate([
-    NgModule({
-        imports: [RouterModule.forRoot(appRoutes)],
-        exports: [RouterModule]
+    core_1.NgModule({
+        imports: [router_1.RouterModule.forRoot(appRoutes)],
+        exports: [router_1.RouterModule]
     })
 ], AppRoutingModule);
-export { AppRoutingModule };
+exports.AppRoutingModule = AppRoutingModule;
 //# sourceMappingURL=app-routing.module.js.map

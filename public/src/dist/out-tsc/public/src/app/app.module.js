@@ -1,52 +1,57 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { EscenasModule } from './escenas/escenas.module';
-import { ProyectosModule } from './proyectos/proyectos.module';
-import { UtilsModule } from './utils/utils.module';
-import { BibliaModule } from './biblia/biblia.module';
-import { AppRoutingModule } from './app-routing.module';
-import { AngularAPIHelper } from './utils/AngularAPIHelper';
-import { AppComponent } from './app.component';
-import { PageNotFoundComponent } from './pageNotFound.component';
-import { IndexComponent } from './index.component';
-import { LoginComponent } from './login.component';
-import { RegistroComponent } from './registro.component';
-export function cargarConfiguracion(api) {
-    return () => api.cargarConfiguracion();
+var platform_browser_1 = require("@angular/platform-browser");
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var http_1 = require("@angular/http");
+var escenas_module_1 = require("./escenas/escenas.module");
+var proyectos_module_1 = require("./proyectos/proyectos.module");
+var utils_module_1 = require("./utils/utils.module");
+var biblia_module_1 = require("./biblia/biblia.module");
+var app_routing_module_1 = require("./app-routing.module");
+var AngularAPIHelper_1 = require("./utils/AngularAPIHelper");
+var app_component_1 = require("./app.component");
+var pageNotFound_component_1 = require("./pageNotFound.component");
+var index_component_1 = require("./index.component");
+var login_component_1 = require("./login.component");
+var registro_component_1 = require("./registro.component");
+function cargarConfiguracion(api) {
+    return function () { return api.cargarConfiguracion(); };
 }
-let AppModule = class AppModule {
-};
+exports.cargarConfiguracion = cargarConfiguracion;
+var AppModule = (function () {
+    function AppModule() {
+    }
+    return AppModule;
+}());
 AppModule = __decorate([
-    NgModule({
-        declarations: [AppComponent, PageNotFoundComponent, IndexComponent, LoginComponent, RegistroComponent],
+    core_1.NgModule({
+        declarations: [app_component_1.AppComponent, pageNotFound_component_1.PageNotFoundComponent, index_component_1.IndexComponent, login_component_1.LoginComponent, registro_component_1.RegistroComponent],
         imports: [
-            BrowserModule,
-            FormsModule,
-            ReactiveFormsModule,
-            HttpModule,
-            EscenasModule,
-            ProyectosModule,
-            UtilsModule,
-            BibliaModule,
-            AppRoutingModule
+            platform_browser_1.BrowserModule,
+            forms_1.FormsModule,
+            forms_1.ReactiveFormsModule,
+            http_1.HttpModule,
+            escenas_module_1.EscenasModule,
+            proyectos_module_1.ProyectosModule,
+            utils_module_1.UtilsModule,
+            biblia_module_1.BibliaModule,
+            app_routing_module_1.AppRoutingModule
         ],
-        bootstrap: [AppComponent],
-        providers: [AngularAPIHelper,
+        bootstrap: [app_component_1.AppComponent],
+        providers: [AngularAPIHelper_1.AngularAPIHelper,
             {
-                provide: APP_INITIALIZER,
+                provide: core_1.APP_INITIALIZER,
                 useFactory: cargarConfiguracion,
-                deps: [AngularAPIHelper],
+                deps: [AngularAPIHelper_1.AngularAPIHelper],
                 multi: true
             }]
     })
 ], AppModule);
-export { AppModule };
+exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

@@ -1,1 +1,1 @@
-{"version":3,"file":"PersonajesModel.js","sourceRoot":"","sources":["../../../../../../../app/biblia/models/PersonajesModel.ts"],"names":[],"mappings":"AAAA,YAAY,CAAC;AAEb,MAAM;IAYF;QACI,IAAI,CAAC,MAAM,GAAG,iBAAiB,CAAC;QAChC,IAAI,CAAC,IAAI,GAAG,CAAC,CAAC;IAClB,CAAC;CACJ"}
+{"version":3,"file":"PersonajesModel.js","sourceRoot":"","sources":["../../../../../../../app/biblia/models/PersonajesModel.ts"],"names":[],"mappings":"AAAA,YAAY,CAAC;AAEb;IAYI;QACI,IAAI,CAAC,MAAM,GAAG,iBAAiB,CAAC;QAChC,IAAI,CAAC,IAAI,GAAG,CAAC,CAAC;IAClB,CAAC;IACL,qBAAC;AAAD,CAAC,AAhBD,IAgBC;AAhBY,wCAAc"}

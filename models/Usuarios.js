@@ -1,7 +1,7 @@
 "use strict";
-const mongoose = require("mongoose");
-class Usuario {
-    constructor() {
+var mongoose = require("mongoose");
+var Usuario = (function () {
+    function Usuario() {
         this.schema = new mongoose.Schema({
             nombre: { type: String, required: true },
             apellidos: { type: String, required: true },
@@ -13,6 +13,8 @@ class Usuario {
         this.schema.index({ email: 1 }, { unique: true });
         mongoose.model(Usuario.name, this.schema);
     }
-}
+    return Usuario;
+}());
 Usuario.current = new Usuario();
 exports.Usuario = Usuario;
+//# sourceMappingURL=Usuarios.js.map

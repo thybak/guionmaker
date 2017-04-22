@@ -1,10 +1,14 @@
-export class UsuarioModel {
-    constructor() { }
-    static getObservableUsuarioById(angularAPIHelper, id) {
+"use strict";
+var UsuarioModel = (function () {
+    function UsuarioModel() {
+    }
+    UsuarioModel.getObservableUsuarioById = function (angularAPIHelper, id) {
         return angularAPIHelper.getById('usuario', id);
-    }
-    static getObservableUsuarioByEmail(angularAPIHelper, _email) {
+    };
+    UsuarioModel.getObservableUsuarioByEmail = function (angularAPIHelper, _email) {
         return angularAPIHelper.postEntryOrFilter('usuariosPorFiltro', JSON.stringify(angularAPIHelper.buildPeticion({ email: _email }, {})));
-    }
-}
+    };
+    return UsuarioModel;
+}());
+exports.UsuarioModel = UsuarioModel;
 //# sourceMappingURL=UsuarioModel.js.map

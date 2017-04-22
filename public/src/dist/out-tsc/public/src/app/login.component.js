@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,14 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { AngularAPIHelper, ResponseStatus } from "./utils/AngularAPIHelper";
-import { Utils, PeticionLogin } from "../../../models/Utils";
-import { LocalStorageService } from "./utils/LocalStorageService";
-let LoginComponent = class LoginComponent {
-    constructor(angularAPIHelper, localStorageService, router, fb) {
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var router_1 = require("@angular/router");
+var AngularAPIHelper_1 = require("./utils/AngularAPIHelper");
+var Utils_1 = require("../../../models/Utils");
+var LocalStorageService_1 = require("./utils/LocalStorageService");
+var LoginComponent = (function () {
+    function LoginComponent(angularAPIHelper, localStorageService, router, fb) {
         this.angularAPIHelper = angularAPIHelper;
         this.localStorageService = localStorageService;
         this.router = router;
@@ -23,35 +24,37 @@ let LoginComponent = class LoginComponent {
             this.router.navigate(['/']);
         }
         this.formLogin = this.fb.group({
-            'nombreUsuario': [null, Validators.required],
-            'pass': [null, Validators.required]
+            'nombreUsuario': [null, forms_1.Validators.required],
+            'pass': [null, forms_1.Validators.required]
         });
-        this.peticion = new PeticionLogin();
+        this.peticion = new Utils_1.PeticionLogin();
     }
-    onLogin() {
-        let hashedPass = Utils.firmarTexto(this.peticion.pass);
-        let peticionHasheada = new PeticionLogin(this.peticion.nombreUsuario, hashedPass);
-        this.angularAPIHelper.postEntryOrFilter('usuario/login', JSON.stringify(peticionHasheada)).subscribe(response => {
-            let respuesta = response;
-            if (respuesta.estado == ResponseStatus.OK) {
-                let respuestaLogin = respuesta.login;
-                this.localStorageService.setPropiedad('usuarioLogeado', respuestaLogin.usuarioLogeado);
-                this.localStorageService.setPropiedad('tokenUsuario', respuestaLogin.tokenUsuario);
-                this.router.navigate(['/']);
+    LoginComponent.prototype.onLogin = function () {
+        var _this = this;
+        var hashedPass = Utils_1.Utils.firmarTexto(this.peticion.pass);
+        var peticionHasheada = new Utils_1.PeticionLogin(this.peticion.nombreUsuario, hashedPass);
+        this.angularAPIHelper.postEntryOrFilter('usuario/login', JSON.stringify(peticionHasheada)).subscribe(function (response) {
+            var respuesta = response;
+            if (respuesta.estado == AngularAPIHelper_1.ResponseStatus.OK) {
+                var respuestaLogin = respuesta.login;
+                _this.localStorageService.setPropiedad('usuarioLogeado', respuestaLogin.usuarioLogeado);
+                _this.localStorageService.setPropiedad('tokenUsuario', respuestaLogin.tokenUsuario);
+                _this.router.navigate(['/']);
             }
             else {
-                this.error = true;
+                _this.error = true;
             }
         });
-    }
-};
+    };
+    return LoginComponent;
+}());
 LoginComponent = __decorate([
-    Component({
+    core_1.Component({
         selector: "login",
         templateUrl: "./templates/login.component.html",
-        providers: [AngularAPIHelper, LocalStorageService]
+        providers: [AngularAPIHelper_1.AngularAPIHelper, LocalStorageService_1.LocalStorageService]
     }),
-    __metadata("design:paramtypes", [AngularAPIHelper, LocalStorageService, Router, FormBuilder])
+    __metadata("design:paramtypes", [AngularAPIHelper_1.AngularAPIHelper, LocalStorageService_1.LocalStorageService, router_1.Router, forms_1.FormBuilder])
 ], LoginComponent);
-export { LoginComponent };
+exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

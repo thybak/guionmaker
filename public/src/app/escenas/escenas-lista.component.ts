@@ -2,7 +2,7 @@
 import { EscenaModel } from './models/EscenasModel';
 import { DetalleLiterarioModel } from './models/DetallesLiterariosModel';
 import { DetalleTecnicoModel } from './models/DetallesTecnicosModel';
-import { RespuestaJson, AngularAPIHelper } from '../utils/AngularAPIHelper';
+import { RespuestaJson, AngularAPIHelper, ResponseStatus } from '../utils/AngularAPIHelper';
 import { LocalStorageService } from '../utils/LocalStorageService';
 import { SortablejsOptions } from 'angular-sortablejs';
 import { ConfirmacionGuardado } from '../utils/confirmacion-guardado.component';
@@ -70,15 +70,21 @@ export class EscenasListComponent {
         this.exportacionWindow.document.title = "Vista completa del guión - GuionMaker";
         for (let escena of this.escenas) {
             let escenaActual: EscenaModel = escena;
-            let plantillaModificada: string = plantillaEscena.html.replace("{{tituloEscena}}", escenaActual.orden + ". " + this.getSituacionString(escenaActual) + ". " +  escenaActual.titulo.toUpperCase() + ". " + this.getTemporalidadString(escenaActual));
+            let plantillaModificada: string = plantillaEscena.html.replace("{{tituloEscena}}", escenaActual.orden + ". " + this.getSituacionString(escenaActual) + ". " + escenaActual.titulo.toUpperCase() + ". " + this.getTemporalidadString(escenaActual));
+            this.htmlExportado += "{" + escenaActual.orden + "}";
             this.angularAPIHelper.getById(literario ? 'detalleLiterario' : 'detalleTecnico', literario ? escenaActual.detalleLiterario : escenaActual.detalleTecnico).subscribe(response => {
                 let detalle: any;
-                if (literario) {
-                    detalle = (response as RespuestaJson).consulta[0] as DetalleLiterarioModel;
+                let respuesta = response as RespuestaJson;
+                if (respuesta.estado == ResponseStatus.OK && respuesta.consulta.length > 0) {
+                    if (literario) {
+                        detalle = (response as RespuestaJson).consulta[0] as DetalleLiterarioModel;
+                    } else {
+                        detalle = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel;
+                    }
+                    this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", plantillaModificada.replace("{{contenidoEscena}}", this.generarHtmlImagen(detalle) + detalle.texto));
                 } else {
-                    detalle = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel;
+                    this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", "");
                 }
-                this.htmlExportado += plantillaModificada.replace("{{contenidoEscena}}", this.generarHtmlImagen(detalle) + detalle.texto);
                 this.exportacionWindow.document.documentElement.innerHTML = this.htmlExportado;
             });
         }

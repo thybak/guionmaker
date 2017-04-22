@@ -1,47 +1,49 @@
-﻿<div class="panel panel-primary">
+﻿<div class="well">
+  <div class="panel panel-primary">
     <div class="panel-heading">
-        <h2 class="panel-title">Lista de escenas del proyecto</h2>
+      <h2 class="panel-title">Lista de escenas del proyecto</h2>
     </div>
     <div class="panel-body">
-        <confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>
-        <div class="btn-group mg-btm" role="group">
-            <button class="btn btn-default" (click)="onNuevaEscena()"><i class="glyphicon glyphicon-plus"></i> Añadir escena</button>
-            <button class="btn btn-default" data-toggle="modal" data-target="#mdlExportacion" *ngIf="escenas != undefined && escenas.length > 0"><i class="glyphicon glyphicon-export"></i> Exportar</button>
-        </div>
-        <ul class="list-group" [sortablejs]="escenas" [sortablejsOptions]="sortOptions">
-            <li class="list-group-item" *ngFor="let escena of escenas">
-                <div class="pdn-1">
-                    <div class="row pdn-btm-1"><span class="glyphicon glyphicon-move"></span> <span>ESCENA {{escena.orden}}. {{getSituacionString(escena)}}. {{escena.titulo.toUpperCase()}}. {{getTemporalidadString(escena)}}</span></div>
-                    <div class="row">
-                        <button type="button" class="btn btn-default btn-sm" data-target="#mdlBorrado" data-toggle="modal" (click)="onSeleccionEscenaAEliminar(escena)"><i class="glyphicon glyphicon-trash"></i></button>
-                        <button type="button" class="btn btn-default btn-sm rojoCorazon" *ngIf="escena.destacado" (click)="onDestacar(false, escena)"><span class="glyphicon glyphicon-heart"></span></button>
-                        <button type="button" class="btn btn-default btn-sm rojoCorazon" *ngIf="!escena.destacado" (click)="onDestacar(true, escena)"><span class="glyphicon glyphicon-heart-empty"></span></button>
-                        <button type="button" class="btn btn-default btn-sm" routerLink="{{escena._id}}"><i class="glyphicon glyphicon-edit"></i></button>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <div *ngIf="escenas == undefined || escenas.length == 0" class="alert alert-info"><i class="glyphicon glyphicon-info-sign"></i> No se han almacenado escenas para este proyecto.</div>
-        <botones-guardado *ngIf="escenas != undefined && escenas.length > 0" [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
+      <confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>
+      <div class="btn-group mg-btm" role="group">
+        <button class="btn btn-default" (click)="onNuevaEscena()"><i class="glyphicon glyphicon-plus"></i> Añadir escena</button>
+        <button class="btn btn-default" data-toggle="modal" data-target="#mdlExportacion" *ngIf="escenas != undefined && escenas.length > 0"><i class="glyphicon glyphicon-export"></i> Exportar</button>
+      </div>
+      <ul class="list-group" [sortablejs]="escenas" [sortablejsOptions]="sortOptions">
+        <li class="list-group-item" *ngFor="let escena of escenas">
+          <div class="pdn-1">
+            <div class="row pdn-btm-1"><span class="glyphicon glyphicon-move"></span> <span>ESCENA {{escena.orden}}. {{getSituacionString(escena)}}. {{escena.titulo.toUpperCase()}}. {{getTemporalidadString(escena)}}</span></div>
+            <div class="row">
+              <button type="button" class="btn btn-default btn-sm" data-target="#mdlBorrado" data-toggle="modal" (click)="onSeleccionEscenaAEliminar(escena)"><i class="glyphicon glyphicon-trash"></i></button>
+              <button type="button" class="btn btn-default btn-sm rojoCorazon" *ngIf="escena.destacado" (click)="onDestacar(false, escena)"><span class="glyphicon glyphicon-heart"></span></button>
+              <button type="button" class="btn btn-default btn-sm rojoCorazon" *ngIf="!escena.destacado" (click)="onDestacar(true, escena)"><span class="glyphicon glyphicon-heart-empty"></span></button>
+              <button type="button" class="btn btn-default btn-sm" routerLink="{{escena._id}}"><i class="glyphicon glyphicon-edit"></i></button>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div *ngIf="escenas == undefined || escenas.length == 0" class="alert alert-info"><i class="glyphicon glyphicon-info-sign"></i> No se han almacenado escenas para este proyecto.</div>
+      <botones-guardado *ngIf="escenas != undefined && escenas.length > 0" [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
     </div>
-</div>
-<div class="modal fade" id="mdlExportacion" role="dialog">
+  </div>
+  <div class="modal fade" id="mdlExportacion" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Exportación de guiones</h4>
-            </div>
-            <div class="modal-body">
-                <p>Haz click en el botón correspondiente al tipo de exportación que quieras realizar.</p>
-                <ul>
-                    <li>El guión literario sólo contiene los detalles literarios del guión separados por escenas.</li>
-                    <li>El guión técnico sólo contiene los detalles técnicos, incluidas las imágenes.</li>
-                </ul>
-                <p></p>
-                <button type="button" class="btn btn-primary" (click)="exportarGuion(true)" data-dismiss="modal">Exportar guión literario</button>
-                <button type="button" class="btn btn-primary" (click)="exportarGuion(false)" data-dismiss="modal">Exportar guión técnico</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Exportación de guiones</h4>
         </div>
+        <div class="modal-body">
+          <p>Haz click en el botón correspondiente al tipo de exportación que quieras realizar.</p>
+          <ul>
+            <li>El guión literario sólo contiene los detalles literarios del guión separados por escenas.</li>
+            <li>El guión técnico sólo contiene los detalles técnicos, incluidas las imágenes.</li>
+          </ul>
+          <p></p>
+          <button type="button" class="btn btn-primary" (click)="exportarGuion(true)" data-dismiss="modal">Exportar guión literario</button>
+          <button type="button" class="btn btn-primary" (click)="exportarGuion(false)" data-dismiss="modal">Exportar guión técnico</button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,22 +8,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { ProyectoModel } from './proyectos/models/ProyectosModel';
-import { AngularAPIHelper } from './utils/AngularAPIHelper';
-import { LocalStorageService } from './utils/LocalStorageService';
-let IndexComponent = class IndexComponent {
-    constructor(angularAPIHelper, localStorageService, router) {
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var ProyectosModel_1 = require("./proyectos/models/ProyectosModel");
+var AngularAPIHelper_1 = require("./utils/AngularAPIHelper");
+var LocalStorageService_1 = require("./utils/LocalStorageService");
+var IndexComponent = (function () {
+    function IndexComponent(angularAPIHelper, localStorageService, router) {
+        var _this = this;
         this.angularAPIHelper = angularAPIHelper;
         this.localStorageService = localStorageService;
         this.router = router;
         if (this.angularAPIHelper.usuarioLogeado(this.localStorageService)) {
-            ProyectoModel.getProyectosByAutorAndEstado(this.localStorageService.getPropiedad('usuarioLogeado'), false, angularAPIHelper).subscribe(response => {
-                this.proyectos = response.consulta;
-                this.proyectoActual = localStorage.getItem('proyectoActual');
-                if (this.proyectoActual == null && this.proyectos != undefined && this.proyectos.length > 0) {
-                    this.proyectoActual = this.proyectos[0]._id;
+            ProyectosModel_1.ProyectoModel.getProyectosByAutorAndEstado(this.localStorageService.getPropiedad('usuarioLogeado'), false, angularAPIHelper).subscribe(function (response) {
+                _this.proyectos = response.consulta;
+                _this.proyectoActual = localStorage.getItem('proyectoActual');
+                if (_this.proyectoActual == null && _this.proyectos != undefined && _this.proyectos.length > 0) {
+                    _this.proyectoActual = _this.proyectos[0]._id;
                 }
             });
         }
@@ -30,20 +32,22 @@ let IndexComponent = class IndexComponent {
             this.router.navigate(['login']);
         }
     }
-    setProyectoActual() {
+    IndexComponent.prototype.setProyectoActual = function () {
+        var _this = this;
         if (this.proyectoActual != null) {
-            let proyecto = this.proyectos.find(x => x._id == this.proyectoActual);
+            var proyecto = this.proyectos.find(function (x) { return x._id == _this.proyectoActual; });
             this.localStorageService.setPropiedad('proyectoActual', this.proyectoActual);
             this.localStorageService.setPropiedad('nombreProyectoActual', proyecto.nombre);
         }
-    }
-};
+    };
+    return IndexComponent;
+}());
 IndexComponent = __decorate([
-    Component({
+    core_1.Component({
         templateUrl: './templates/index.component.html',
-        providers: [AngularAPIHelper]
+        providers: [AngularAPIHelper_1.AngularAPIHelper]
     }),
-    __metadata("design:paramtypes", [AngularAPIHelper, LocalStorageService, Router])
+    __metadata("design:paramtypes", [AngularAPIHelper_1.AngularAPIHelper, LocalStorageService_1.LocalStorageService, router_1.Router])
 ], IndexComponent);
-export { IndexComponent };
+exports.IndexComponent = IndexComponent;
 //# sourceMappingURL=index.component.js.map

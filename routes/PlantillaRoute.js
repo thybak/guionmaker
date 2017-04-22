@@ -1,32 +1,40 @@
 "use strict";
-const mongoose = require("mongoose");
-const Plantillas_1 = require("../models/Plantillas");
-const APIHelper_1 = require("./APIHelper");
+var mongoose = require("mongoose");
+var Plantillas_1 = require("../models/Plantillas");
+var APIHelper_1 = require("./APIHelper");
 var Route;
 (function (Route) {
-    class PlantillaRoute {
-        static get model() {
-            if (PlantillaRoute._model == undefined) {
-                PlantillaRoute._model = mongoose.model(Plantillas_1.Plantilla.name);
-            }
-            return PlantillaRoute._model;
+    var PlantillaRoute = (function () {
+        function PlantillaRoute() {
         }
-        getPlantillas(req, res, next) {
+        Object.defineProperty(PlantillaRoute, "model", {
+            get: function () {
+                if (PlantillaRoute._model == undefined) {
+                    PlantillaRoute._model = mongoose.model(Plantillas_1.Plantilla.name);
+                }
+                return PlantillaRoute._model;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        PlantillaRoute.prototype.getPlantillas = function (req, res, next) {
             APIHelper_1.APIHelper.getAll(PlantillaRoute.model, req, res);
-        }
-        getPlantillaById(req, res, next) {
+        };
+        PlantillaRoute.prototype.getPlantillaById = function (req, res, next) {
             APIHelper_1.APIHelper.getById(PlantillaRoute.model, req, res);
-        }
-        addPlantilla(req, res, next) {
+        };
+        PlantillaRoute.prototype.addPlantilla = function (req, res, next) {
             APIHelper_1.APIHelper.add(PlantillaRoute.model, req, res);
-        }
-        deletePlantilla(req, res, next) {
+        };
+        PlantillaRoute.prototype.deletePlantilla = function (req, res, next) {
             APIHelper_1.APIHelper.delete(PlantillaRoute.model, req, res);
-        }
-        getPlantillasByFilterAndSort(req, res, next) {
+        };
+        PlantillaRoute.prototype.getPlantillasByFilterAndSort = function (req, res, next) {
             APIHelper_1.APIHelper.getByFilterAndSort(PlantillaRoute.model, req, res);
-        }
-    }
+        };
+        return PlantillaRoute;
+    }());
     Route.PlantillaRoute = PlantillaRoute;
 })(Route || (Route = {}));
 module.exports = Route;
+//# sourceMappingURL=PlantillaRoute.js.map

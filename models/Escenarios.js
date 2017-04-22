@@ -1,8 +1,8 @@
 "use strict";
-const mongoose = require("mongoose");
-const Proyectos_1 = require("./Proyectos");
-class Escenario {
-    constructor() {
+var mongoose = require("mongoose");
+var Proyectos_1 = require("./Proyectos");
+var Escenario = (function () {
+    function Escenario() {
         this.schema = new mongoose.Schema({
             nombre: String,
             ubicacion: String,
@@ -13,6 +13,8 @@ class Escenario {
         });
         mongoose.model(Escenario.name, this.schema);
     }
-}
+    return Escenario;
+}());
 Escenario.current = new Escenario();
 exports.Escenario = Escenario;
+//# sourceMappingURL=Escenarios.js.map

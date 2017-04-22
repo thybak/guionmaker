@@ -1,29 +1,37 @@
 "use strict";
-const mongoose = require("mongoose");
-const Generos_1 = require("../models/Generos");
-const APIHelper_1 = require("./APIHelper");
+var mongoose = require("mongoose");
+var Generos_1 = require("../models/Generos");
+var APIHelper_1 = require("./APIHelper");
 var Route;
 (function (Route) {
-    class GeneroRoute {
-        static get model() {
-            if (GeneroRoute._model == undefined) {
-                GeneroRoute._model = mongoose.model(Generos_1.Genero.name);
-            }
-            return GeneroRoute._model;
+    var GeneroRoute = (function () {
+        function GeneroRoute() {
         }
-        getGeneros(req, res, next) {
+        Object.defineProperty(GeneroRoute, "model", {
+            get: function () {
+                if (GeneroRoute._model == undefined) {
+                    GeneroRoute._model = mongoose.model(Generos_1.Genero.name);
+                }
+                return GeneroRoute._model;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        GeneroRoute.prototype.getGeneros = function (req, res, next) {
             APIHelper_1.APIHelper.getAll(GeneroRoute.model, req, res);
-        }
-        addGenero(req, res, next) {
+        };
+        GeneroRoute.prototype.addGenero = function (req, res, next) {
             APIHelper_1.APIHelper.add(GeneroRoute.model, req, res);
-        }
-        getGeneroById(req, res, next) {
+        };
+        GeneroRoute.prototype.getGeneroById = function (req, res, next) {
             APIHelper_1.APIHelper.getById(GeneroRoute.model, req, res);
-        }
-        deleteGenero(req, res, next) {
+        };
+        GeneroRoute.prototype.deleteGenero = function (req, res, next) {
             APIHelper_1.APIHelper.delete(GeneroRoute.model, req, res);
-        }
-    }
+        };
+        return GeneroRoute;
+    }());
     Route.GeneroRoute = GeneroRoute;
 })(Route || (Route = {}));
 module.exports = Route;
+//# sourceMappingURL=GeneroRoute.js.map
