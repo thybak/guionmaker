@@ -20,8 +20,8 @@ var pageNotFound_component_1 = require("./pageNotFound.component");
 var index_component_1 = require("./index.component");
 var login_component_1 = require("./login.component");
 var registro_component_1 = require("./registro.component");
-function cargarConfiguracion(api) {
-    return function () { return api.cargarConfiguracion(); };
+function cargarConfiguracion(api, injector) {
+    return function () { return api.cargarConfiguracion(injector); };
 }
 exports.cargarConfiguracion = cargarConfiguracion;
 var AppModule = (function () {
@@ -48,7 +48,7 @@ AppModule = __decorate([
             {
                 provide: core_1.APP_INITIALIZER,
                 useFactory: cargarConfiguracion,
-                deps: [AngularAPIHelper_1.AngularAPIHelper],
+                deps: [AngularAPIHelper_1.AngularAPIHelper, core_1.Injector],
                 multi: true
             }]
     })

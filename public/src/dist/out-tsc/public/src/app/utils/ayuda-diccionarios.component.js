@@ -8,16 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var http_1 = require("@angular/http");
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var AyudaDiccionariosComponent = (function () {
-    function AyudaDiccionariosComponent(domSanitizer) {
+    function AyudaDiccionariosComponent(domSanitizer, http) {
         this.domSanitizer = domSanitizer;
+        this.http = http;
         this.iniURLRAE = "http://dle.rae.es/srv/search?w={0}&m=10";
         this.iniURLWR = "http://www.wordreference.com/sinonimos/{0}";
     }
     AyudaDiccionariosComponent.prototype.cambiarURLAcepciones = function () {
         this.urlRAE = this.domSanitizer.bypassSecurityTrustResourceUrl(this.iniURLRAE.replace("{0}", this.palabraAcepcion));
+        this.http.get(this.iniURLRAE.replace("{0}", this.palabraAcepcion)).map(function (response) { return response.text(); }).subscribe(function (res) { return console.log(res); });
     };
     AyudaDiccionariosComponent.prototype.cambiarURLSinonimos = function () {
         this.urlWR = this.domSanitizer.bypassSecurityTrustResourceUrl(this.iniURLWR.replace("{0}", this.palabraSinonimo));
@@ -29,7 +32,7 @@ AyudaDiccionariosComponent = __decorate([
         templateUrl: './templates/ayuda-diccionarios.component.html',
         selector: 'ayuda-diccionarios'
     }),
-    __metadata("design:paramtypes", [platform_browser_1.DomSanitizer])
+    __metadata("design:paramtypes", [platform_browser_1.DomSanitizer, http_1.Http])
 ], AyudaDiccionariosComponent);
 exports.AyudaDiccionariosComponent = AyudaDiccionariosComponent;
 //# sourceMappingURL=ayuda-diccionarios.component.js.map

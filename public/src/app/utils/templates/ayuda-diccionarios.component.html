@@ -22,11 +22,6 @@
                   <button type="button" class="btn btn-primary" (click)="cambiarURLAcepciones()"><i class="glyphicon glyphicon-search"></i> Buscar significado</button>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <iframe [src]="urlRAE" class="iFrameLinguistico" *ngIf="urlRAE != undefined && urlRAE != ''"></iframe>
-                </div>
-              </div>
             </td>
           </tr>
           <tr>
@@ -41,11 +36,6 @@
                 </div>
                 <div class="col-md-2">
                   <button type="button" class="btn btn-primary" (click)="cambiarURLSinonimos()"><i class="glyphicon glyphicon-search"></i> Buscar sinónimos</button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <iframe [src]="urlWR" class="iFrameLinguistico" *ngIf="urlWR != undefined && urlWR != ''"></iframe>
                 </div>
               </div>
             </td>

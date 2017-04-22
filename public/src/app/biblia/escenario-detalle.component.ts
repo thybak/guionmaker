@@ -10,6 +10,7 @@ import { AngularAPIHelper, RespuestaJson, PeticionJson, ResponseStatus } from ".
 import { BotonesGuardado, TipoOperacionGuardado } from "../utils/botones-guardado.component";
 import { ConfirmacionGuardado } from "../utils/confirmacion-guardado.component";
 import { LocalStorageService } from "../utils/LocalStorageService";
+import { AyudaDiccionariosComponent } from "../utils/ayuda-diccionarios.component";
 
 @Component({
     selector: 'escenario-detalle',

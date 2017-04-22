@@ -73,15 +73,22 @@ var EscenasListComponent = (function () {
         var _loop_2 = function (escena) {
             var escenaActual = escena;
             var plantillaModificada = plantillaEscena.html.replace("{{tituloEscena}}", escenaActual.orden + ". " + this_2.getSituacionString(escenaActual) + ". " + escenaActual.titulo.toUpperCase() + ". " + this_2.getTemporalidadString(escenaActual));
+            this_2.htmlExportado += "{" + escenaActual.orden + "}";
             this_2.angularAPIHelper.getById(literario ? 'detalleLiterario' : 'detalleTecnico', literario ? escenaActual.detalleLiterario : escenaActual.detalleTecnico).subscribe(function (response) {
                 var detalle;
-                if (literario) {
-                    detalle = response.consulta[0];
+                var respuesta = response;
+                if (respuesta.estado == AngularAPIHelper_1.ResponseStatus.OK && respuesta.consulta.length > 0) {
+                    if (literario) {
+                        detalle = response.consulta[0];
+                    }
+                    else {
+                        detalle = response.consulta[0];
+                    }
+                    _this.htmlExportado = _this.htmlExportado.replace("{" + escenaActual.orden + "}", plantillaModificada.replace("{{contenidoEscena}}", _this.generarHtmlImagen(detalle) + detalle.texto));
                 }
                 else {
-                    detalle = response.consulta[0];
+                    _this.htmlExportado = _this.htmlExportado.replace("{" + escenaActual.orden + "}", "");
                 }
-                _this.htmlExportado += plantillaModificada.replace("{{contenidoEscena}}", _this.generarHtmlImagen(detalle) + detalle.texto);
                 _this.exportacionWindow.document.documentElement.innerHTML = _this.htmlExportado;
             });
         };

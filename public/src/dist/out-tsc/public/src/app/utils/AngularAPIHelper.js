@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var http_1 = require("@angular/http");
+var common_1 = require("@angular/common");
 var core_1 = require("@angular/core");
 var rxjs_1 = require("rxjs");
 var ResponseStatus;
@@ -39,13 +40,19 @@ var AngularAPIHelper = AngularAPIHelper_1 = (function () {
         var errMsg = 'Error en el AngularAPIHelper:' + error;
         return rxjs_1.Observable.throw(errMsg);
     };
-    AngularAPIHelper.prototype.cargarConfiguracion = function () {
-        return this.http.get('/assets/apiconfig.json').toPromise().
-            then(function (config) {
-            var _config = config.json();
-            AngularAPIHelper_1.maximoSizeByFichero = _config.maxFileSizeBytes;
-            AngularAPIHelper_1.URL = _config.apiURL + ':' + _config.publicApiPort + '/api/';
-            AngularAPIHelper_1.mimeTypesPermitidos = _config.mimeTypesPermitidos;
+    AngularAPIHelper.prototype.cargarConfiguracion = function (injector) {
+        var _this = this;
+        var locationInitialized = injector.get(common_1.LOCATION_INITIALIZED, Promise.resolve(null));
+        return locationInitialized.then(function () {
+            _this.http.get('/assets/apiconfig.json').toPromise().
+                then(function (config) {
+                var _config = config.json();
+                AngularAPIHelper_1.maximoSizeByFichero = _config.maxFileSizeBytes;
+                AngularAPIHelper_1.URL = _config.apiURL + ':' + _config.publicApiPort + '/api/';
+                AngularAPIHelper_1.mimeTypesPermitidos = _config.mimeTypesPermitidos;
+            });
+        }, function (error) {
+            console.log(error);
         });
     };
     AngularAPIHelper.prototype.usuarioLogeado = function (localStorageService) {
