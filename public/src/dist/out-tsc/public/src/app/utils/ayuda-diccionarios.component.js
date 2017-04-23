@@ -19,11 +19,10 @@ var AyudaDiccionariosComponent = (function () {
         this.iniURLWR = "http://www.wordreference.com/sinonimos/{0}";
     }
     AyudaDiccionariosComponent.prototype.cambiarURLAcepciones = function () {
-        this.urlRAE = this.domSanitizer.bypassSecurityTrustResourceUrl(this.iniURLRAE.replace("{0}", this.palabraAcepcion));
-        this.http.get(this.iniURLRAE.replace("{0}", this.palabraAcepcion)).map(function (response) { return response.text(); }).subscribe(function (res) { return console.log(res); });
+        window.open(this.iniURLRAE.replace("{0}", this.palabraAcepcion));
     };
     AyudaDiccionariosComponent.prototype.cambiarURLSinonimos = function () {
-        this.urlWR = this.domSanitizer.bypassSecurityTrustResourceUrl(this.iniURLWR.replace("{0}", this.palabraSinonimo));
+        window.open(this.iniURLWR.replace("{0}", this.palabraSinonimo));
     };
     return AyudaDiccionariosComponent;
 }());

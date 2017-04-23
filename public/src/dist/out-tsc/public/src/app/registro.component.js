@@ -41,12 +41,12 @@ var RegistroComponent = (function () {
                 var respuesta = response;
                 if (respuesta.estado == AngularAPIHelper_1.ResponseStatus.OK) {
                     _this.usuarioGuardado = true;
-                    _this.usuarioGuardando = false;
                 }
                 else {
                     _this.errorAlGuardarUsuario = true;
                     _this.mensajeError = respuesta.error.toString();
                 }
+                _this.usuarioGuardando = false;
             });
         }
         else {

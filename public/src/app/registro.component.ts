@@ -44,11 +44,15 @@ export class RegistroComponent {
                 let respuesta = response as RespuestaJson;
                 if (respuesta.estado == ResponseStatus.OK) {
                     this.usuarioGuardado = true;
-                    this.usuarioGuardando = false;
                 } else {
                     this.errorAlGuardarUsuario = true;
+                    this.usuario.pass = null;
+                    this.formRegistro.controls["pass"].setValue(null);
+                    this.passConfirm = null;
+                    this.formRegistro.controls["passConfirm"].setValue(null);
                     this.mensajeError = respuesta.error.toString();
                 }
+                this.usuarioGuardando = false;
             });
         } else {
             this.usuarioGuardando = false;
