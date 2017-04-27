@@ -22,11 +22,20 @@ module Route {
 
         public static crearFiltroProyecto(req: express.Request): PeticionJson {
             let filtro = new PeticionJson();
-            filtro.populate = { path: "proyecto", match: { "autor": req.user.usuarioLogeado } };
+            if (req.body.modoColaborador) {
+                filtro.populate = {
+                    path: "proyecto",
+                    populate: {
+                        path: "colaboradores", match: { "usuario" : req.user.usuarioLogeado }
+                    }
+                };
+            } else {
+                filtro.populate = { path: "proyecto", match: { "autor": req.user.usuarioLogeado } };
+            }
             return filtro;
         }
 
-        public static alterarFiltroConProyecto(req: express.Request) : express.Request {
+        public static alterarFiltroConProyecto(req: express.Request): express.Request {
             let filtro = ProyectoRoute.crearFiltroProyecto(req);
             req.body.populate = filtro.populate;
             return req;
@@ -36,11 +45,12 @@ module Route {
             APIHelper.getAll(ProyectoRoute.model, req, res, ProyectoRoute.crearFiltroAutor(req));
         }
         public getProyectosByFilterAndSort(req: express.Request, res: express.Response, next: express.NextFunction) {
-            if (req.body.find != undefined) {
-                req.body.find.autor = req.user.usuarioLogeado;
-            } else {
-                req.body.find = { "autor": req.user.usuarioLogeado };
-            }
+            req.body.find = {
+                $and: [{ "cancelado": req.body.find.cancelado == undefined ? false : req.body.find.cancelado },
+                { $or: [{ "autor": req.user.usuarioLogeado }, { "colaboradores.usuario": req.user.usuarioLogeado }] }]
+            };
+            console.log(req.body.find);
+            //req.body.populate = { path: "colaboradores" };
             APIHelper.getByFilterAndSort(ProyectoRoute.model, req, res);
         }
         public getProyectoById(req: express.Request, res: express.Response, next: express.NextFunction) {

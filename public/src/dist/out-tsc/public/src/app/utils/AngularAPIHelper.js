@@ -24,10 +24,11 @@ var RespuestaJson = (function () {
 }());
 exports.RespuestaJson = RespuestaJson;
 var PeticionJson = (function () {
-    function PeticionJson(find, sort, select) {
+    function PeticionJson(find, sort, select, modoColaborador) {
         this.find = find;
         this.sort = sort;
         this.select = select;
+        this.modoColaborador = modoColaborador;
     }
     return PeticionJson;
 }());
@@ -63,9 +64,10 @@ var AngularAPIHelper = AngularAPIHelper_1 = (function () {
     AngularAPIHelper.prototype.parse = function (response) {
         return JSON.parse(response);
     };
-    AngularAPIHelper.prototype.buildPeticion = function (find, sort, select) {
+    AngularAPIHelper.prototype.buildPeticion = function (find, sort, select, modoColaborador) {
         if (select === void 0) { select = ""; }
-        return new PeticionJson(find, sort, select);
+        if (modoColaborador === void 0) { modoColaborador = false; }
+        return new PeticionJson(find, sort, select, modoColaborador);
     };
     AngularAPIHelper.prototype.crearCabeceraAuth = function () {
         var requestOptions = null;

@@ -14,8 +14,8 @@ var PeticionJson = (function () {
         this.find = {};
         this.sort = {};
         this.select = "";
-        this.populate = "";
-        this.populateFind = {};
+        this.populate = {};
+        this.modoColaborador = false;
     }
     return PeticionJson;
 }());
@@ -79,8 +79,8 @@ var APIHelper = (function () {
             }
             else {
                 var _resultados = void 0;
-                if (filtro != undefined && filtro.populate != "") {
-                    _resultados = APIHelper.comprobarAfterPopulate(resultado, filtro.populate);
+                if (filtro != undefined && filtro.populate.path != "") {
+                    _resultados = APIHelper.comprobarAfterPopulate(resultado, filtro.populate.path);
                 }
                 else {
                     _resultados = resultado;
@@ -93,11 +93,11 @@ var APIHelper = (function () {
                 }
             }
         };
-        if (filtro == undefined || filtro.populate == "") {
+        if (filtro == undefined || filtro.populate == undefined || filtro.populate.path == "") {
             model.find({}).exec(obtenerTodos);
         }
         else {
-            model.find(filtro.find).populate({ path: filtro.populate, match: filtro.populateFind }).exec(obtenerTodos);
+            model.find(filtro.find).populate(filtro.populate).exec(obtenerTodos);
         }
     };
     APIHelper.getById = function (model, req, res, filtro) {
@@ -111,9 +111,9 @@ var APIHelper = (function () {
                 }
                 else {
                     var _resultado = void 0;
-                    if (filtro.populate != "") {
-                        _resultado = APIHelper.comprobarAfterPopulate(resultado, filtro.populate);
-                        _resultado = APIHelper.aplanarPropiedadesPopulated(_resultado, filtro.populate);
+                    if (Object.keys(filtro.populate).length > 0 && filtro.populate.path != "") {
+                        _resultado = APIHelper.comprobarAfterPopulate(resultado, filtro.populate.path);
+                        _resultado = APIHelper.aplanarPropiedadesPopulated(_resultado, filtro.populate.path);
                     }
                     else {
                         _resultado = resultado;
@@ -126,11 +126,11 @@ var APIHelper = (function () {
                     }
                 }
             };
-            if (filtro.populate == "") {
+            if (Object.keys(filtro.populate).length == 0) {
                 model.find(filtro.find).select(filtro.select).exec(obtenerPorId);
             }
             else {
-                model.find(filtro.find).populate({ path: filtro.populate, match: filtro.populateFind }).select(filtro.select).exec(obtenerPorId);
+                model.find(filtro.find).populate(filtro.populate).select(filtro.select).exec(obtenerPorId);
             }
         }
         else {
@@ -163,15 +163,15 @@ var APIHelper = (function () {
     APIHelper.update = function (model, req, res, filtro) {
         if (filtro === void 0) { filtro = new PeticionJson(); }
         if (req.body != undefined) {
-            model.find(filtro.find).populate({ path: filtro.populate, match: filtro.populateFind }).exec(function (err, resultado) {
+            model.find(filtro.find).populate(Object.keys(filtro.populate).length > 0 ? filtro.populate : "").exec(function (err, resultado) {
                 if (err) {
                     res.json(APIHelper.buildJsonError("Error al intentar actualizar un registro en la entidad " + model.modelName + ". Más info: " + err + ". Modelo: " + req.body));
                 }
                 else {
                     var _resultado = void 0;
-                    if (filtro.populate != "") {
-                        _resultado = APIHelper.comprobarAfterPopulate(resultado, filtro.populate);
-                        _resultado = APIHelper.aplanarPropiedadesPopulated(_resultado, filtro.populate);
+                    if (Object.keys(filtro.populate).length > 0 && filtro.populate.path != "") {
+                        _resultado = APIHelper.comprobarAfterPopulate(resultado, filtro.populate.path);
+                        _resultado = APIHelper.aplanarPropiedadesPopulated(_resultado, filtro.populate.path);
                     }
                     else {
                         _resultado = resultado;
@@ -210,10 +210,10 @@ var APIHelper = (function () {
                 }
                 else {
                     var _resultado_1;
-                    if (filtro.populate != "") {
-                        _resultado_1 = resultado[0][filtro.populate] != null ? resultado[0] : undefined;
+                    if (Object.keys(filtro.populate).length > 0 && filtro.populate.path != "") {
+                        _resultado_1 = resultado[0][filtro.populate.path] != null ? resultado[0] : undefined;
                         if (_resultado_1 != undefined) {
-                            _resultado_1[filtro.populate] = _resultado_1[filtro.populate]["_id"];
+                            _resultado_1[filtro.populate.path] = _resultado_1[filtro.populate.path]["_id"];
                         }
                     }
                     else {
@@ -232,11 +232,11 @@ var APIHelper = (function () {
                     }
                 }
             };
-            if (filtro.populate == "") {
+            if (Object.keys(filtro.populate).length == 0) {
                 model.find(filtro.find).exec(borrar);
             }
             else {
-                model.find(filtro.find).populate({ path: filtro.populate, match: filtro.populateFind }).exec(borrar);
+                model.find(filtro.find).populate(filtro.populate).exec(borrar);
             }
         }
         else {
@@ -253,10 +253,11 @@ var APIHelper = (function () {
                 APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + reqBody + ". Más info: " + err);
             }
             else {
+                console.log(resultado);
                 var _res = void 0;
-                if (objReqBody.populate != undefined && objReqBody.populate != "") {
-                    _res = APIHelper.comprobarAfterPopulate(resultado, objReqBody.populate);
-                    _res = APIHelper.aplanarPropiedadesPopulated(_res, objReqBody.populate);
+                if (objReqBody.populate != undefined && objReqBody.populate.path != "") {
+                    _res = APIHelper.comprobarAfterPopulate(resultado, objReqBody.populate.path);
+                    _res = APIHelper.aplanarPropiedadesPopulated(_res, objReqBody.populate.path);
                 }
                 else {
                     _res = resultado;
@@ -268,7 +269,7 @@ var APIHelper = (function () {
             model.find(find).sort(sort).select(objReqBody.select).exec(obtenerPorFiltroYOrden);
         }
         else {
-            model.find(find).populate({ path: objReqBody.populate, match: objReqBody.populateFind }).sort(sort).select(objReqBody.select).exec(obtenerPorFiltroYOrden);
+            model.find(find).populate(objReqBody.populate).sort(sort).select(objReqBody.select).exec(obtenerPorFiltroYOrden);
         }
     };
     return APIHelper;

@@ -70,8 +70,8 @@ export class AngularAPIHelper {
         return JSON.parse(response) as RespuestaJson;
     }
 
-    buildPeticion(find: any, sort: any, select: string = ""): PeticionJson {
-        return new PeticionJson(find, sort, select);
+    buildPeticion(find: any, sort: any, select: string = "", modoColaborador: boolean = false): PeticionJson {
+        return new PeticionJson(find, sort, select, modoColaborador);
     }
 
     crearCabeceraAuth() : RequestOptions {

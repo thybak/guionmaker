@@ -97,7 +97,7 @@ export class APIHelper {
                 }
             }
         };
-        if (filtro == undefined || filtro.populate.path == "") {
+        if (filtro == undefined || filtro.populate == undefined || filtro.populate.path == "") {
             model.find({}).exec(obtenerTodos);
         } else {
             model.find(filtro.find).populate(filtro.populate).exec(obtenerTodos);
@@ -112,7 +112,7 @@ export class APIHelper {
                     res.json(APIHelper.buildJsonError("Error al obtener los registros de la entidad " + model.modelName + ". Más info: " + err));
                 } else {
                     let _resultado: mongoose.Document[];
-                    if (filtro.populate.path != "") {
+                    if (Object.keys(filtro.populate).length > 0 && filtro.populate.path != "") {
                         _resultado = APIHelper.comprobarAfterPopulate(resultado, filtro.populate.path);
                         _resultado = APIHelper.aplanarPropiedadesPopulated(_resultado, filtro.populate.path);
                     } else {
@@ -125,7 +125,7 @@ export class APIHelper {
                     }
                 }
             };
-            if (filtro.populate.path == "") {
+            if (Object.keys(filtro.populate).length == 0) {
                 model.find(filtro.find).select(filtro.select).exec(obtenerPorId);
             } else {
                 model.find(filtro.find).populate(filtro.populate).select(filtro.select).exec(obtenerPorId);
@@ -155,12 +155,12 @@ export class APIHelper {
     }
     public static update(model: mongoose.Model<mongoose.Document>, req: express.Request, res: express.Response, filtro: PeticionJson = new PeticionJson()): void {
         if (req.body != undefined) {
-            model.find(filtro.find).populate(filtro.populate).exec(function (err, resultado) {
+            model.find(filtro.find).populate(Object.keys(filtro.populate).length > 0 ? filtro.populate : "").exec(function (err, resultado) {
                 if (err) {
                     res.json(APIHelper.buildJsonError("Error al intentar actualizar un registro en la entidad " + model.modelName + ". Más info: " + err + ". Modelo: " + req.body));
                 } else {
                     let _resultado: mongoose.Document[];
-                    if (filtro.populate.path != "") {
+                    if (Object.keys(filtro.populate).length > 0 && filtro.populate.path != "") {
                         _resultado = APIHelper.comprobarAfterPopulate(resultado, filtro.populate.path);
                         _resultado = APIHelper.aplanarPropiedadesPopulated(_resultado, filtro.populate.path);
                     } else {
@@ -196,7 +196,7 @@ export class APIHelper {
                     res.json(APIHelper.buildJsonError("Ha habido un error al eliminar el registro " + id + ". Más info: " + err));
                 } else {
                     let _resultado: any;
-                    if (filtro.populate.path != "") {
+                    if (Object.keys(filtro.populate).length > 0 && filtro.populate.path != "") {
                         _resultado = resultado[0][filtro.populate.path] != null ? resultado[0] : undefined;
                         if (_resultado != undefined) {
                             _resultado[filtro.populate.path] = _resultado[filtro.populate.path]["_id"];
@@ -216,7 +216,7 @@ export class APIHelper {
                     }
                 }
             };
-            if (filtro.populate == "") {
+            if (Object.keys(filtro.populate).length == 0) {
                 model.find(filtro.find).exec(borrar);
             } else {
                 model.find(filtro.find).populate(filtro.populate).exec(borrar);
@@ -235,6 +235,7 @@ export class APIHelper {
             if (err) {
                 APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + reqBody + ". Más info: " + err);
             } else {
+                console.log(resultado);
                 let _res: mongoose.Document[];
                 if (objReqBody.populate != undefined && objReqBody.populate.path != "") {
                     _res = APIHelper.comprobarAfterPopulate(resultado, objReqBody.populate.path);

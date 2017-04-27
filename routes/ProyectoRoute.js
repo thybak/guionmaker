@@ -24,26 +24,34 @@ var Route;
         };
         ProyectoRoute.crearFiltroProyecto = function (req) {
             var filtro = new APIHelper_1.PeticionJson();
-            filtro.populate = "proyecto";
-            filtro.populateFind = { "autor": req.user.usuarioLogeado };
+            if (req.body.modoColaborador) {
+                filtro.populate = {
+                    path: "proyecto",
+                    populate: {
+                        path: "colaboradores", match: { "usuario": req.user.usuarioLogeado }
+                    }
+                };
+            }
+            else {
+                filtro.populate = { path: "proyecto", match: { "autor": req.user.usuarioLogeado } };
+            }
             return filtro;
         };
         ProyectoRoute.alterarFiltroConProyecto = function (req) {
             var filtro = ProyectoRoute.crearFiltroProyecto(req);
             req.body.populate = filtro.populate;
-            req.body.populateFind = filtro.populateFind;
             return req;
         };
         ProyectoRoute.prototype.getProyectos = function (req, res, next) {
             APIHelper_1.APIHelper.getAll(ProyectoRoute.model, req, res, ProyectoRoute.crearFiltroAutor(req));
         };
         ProyectoRoute.prototype.getProyectosByFilterAndSort = function (req, res, next) {
-            if (req.body.find != undefined) {
-                req.body.find.autor = req.user.usuarioLogeado;
-            }
-            else {
-                req.body.find = { "autor": req.user.usuarioLogeado };
-            }
+            req.body.find = {
+                $and: [{ "cancelado": req.body.find.cancelado == undefined ? false : req.body.find.cancelado },
+                    { $or: [{ "autor": req.user.usuarioLogeado }, { "colaboradores.usuario": req.user.usuarioLogeado }] }]
+            };
+            console.log(req.body.find);
+            //req.body.populate = { path: "colaboradores" };
             APIHelper_1.APIHelper.getByFilterAndSort(ProyectoRoute.model, req, res);
         };
         ProyectoRoute.prototype.getProyectoById = function (req, res, next) {
