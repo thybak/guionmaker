@@ -20,17 +20,15 @@ module Route {
             return filtro;
         }
 
-        public static crearFiltroProyecto(req: express.Request) {
+        public static crearFiltroProyecto(req: express.Request): PeticionJson {
             let filtro = new PeticionJson();
-            filtro.populate = "proyecto";
-            filtro.populateFind = { "autor": req.user.usuarioLogeado };
+            filtro.populate = { path: "proyecto", match: { "autor": req.user.usuarioLogeado } };
             return filtro;
         }
 
         public static alterarFiltroConProyecto(req: express.Request) : express.Request {
             let filtro = ProyectoRoute.crearFiltroProyecto(req);
             req.body.populate = filtro.populate;
-            req.body.populateFind = filtro.populateFind;
             return req;
         }
 

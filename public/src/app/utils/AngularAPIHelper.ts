@@ -21,11 +21,13 @@ export class PeticionJson {
     find: any;
     sort: any;
     select: string;
+    modoColaborador: boolean;
 
-    constructor(find, sort, select: string) {
+    constructor(find, sort, select: string, modoColaborador: boolean) {
         this.find = find;
         this.sort = sort;
         this.select = select;
+        this.modoColaborador = modoColaborador;
     }
 }
 

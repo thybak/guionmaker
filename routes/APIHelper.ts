@@ -20,15 +20,15 @@ export class PeticionJson {
     find: any;
     sort: any;
     select: string;
-    populate: string;
-    populateFind: any;
+    populate: any;
+    modoColaborador: boolean;
 
     constructor() {
         this.find = {};
         this.sort = {};
         this.select = "";
-        this.populate = "";
-        this.populateFind = {};
+        this.populate = {};
+        this.modoColaborador = false;
     }
 }
 
@@ -85,8 +85,8 @@ export class APIHelper {
                 res.json(APIHelper.buildJsonError("Error al obtener los registros de la entidad " + model.modelName + ". Más info: " + err));
             } else {
                 let _resultados: mongoose.Document[];
-                if (filtro != undefined && filtro.populate != "") {
-                    _resultados = APIHelper.comprobarAfterPopulate(resultado, filtro.populate);
+                if (filtro != undefined && filtro.populate.path != "") {
+                    _resultados = APIHelper.comprobarAfterPopulate(resultado, filtro.populate.path);
                 } else {
                     _resultados = resultado;
                 }
@@ -97,10 +97,10 @@ export class APIHelper {
                 }
             }
         };
-        if (filtro == undefined || filtro.populate == "") {
+        if (filtro == undefined || filtro.populate.path == "") {
             model.find({}).exec(obtenerTodos);
         } else {
-            model.find(filtro.find).populate({ path: filtro.populate, match: filtro.populateFind }).exec(obtenerTodos);
+            model.find(filtro.find).populate(filtro.populate).exec(obtenerTodos);
         }
     }
     public static getById(model: mongoose.Model<mongoose.Document>, req: express.Request, res: express.Response, filtro: PeticionJson = new PeticionJson()): void {
@@ -112,9 +112,9 @@ export class APIHelper {
                     res.json(APIHelper.buildJsonError("Error al obtener los registros de la entidad " + model.modelName + ". Más info: " + err));
                 } else {
                     let _resultado: mongoose.Document[];
-                    if (filtro.populate != "") {
-                        _resultado = APIHelper.comprobarAfterPopulate(resultado, filtro.populate);
-                        _resultado = APIHelper.aplanarPropiedadesPopulated(_resultado, filtro.populate);
+                    if (filtro.populate.path != "") {
+                        _resultado = APIHelper.comprobarAfterPopulate(resultado, filtro.populate.path);
+                        _resultado = APIHelper.aplanarPropiedadesPopulated(_resultado, filtro.populate.path);
                     } else {
                         _resultado = resultado;
                     }
@@ -125,10 +125,10 @@ export class APIHelper {
                     }
                 }
             };
-            if (filtro.populate == "") {
+            if (filtro.populate.path == "") {
                 model.find(filtro.find).select(filtro.select).exec(obtenerPorId);
             } else {
-                model.find(filtro.find).populate({ path: filtro.populate, match: filtro.populateFind }).select(filtro.select).exec(obtenerPorId);
+                model.find(filtro.find).populate(filtro.populate).select(filtro.select).exec(obtenerPorId);
             }
         } else {
             res.json(APIHelper.buildJsonError("No se ha aportado ninguna ID de la entidad " + model.modelName + "."));
@@ -155,14 +155,14 @@ export class APIHelper {
     }
     public static update(model: mongoose.Model<mongoose.Document>, req: express.Request, res: express.Response, filtro: PeticionJson = new PeticionJson()): void {
         if (req.body != undefined) {
-            model.find(filtro.find).populate({ path: filtro.populate, match: filtro.populateFind }).exec(function (err, resultado) {
+            model.find(filtro.find).populate(filtro.populate).exec(function (err, resultado) {
                 if (err) {
                     res.json(APIHelper.buildJsonError("Error al intentar actualizar un registro en la entidad " + model.modelName + ". Más info: " + err + ". Modelo: " + req.body));
                 } else {
                     let _resultado: mongoose.Document[];
-                    if (filtro.populate != "") {
-                        _resultado = APIHelper.comprobarAfterPopulate(resultado, filtro.populate);
-                        _resultado = APIHelper.aplanarPropiedadesPopulated(_resultado, filtro.populate);
+                    if (filtro.populate.path != "") {
+                        _resultado = APIHelper.comprobarAfterPopulate(resultado, filtro.populate.path);
+                        _resultado = APIHelper.aplanarPropiedadesPopulated(_resultado, filtro.populate.path);
                     } else {
                         _resultado = resultado;
                     }
@@ -196,10 +196,10 @@ export class APIHelper {
                     res.json(APIHelper.buildJsonError("Ha habido un error al eliminar el registro " + id + ". Más info: " + err));
                 } else {
                     let _resultado: any;
-                    if (filtro.populate != "") {
-                        _resultado = resultado[0][filtro.populate] != null ? resultado[0] : undefined;
+                    if (filtro.populate.path != "") {
+                        _resultado = resultado[0][filtro.populate.path] != null ? resultado[0] : undefined;
                         if (_resultado != undefined) {
-                            _resultado[filtro.populate] = _resultado[filtro.populate]["_id"];
+                            _resultado[filtro.populate.path] = _resultado[filtro.populate.path]["_id"];
                         }
                     } else {
                         _resultado = resultado[0];
@@ -219,7 +219,7 @@ export class APIHelper {
             if (filtro.populate == "") {
                 model.find(filtro.find).exec(borrar);
             } else {
-                model.find(filtro.find).populate({ path: filtro.populate, match: filtro.populateFind }).exec(borrar);
+                model.find(filtro.find).populate(filtro.populate).exec(borrar);
             }
         } else {
             res.json(APIHelper.buildJsonError("No se ha aportado ninguna ID de la entidad " + model.modelName + "."));
@@ -236,9 +236,9 @@ export class APIHelper {
                 APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + reqBody + ". Más info: " + err);
             } else {
                 let _res: mongoose.Document[];
-                if (objReqBody.populate != undefined && objReqBody.populate != "") {
-                    _res = APIHelper.comprobarAfterPopulate(resultado, objReqBody.populate);
-                    _res = APIHelper.aplanarPropiedadesPopulated(_res, objReqBody.populate);
+                if (objReqBody.populate != undefined && objReqBody.populate.path != "") {
+                    _res = APIHelper.comprobarAfterPopulate(resultado, objReqBody.populate.path);
+                    _res = APIHelper.aplanarPropiedadesPopulated(_res, objReqBody.populate.path);
                 } else {
                     _res = resultado;
                 }
@@ -249,7 +249,7 @@ export class APIHelper {
         if (objReqBody.populate == undefined || objReqBody.populate == "") {
             model.find(find).sort(sort).select(objReqBody.select).exec(obtenerPorFiltroYOrden);
         } else {
-            model.find(find).populate({ path: objReqBody.populate, match: objReqBody.populateFind }).sort(sort).select(objReqBody.select).exec(obtenerPorFiltroYOrden);
+            model.find(find).populate(objReqBody.populate).sort(sort).select(objReqBody.select).exec(obtenerPorFiltroYOrden);
         }
     }
 }

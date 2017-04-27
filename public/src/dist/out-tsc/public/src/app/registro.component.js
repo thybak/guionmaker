@@ -44,6 +44,10 @@ var RegistroComponent = (function () {
                 }
                 else {
                     _this.errorAlGuardarUsuario = true;
+                    _this.usuario.pass = null;
+                    _this.formRegistro.controls["pass"].setValue(null);
+                    _this.passConfirm = null;
+                    _this.formRegistro.controls["passConfirm"].setValue(null);
                     _this.mensajeError = respuesta.error.toString();
                 }
                 _this.usuarioGuardando = false;
