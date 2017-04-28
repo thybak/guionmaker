@@ -49,7 +49,7 @@ export class DetalleProyectoComponent implements DoCheck {
             fontNames: ['Courier New', 'Arial', 'Arial Black', 'Sans-serif', 'Serif']
         };
         this.route.params.switchMap((params: Params) =>
-            this.angularAPIHelper.postEntryOrFilter('proyectosPorFiltro', JSON.stringify(this.angularAPIHelper.buildPeticion({ '_id': params['id'], 'cancelado': false }, '')))).
+            this.angularAPIHelper.getById('proyecto', params['id'])).
             subscribe(response => this.cargarModelo(response));
     }
     private cargarSelects() {
@@ -58,7 +58,7 @@ export class DetalleProyectoComponent implements DoCheck {
     }
     private cargarModelo(proyecto: any) {
         this.proyecto = (proyecto as RespuestaJson).consulta[0] as ProyectoModel;
-        this.gestorColaboraciones = new GestorColaboraciones(this.angularAPIHelper, this.proyecto._id);// carga de colaboradores
+        this.gestorColaboraciones = new GestorColaboraciones(this.angularAPIHelper, this.proyecto);// carga de colaboradores
         this.proyecto.sinopsis = this.proyecto.sinopsis == "" || this.proyecto.sinopsis == undefined  ? new String('') : this.proyecto.sinopsis; // workaround por culpa del componente ng2-summernote donde con "" no se muestra nada.
     }
     private guardarCambios(exit: boolean) {

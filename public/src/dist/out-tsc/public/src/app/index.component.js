@@ -22,7 +22,7 @@ var IndexComponent = (function () {
         if (this.angularAPIHelper.usuarioLogeado(this.localStorageService)) {
             ProyectosModel_1.ProyectoModel.getProyectosByAutorAndEstado(this.localStorageService.getPropiedad('usuarioLogeado'), false, angularAPIHelper).subscribe(function (response) {
                 _this.proyectos = response.consulta;
-                _this.proyectoActual = localStorage.getItem('proyectoActual');
+                _this.proyectoActual = _this.localStorageService.getPropiedad('proyectoActual');
                 if (_this.proyectoActual == null && _this.proyectos != undefined && _this.proyectos.length > 0) {
                     _this.proyectoActual = _this.proyectos[0]._id;
                 }

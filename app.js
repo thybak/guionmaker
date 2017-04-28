@@ -16,7 +16,6 @@ var DetalleTecnicoRoute_1 = require("./routes/DetalleTecnicoRoute");
 var DetalleLiterarioRoute_1 = require("./routes/DetalleLiterarioRoute");
 var EscenaRoute_1 = require("./routes/EscenaRoute");
 var PlantillaRoute_1 = require("./routes/PlantillaRoute");
-var ColaboracionRoute_1 = require("./routes/ColaboracionRoute");
 var PersonajeRoute_1 = require("./routes/PersonajeRoute");
 var EscenarioRoute_1 = require("./routes/EscenarioRoute");
 var Server = (function () {
@@ -55,7 +54,6 @@ var Server = (function () {
         var _detallesLiterariosRoute = new DetalleLiterarioRoute_1.DetalleLiterarioRoute();
         var _escenasRoute = new EscenaRoute_1.EscenaRoute();
         var _plantillasRoute = new PlantillaRoute_1.PlantillaRoute();
-        var _colaboracionesRoute = new ColaboracionRoute_1.ColaboracionRoute();
         var _escenariosRoute = new EscenarioRoute_1.EscenarioRoute();
         var _personajesRoute = new PersonajeRoute_1.PersonajeRoute();
         this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', /^(?!\/api).+/] }));
@@ -97,11 +95,6 @@ var Server = (function () {
         router.post('/api/plantilla/', _plantillasRoute.addPlantilla.bind(_plantillasRoute.addPlantilla));
         router.get('/api/plantilla/:id', _plantillasRoute.getPlantillaById.bind(_plantillasRoute.getPlantillaById));
         router.delete('/api/plantilla/:id', _plantillasRoute.deletePlantilla.bind(_plantillasRoute.deletePlantilla));
-        router.get('/api/colaboraciones', _colaboracionesRoute.getColaboraciones.bind(_colaboracionesRoute.getColaboraciones));
-        router.post('/api/colaboracionesPorFiltro', _colaboracionesRoute.getColaboracionesByFilterAndSort.bind(_colaboracionesRoute.getColaboracionesByFilterAndSort));
-        router.post('/api/colaboracion/', _colaboracionesRoute.addColaboracion.bind(_colaboracionesRoute.addColaboracion));
-        router.get('/api/colaboracion/:id', _colaboracionesRoute.getColaboracionById.bind(_colaboracionesRoute.getColaboracionById));
-        router.delete('/api/colaboracion/:id', _colaboracionesRoute.deleteColaboracion.bind(_colaboracionesRoute.deleteColaboracion));
         router.get('/api/escenarios', _escenariosRoute.getEscenarios.bind(_escenariosRoute.getEscenarios));
         router.post('/api/escenariosPorFiltro', _escenariosRoute.getEscenariosByFilterAndSort.bind(_escenariosRoute.getEscenariosByFilterAndSort));
         router.post('/api/escenario/', _escenariosRoute.addEscenario.bind(_escenariosRoute.addEscenario));

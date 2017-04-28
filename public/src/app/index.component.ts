@@ -17,7 +17,7 @@ export class IndexComponent {
             ProyectoModel.getProyectosByAutorAndEstado(this.localStorageService.getPropiedad('usuarioLogeado'), false, angularAPIHelper).subscribe(
                 response => {
                     this.proyectos = (response as RespuestaJson).consulta as ProyectoModel[];
-                    this.proyectoActual = localStorage.getItem('proyectoActual');
+                    this.proyectoActual = this.localStorageService.getPropiedad('proyectoActual');
                     if (this.proyectoActual == null && this.proyectos != undefined && this.proyectos.length > 0) {
                         this.proyectoActual = this.proyectos[0]._id;
                     }

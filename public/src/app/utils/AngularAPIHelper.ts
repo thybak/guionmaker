@@ -21,13 +21,11 @@ export class PeticionJson {
     find: any;
     sort: any;
     select: string;
-    modoColaborador: boolean;
 
-    constructor(find, sort, select: string, modoColaborador: boolean) {
+    constructor(find, sort, select: string) {
         this.find = find;
         this.sort = sort;
         this.select = select;
-        this.modoColaborador = modoColaborador;
     }
 }
 
@@ -70,8 +68,8 @@ export class AngularAPIHelper {
         return JSON.parse(response) as RespuestaJson;
     }
 
-    buildPeticion(find: any, sort: any, select: string = "", modoColaborador: boolean = false): PeticionJson {
-        return new PeticionJson(find, sort, select, modoColaborador);
+    buildPeticion(find: any, sort: any, select: string = ""): PeticionJson {
+        return new PeticionJson(find, sort, select);
     }
 
     crearCabeceraAuth() : RequestOptions {

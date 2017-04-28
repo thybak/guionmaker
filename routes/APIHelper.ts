@@ -140,6 +140,7 @@ export class APIHelper {
                 let nuevoRegistro = new model(req.body);
                 nuevoRegistro.save(function (err, _resultado) {
                     if (err) {
+                        console.log(err);
                         res.json(APIHelper.buildJsonError("Error al intentar insertar un nuevo registro en la entidad " + model.modelName + ". Más info: " + err));
                     } else {
                         res.json(APIHelper.buildJsonInsercion(_resultado));
@@ -235,7 +236,6 @@ export class APIHelper {
             if (err) {
                 APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + reqBody + ". Más info: " + err);
             } else {
-                console.log(resultado);
                 let _res: mongoose.Document[];
                 if (objReqBody.populate != undefined && objReqBody.populate.path != "") {
                     _res = APIHelper.comprobarAfterPopulate(resultado, objReqBody.populate.path);

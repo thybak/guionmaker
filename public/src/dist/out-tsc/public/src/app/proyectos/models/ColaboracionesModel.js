@@ -8,7 +8,6 @@ var PermisosColaboracion;
 })(PermisosColaboracion = exports.PermisosColaboracion || (exports.PermisosColaboracion = {}));
 var ColaboracionModel = (function () {
     function ColaboracionModel(usuarioId) {
-        if (usuarioId === void 0) { usuarioId = "582e0dbffb1e5a33184cdf39"; }
         this.usuario = usuarioId;
     }
     ColaboracionModel.prototype.setEmail = function (angularAPIHelper) {
@@ -25,7 +24,6 @@ var ColaboracionModel = (function () {
     };
     ColaboracionModel.cargar = function (colaboracion, angularAPIHelper) {
         var _colaboracion = new ColaboracionModel(colaboracion.usuario);
-        _colaboracion.proyecto = colaboracion.proyecto;
         _colaboracion.fecha = colaboracion.fecha;
         _colaboracion.permisos = colaboracion.permisos;
         _colaboracion._id = colaboracion._id;

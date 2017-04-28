@@ -144,6 +144,7 @@ var APIHelper = (function () {
                 var nuevoRegistro = new model(req.body);
                 nuevoRegistro.save(function (err, _resultado) {
                     if (err) {
+                        console.log(err);
                         res.json(APIHelper.buildJsonError("Error al intentar insertar un nuevo registro en la entidad " + model.modelName + ". Más info: " + err));
                     }
                     else {
@@ -253,7 +254,6 @@ var APIHelper = (function () {
                 APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + reqBody + ". Más info: " + err);
             }
             else {
-                console.log(resultado);
                 var _res = void 0;
                 if (objReqBody.populate != undefined && objReqBody.populate.path != "") {
                     _res = APIHelper.comprobarAfterPopulate(resultado, objReqBody.populate.path);

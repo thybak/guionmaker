@@ -10,12 +10,11 @@ export enum PermisosColaboracion {
 export class ColaboracionModel {
     _id: string;
     usuario: string; //id
-    proyecto: string;
     fecha: Date;
     permisos: number;
     email: string; // sintético
 
-    constructor(usuarioId: string = "582e0dbffb1e5a33184cdf39") {
+    constructor(usuarioId: string) {
         this.usuario = usuarioId;
     }
 
@@ -34,7 +33,6 @@ export class ColaboracionModel {
 
     public static cargar(colaboracion: any, angularAPIHelper: AngularAPIHelper): ColaboracionModel {
         let _colaboracion: ColaboracionModel = new ColaboracionModel(colaboracion.usuario);
-        _colaboracion.proyecto = colaboracion.proyecto;
         _colaboracion.fecha = colaboracion.fecha;
         _colaboracion.permisos = colaboracion.permisos;
         _colaboracion._id = colaboracion._id;
@@ -42,7 +40,7 @@ export class ColaboracionModel {
         return _colaboracion;
     }
 
-    public static obtenerTiposPermiso() {  
+    public static obtenerTiposPermiso() {
         let permisos = [];
         let idx = 0; // se asume que la enumeración no va a alterar los enteros que se le asignan por orden
         for (let permiso in PermisosColaboracion) {

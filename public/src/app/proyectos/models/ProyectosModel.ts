@@ -2,6 +2,7 @@
 
 import { AngularAPIHelper, PeticionJson } from '../../utils/AngularAPIHelper';
 import { LocalStorageService } from '../../utils/LocalStorageService';
+import { ColaboracionModel } from './ColaboracionesModel';
 
 export class ProyectoModel {
     _id: string;
@@ -14,6 +15,7 @@ export class ProyectoModel {
     fechaCreacion: Date;
     fechaModificacion: Date;
     cancelado: boolean;
+    colaboradores: ColaboracionModel[];
 
     constructor() {
         this.nombre = "Nuevo proyecto";

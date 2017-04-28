@@ -44,7 +44,7 @@ var DetalleProyectoComponent = (function () {
             fontNames: ['Courier New', 'Arial', 'Arial Black', 'Sans-serif', 'Serif']
         };
         this.route.params.switchMap(function (params) {
-            return _this.angularAPIHelper.postEntryOrFilter('proyectosPorFiltro', JSON.stringify(_this.angularAPIHelper.buildPeticion({ '_id': params['id'], 'cancelado': false }, '')));
+            return _this.angularAPIHelper.getById('proyecto', params['id']);
         }).
             subscribe(function (response) { return _this.cargarModelo(response); });
     }
@@ -55,7 +55,7 @@ var DetalleProyectoComponent = (function () {
     };
     DetalleProyectoComponent.prototype.cargarModelo = function (proyecto) {
         this.proyecto = proyecto.consulta[0];
-        this.gestorColaboraciones = new gestor_colaboraciones_component_1.GestorColaboraciones(this.angularAPIHelper, this.proyecto._id); // carga de colaboradores
+        this.gestorColaboraciones = new gestor_colaboraciones_component_1.GestorColaboraciones(this.angularAPIHelper, this.proyecto); // carga de colaboradores
         this.proyecto.sinopsis = this.proyecto.sinopsis == "" || this.proyecto.sinopsis == undefined ? new String('') : this.proyecto.sinopsis; // workaround por culpa del componente ng2-summernote donde con "" no se muestra nada.
     };
     DetalleProyectoComponent.prototype.guardarCambios = function (exit) {

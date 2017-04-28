@@ -386,7 +386,6 @@
     <TypeScriptCompile Include="public\src\typings.d.ts" />
     <TypeScriptCompile Include="routes\APIHelper.ts" />
     <TypeScriptCompile Include="routes\ClasificacionRoute.ts" />
-    <TypeScriptCompile Include="routes\ColaboracionRoute.ts" />
     <TypeScriptCompile Include="routes\DetalleLiterarioRoute.ts" />
     <TypeScriptCompile Include="routes\DetalleTecnicoRoute.ts" />
     <TypeScriptCompile Include="routes\EscenarioRoute.ts">

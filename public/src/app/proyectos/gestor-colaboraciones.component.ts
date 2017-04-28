@@ -1,70 +1,60 @@
 ﻿"use strict";
 
 import { Component, Input } from "@angular/core";
+import { ProyectoModel } from "./models/ProyectosModel";
 import { ColaboracionModel, PermisosColaboracion } from "./models/ColaboracionesModel";
 import { AngularAPIHelper, RespuestaJson, ResponseStatus } from "../utils/AngularAPIHelper";
 import { UsuarioModel } from "../usuarios/models/UsuarioModel";
 
 export class GestorColaboraciones {
-    colaboraciones: ColaboracionModel[];
-    proyectoID: string;
+    proyecto: ProyectoModel;
     colaboracionAEliminar: ColaboracionModel;
     angularAPIHelper: AngularAPIHelper;
 
-    constructor(angularAPIHelper: AngularAPIHelper, proyectoID: string) {
+    constructor(angularAPIHelper: AngularAPIHelper, proyecto: ProyectoModel) {
         this.angularAPIHelper = angularAPIHelper;
-        this.proyectoID = proyectoID;
-        this.getFromProyectoID(proyectoID);
+        this.proyecto = proyecto;
+        for (let idx = 0; idx < this.proyecto.colaboradores.length; idx++) {
+            this.proyecto.colaboradores[idx] = ColaboracionModel.cargar(this.proyecto.colaboradores[idx], this.angularAPIHelper);
+        }
     }
 
-    public getFromProyectoID(proyectoID: string) {
-        let peticion = this.angularAPIHelper.buildPeticion({ "proyecto": proyectoID }, {});
-        this.angularAPIHelper.postEntryOrFilter('colaboracionesPorFiltro', JSON.stringify(peticion))
-            .subscribe(response => {
-                let resultados = (response as RespuestaJson).consulta;
-                this.colaboraciones = [];
-                for (let idx = 0; idx < resultados.length; idx++) {
-                    this.colaboraciones.push(ColaboracionModel.cargar(resultados[idx], this.angularAPIHelper));
-                }
-            });
-    }
-
-    public prepararAEliminar(colaboracion: ColaboracionModel) {
-        this.colaboracionAEliminar = colaboracion;
+    public prepararAEliminar(colaborador: ColaboracionModel) {
+        this.colaboracionAEliminar = colaborador;
     }
 
     public cancelarEliminacion() {
         this.colaboracionAEliminar = undefined;
     }
 
-    public eliminarColaboracion() {
-        if (this.colaboracionAEliminar != undefined) {
-            this.angularAPIHelper.deleteById('colaboracion', this.colaboracionAEliminar._id).subscribe(null, null,
-                () => this.getFromProyectoID(this.proyectoID));
+    public obtenerIndiceColaborador(colaborador: ColaboracionModel) {
+        let fIdx = -1;
+        for (let idx = 0; idx < this.proyecto.colaboradores.length; idx++) {
+            if (this.proyecto.colaboradores[idx].usuario == colaborador.usuario) {
+                fIdx = idx;
+                break;
+            }
         }
+        return fIdx;
     }
 
-    public actualizar(colaboracion: any) {
-        let _colaboracion: ColaboracionModel = ColaboracionModel.cargar(colaboracion, this.angularAPIHelper);
-        this.angularAPIHelper.postEntryOrFilter('colaboracion', JSON.stringify(_colaboracion)).subscribe(null, null, null);
+    public eliminarColaboracion() {
+        if (this.colaboracionAEliminar != undefined) {
+            this.proyecto.colaboradores.splice(this.obtenerIndiceColaborador(this.colaboracionAEliminar), 1);
+        }
     }
 
     public nuevoColaborador(usuario: UsuarioModel) {
         let colaboracion: ColaboracionModel = new ColaboracionModel(usuario._id);
-        colaboracion.proyecto = this.proyectoID;
-        colaboracion.fecha = new Date();
-        colaboracion.permisos = PermisosColaboracion.SoloLectura;
-        this.angularAPIHelper.postEntryOrFilter('colaboracion', JSON.stringify(colaboracion)).subscribe(
-            response => {
-                let respuesta: RespuestaJson = response as RespuestaJson;
-                if (respuesta.estado == ResponseStatus.OK) {
-                    colaboracion = respuesta.insertado as ColaboracionModel;
-                    colaboracion.email = usuario.email; // atributo sintético
-                    this.colaboraciones.push(colaboracion);
-                } else {
-                    alert('Ha ocurrido un error al guardar la colaboración. Verifica que el usuario no esté en la lista.');
-                }
-            });
+        let idxColaborador = this.obtenerIndiceColaborador(colaboracion);
+        if (idxColaborador < 0) {
+            colaboracion.fecha = new Date();
+            colaboracion.permisos = PermisosColaboracion.SoloLectura;
+            colaboracion.email = usuario.email; // atributo sintético
+            this.proyecto.colaboradores.push(colaboracion);
+        } else {
+            alert("Asegúrate de que no has introducido ese usuario antes");
+        }
     }
 }
 

@@ -11,6 +11,7 @@ import { BotonesGuardadoComponent, BotonesGuardado, TipoOperacionGuardado } from
 })
 export class ProyectosListComponent {
     proyectos: ProyectoModel[];
+    usuarioLogeado: string;
     proyectoAModificar: ProyectoModel;
     mostrarCancelados: boolean;
     botonesGuardado: BotonesGuardado;
@@ -20,9 +21,10 @@ export class ProyectosListComponent {
         this.botonesGuardado = new BotonesGuardado();
         this.botonesGuardado.cargarSoloModales();
         this.cargarProyectos();
+        this.usuarioLogeado = this.localStorageService.getPropiedad('usuarioLogeado');
     }
     private cargarProyectos() {
-        ProyectoModel.getProyectosByAutorAndEstado(this.localStorageService.getPropiedad('usuarioLogeado'), this.mostrarCancelados, this.angularAPIHelper).subscribe(
+        ProyectoModel.getProyectosByAutorAndEstado(this.usuarioLogeado, this.mostrarCancelados, this.angularAPIHelper).subscribe(
             response => { this.proyectos = (response as RespuestaJson).consulta as ProyectoModel[]; }, null, null);
     }
     private actualizarProyectoAModificar(cancelado: boolean) {

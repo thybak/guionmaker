@@ -13,56 +13,46 @@ var ColaboracionesModel_1 = require("./models/ColaboracionesModel");
 var AngularAPIHelper_1 = require("../utils/AngularAPIHelper");
 var UsuarioModel_1 = require("../usuarios/models/UsuarioModel");
 var GestorColaboraciones = (function () {
-    function GestorColaboraciones(angularAPIHelper, proyectoID) {
+    function GestorColaboraciones(angularAPIHelper, proyecto) {
         this.angularAPIHelper = angularAPIHelper;
-        this.proyectoID = proyectoID;
-        this.getFromProyectoID(proyectoID);
+        this.proyecto = proyecto;
+        for (var idx = 0; idx < this.proyecto.colaboradores.length; idx++) {
+            this.proyecto.colaboradores[idx] = ColaboracionesModel_1.ColaboracionModel.cargar(this.proyecto.colaboradores[idx], this.angularAPIHelper);
+        }
     }
-    GestorColaboraciones.prototype.getFromProyectoID = function (proyectoID) {
-        var _this = this;
-        var peticion = this.angularAPIHelper.buildPeticion({ "proyecto": proyectoID }, {});
-        this.angularAPIHelper.postEntryOrFilter('colaboracionesPorFiltro', JSON.stringify(peticion))
-            .subscribe(function (response) {
-            var resultados = response.consulta;
-            _this.colaboraciones = [];
-            for (var idx = 0; idx < resultados.length; idx++) {
-                _this.colaboraciones.push(ColaboracionesModel_1.ColaboracionModel.cargar(resultados[idx], _this.angularAPIHelper));
-            }
-        });
-    };
-    GestorColaboraciones.prototype.prepararAEliminar = function (colaboracion) {
-        this.colaboracionAEliminar = colaboracion;
+    GestorColaboraciones.prototype.prepararAEliminar = function (colaborador) {
+        this.colaboracionAEliminar = colaborador;
     };
     GestorColaboraciones.prototype.cancelarEliminacion = function () {
         this.colaboracionAEliminar = undefined;
     };
+    GestorColaboraciones.prototype.obtenerIndiceColaborador = function (colaborador) {
+        var fIdx = -1;
+        for (var idx = 0; idx < this.proyecto.colaboradores.length; idx++) {
+            if (this.proyecto.colaboradores[idx].usuario == colaborador.usuario) {
+                fIdx = idx;
+                break;
+            }
+        }
+        return fIdx;
+    };
     GestorColaboraciones.prototype.eliminarColaboracion = function () {
-        var _this = this;
         if (this.colaboracionAEliminar != undefined) {
-            this.angularAPIHelper.deleteById('colaboracion', this.colaboracionAEliminar._id).subscribe(null, null, function () { return _this.getFromProyectoID(_this.proyectoID); });
+            this.proyecto.colaboradores.splice(this.obtenerIndiceColaborador(this.colaboracionAEliminar), 1);
         }
     };
-    GestorColaboraciones.prototype.actualizar = function (colaboracion) {
-        var _colaboracion = ColaboracionesModel_1.ColaboracionModel.cargar(colaboracion, this.angularAPIHelper);
-        this.angularAPIHelper.postEntryOrFilter('colaboracion', JSON.stringify(_colaboracion)).subscribe(null, null, null);
-    };
     GestorColaboraciones.prototype.nuevoColaborador = function (usuario) {
-        var _this = this;
         var colaboracion = new ColaboracionesModel_1.ColaboracionModel(usuario._id);
-        colaboracion.proyecto = this.proyectoID;
-        colaboracion.fecha = new Date();
-        colaboracion.permisos = ColaboracionesModel_1.PermisosColaboracion.SoloLectura;
-        this.angularAPIHelper.postEntryOrFilter('colaboracion', JSON.stringify(colaboracion)).subscribe(function (response) {
-            var respuesta = response;
-            if (respuesta.estado == AngularAPIHelper_1.ResponseStatus.OK) {
-                colaboracion = respuesta.insertado;
-                colaboracion.email = usuario.email; // atributo sintético
-                _this.colaboraciones.push(colaboracion);
-            }
-            else {
-                alert('Ha ocurrido un error al guardar la colaboración. Verifica que el usuario no esté en la lista.');
-            }
-        });
+        var idxColaborador = this.obtenerIndiceColaborador(colaboracion);
+        if (idxColaborador < 0) {
+            colaboracion.fecha = new Date();
+            colaboracion.permisos = ColaboracionesModel_1.PermisosColaboracion.SoloLectura;
+            colaboracion.email = usuario.email; // atributo sintético
+            this.proyecto.colaboradores.push(colaboracion);
+        }
+        else {
+            alert("Asegúrate de que no has introducido ese usuario antes");
+        }
     };
     return GestorColaboraciones;
 }());

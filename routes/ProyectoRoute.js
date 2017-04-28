@@ -24,17 +24,10 @@ var Route;
         };
         ProyectoRoute.crearFiltroProyecto = function (req) {
             var filtro = new APIHelper_1.PeticionJson();
-            if (req.body.modoColaborador) {
-                filtro.populate = {
-                    path: "proyecto",
-                    populate: {
-                        path: "colaboradores", match: { "usuario": req.user.usuarioLogeado }
-                    }
-                };
-            }
-            else {
-                filtro.populate = { path: "proyecto", match: { "autor": req.user.usuarioLogeado } };
-            }
+            filtro.populate = {
+                path: "proyecto",
+                match: { $or: [{ "colaboradores.usuario": req.user.usuarioLogeado }, { "autor": req.user.usuarioLogeado }] }
+            };
             return filtro;
         };
         ProyectoRoute.alterarFiltroConProyecto = function (req) {
@@ -50,8 +43,6 @@ var Route;
                 $and: [{ "cancelado": req.body.find.cancelado == undefined ? false : req.body.find.cancelado },
                     { $or: [{ "autor": req.user.usuarioLogeado }, { "colaboradores.usuario": req.user.usuarioLogeado }] }]
             };
-            console.log(req.body.find);
-            //req.body.populate = { path: "colaboradores" };
             APIHelper_1.APIHelper.getByFilterAndSort(ProyectoRoute.model, req, res);
         };
         ProyectoRoute.prototype.getProyectoById = function (req, res, next) {

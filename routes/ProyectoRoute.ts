@@ -21,17 +21,11 @@ module Route {
         }
 
         public static crearFiltroProyecto(req: express.Request): PeticionJson {
-            let filtro = new PeticionJson();
-            if (req.body.modoColaborador) {
-                filtro.populate = {
-                    path: "proyecto",
-                    populate: {
-                        path: "colaboradores", match: { "usuario" : req.user.usuarioLogeado }
-                    }
-                };
-            } else {
-                filtro.populate = { path: "proyecto", match: { "autor": req.user.usuarioLogeado } };
-            }
+            let filtro = new PeticionJson()
+            filtro.populate = {
+                path: "proyecto",
+                match: { $or: [{ "colaboradores.usuario": req.user.usuarioLogeado }, { "autor": req.user.usuarioLogeado }] }
+            };
             return filtro;
         }
 
@@ -49,8 +43,6 @@ module Route {
                 $and: [{ "cancelado": req.body.find.cancelado == undefined ? false : req.body.find.cancelado },
                 { $or: [{ "autor": req.user.usuarioLogeado }, { "colaboradores.usuario": req.user.usuarioLogeado }] }]
             };
-            console.log(req.body.find);
-            //req.body.populate = { path: "colaboradores" };
             APIHelper.getByFilterAndSort(ProyectoRoute.model, req, res);
         }
         public getProyectoById(req: express.Request, res: express.Response, next: express.NextFunction) {
