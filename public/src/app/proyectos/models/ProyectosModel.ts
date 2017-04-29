@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-import { AngularAPIHelper, PeticionJson } from '../../utils/AngularAPIHelper';
+import { AngularAPIHelper, PeticionJson, ResponseStatus, RespuestaJson } from '../../utils/AngularAPIHelper';
 import { LocalStorageService } from '../../utils/LocalStorageService';
 import { ColaboracionModel } from './ColaboracionesModel';
 
@@ -28,4 +28,9 @@ export class ProyectoModel {
         let peticion = angularAPIHelper.buildPeticion({ 'autor': autor, 'cancelado': cancelado }, { 'orden': '1' });
         return angularAPIHelper.postEntryOrFilter('proyectosPorFiltro', JSON.stringify(peticion));
     }
+
+    public static getProyectoActual(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService) {
+        return angularAPIHelper.getById("proyecto", localStorageService.getPropiedad("proyectoActual"));
+    }
+
 }

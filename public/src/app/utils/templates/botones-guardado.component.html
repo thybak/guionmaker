@@ -1,8 +1,8 @@
 ﻿<button class="btn btn-default" (click)="onVolver()" *ngIf="oBotonesGuardado.mostrarVolver"><i class="glyphicon glyphicon glyphicon-chevron-left"></i> Volver</button>
 <button class="btn btn-default" data-toggle="modal" data-target="#mdlVolver" *ngIf="oBotonesGuardado.mostrarVolverConfirmacion"><i class="glyphicon glyphicon glyphicon-chevron-left"></i> Volver</button>
-<button class="btn btn-primary" (click)="onGuardarCambios()" *ngIf="oBotonesGuardado.mostrarGuardado"><i class="glyphicon glyphicon-save"></i> Guardar cambios</button>
-<button class="btn btn-danger" data-toggle="modal" data-target="#mdlBorrado" *ngIf="oBotonesGuardado.mostrarBorrado"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>
-<button class="btn btn-danger" data-toggle="modal" data-target="#mdlCancelar" *ngIf="oBotonesGuardado.mostrarCancelar"><i class="glyphicon glyphicon-remove"></i> Cancelar</button>
+<button class="btn btn-primary" (click)="onGuardarCambios()" *ngIf="oBotonesGuardado.mostrarGuardado" [disabled]="!usuarioLogeadoAutor"><i class="glyphicon glyphicon-save"></i> Guardar cambios</button>
+<button class="btn btn-danger" data-toggle="modal" data-target="#mdlBorrado" *ngIf="oBotonesGuardado.mostrarBorrado" [disabled]="!usuarioLogeadoAutor"><i class="glyphicon glyphicon-remove"></i> Eliminar</button>
+<button class="btn btn-danger" data-toggle="modal" data-target="#mdlCancelar" *ngIf="oBotonesGuardado.mostrarCancelar" [disabled]="!usuarioLogeadoAutor"><i class="glyphicon glyphicon-remove"></i> Cancelar</button>
 <div class="modal fade" id="mdlBorrado" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content text-center">

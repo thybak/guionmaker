@@ -8,13 +8,14 @@ import { SortablejsOptions } from 'angular-sortablejs';
 import { ConfirmacionGuardado } from '../utils/confirmacion-guardado.component';
 import { BotonesGuardado, TipoOperacionGuardado } from '../utils/botones-guardado.component';
 import { PlantillaModel, TipoPlantilla } from '../plantillas/models/PlantillasModel';
+import { ModoColaborador } from '../utils/ModoColaborador';
 
 @Component({
     selector: 'lista-escenas',
     templateUrl: './templates/escenas-lista.component.html',
     providers: [AngularAPIHelper, LocalStorageService]
 })
-export class EscenasListComponent {
+export class EscenasListComponent extends ModoColaborador {
     escenas: EscenaModel[];
     escenaAEliminar: any;
     confirmacionGuardado: ConfirmacionGuardado;
@@ -25,7 +26,8 @@ export class EscenasListComponent {
     htmlExportado: string;
     exportacionWindow: Window;
 
-    constructor(private angularAPIHelper: AngularAPIHelper, private localStorageService: LocalStorageService) {
+    constructor(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService) {
+        super(angularAPIHelper, localStorageService);
         this.confirmacionGuardado = new ConfirmacionGuardado();
         this.confirmacionGuardado.multiguardado = true;
         this.botonesGuardado = new BotonesGuardado();

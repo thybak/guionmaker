@@ -377,6 +377,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\utils\rxjsUtils.ts" />
+    <TypeScriptCompile Include="public\src\app\utils\ModoColaborador.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\utils\utils.module.ts" />
     <TypeScriptCompile Include="public\src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="public\src\environments\environment.ts" />

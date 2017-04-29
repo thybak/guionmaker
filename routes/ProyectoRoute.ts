@@ -16,7 +16,7 @@ module Route {
 
         public static crearFiltroAutor(req: express.Request): PeticionJson {
             let filtro = new PeticionJson();
-            filtro.find = { "autor": req.user.usuarioLogeado };
+            filtro.find = { $or: [{ "autor": req.user.usuarioLogeado }, { "colaboradores.usuario": req.user.usuarioLogeado }] };
             return filtro;
         }
 

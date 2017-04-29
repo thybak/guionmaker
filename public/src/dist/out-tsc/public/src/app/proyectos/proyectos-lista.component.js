@@ -21,10 +21,11 @@ var ProyectosListComponent = (function () {
         this.botonesGuardado = new botones_guardado_component_1.BotonesGuardado();
         this.botonesGuardado.cargarSoloModales();
         this.cargarProyectos();
+        this.usuarioLogeado = this.localStorageService.getPropiedad('usuarioLogeado');
     }
     ProyectosListComponent.prototype.cargarProyectos = function () {
         var _this = this;
-        ProyectosModel_1.ProyectoModel.getProyectosByAutorAndEstado(this.localStorageService.getPropiedad('usuarioLogeado'), this.mostrarCancelados, this.angularAPIHelper).subscribe(function (response) { _this.proyectos = response.consulta; }, null, null);
+        ProyectosModel_1.ProyectoModel.getProyectosByAutorAndEstado(this.usuarioLogeado, this.mostrarCancelados, this.angularAPIHelper).subscribe(function (response) { _this.proyectos = response.consulta; }, null, null);
     };
     ProyectosListComponent.prototype.actualizarProyectoAModificar = function (cancelado) {
         var _this = this;

@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -14,17 +19,19 @@ var AngularAPIHelper_1 = require("../utils/AngularAPIHelper");
 var LocalStorageService_1 = require("../utils/LocalStorageService");
 var confirmacion_guardado_component_1 = require("../utils/confirmacion-guardado.component");
 var botones_guardado_component_1 = require("../utils/botones-guardado.component");
-var EscenasListComponent = (function () {
+var ModoColaborador_1 = require("../utils/ModoColaborador");
+var EscenasListComponent = (function (_super) {
+    __extends(EscenasListComponent, _super);
     function EscenasListComponent(angularAPIHelper, localStorageService) {
-        this.angularAPIHelper = angularAPIHelper;
-        this.localStorageService = localStorageService;
-        this.sortOptions = {
+        var _this = _super.call(this, angularAPIHelper, localStorageService) || this;
+        _this.sortOptions = {
             animation: 150
         };
-        this.confirmacionGuardado = new confirmacion_guardado_component_1.ConfirmacionGuardado();
-        this.confirmacionGuardado.multiguardado = true;
-        this.botonesGuardado = new botones_guardado_component_1.BotonesGuardado();
-        this.cargarEscenas();
+        _this.confirmacionGuardado = new confirmacion_guardado_component_1.ConfirmacionGuardado();
+        _this.confirmacionGuardado.multiguardado = true;
+        _this.botonesGuardado = new botones_guardado_component_1.BotonesGuardado();
+        _this.cargarEscenas();
+        return _this;
     }
     EscenasListComponent.prototype.guardarCambios = function () {
         var _this = this;
@@ -156,7 +163,7 @@ var EscenasListComponent = (function () {
         escena.eliminar(this.angularAPIHelper).subscribe(null, null, function () { return _this.cargarEscenas(); });
     };
     return EscenasListComponent;
-}());
+}(ModoColaborador_1.ModoColaborador));
 EscenasListComponent = __decorate([
     core_1.Component({
         selector: 'lista-escenas',

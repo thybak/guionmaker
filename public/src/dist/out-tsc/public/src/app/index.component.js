@@ -37,7 +37,7 @@ var IndexComponent = (function () {
         if (this.proyectoActual != null) {
             var proyecto = this.proyectos.find(function (x) { return x._id == _this.proyectoActual; });
             this.localStorageService.setPropiedad('proyectoActual', this.proyectoActual);
-            this.localStorageService.setPropiedad('nombreProyectoActual', proyecto.nombre);
+            this.localStorageService.setPropiedad('nombreProyectoActual', proyecto.nombre + this.localStorageService.mostrarMarcaColaboracion(proyecto.autor));
         }
     };
     return IndexComponent;

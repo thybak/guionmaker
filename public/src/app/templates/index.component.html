@@ -20,7 +20,7 @@
           <div class="row">
             <div class="col-md-5">
               <select name="proyectoActual" id="proyectoActual" class="form-control" [(ngModel)]="proyectoActual">
-                <option *ngFor="let proyecto of proyectos" value="{{proyecto._id}}">{{proyecto.nombre}}</option>
+                <option *ngFor="let proyecto of proyectos" value="{{proyecto._id}}">{{proyecto.nombre}} {{localStorageService.mostrarMarcaColaboracion(proyecto.autor)}}</option>
               </select>
             </div>
             <div class="col-md-7">

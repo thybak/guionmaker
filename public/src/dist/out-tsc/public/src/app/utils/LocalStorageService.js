@@ -33,6 +33,12 @@ var LocalStorageService = (function () {
         delete this.propiedades[clave];
         return localStorage.removeItem(clave);
     };
+    LocalStorageService.prototype.esUsuarioLogeado = function (usuarioId) {
+        return this.getPropiedad("usuarioLogeado") == usuarioId;
+    };
+    LocalStorageService.prototype.mostrarMarcaColaboracion = function (usuarioId) {
+        return this.esUsuarioLogeado(usuarioId) ? "" : "(Colaborador)";
+    };
     LocalStorageService.prototype.borrar = function () {
         this.propiedades = {};
         localStorage.clear();

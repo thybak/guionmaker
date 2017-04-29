@@ -1,4 +1,7 @@
 ﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ModoColaborador } from './ModoColaborador';
+import { AngularAPIHelper } from './AngularAPIHelper';
+import { LocalStorageService } from './LocalStorageService';
 
 export enum TipoOperacionGuardado {
     Guardar,
@@ -50,27 +53,43 @@ export class BotonesGuardado {
     templateUrl: './templates/botones-guardado.component.html',
     selector: 'botones-guardado'
 })
-export class BotonesGuardadoComponent {
+export class BotonesGuardadoComponent extends ModoColaborador {
     @Input()
     oBotonesGuardado: BotonesGuardado;
     @Output()
     onAccionGuardado: EventEmitter<TipoOperacionGuardado> = new EventEmitter<TipoOperacionGuardado>();
+
+    constructor(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService) {
+        super(angularAPIHelper, localStorageService, true);
+        this.usuarioLogeadoAutor = window.location.pathname.indexOf("proyectos") >= 0; // wa para permitir guardar cambios cuando estamos bajo la ruta de proyectos
+    }
+
     onGuardarCambios() {
-        this.onAccionGuardado.emit(TipoOperacionGuardado.Guardar); 
+        if (this.usuarioLogeadoAutor) {
+            this.onAccionGuardado.emit(TipoOperacionGuardado.Guardar);
+        }
     }
     onEliminar() {
-        this.onAccionGuardado.emit(TipoOperacionGuardado.Eliminar);
+        if (this.usuarioLogeadoAutor) {
+            this.onAccionGuardado.emit(TipoOperacionGuardado.Eliminar);
+        }
     }
     onVolver() {
         this.onAccionGuardado.emit(TipoOperacionGuardado.Volver);
     }
     onRestaurar() {
-        this.onAccionGuardado.emit(TipoOperacionGuardado.Restaurar);
+        if (this.usuarioLogeadoAutor) {
+            this.onAccionGuardado.emit(TipoOperacionGuardado.Restaurar);
+        }
     }
     onCancelarEliminar() {
-        this.onAccionGuardado.emit(TipoOperacionGuardado.CancelarEliminacion);
+        if (this.usuarioLogeadoAutor) {
+            this.onAccionGuardado.emit(TipoOperacionGuardado.CancelarEliminacion);
+        }
     }
     onCancelar() {
-        this.onAccionGuardado.emit(TipoOperacionGuardado.CancelarRegistro);
+        if (this.usuarioLogeadoAutor) {
+            this.onAccionGuardado.emit(TipoOperacionGuardado.CancelarRegistro);
+        }
     }
 }

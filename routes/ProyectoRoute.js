@@ -19,7 +19,7 @@ var Route;
         });
         ProyectoRoute.crearFiltroAutor = function (req) {
             var filtro = new APIHelper_1.PeticionJson();
-            filtro.find = { "autor": req.user.usuarioLogeado };
+            filtro.find = { $or: [{ "autor": req.user.usuarioLogeado }, { "colaboradores.usuario": req.user.usuarioLogeado }] };
             return filtro;
         };
         ProyectoRoute.crearFiltroProyecto = function (req) {

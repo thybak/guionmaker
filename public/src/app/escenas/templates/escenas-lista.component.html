@@ -6,7 +6,7 @@
     <div class="panel-body">
       <confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>
       <div class="btn-group mg-btm" role="group">
-        <button class="btn btn-default" (click)="onNuevaEscena()"><i class="glyphicon glyphicon-plus"></i> Añadir escena</button>
+        <button class="btn btn-default" (click)="onNuevaEscena()" *ngIf="usuarioLogeadoAutor"><i class="glyphicon glyphicon-plus"></i> Añadir escena</button>
         <button class="btn btn-default" data-toggle="modal" data-target="#mdlExportacion" *ngIf="escenas != undefined && escenas.length > 0"><i class="glyphicon glyphicon-export"></i> Exportar</button>
       </div>
       <ul class="list-group" [sortablejs]="escenas" [sortablejsOptions]="sortOptions">
@@ -14,10 +14,10 @@
           <div class="pdn-1">
             <div class="row pdn-btm-1"><span class="glyphicon glyphicon-move"></span> <span>ESCENA {{escena.orden}}. {{getSituacionString(escena)}}. {{escena.titulo.toUpperCase()}}. {{getTemporalidadString(escena)}}</span></div>
             <div class="row">
-              <button type="button" class="btn btn-default btn-sm" data-target="#mdlBorrado" data-toggle="modal" (click)="onSeleccionEscenaAEliminar(escena)"><i class="glyphicon glyphicon-trash"></i></button>
-              <button type="button" class="btn btn-default btn-sm rojoCorazon" *ngIf="escena.destacado" (click)="onDestacar(false, escena)"><span class="glyphicon glyphicon-heart"></span></button>
-              <button type="button" class="btn btn-default btn-sm rojoCorazon" *ngIf="!escena.destacado" (click)="onDestacar(true, escena)"><span class="glyphicon glyphicon-heart-empty"></span></button>
-              <button type="button" class="btn btn-default btn-sm" routerLink="{{escena._id}}"><i class="glyphicon glyphicon-edit"></i></button>
+              <button type="button" class="btn btn-default btn-sm" data-target="#mdlBorrado" data-toggle="modal" (click)="onSeleccionEscenaAEliminar(escena)" [disabled]="!usuarioLogeadoAutor"><i class="glyphicon glyphicon-trash"></i></button>
+              <button type="button" class="btn btn-default btn-sm rojoCorazon" *ngIf="escena.destacado" (click)="onDestacar(false, escena)" [disabled]="!usuarioLogeadoAutor"><span class="glyphicon glyphicon-heart"></span></button>
+              <button type="button" class="btn btn-default btn-sm rojoCorazon" *ngIf="!escena.destacado" (click)="onDestacar(true, escena)" [disabled]="!usuarioLogeadoAutor"><span class="glyphicon glyphicon-heart-empty"></span></button>
+              <button type="button" class="btn btn-default btn-sm" routerLink="{{escena._id}}" [disabled]="!usuarioLogeadoAutor"><i class="glyphicon glyphicon-edit"></i></button>
             </div>
           </div>
         </li>

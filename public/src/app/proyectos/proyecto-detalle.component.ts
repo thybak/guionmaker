@@ -94,7 +94,9 @@ export class DetalleProyectoComponent implements DoCheck {
     }
     onAccionGuardado(event) {
         if (event == TipoOperacionGuardado.Guardar) {
-            this.localStorageService.setPropiedad('nombreProyectoActual', this.proyecto.nombre);
+            if (this.proyecto._id == this.localStorageService.getPropiedad('proyectoActual')){
+                this.localStorageService.setPropiedad('nombreProyectoActual', this.proyecto.nombre);
+            }
             this.guardarCambios(false);
         } else if (event == TipoOperacionGuardado.Eliminar) { // solo se lanzará en el caso de eliminación de colaboraciones
             this.gestorColaboraciones.eliminarColaboracion();

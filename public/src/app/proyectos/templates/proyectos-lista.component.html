@@ -17,15 +17,15 @@
         <div *ngFor="let proyecto of proyectos" class="list-group-item pdn-1 mgn-top-1">
           <div class="row">
             <div class="col-md-12">
-              {{proyecto.nombre}} -
+              {{proyecto.nombre}} {{localStorageService.mostrarMarcaColaboracion(proyecto.autor)}} -
               {{proyecto.fechaModificacion}}
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <button *ngIf="!mostrarCancelados && proyecto.autor == usuarioLogeado" type="button" class="btn btn-default btn-sm" (click)="onModificar(proyecto)" data-toggle="modal" data-target="#mdlCancelar"><i class="glyphicon glyphicon-trash"></i></button>
+              <button *ngIf="!mostrarCancelados && localStorageService.esUsuarioLogeado(proyecto.autor)" type="button" class="btn btn-default btn-sm" (click)="onModificar(proyecto)" data-toggle="modal" data-target="#mdlCancelar"><i class="glyphicon glyphicon-trash"></i></button>
               <button *ngIf="mostrarCancelados" type="button" class="btn btn-default btn-sm" (click)="onModificar(proyecto)" data-toggle="modal" data-target="#mdlRestaurar"><i class="glyphicon glyphicon-repeat"></i></button>
-              <button *ngIf="!mostrarCancelados && proyecto.autor == usuarioLogeado" type="button" class="btn btn-default btn-sm" routerLink="{{proyecto._id}}"><i class="glyphicon glyphicon-edit"></i></button>
+              <button *ngIf="!mostrarCancelados && localStorageService.esUsuarioLogeado(proyecto.autor)" type="button" class="btn btn-default btn-sm" routerLink="{{proyecto._id}}"><i class="glyphicon glyphicon-edit"></i></button>
             </div>
           </div>
         </div>

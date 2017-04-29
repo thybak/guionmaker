@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AngularAPIHelper, RespuestaJson, PeticionJson, ResponseStatus } from './AngularAPIHelper';
 import { BotonesGuardado, TipoOperacionGuardado } from './botones-guardado.component';
 import { LocalStorageService } from './LocalStorageService';
+import { ModoColaborador } from './ModoColaborador';
 
 
 export class ListaGenerica {
@@ -27,7 +28,7 @@ export class ListaGenerica {
     templateUrl: './templates/lista-generica.component.html',
     providers: [AngularAPIHelper]
 })
-export class ListaGenericaComponent implements OnInit {
+export class ListaGenericaComponent extends ModoColaborador implements OnInit {
     botonesGuardado: BotonesGuardado;
     elementos: any[];
     elementoAEliminar: any;
@@ -38,7 +39,8 @@ export class ListaGenericaComponent implements OnInit {
         this.cargarElementos();
     }
 
-    constructor(private angularAPIHelper: AngularAPIHelper, private router : Router) {
+    constructor(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService, private router: Router) {
+        super(angularAPIHelper, localStorageService);
         this.botonesGuardado = new BotonesGuardado();
         this.botonesGuardado.mostrarSoloVolver();
     }

@@ -1,4 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
+import { AngularAPIHelper, ResponseStatus, RespuestaJson } from './AngularAPIHelper';
 import * as rx from 'rxjs';
 
 export enum Propiedades {
@@ -28,6 +29,14 @@ export class LocalStorageService {
     deletePropiedad(clave: string) {
         delete this.propiedades[clave];
         return localStorage.removeItem(clave);
+    }
+
+    esUsuarioLogeado(usuarioId: string) {
+        return this.getPropiedad("usuarioLogeado") == usuarioId;
+    }
+
+    mostrarMarcaColaboracion(usuarioId: string) {
+        return this.esUsuarioLogeado(usuarioId) ? "" : "(Colaborador)";
     }
 
     borrar(){

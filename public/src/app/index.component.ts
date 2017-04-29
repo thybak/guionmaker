@@ -32,7 +32,7 @@ export class IndexComponent {
         if (this.proyectoActual != null) {
             let proyecto: ProyectoModel = this.proyectos.find(x => x._id == this.proyectoActual);
             this.localStorageService.setPropiedad('proyectoActual', this.proyectoActual);
-            this.localStorageService.setPropiedad('nombreProyectoActual', proyecto.nombre);
+            this.localStorageService.setPropiedad('nombreProyectoActual', proyecto.nombre + this.localStorageService.mostrarMarcaColaboracion(proyecto.autor));
         }
     }
 
