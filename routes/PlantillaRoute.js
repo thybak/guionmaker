@@ -2,6 +2,7 @@
 var mongoose = require("mongoose");
 var Plantillas_1 = require("../models/Plantillas");
 var APIHelper_1 = require("./APIHelper");
+var ProyectoRoute_1 = require("./ProyectoRoute");
 var Route;
 (function (Route) {
     var PlantillaRoute = (function () {
@@ -18,18 +19,19 @@ var Route;
             configurable: true
         });
         PlantillaRoute.prototype.getPlantillas = function (req, res, next) {
-            APIHelper_1.APIHelper.getAll(PlantillaRoute.model, req, res);
+            APIHelper_1.APIHelper.getAll(PlantillaRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroAutor(req));
         };
         PlantillaRoute.prototype.getPlantillaById = function (req, res, next) {
-            APIHelper_1.APIHelper.getById(PlantillaRoute.model, req, res);
+            APIHelper_1.APIHelper.getById(PlantillaRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroAutor(req));
         };
         PlantillaRoute.prototype.addPlantilla = function (req, res, next) {
-            APIHelper_1.APIHelper.add(PlantillaRoute.model, req, res);
+            APIHelper_1.APIHelper.add(PlantillaRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroAutor(req));
         };
         PlantillaRoute.prototype.deletePlantilla = function (req, res, next) {
-            APIHelper_1.APIHelper.delete(PlantillaRoute.model, req, res);
+            APIHelper_1.APIHelper.delete(PlantillaRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroAutor(req));
         };
         PlantillaRoute.prototype.getPlantillasByFilterAndSort = function (req, res, next) {
+            req.body.find.autor = req.user.usuarioLogeado; //wa extraer sólo usuarios que son autores
             APIHelper_1.APIHelper.getByFilterAndSort(PlantillaRoute.model, req, res);
         };
         return PlantillaRoute;

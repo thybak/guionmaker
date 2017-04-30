@@ -9,27 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var PlantillasModel_1 = require("./models/PlantillasModel");
 var AngularAPIHelper_1 = require("../utils/AngularAPIHelper");
 var lista_generica_component_1 = require("../utils/lista-generica.component");
 var LocalStorageService_1 = require("../utils/LocalStorageService");
-var EscenariosModel_1 = require("./models/EscenariosModel");
-var EscenariosListaComponent = (function () {
-    function EscenariosListaComponent(angularAPIHelper, localStorageService) {
+var PlantillasListComponent = (function () {
+    function PlantillasListComponent(angularAPIHelper, localStorageService) {
         this.angularAPIHelper = angularAPIHelper;
         this.localStorageService = localStorageService;
-        var nuevoEscenario = new EscenariosModel_1.EscenarioModel();
-        nuevoEscenario.proyecto = this.localStorageService.getPropiedad('proyectoActual');
-        this.listaGenerica = new lista_generica_component_1.ListaGenerica("Listado de escenarios de la biblia literaria", "escenario", "escenariosPorFiltro", this.angularAPIHelper.buildPeticion({ proyecto: this.localStorageService.getPropiedad('proyectoActual') }, {}, "nombre proyecto"), nuevoEscenario, "/biblia");
+        var nuevaPlantilla = new PlantillasModel_1.PlantillaModel();
+        nuevaPlantilla.autor = this.localStorageService.getPropiedad('usuarioLogeado');
+        this.listaGenerica = new lista_generica_component_1.ListaGenerica("Listado de plantillas disponibles para este usuario", "plantilla", "plantillasPorFiltro", this.angularAPIHelper.buildPeticion({}, {}), nuevaPlantilla);
     }
-    return EscenariosListaComponent;
+    return PlantillasListComponent;
 }());
-EscenariosListaComponent = __decorate([
+PlantillasListComponent = __decorate([
     core_1.Component({
-        selector: 'escenarios-lista',
-        templateUrl: './templates/escenarios-lista.component.html',
-        providers: [LocalStorageService_1.LocalStorageService, AngularAPIHelper_1.AngularAPIHelper]
+        selector: 'lista-plantillas',
+        templateUrl: './templates/plantillas-lista.component.html',
+        providers: [AngularAPIHelper_1.AngularAPIHelper]
     }),
     __metadata("design:paramtypes", [AngularAPIHelper_1.AngularAPIHelper, LocalStorageService_1.LocalStorageService])
-], EscenariosListaComponent);
-exports.EscenariosListaComponent = EscenariosListaComponent;
-//# sourceMappingURL=escenarios-lista.component.js.map
+], PlantillasListComponent);
+exports.PlantillasListComponent = PlantillasListComponent;
+//# sourceMappingURL=plantillas-lista.component.js.map

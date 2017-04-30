@@ -1,15 +1,17 @@
 ﻿"use strict";
 
-export enum TipoPlantilla {
-    Portada = 0,
-    Escena = 1
-}
-
 export class PlantillaModel {
     _id: string;
-    html: string;
-    tipo: number;
+    nombre: string;
+    htmlPortada: string;
+    htmlEscena: string;
     autor: string;
+    porDefecto: boolean;
     fechaCreacion: Date;
     fechaModificacion: Date;
+
+    constructor() {
+        this.nombre = "Nueva plantilla";
+        this.fechaCreacion = new Date();
+    }
 }

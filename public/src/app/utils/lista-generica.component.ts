@@ -13,13 +13,15 @@ export class ListaGenerica {
     entidadPorFiltro: string;
     peticion: PeticionJson;
     nuevoElemento: any;
+    rutaRetorno: string;
 
-    constructor(titulo: string, entidad: string, entidadPorFiltro: string, peticion: PeticionJson, nuevoElemento: any) {
+    constructor(titulo: string, entidad: string, entidadPorFiltro: string, peticion: PeticionJson, nuevoElemento: any, rutaRetorno: string = '') {
         this.titulo = titulo;
         this.entidad = entidad;
         this.entidadPorFiltro = entidadPorFiltro;
         this.peticion = peticion;
         this.nuevoElemento = nuevoElemento;
+        this.rutaRetorno = rutaRetorno;
     }
 }
 
@@ -37,12 +39,17 @@ export class ListaGenericaComponent extends ModoColaborador implements OnInit {
 
     ngOnInit() {
         this.cargarElementos();
+        this.botonesGuardado = new BotonesGuardado();
+        if (this.listaGenerica.rutaRetorno.length > 0) {
+            this.botonesGuardado.mostrarSoloVolver();
+        } else {
+            this.botonesGuardado.cargarSoloModales();
+        }
     }
 
     constructor(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService, private router: Router) {
-        super(angularAPIHelper, localStorageService);
-        this.botonesGuardado = new BotonesGuardado();
-        this.botonesGuardado.mostrarSoloVolver();
+        super(angularAPIHelper, localStorageService, window.location.pathname.indexOf("plantillas") >= 0);   
+        this.usuarioLogeadoAutor = window.location.pathname.indexOf("plantillas") >= 0; // wa para permitir guardar cambios cuando estamos bajo la ruta de proyectos
     }
 
     private cargarElementos() {
@@ -76,7 +83,7 @@ export class ListaGenericaComponent extends ModoColaborador implements OnInit {
 
     onAccionGuardado(event) {
         if (event == TipoOperacionGuardado.Volver) {
-            this.router.navigate(['/biblia']);
+            this.router.navigate([this.listaGenerica.rutaRetorno]);
         } else if (event == TipoOperacionGuardado.Eliminar) {
             this.eliminarElemento();
         }

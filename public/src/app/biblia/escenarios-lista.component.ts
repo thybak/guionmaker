@@ -21,6 +21,7 @@ export class EscenariosListaComponent {
             "escenario",
             "escenariosPorFiltro",
             this.angularAPIHelper.buildPeticion({ proyecto: this.localStorageService.getPropiedad('proyectoActual') }, {}, "nombre proyecto"),
-            nuevoEscenario);
+            nuevoEscenario,
+            "/biblia");
     }
 }

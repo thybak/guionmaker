@@ -21,6 +21,7 @@ export class PersonajesListaComponent {
             "personaje",
             "personajesPorFiltro",
             this.angularAPIHelper.buildPeticion({ proyecto: this.localStorageService.getPropiedad('proyectoActual') }, {}, "nombre proyecto"),
-            nuevoPersonaje);
+            nuevoPersonaje,
+            "/biblia");
     }
 }

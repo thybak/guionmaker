@@ -61,7 +61,7 @@ export class BotonesGuardadoComponent extends ModoColaborador {
 
     constructor(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService) {
         super(angularAPIHelper, localStorageService, true);
-        this.usuarioLogeadoAutor = window.location.pathname.indexOf("proyectos") >= 0; // wa para permitir guardar cambios cuando estamos bajo la ruta de proyectos
+        this.usuarioLogeadoAutor = window.location.pathname.indexOf("proyectos") >= 0 || window.location.pathname.indexOf("plantillas") >= 0; // wa para permitir guardar cambios cuando estamos bajo la ruta de proyectos
     }
 
     onGuardarCambios() {

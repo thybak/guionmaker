@@ -88,7 +88,9 @@ var DetalleProyectoComponent = (function () {
     };
     DetalleProyectoComponent.prototype.onAccionGuardado = function (event) {
         if (event == botones_guardado_component_1.TipoOperacionGuardado.Guardar) {
-            this.localStorageService.setPropiedad('nombreProyectoActual', this.proyecto.nombre);
+            if (this.proyecto._id == this.localStorageService.getPropiedad('proyectoActual')) {
+                this.localStorageService.setPropiedad('nombreProyectoActual', this.proyecto.nombre);
+            }
             this.guardarCambios(false);
         }
         else if (event == botones_guardado_component_1.TipoOperacionGuardado.Eliminar) {

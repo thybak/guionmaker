@@ -10,7 +10,6 @@ export class ModoColaborador {
             ProyectoModel.getProyectoActual(this.angularAPIHelper, this.localStorageService).subscribe((respuesta) => {
                 let proyectoR = respuesta as RespuestaJson;
                 if (proyectoR != undefined && proyectoR.estado == ResponseStatus.OK) {
-                    console.log(proyectoR);
                     this.usuarioLogeadoAutor = this.localStorageService.esUsuarioLogeado((proyectoR.consulta[0] as ProyectoModel).autor);
                 }
             });

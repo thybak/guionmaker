@@ -1,25 +1,26 @@
 ﻿<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">GuionMaker</a>
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menuGuionMaker" aria-expanded="false">
-                <span class="sr-only">Mostrar/ocultar menú</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse" id="menuGuionMaker">
-            <ul class="nav navbar-nav">
-                <li role="presentation" *ngIf="hayUsuario()"><a href="" routerLink="">Inicio</a></li>
-                <li role="presentation" routerLinkActive="active" *ngIf="!hayUsuario()"><a routerLink="/login">Inicia sesión</a></li>
-                <li role="presentation" routerLinkActive="active" *ngIf="!hayUsuario()"><a routerLink="/registro">Regístrate</a></li>
-                <li role="presentation" routerLinkActive="active" *ngIf="hayUsuario()"><a routerLink="/proyectos">Proyectos</a></li>
-                <li role="presentation" routerLinkActive="active" *ngIf="hayProyecto()"><a routerLink="/escenas">Escenas</a></li>
-                <li role="presentation" routerLinkActive="active" *ngIf="hayProyecto()"><a routerLink="/biblia">Biblia literaria</a></li>
-                <li role="presentation"><p class="navbar-text" *ngIf="hayProyecto()"><i>Trabajando sobre <b>{{localStorageService.propiedades['nombreProyectoActual']}}</b></i></p></li>
-                <li role="presentation" *ngIf="hayUsuario()"><a role="button" (click)="cerrarSesion()">Cerrar sesión</a></li>
-            </ul>
-        </div>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">GuionMaker</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menuGuionMaker" aria-expanded="false">
+        <span class="sr-only">Mostrar/ocultar menú</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
     </div>
+    <div class="collapse navbar-collapse" id="menuGuionMaker">
+      <ul class="nav navbar-nav">
+        <li role="presentation" *ngIf="hayUsuario()"><a href="" routerLink="">Inicio</a></li>
+        <li role="presentation" routerLinkActive="active" *ngIf="!hayUsuario()"><a routerLink="/login">Inicia sesión</a></li>
+        <li role="presentation" routerLinkActive="active" *ngIf="!hayUsuario()"><a routerLink="/registro">Regístrate</a></li>
+        <li role="presentation" routerLinkActive="active" *ngIf="hayUsuario()"><a routerLink="/proyectos">Proyectos</a></li>
+        <li role="presentation" routerLinkActive="active" *ngIf="hayProyecto()"><a routerLink="/escenas">Escenas</a></li>
+        <li role="presentation" routerLinkActive="active" *ngIf="hayProyecto()"><a routerLink="/biblia">Biblia literaria</a></li>
+        <li role="presentation" routerLinkActive="active" *ngIf="hayUsuario()"><a routerLink="/plantillas">Plantillas</a></li>
+        <li role="presentation"><p class="navbar-text" *ngIf="hayProyecto()"><i>Trabajando sobre <b>{{localStorageService.propiedades['nombreProyectoActual']}}</b></i></p></li>
+        <li role="presentation" *ngIf="hayUsuario()"><a role="button" (click)="cerrarSesion()">Cerrar sesión</a></li>
+      </ul>
+    </div>
+  </div>
 </nav>
 <router-outlet></router-outlet>

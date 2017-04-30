@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -12,23 +17,34 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var AngularAPIHelper_1 = require("./AngularAPIHelper");
 var botones_guardado_component_1 = require("./botones-guardado.component");
+var LocalStorageService_1 = require("./LocalStorageService");
+var ModoColaborador_1 = require("./ModoColaborador");
 var ListaGenerica = (function () {
-    function ListaGenerica(titulo, entidad, entidadPorFiltro, peticion, nuevoElemento) {
+    function ListaGenerica(titulo, entidad, entidadPorFiltro, peticion, nuevoElemento, rutaRetorno) {
+        if (rutaRetorno === void 0) { rutaRetorno = ''; }
         this.titulo = titulo;
         this.entidad = entidad;
         this.entidadPorFiltro = entidadPorFiltro;
         this.peticion = peticion;
         this.nuevoElemento = nuevoElemento;
+        this.rutaRetorno = rutaRetorno;
     }
     return ListaGenerica;
 }());
 exports.ListaGenerica = ListaGenerica;
-var ListaGenericaComponent = (function () {
-    function ListaGenericaComponent(angularAPIHelper, router) {
-        this.angularAPIHelper = angularAPIHelper;
-        this.router = router;
-        this.botonesGuardado = new botones_guardado_component_1.BotonesGuardado();
-        this.botonesGuardado.mostrarSoloVolver();
+var ListaGenericaComponent = (function (_super) {
+    __extends(ListaGenericaComponent, _super);
+    function ListaGenericaComponent(angularAPIHelper, localStorageService, router) {
+        var _this = _super.call(this, angularAPIHelper, localStorageService) || this;
+        _this.router = router;
+        _this.botonesGuardado = new botones_guardado_component_1.BotonesGuardado();
+        if (_this.listaGenerica.rutaRetorno.length > 0) {
+            _this.botonesGuardado.mostrarSoloVolver();
+        }
+        else {
+            _this.botonesGuardado.cargarSoloModales();
+        }
+        return _this;
     }
     ListaGenericaComponent.prototype.ngOnInit = function () {
         this.cargarElementos();
@@ -63,14 +79,14 @@ var ListaGenericaComponent = (function () {
     };
     ListaGenericaComponent.prototype.onAccionGuardado = function (event) {
         if (event == botones_guardado_component_1.TipoOperacionGuardado.Volver) {
-            this.router.navigate(['/biblia']);
+            this.router.navigate([this.listaGenerica.rutaRetorno]);
         }
         else if (event == botones_guardado_component_1.TipoOperacionGuardado.Eliminar) {
             this.eliminarElemento();
         }
     };
     return ListaGenericaComponent;
-}());
+}(ModoColaborador_1.ModoColaborador));
 __decorate([
     core_1.Input(),
     __metadata("design:type", ListaGenerica)
@@ -81,7 +97,7 @@ ListaGenericaComponent = __decorate([
         templateUrl: './templates/lista-generica.component.html',
         providers: [AngularAPIHelper_1.AngularAPIHelper]
     }),
-    __metadata("design:paramtypes", [AngularAPIHelper_1.AngularAPIHelper, router_1.Router])
+    __metadata("design:paramtypes", [AngularAPIHelper_1.AngularAPIHelper, LocalStorageService_1.LocalStorageService, router_1.Router])
 ], ListaGenericaComponent);
 exports.ListaGenericaComponent = ListaGenericaComponent;
 //# sourceMappingURL=lista-generica.component.js.map

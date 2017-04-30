@@ -1,17 +1,14 @@
 "use strict";
 var mongoose = require("mongoose");
 var Usuarios_1 = require("./Usuarios");
-var TipoPlantilla;
-(function (TipoPlantilla) {
-    TipoPlantilla[TipoPlantilla["Portada"] = 0] = "Portada";
-    TipoPlantilla[TipoPlantilla["Escena"] = 1] = "Escena";
-})(TipoPlantilla = exports.TipoPlantilla || (exports.TipoPlantilla = {}));
 var Plantilla = (function () {
     function Plantilla() {
         this.schema = new mongoose.Schema({
-            html: String,
-            tipo: Number,
+            htmlPortada: String,
+            htmlEscena: String,
+            nombre: String,
             autor: { type: mongoose.Schema.Types.ObjectId, ref: Usuarios_1.Usuario.name },
+            porDefecto: Boolean,
             fechaCreacion: { type: Date, default: Date.now },
             fechaModificacion: Date
         });

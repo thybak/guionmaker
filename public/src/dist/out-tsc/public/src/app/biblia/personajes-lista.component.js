@@ -19,7 +19,7 @@ var PersonajesListaComponent = (function () {
         this.localStorageService = localStorageService;
         var nuevoPersonaje = new PersonajesModel_1.PersonajeModel();
         nuevoPersonaje.proyecto = this.localStorageService.getPropiedad('proyectoActual');
-        this.listaGenerica = new lista_generica_component_1.ListaGenerica("Listado de personajes de la biblia literaria", "personaje", "personajesPorFiltro", this.angularAPIHelper.buildPeticion({ proyecto: this.localStorageService.getPropiedad('proyectoActual') }, {}, "nombre proyecto"), nuevoPersonaje);
+        this.listaGenerica = new lista_generica_component_1.ListaGenerica("Listado de personajes de la biblia literaria", "personaje", "personajesPorFiltro", this.angularAPIHelper.buildPeticion({ proyecto: this.localStorageService.getPropiedad('proyectoActual') }, {}, "nombre proyecto"), nuevoPersonaje, "/biblia");
     }
     return PersonajesListaComponent;
 }());

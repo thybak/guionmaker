@@ -6,6 +6,7 @@ import { EscenasModule } from './escenas/escenas.module';
 import { ProyectosModule } from './proyectos/proyectos.module';
 import { UtilsModule } from './utils/utils.module';
 import { BibliaModule } from './biblia/biblia.module';
+import { PlantillasModule } from './plantillas/plantillas.module';
 import { AppRoutingModule } from './app-routing.module'
 import { AngularAPIHelper } from './utils/AngularAPIHelper';
 
@@ -29,6 +30,7 @@ export function cargarConfiguracion(api: AngularAPIHelper, injector: Injector): 
         ProyectosModule,
         UtilsModule,
         BibliaModule,
+        PlantillasModule,
         AppRoutingModule    
     ],
     bootstrap: [AppComponent],

@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9,6 +14,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var ModoColaborador_1 = require("./ModoColaborador");
+var AngularAPIHelper_1 = require("./AngularAPIHelper");
+var LocalStorageService_1 = require("./LocalStorageService");
 var TipoOperacionGuardado;
 (function (TipoOperacionGuardado) {
     TipoOperacionGuardado[TipoOperacionGuardado["Guardar"] = 0] = "Guardar";
@@ -55,30 +63,44 @@ var BotonesGuardado = (function () {
     return BotonesGuardado;
 }());
 exports.BotonesGuardado = BotonesGuardado;
-var BotonesGuardadoComponent = (function () {
-    function BotonesGuardadoComponent() {
-        this.onAccionGuardado = new core_1.EventEmitter();
+var BotonesGuardadoComponent = (function (_super) {
+    __extends(BotonesGuardadoComponent, _super);
+    function BotonesGuardadoComponent(angularAPIHelper, localStorageService) {
+        var _this = _super.call(this, angularAPIHelper, localStorageService, true) || this;
+        _this.onAccionGuardado = new core_1.EventEmitter();
+        _this.usuarioLogeadoAutor = window.location.pathname.indexOf("proyectos") >= 0; // wa para permitir guardar cambios cuando estamos bajo la ruta de proyectos
+        return _this;
     }
     BotonesGuardadoComponent.prototype.onGuardarCambios = function () {
-        this.onAccionGuardado.emit(TipoOperacionGuardado.Guardar);
+        if (this.usuarioLogeadoAutor) {
+            this.onAccionGuardado.emit(TipoOperacionGuardado.Guardar);
+        }
     };
     BotonesGuardadoComponent.prototype.onEliminar = function () {
-        this.onAccionGuardado.emit(TipoOperacionGuardado.Eliminar);
+        if (this.usuarioLogeadoAutor) {
+            this.onAccionGuardado.emit(TipoOperacionGuardado.Eliminar);
+        }
     };
     BotonesGuardadoComponent.prototype.onVolver = function () {
         this.onAccionGuardado.emit(TipoOperacionGuardado.Volver);
     };
     BotonesGuardadoComponent.prototype.onRestaurar = function () {
-        this.onAccionGuardado.emit(TipoOperacionGuardado.Restaurar);
+        if (this.usuarioLogeadoAutor) {
+            this.onAccionGuardado.emit(TipoOperacionGuardado.Restaurar);
+        }
     };
     BotonesGuardadoComponent.prototype.onCancelarEliminar = function () {
-        this.onAccionGuardado.emit(TipoOperacionGuardado.CancelarEliminacion);
+        if (this.usuarioLogeadoAutor) {
+            this.onAccionGuardado.emit(TipoOperacionGuardado.CancelarEliminacion);
+        }
     };
     BotonesGuardadoComponent.prototype.onCancelar = function () {
-        this.onAccionGuardado.emit(TipoOperacionGuardado.CancelarRegistro);
+        if (this.usuarioLogeadoAutor) {
+            this.onAccionGuardado.emit(TipoOperacionGuardado.CancelarRegistro);
+        }
     };
     return BotonesGuardadoComponent;
-}());
+}(ModoColaborador_1.ModoColaborador));
 __decorate([
     core_1.Input(),
     __metadata("design:type", BotonesGuardado)
@@ -91,7 +113,8 @@ BotonesGuardadoComponent = __decorate([
     core_1.Component({
         templateUrl: './templates/botones-guardado.component.html',
         selector: 'botones-guardado'
-    })
+    }),
+    __metadata("design:paramtypes", [AngularAPIHelper_1.AngularAPIHelper, LocalStorageService_1.LocalStorageService])
 ], BotonesGuardadoComponent);
 exports.BotonesGuardadoComponent = BotonesGuardadoComponent;
 //# sourceMappingURL=botones-guardado.component.js.map
