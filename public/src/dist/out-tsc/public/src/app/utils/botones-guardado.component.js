@@ -68,7 +68,7 @@ var BotonesGuardadoComponent = (function (_super) {
     function BotonesGuardadoComponent(angularAPIHelper, localStorageService) {
         var _this = _super.call(this, angularAPIHelper, localStorageService, true) || this;
         _this.onAccionGuardado = new core_1.EventEmitter();
-        _this.usuarioLogeadoAutor = window.location.pathname.indexOf("proyectos") >= 0; // wa para permitir guardar cambios cuando estamos bajo la ruta de proyectos
+        _this.usuarioLogeadoAutor = window.location.pathname.indexOf("proyectos") >= 0 || window.location.pathname.indexOf("plantillas") >= 0; // wa para permitir guardar cambios cuando estamos bajo la ruta de proyectos
         return _this;
     }
     BotonesGuardadoComponent.prototype.onGuardarCambios = function () {

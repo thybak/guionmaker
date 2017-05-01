@@ -60,8 +60,8 @@ export class BotonesGuardadoComponent extends ModoColaborador {
     onAccionGuardado: EventEmitter<TipoOperacionGuardado> = new EventEmitter<TipoOperacionGuardado>();
 
     constructor(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService) {
-        super(angularAPIHelper, localStorageService, true);
-        this.usuarioLogeadoAutor = window.location.pathname.indexOf("proyectos") >= 0 || window.location.pathname.indexOf("plantillas") >= 0; // wa para permitir guardar cambios cuando estamos bajo la ruta de proyectos
+        super(angularAPIHelper, localStorageService, angularAPIHelper.esRutaRegistrosUsuario());
+        this.usuarioLogeadoAutor = this.angularAPIHelper.esRutaRegistrosUsuario();
     }
 
     onGuardarCambios() {

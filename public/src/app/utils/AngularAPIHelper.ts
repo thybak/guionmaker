@@ -34,6 +34,8 @@ export class AngularAPIHelper {
     static URL: string = "";
     static maximoSizeByFichero: number = 0;
     static mimeTypesPermitidos: string[] = [];
+    static plantillaPortada: string = "";
+    static plantillaEscena: string = "";
 
     constructor(private http: Http) {
     }
@@ -48,10 +50,13 @@ export class AngularAPIHelper {
         return locationInitialized.then(() => {
             this.http.get('/assets/apiconfig.json').toPromise().
                 then(config => {
+                    console.log("---------------------------prueba---------------------");
                     let _config = config.json();
                     AngularAPIHelper.maximoSizeByFichero = _config.maxFileSizeBytes;
                     AngularAPIHelper.URL = _config.apiURL + ':' + _config.publicApiPort + '/api/';
                     AngularAPIHelper.mimeTypesPermitidos = _config.mimeTypesPermitidos;
+                    AngularAPIHelper.plantillaPortada = _config.plantillaPortada;
+                    AngularAPIHelper.plantillaEscena = _config.plantillaEscena;
                 });
         }, error => {
             console.log(error);
@@ -80,6 +85,11 @@ export class AngularAPIHelper {
             requestOptions = new RequestOptions({ headers: headers });
         }
         return requestOptions;
+    }
+
+    esRutaRegistrosUsuario(): boolean {
+        let pathname = window.location.pathname;
+        return pathname.indexOf("plantillas") >= 0 || pathname.indexOf("proyectos") >= 0;
     }
 
     getAll(entity: string) {

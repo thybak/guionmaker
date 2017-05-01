@@ -109,3 +109,7 @@ form input.ng-pristine {
   display: block;
   border: 0;
 }
+
+textarea.form-control.txtAreaHTML {
+  height: 15em;
+}

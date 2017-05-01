@@ -139,6 +139,7 @@
     <Content Include="public\src\app\biblia\templates\personaje-detalle.component.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\src\app\plantillas\templates\plantilla-detalle.component.html" />
     <Content Include="public\src\app\plantillas\templates\plantillas-lista.component.html">
       <SubType>Code</SubType>
     </Content>
@@ -320,7 +321,7 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\biblia\escenarios-lista.component.ts" />
-    <TypeScriptCompile Include="public\src\app\biblia\models\DetalleElementoBiblia.ts">
+    <TypeScriptCompile Include="public\src\app\utils\DetalleElemento.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\biblia\models\EscenariosModel.ts">
@@ -354,6 +355,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\plantillas\plantillas.module.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="public\src\app\plantillas\plantilla-detalle.component.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\proyectos\gestor-colaboraciones.component.ts" />

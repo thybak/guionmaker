@@ -1,0 +1,52 @@
+﻿<confirmacion-guardado [oConfirm]="confirmacionGuardado"></confirmacion-guardado>
+<div class="well">
+  <div class="panel panel-primary" *ngIf="elemento != undefined">
+    <div class="panel-heading">
+      <h2 class="panel-title">
+        Edición de la plantilla: {{elemento.nombre}}
+      </h2>
+    </div>
+    <div class="panel-body">
+      <table class="table table-responsive">
+        <tr>
+          <td>
+            <label for="nombre">
+              Título
+            </label>
+            <input type="text" class="form-control" id="nombre" [(ngModel)]="elemento.nombre" />
+          </td>
+          <td>
+            <label for="porDefecto">
+              Plantilla por defecto
+            </label>
+            <input type="checkbox" id="porDefecto" [(ngModel)]="elemento.porDefecto" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <label for="htmlPortada">
+              HTML para la portada (debe contener los tokens {{"{{tituloProyecto\}\}"}} y {{"{{tipoGuion\}\}"}})
+            </label>
+            <textarea [(ngModel)]="elemento.htmlPortada" id="htmlPortada" class="form-control txtAreaHTML"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <label for="htmlEscena">
+              HTML para las escenas (debe contener los tokens {{"{{tituloEscena\}\}"}} y {{"{{contenidoEscena\}\}"}})
+            </label>
+            <textarea [(ngModel)]="elemento.htmlEscena" id="htmlEscena" class="form-control txtAreaHTML"></textarea>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row" *ngIf="elemento != undefined">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-center">
+      <botones-guardado [oBotonesGuardado]="botonesGuardado" (onAccionGuardado)="onAccionGuardado($event)"></botones-guardado>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+  <div class="alert alert-info" *ngIf="elemento == undefined">No se ha encontrado la escena indicada, <a routerLink="/plantillas">¿deseas volver?</a></div>
+</div>

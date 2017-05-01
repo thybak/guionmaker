@@ -2,15 +2,15 @@
 import { RouterModule, Routes } from '@angular/router';
 
 import { PlantillasListComponent } from './plantillas-lista.component';
-//import { DetalleEscenaComponent } from './escena-detalle.component';
+import { PlantillaDetalleComponent } from './plantilla-detalle.component';
 
 const plantillasRoute: Routes =
     [
         {
             path: 'plantillas',
             children: [
-                { path: '', component: PlantillasListComponent }//,
-                //{ path: ':id', component: DetalleEscenaComponent }
+                { path: '', component: PlantillasListComponent },
+                { path: ':id', component: PlantillaDetalleComponent }
             ]
         },
     ];

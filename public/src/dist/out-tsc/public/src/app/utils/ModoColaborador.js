@@ -11,7 +11,6 @@ var ModoColaborador = (function () {
             ProyectosModel_1.ProyectoModel.getProyectoActual(this.angularAPIHelper, this.localStorageService).subscribe(function (respuesta) {
                 var proyectoR = respuesta;
                 if (proyectoR != undefined && proyectoR.estado == AngularAPIHelper_1.ResponseStatus.OK) {
-                    console.log(proyectoR);
                     _this.usuarioLogeadoAutor = _this.localStorageService.esUsuarioLogeado(proyectoR.consulta[0].autor);
                 }
             });

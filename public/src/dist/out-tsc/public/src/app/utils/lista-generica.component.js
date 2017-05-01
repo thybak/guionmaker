@@ -35,19 +35,20 @@ exports.ListaGenerica = ListaGenerica;
 var ListaGenericaComponent = (function (_super) {
     __extends(ListaGenericaComponent, _super);
     function ListaGenericaComponent(angularAPIHelper, localStorageService, router) {
-        var _this = _super.call(this, angularAPIHelper, localStorageService) || this;
+        var _this = _super.call(this, angularAPIHelper, localStorageService, window.location.pathname.indexOf("plantillas") >= 0) || this;
         _this.router = router;
-        _this.botonesGuardado = new botones_guardado_component_1.BotonesGuardado();
-        if (_this.listaGenerica.rutaRetorno.length > 0) {
-            _this.botonesGuardado.mostrarSoloVolver();
-        }
-        else {
-            _this.botonesGuardado.cargarSoloModales();
-        }
+        _this.usuarioLogeadoAutor = window.location.pathname.indexOf("plantillas") >= 0; // wa para permitir guardar cambios cuando estamos bajo la ruta de proyectos
         return _this;
     }
     ListaGenericaComponent.prototype.ngOnInit = function () {
         this.cargarElementos();
+        this.botonesGuardado = new botones_guardado_component_1.BotonesGuardado();
+        if (this.listaGenerica.rutaRetorno.length > 0) {
+            this.botonesGuardado.mostrarSoloVolver();
+        }
+        else {
+            this.botonesGuardado.cargarSoloModales();
+        }
     };
     ListaGenericaComponent.prototype.cargarElementos = function () {
         var _this = this;

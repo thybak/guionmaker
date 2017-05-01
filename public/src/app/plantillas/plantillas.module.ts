@@ -5,11 +5,11 @@ import { UtilsModule } from '../utils/utils.module';
 import { PlantillasRoutingModule } from './plantillas-routing.module';
 
 import { PlantillasListComponent } from './plantillas-lista.component';
-//import { DetalleEscenaComponent } from './escena-detalle.component';
+import { PlantillaDetalleComponent } from './plantilla-detalle.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, UtilsModule, PlantillasRoutingModule],
-    declarations: [PlantillasListComponent],
+    declarations: [PlantillasListComponent, PlantillaDetalleComponent],
     providers: [],
     exports: []
 })

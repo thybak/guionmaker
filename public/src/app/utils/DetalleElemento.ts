@@ -1,12 +1,12 @@
 ﻿import { KeyValueDiffers, DoCheck } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
-import { GestorSubidaComponent, Fichero } from "../../utils/gestor-subida.component";
-import { AngularAPIHelper, RespuestaJson, PeticionJson, ResponseStatus } from "../../utils/AngularAPIHelper";
-import { BotonesGuardado, TipoOperacionGuardado } from "../../utils/botones-guardado.component";
-import { ConfirmacionGuardado } from "../../utils/confirmacion-guardado.component";
-import { LocalStorageService } from "../../utils/LocalStorageService";
+import { GestorSubidaComponent, Fichero } from "./gestor-subida.component";
+import { AngularAPIHelper, RespuestaJson, PeticionJson, ResponseStatus } from "./AngularAPIHelper";
+import { BotonesGuardado, TipoOperacionGuardado } from "./botones-guardado.component";
+import { ConfirmacionGuardado } from "./confirmacion-guardado.component";
+import { LocalStorageService } from "./LocalStorageService";
 
-export abstract class DetalleElementoBiblia implements DoCheck {
+export abstract class DetalleElemento implements DoCheck {
     elemento: any;
     entidadElemento: string;
     confirmacionGuardado: ConfirmacionGuardado;
@@ -15,7 +15,7 @@ export abstract class DetalleElementoBiblia implements DoCheck {
     differ: any;
     ng2config: any;
 
-    constructor(protected angularAPIHelper: AngularAPIHelper, protected localStorageService: LocalStorageService, protected route: ActivatedRoute, protected router: Router, entidadElemento: string, protected differs: KeyValueDiffers) {
+    constructor(protected angularAPIHelper: AngularAPIHelper, protected localStorageService: LocalStorageService, protected route: ActivatedRoute, protected router: Router, entidadElemento: string, protected differs: KeyValueDiffers, protected parentRoute: string) {
         this.confirmacionGuardado = new ConfirmacionGuardado();
         this.botonesGuardado = new BotonesGuardado();
         this.botonesGuardado.mostrarCompleto();
@@ -54,18 +54,20 @@ export abstract class DetalleElementoBiblia implements DoCheck {
     }
 
     protected eliminarElemento() {
-        this.angularAPIHelper.deleteById(this.entidadElemento, this.elemento._id).subscribe(null, null, () => this.router.navigate(['/biblia/' + this.entidadElemento + 's']));
+        this.angularAPIHelper.deleteById(this.entidadElemento, this.elemento._id).subscribe(null, null, () => this.router.navigate([this.parentRoute]));
     }
 
     onAccionGuardado(event) {
         if (event == TipoOperacionGuardado.Guardar) {
-            this.elemento.imagen = this.fichero.base64;
-            this.elemento.mimeType = this.fichero.mimeType;
+            if (this.fichero.base64 != undefined) {
+                this.elemento.imagen = this.fichero.base64;
+                this.elemento.mimeType = this.fichero.mimeType;
+            }
             this.guardarCambios();
         } else if (event == TipoOperacionGuardado.Eliminar) {
             this.eliminarElemento();
         } else if (event == TipoOperacionGuardado.Volver) {
-            this.router.navigate(['/biblia/' + this.entidadElemento + 's']);
+            this.router.navigate([this.parentRoute]);
         }
     }
 

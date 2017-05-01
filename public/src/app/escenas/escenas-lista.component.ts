@@ -67,46 +67,46 @@ export class EscenasListComponent extends ModoColaborador {
         }
         return htmlImagen;
     }
-    private generarHtmlExportacion(literario: boolean, plantillaEscena: PlantillaModel) {
-        //this.exportacionWindow = window.open();
-        //this.exportacionWindow.document.title = "Vista completa del guión - GuionMaker";
-        //for (let escena of this.escenas) {
-        //    let escenaActual: EscenaModel = escena;
-        //    let plantillaModificada: string = plantillaEscena.htmlEscena.replace("{{tituloEscena}}", escenaActual.orden + ". " + this.getSituacionString(escenaActual) + ". " + escenaActual.titulo.toUpperCase() + ". " + this.getTemporalidadString(escenaActual));
-        //    this.htmlExportado += "{" + escenaActual.orden + "}";
-        //    this.angularAPIHelper.getById(literario ? 'detalleLiterario' : 'detalleTecnico', literario ? escenaActual.detalleLiterario : escenaActual.detalleTecnico).subscribe(response => {
-        //        let detalle: any;
-        //        let respuesta = response as RespuestaJson;
-        //        if (respuesta.estado == ResponseStatus.OK && respuesta.consulta.length > 0) {
-        //            if (literario) {
-        //                detalle = (response as RespuestaJson).consulta[0] as DetalleLiterarioModel;
-        //            } else {
-        //                detalle = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel;
-        //            }
-        //            this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", plantillaModificada.replace("{{contenidoEscena}}", this.generarHtmlImagen(detalle) + detalle.texto));
-        //        } else {
-        //            this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", "");
-        //        }
-        //        this.exportacionWindow.document.documentElement.innerHTML = this.htmlExportado;
-        //    });
-        //}
+    private generarHtmlExportacion(literario: boolean, plantilla: PlantillaModel) {
+        this.exportacionWindow = window.open();
+        this.exportacionWindow.document.title = "Vista completa del guión - GuionMaker";
+        let plantillaEscena = AngularAPIHelper.plantillaEscena;
+        if (plantilla != undefined) {
+            plantillaEscena = plantilla.htmlEscena != undefined ? plantilla.htmlEscena : AngularAPIHelper.plantillaEscena;
+        }
+        for (let escena of this.escenas) {
+            let escenaActual: EscenaModel = escena;
+            let plantillaModificada: string = plantillaEscena.replace("{{tituloEscena}}", escenaActual.orden + ". " + this.getSituacionString(escenaActual) + ". " + escenaActual.titulo.toUpperCase() + ". " + this.getTemporalidadString(escenaActual));
+            this.htmlExportado += "{" + escenaActual.orden + "}";
+            this.angularAPIHelper.getById(literario ? 'detalleLiterario' : 'detalleTecnico', literario ? escenaActual.detalleLiterario : escenaActual.detalleTecnico).subscribe(response => {
+                let detalle: any;
+                let respuesta = response as RespuestaJson;
+                if (respuesta.estado == ResponseStatus.OK && respuesta.consulta.length > 0) {
+                    if (literario) {
+                        detalle = (response as RespuestaJson).consulta[0] as DetalleLiterarioModel;
+                    } else {
+                        detalle = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel;
+                    }
+                    this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", plantillaModificada.replace("{{contenidoEscena}}", this.generarHtmlImagen(detalle) + detalle.texto));
+                } else {
+                    this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", "");
+                }
+                this.exportacionWindow.document.documentElement.innerHTML = this.htmlExportado;
+            });
+        }
     }
     exportarGuion(literario: boolean) {
-        // una vez se tenga el usuario habría que hacer join de usuario y proyecto para sacar la plantilla que se debe usar, por ahora defecto
-        //this.htmlExportado = "";
-        //this.angularAPIHelper.getById("plantilla", "5884c9c1e369b82e24883387").subscribe(response => { // id variable por join
-        //    let plantillaEscena = (response as RespuestaJson).consulta[0] as PlantillaModel;
-        //    if (plantillaEscena != undefined) {
-        //        this.angularAPIHelper.getById("plantilla", "5884c982e369b82e24883386").subscribe(response2 => { // id variable por join
-        //            let plantillaPortada = (response2 as RespuestaJson).consulta[0] as PlantillaModel;
-        //            if (plantillaPortada != undefined) {
-        //                plantillaPortada.htmlPortada = plantillaPortada.htmlPortada.replace("{{tituloProyecto}}", this.localStorageService.getPropiedad('nombreProyectoActual'));
-        //                this.htmlExportado += plantillaPortada.html.replace("{{tipoGuion}}", literario ? "Guión literario" : "Guión técnico");
-        //                this.generarHtmlExportacion(literario, plantillaEscena);
-        //            }
-        //        });
-        //    }
-        //});
+        this.htmlExportado = "";
+        this.angularAPIHelper.postEntryOrFilter("plantillasPorFiltro", JSON.stringify(this.angularAPIHelper.buildPeticion({ "porDefecto": 1 }, {}))).subscribe(response => { // id variable por join
+            let plantilla = (response as RespuestaJson).consulta[0] as PlantillaModel;
+            let plantillaPortada = AngularAPIHelper.plantillaPortada;
+            if (plantilla != undefined) {
+                plantillaPortada = plantilla.htmlPortada != undefined ? plantilla.htmlPortada : AngularAPIHelper.plantillaPortada;
+            }
+            plantillaPortada = plantillaPortada.replace("{{tituloProyecto}}", this.localStorageService.getPropiedad('nombreProyectoActual'));
+            this.htmlExportado += plantillaPortada.replace("{{tipoGuion}}", literario ? "Guión literario" : "Guión técnico");
+            this.generarHtmlExportacion(literario, plantilla);
+        });
     }
     onDestacar(destacar: boolean, escena: EscenaModel) {
         escena.destacado = destacar;
@@ -134,7 +134,7 @@ export class EscenasListComponent extends ModoColaborador {
         return _escena.getTemporalidadString();
     }
     getSituacionString(escena: any): string {
-        let _escena : EscenaModel = EscenaModel.cargarEscena(escena);
+        let _escena: EscenaModel = EscenaModel.cargarEscena(escena);
         return _escena.getSituacionString();
     }
     onSeleccionEscenaAEliminar(escena: any) {

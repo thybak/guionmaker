@@ -2,7 +2,7 @@
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { PersonajeModel } from "./models/PersonajesModel";
-import { DetalleElementoBiblia } from "./models/DetalleElementoBiblia";
+import { DetalleElemento } from "../utils/DetalleElemento";
 
 import { Ng2Summernote } from "ng2-summernote/ng2-summernote";
 import { GestorSubidaComponent, Fichero } from "../utils/gestor-subida.component";
@@ -17,9 +17,9 @@ import { AyudaDiccionariosComponent } from "../utils/ayuda-diccionarios.componen
     templateUrl: './templates/personaje-detalle.component.html',
     providers: [LocalStorageService, AngularAPIHelper]
 })
-export class DetallePersonajeComponent extends DetalleElementoBiblia {
+export class DetallePersonajeComponent extends DetalleElemento {
     constructor(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService, route: ActivatedRoute, router: Router, differs: KeyValueDiffers) {
-        super(angularAPIHelper, localStorageService, route, router, "personaje", differs);
+        super(angularAPIHelper, localStorageService, route, router, "personaje", differs, "/biblia/personajes");
     }
     cargarModelo(respuesta: RespuestaJson) {
         if (respuesta.estado == ResponseStatus.OK) {

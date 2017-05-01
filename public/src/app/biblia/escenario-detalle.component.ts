@@ -2,7 +2,7 @@
 import { Router, ActivatedRoute, Params } from "@angular/router";
 
 import { EscenarioModel } from "./models/EscenariosModel";
-import { DetalleElementoBiblia } from "./models/DetalleElementoBiblia";
+import { DetalleElemento } from "../utils/DetalleElemento";
 
 import { Ng2Summernote } from "ng2-summernote/ng2-summernote";
 import { GestorSubidaComponent, Fichero } from "../utils/gestor-subida.component";
@@ -17,9 +17,9 @@ import { AyudaDiccionariosComponent } from "../utils/ayuda-diccionarios.componen
     templateUrl: './templates/escenario-detalle.component.html',
     providers: [LocalStorageService, AngularAPIHelper]
 })
-export class DetalleEscenarioComponent extends DetalleElementoBiblia {
+export class DetalleEscenarioComponent extends DetalleElemento {
     constructor(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService, route: ActivatedRoute, router: Router, differs: KeyValueDiffers) {
-        super(angularAPIHelper, localStorageService, route, router, "escenario", differs);
+        super(angularAPIHelper, localStorageService, route, router, "escenario", differs, "/biblia/escenarios");
     }
     cargarModelo(respuesta: RespuestaJson) {
         if (respuesta.estado == ResponseStatus.OK) {

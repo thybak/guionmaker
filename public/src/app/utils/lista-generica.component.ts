@@ -48,8 +48,8 @@ export class ListaGenericaComponent extends ModoColaborador implements OnInit {
     }
 
     constructor(angularAPIHelper: AngularAPIHelper, localStorageService: LocalStorageService, private router: Router) {
-        super(angularAPIHelper, localStorageService, window.location.pathname.indexOf("plantillas") >= 0);   
-        this.usuarioLogeadoAutor = window.location.pathname.indexOf("plantillas") >= 0; // wa para permitir guardar cambios cuando estamos bajo la ruta de proyectos
+        super(angularAPIHelper, localStorageService, angularAPIHelper.esRutaRegistrosUsuario());   
+        this.usuarioLogeadoAutor = this.angularAPIHelper.esRutaRegistrosUsuario(); 
     }
 
     private cargarElementos() {

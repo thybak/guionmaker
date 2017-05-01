@@ -13,6 +13,7 @@ var escenas_module_1 = require("./escenas/escenas.module");
 var proyectos_module_1 = require("./proyectos/proyectos.module");
 var utils_module_1 = require("./utils/utils.module");
 var biblia_module_1 = require("./biblia/biblia.module");
+var plantillas_module_1 = require("./plantillas/plantillas.module");
 var app_routing_module_1 = require("./app-routing.module");
 var AngularAPIHelper_1 = require("./utils/AngularAPIHelper");
 var app_component_1 = require("./app.component");
@@ -41,6 +42,7 @@ AppModule = __decorate([
             proyectos_module_1.ProyectosModule,
             utils_module_1.UtilsModule,
             biblia_module_1.BibliaModule,
+            plantillas_module_1.PlantillasModule,
             app_routing_module_1.AppRoutingModule
         ],
         bootstrap: [app_component_1.AppComponent],
