@@ -1,7 +1,8 @@
 ﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageService } from './utils/LocalStorageService';
-import { AngularAPIHelper } from './utils/AngularAPIHelper';
+import { AngularAPIHelper, RespuestaJson, ResponseStatus } from './utils/AngularAPIHelper';
+import { BreadcrumbService } from 'ng2-breadcrumb/ng2-breadcrumb';
 
 @Component({
     selector: 'guionMaker',
@@ -9,7 +10,9 @@ import { AngularAPIHelper } from './utils/AngularAPIHelper';
     providers: [LocalStorageService]
 })
 export class AppComponent {
-    constructor(private localStorageService: LocalStorageService, private angularAPIHelper : AngularAPIHelper, private router: Router) {
+
+    constructor(private localStorageService: LocalStorageService, private angularAPIHelper: AngularAPIHelper, private router: Router, private breadcrumbService: BreadcrumbService) {
+        this.breadcrumbService.hideRouteRegex("^.*([A-Fa-f]|[0-9]){24,24}$");
     }
 
     hayProyecto() {

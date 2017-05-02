@@ -73,46 +73,55 @@ var EscenasListComponent = (function (_super) {
         }
         return htmlImagen;
     };
-    EscenasListComponent.prototype.generarHtmlExportacion = function (literario, plantillaEscena) {
-        //this.exportacionWindow = window.open();
-        //this.exportacionWindow.document.title = "Vista completa del guión - GuionMaker";
-        //for (let escena of this.escenas) {
-        //    let escenaActual: EscenaModel = escena;
-        //    let plantillaModificada: string = plantillaEscena.htmlEscena.replace("{{tituloEscena}}", escenaActual.orden + ". " + this.getSituacionString(escenaActual) + ". " + escenaActual.titulo.toUpperCase() + ". " + this.getTemporalidadString(escenaActual));
-        //    this.htmlExportado += "{" + escenaActual.orden + "}";
-        //    this.angularAPIHelper.getById(literario ? 'detalleLiterario' : 'detalleTecnico', literario ? escenaActual.detalleLiterario : escenaActual.detalleTecnico).subscribe(response => {
-        //        let detalle: any;
-        //        let respuesta = response as RespuestaJson;
-        //        if (respuesta.estado == ResponseStatus.OK && respuesta.consulta.length > 0) {
-        //            if (literario) {
-        //                detalle = (response as RespuestaJson).consulta[0] as DetalleLiterarioModel;
-        //            } else {
-        //                detalle = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel;
-        //            }
-        //            this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", plantillaModificada.replace("{{contenidoEscena}}", this.generarHtmlImagen(detalle) + detalle.texto));
-        //        } else {
-        //            this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", "");
-        //        }
-        //        this.exportacionWindow.document.documentElement.innerHTML = this.htmlExportado;
-        //    });
-        //}
+    EscenasListComponent.prototype.generarHtmlExportacion = function (literario, plantilla) {
+        var _this = this;
+        this.exportacionWindow = window.open();
+        this.exportacionWindow.document.title = "Vista completa del guión - GuionMaker";
+        var plantillaEscena = AngularAPIHelper_1.AngularAPIHelper.plantillaEscena;
+        if (plantilla != undefined) {
+            plantillaEscena = plantilla.htmlEscena != undefined ? plantilla.htmlEscena : AngularAPIHelper_1.AngularAPIHelper.plantillaEscena;
+        }
+        var _loop_2 = function (escena) {
+            var escenaActual = escena;
+            var plantillaModificada = plantillaEscena.replace("{{tituloEscena}}", escenaActual.orden + ". " + this_2.getSituacionString(escenaActual) + ". " + escenaActual.titulo.toUpperCase() + ". " + this_2.getTemporalidadString(escenaActual));
+            this_2.htmlExportado += "{" + escenaActual.orden + "}";
+            this_2.angularAPIHelper.getById(literario ? 'detalleLiterario' : 'detalleTecnico', literario ? escenaActual.detalleLiterario : escenaActual.detalleTecnico).subscribe(function (response) {
+                var detalle;
+                var respuesta = response;
+                if (respuesta.estado == AngularAPIHelper_1.ResponseStatus.OK && respuesta.consulta.length > 0) {
+                    if (literario) {
+                        detalle = response.consulta[0];
+                    }
+                    else {
+                        detalle = response.consulta[0];
+                    }
+                    _this.htmlExportado = _this.htmlExportado.replace("{" + escenaActual.orden + "}", plantillaModificada.replace("{{contenidoEscena}}", _this.generarHtmlImagen(detalle) + detalle.texto));
+                }
+                else {
+                    _this.htmlExportado = _this.htmlExportado.replace("{" + escenaActual.orden + "}", "");
+                }
+                _this.exportacionWindow.document.documentElement.innerHTML = _this.htmlExportado;
+            });
+        };
+        var this_2 = this;
+        for (var _i = 0, _a = this.escenas; _i < _a.length; _i++) {
+            var escena = _a[_i];
+            _loop_2(escena);
+        }
     };
     EscenasListComponent.prototype.exportarGuion = function (literario) {
-        // una vez se tenga el usuario habría que hacer join de usuario y proyecto para sacar la plantilla que se debe usar, por ahora defecto
-        //this.htmlExportado = "";
-        //this.angularAPIHelper.getById("plantilla", "5884c9c1e369b82e24883387").subscribe(response => { // id variable por join
-        //    let plantillaEscena = (response as RespuestaJson).consulta[0] as PlantillaModel;
-        //    if (plantillaEscena != undefined) {
-        //        this.angularAPIHelper.getById("plantilla", "5884c982e369b82e24883386").subscribe(response2 => { // id variable por join
-        //            let plantillaPortada = (response2 as RespuestaJson).consulta[0] as PlantillaModel;
-        //            if (plantillaPortada != undefined) {
-        //                plantillaPortada.htmlPortada = plantillaPortada.htmlPortada.replace("{{tituloProyecto}}", this.localStorageService.getPropiedad('nombreProyectoActual'));
-        //                this.htmlExportado += plantillaPortada.html.replace("{{tipoGuion}}", literario ? "Guión literario" : "Guión técnico");
-        //                this.generarHtmlExportacion(literario, plantillaEscena);
-        //            }
-        //        });
-        //    }
-        //});
+        var _this = this;
+        this.htmlExportado = "";
+        this.angularAPIHelper.postEntryOrFilter("plantillasPorFiltro", JSON.stringify(this.angularAPIHelper.buildPeticion({ "porDefecto": 1 }, {}))).subscribe(function (response) {
+            var plantilla = response.consulta[0];
+            var plantillaPortada = AngularAPIHelper_1.AngularAPIHelper.plantillaPortada;
+            if (plantilla != undefined) {
+                plantillaPortada = plantilla.htmlPortada != undefined ? plantilla.htmlPortada : AngularAPIHelper_1.AngularAPIHelper.plantillaPortada;
+            }
+            plantillaPortada = plantillaPortada.replace("{{tituloProyecto}}", _this.localStorageService.getPropiedad('nombreProyectoActual'));
+            _this.htmlExportado += plantillaPortada.replace("{{tipoGuion}}", literario ? "Guión literario" : "Guión técnico");
+            _this.generarHtmlExportacion(literario, plantilla);
+        });
     };
     EscenasListComponent.prototype.onDestacar = function (destacar, escena) {
         escena.destacado = destacar;

@@ -15,13 +15,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var DetalleElementoBiblia_1 = require("./models/DetalleElementoBiblia");
+var DetalleElemento_1 = require("../utils/DetalleElemento");
 var AngularAPIHelper_1 = require("../utils/AngularAPIHelper");
 var LocalStorageService_1 = require("../utils/LocalStorageService");
 var DetallePersonajeComponent = (function (_super) {
     __extends(DetallePersonajeComponent, _super);
     function DetallePersonajeComponent(angularAPIHelper, localStorageService, route, router, differs) {
-        return _super.call(this, angularAPIHelper, localStorageService, route, router, "personaje", differs) || this;
+        return _super.call(this, angularAPIHelper, localStorageService, route, router, "personaje", differs, "/biblia/personajes") || this;
     }
     DetallePersonajeComponent.prototype.cargarModelo = function (respuesta) {
         if (respuesta.estado == AngularAPIHelper_1.ResponseStatus.OK) {
@@ -34,7 +34,7 @@ var DetallePersonajeComponent = (function (_super) {
         }
     };
     return DetallePersonajeComponent;
-}(DetalleElementoBiblia_1.DetalleElementoBiblia));
+}(DetalleElemento_1.DetalleElemento));
 DetallePersonajeComponent = __decorate([
     core_1.Component({
         selector: 'detalle-personaje',

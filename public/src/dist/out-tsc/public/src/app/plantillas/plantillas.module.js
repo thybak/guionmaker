@@ -11,7 +11,7 @@ var forms_1 = require("@angular/forms");
 var utils_module_1 = require("../utils/utils.module");
 var plantillas_routing_module_1 = require("./plantillas-routing.module");
 var plantillas_lista_component_1 = require("./plantillas-lista.component");
-//import { DetalleEscenaComponent } from './escena-detalle.component';
+var plantilla_detalle_component_1 = require("./plantilla-detalle.component");
 var PlantillasModule = (function () {
     function PlantillasModule() {
     }
@@ -20,7 +20,7 @@ var PlantillasModule = (function () {
 PlantillasModule = __decorate([
     core_1.NgModule({
         imports: [common_1.CommonModule, forms_1.FormsModule, utils_module_1.UtilsModule, plantillas_routing_module_1.PlantillasRoutingModule],
-        declarations: [plantillas_lista_component_1.PlantillasListComponent],
+        declarations: [plantillas_lista_component_1.PlantillasListComponent, plantilla_detalle_component_1.PlantillaDetalleComponent],
         providers: [],
         exports: []
     })

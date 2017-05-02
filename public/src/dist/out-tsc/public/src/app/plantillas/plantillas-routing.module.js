@@ -8,12 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var plantillas_lista_component_1 = require("./plantillas-lista.component");
-//import { DetalleEscenaComponent } from './escena-detalle.component';
+var plantilla_detalle_component_1 = require("./plantilla-detalle.component");
 var plantillasRoute = [
     {
         path: 'plantillas',
         children: [
-            { path: '', component: plantillas_lista_component_1.PlantillasListComponent } //,
+            { path: '', component: plantillas_lista_component_1.PlantillasListComponent },
+            { path: ':id', component: plantilla_detalle_component_1.PlantillaDetalleComponent }
         ]
     },
 ];

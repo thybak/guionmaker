@@ -1,6 +1,7 @@
 ﻿import { Component } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { UsuarioModel } from './usuarios/models/UsuarioModel';
 import { AngularAPIHelper, RespuestaJson, ResponseStatus } from "./utils/AngularAPIHelper";
 import { Utils, PeticionLogin, RespuestaLogin } from "../../../models/Utils";
 import { LocalStorageService } from "./utils/LocalStorageService";
@@ -33,8 +34,10 @@ export class LoginComponent {
             let respuesta = response as RespuestaJson;
             if (respuesta.estado == ResponseStatus.OK) {
                 let respuestaLogin = respuesta.login as RespuestaLogin;
+                console.log(respuestaLogin);
                 this.localStorageService.setPropiedad('usuarioLogeado', respuestaLogin.usuarioLogeado);
                 this.localStorageService.setPropiedad('tokenUsuario', respuestaLogin.tokenUsuario);
+                this.localStorageService.setPropiedad('usuarioLogeadoNombre', respuestaLogin.nombreUsuario);
                 this.router.navigate(['/']);
             } else {
                 this.error = true;

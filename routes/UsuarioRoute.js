@@ -54,7 +54,7 @@ var Route;
                     else {
                         if (_res.length == 1) {
                             req.body.usuarioLogeado = _res[0]._id;
-                            var respuestaLogin = new Utils_1.RespuestaLogin(jsonwebtoken.sign(req.body, "g423gj8f_GfsldGLPxcz"), _res[0]._id);
+                            var respuestaLogin = new Utils_1.RespuestaLogin(jsonwebtoken.sign(req.body, "g423gj8f_GfsldGLPxcz"), _res[0]._id, req.body.nombreUsuario);
                             res.json(APIHelper_1.APIHelper.buildJsonLogin(respuestaLogin));
                         }
                         else {

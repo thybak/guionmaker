@@ -22,9 +22,10 @@ var PeticionLogin = (function () {
 }());
 exports.PeticionLogin = PeticionLogin;
 var RespuestaLogin = (function () {
-    function RespuestaLogin(tokenUsuario, usuarioLogeado) {
+    function RespuestaLogin(tokenUsuario, usuarioLogeado, nombreUsuario) {
         this.tokenUsuario = tokenUsuario;
         this.usuarioLogeado = usuarioLogeado;
+        this.nombreUsuario = nombreUsuario;
     }
     return RespuestaLogin;
 }());

@@ -51,7 +51,7 @@ module Route {
                     } else {
                         if (_res.length == 1) {
                             req.body.usuarioLogeado = _res[0]._id;
-                            let respuestaLogin = new RespuestaLogin(jsonwebtoken.sign(req.body, "g423gj8f_GfsldGLPxcz"), _res[0]._id);
+                            let respuestaLogin = new RespuestaLogin(jsonwebtoken.sign(req.body, "g423gj8f_GfsldGLPxcz"), _res[0]._id, req.body.nombreUsuario);
                             res.json(APIHelper.buildJsonLogin(respuestaLogin));
                         } else {
                             res.json(APIHelper.buildJsonError("No se ha podido iniciar sesión con el usuario " + req.body.nombreUsuario));

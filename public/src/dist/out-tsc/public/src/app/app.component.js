@@ -12,11 +12,14 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var LocalStorageService_1 = require("./utils/LocalStorageService");
 var AngularAPIHelper_1 = require("./utils/AngularAPIHelper");
+var ng2_breadcrumb_1 = require("ng2-breadcrumb/ng2-breadcrumb");
 var AppComponent = (function () {
-    function AppComponent(localStorageService, angularAPIHelper, router) {
+    function AppComponent(localStorageService, angularAPIHelper, router, breadcrumbService) {
         this.localStorageService = localStorageService;
         this.angularAPIHelper = angularAPIHelper;
         this.router = router;
+        this.breadcrumbService = breadcrumbService;
+        this.breadcrumbService.hideRouteRegex("^.*([A-Fa-f]|[0-9]){24,24}$");
     }
     AppComponent.prototype.hayProyecto = function () {
         return this.hayUsuario() && this.localStorageService.propiedades['proyectoActual'] != null;
@@ -36,7 +39,7 @@ AppComponent = __decorate([
         templateUrl: './templates/app.component.html',
         providers: [LocalStorageService_1.LocalStorageService]
     }),
-    __metadata("design:paramtypes", [LocalStorageService_1.LocalStorageService, AngularAPIHelper_1.AngularAPIHelper, router_1.Router])
+    __metadata("design:paramtypes", [LocalStorageService_1.LocalStorageService, AngularAPIHelper_1.AngularAPIHelper, router_1.Router, ng2_breadcrumb_1.BreadcrumbService])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

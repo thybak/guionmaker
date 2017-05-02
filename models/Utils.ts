@@ -21,9 +21,11 @@ export class PeticionLogin {
 export class RespuestaLogin {
     tokenUsuario: string;
     usuarioLogeado: string;
+    nombreUsuario: string;
 
-    constructor(tokenUsuario: string, usuarioLogeado: string) {
+    constructor(tokenUsuario: string, usuarioLogeado: string, nombreUsuario: string) {
         this.tokenUsuario = tokenUsuario;
         this.usuarioLogeado = usuarioLogeado;
+        this.nombreUsuario = nombreUsuario;
     }
 }

@@ -15,13 +15,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var DetalleElementoBiblia_1 = require("./models/DetalleElementoBiblia");
+var DetalleElemento_1 = require("../utils/DetalleElemento");
 var AngularAPIHelper_1 = require("../utils/AngularAPIHelper");
 var LocalStorageService_1 = require("../utils/LocalStorageService");
 var DetalleEscenarioComponent = (function (_super) {
     __extends(DetalleEscenarioComponent, _super);
     function DetalleEscenarioComponent(angularAPIHelper, localStorageService, route, router, differs) {
-        return _super.call(this, angularAPIHelper, localStorageService, route, router, "escenario", differs) || this;
+        return _super.call(this, angularAPIHelper, localStorageService, route, router, "escenario", differs, "/biblia/escenarios") || this;
     }
     DetalleEscenarioComponent.prototype.cargarModelo = function (respuesta) {
         if (respuesta.estado == AngularAPIHelper_1.ResponseStatus.OK) {
@@ -33,7 +33,7 @@ var DetalleEscenarioComponent = (function (_super) {
         }
     };
     return DetalleEscenarioComponent;
-}(DetalleElementoBiblia_1.DetalleElementoBiblia));
+}(DetalleElemento_1.DetalleElemento));
 DetalleEscenarioComponent = __decorate([
     core_1.Component({
         selector: 'escenario-detalle',

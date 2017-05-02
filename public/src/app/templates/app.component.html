@@ -17,10 +17,10 @@
         <li role="presentation" routerLinkActive="active" *ngIf="hayProyecto()"><a routerLink="/escenas">Escenas</a></li>
         <li role="presentation" routerLinkActive="active" *ngIf="hayProyecto()"><a routerLink="/biblia">Biblia literaria</a></li>
         <li role="presentation" routerLinkActive="active" *ngIf="hayUsuario()"><a routerLink="/plantillas">Plantillas</a></li>
-        <li role="presentation"><p class="navbar-text" *ngIf="hayProyecto()"><i>Trabajando sobre <b>{{localStorageService.propiedades['nombreProyectoActual']}}</b></i></p></li>
-        <li role="presentation" *ngIf="hayUsuario()"><a role="button" (click)="cerrarSesion()">Cerrar sesión</a></li>
+        <li role="presentation" *ngIf="hayUsuario()"><a role="button" (click)="cerrarSesion()"><i class="glyphicon glyphicon-user"></i> ¡Hola {{localStorageService.propiedades['usuarioLogeadoNombre']}}! Cerrar sesión</a></li>
       </ul>
     </div>
   </div>
 </nav>
+<breadcrumb [prefix]="'GuionMaker'+ (localStorageService.propiedades['nombreProyectoActual'] == undefined ? '' : ' / ' + localStorageService.propiedades['nombreProyectoActual'])"></breadcrumb>
 <router-outlet></router-outlet>

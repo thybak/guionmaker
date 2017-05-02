@@ -35,9 +35,9 @@ exports.ListaGenerica = ListaGenerica;
 var ListaGenericaComponent = (function (_super) {
     __extends(ListaGenericaComponent, _super);
     function ListaGenericaComponent(angularAPIHelper, localStorageService, router) {
-        var _this = _super.call(this, angularAPIHelper, localStorageService, window.location.pathname.indexOf("plantillas") >= 0) || this;
+        var _this = _super.call(this, angularAPIHelper, localStorageService, angularAPIHelper.esRutaRegistrosUsuario()) || this;
         _this.router = router;
-        _this.usuarioLogeadoAutor = window.location.pathname.indexOf("plantillas") >= 0; // wa para permitir guardar cambios cuando estamos bajo la ruta de proyectos
+        _this.usuarioLogeadoAutor = _this.angularAPIHelper.esRutaRegistrosUsuario();
         return _this;
     }
     ListaGenericaComponent.prototype.ngOnInit = function () {

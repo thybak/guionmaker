@@ -31,7 +31,7 @@ export class PeticionJson {
 
 @Injectable()
 export class AngularAPIHelper {
-    static URL: string = "";
+    static URL: string;
     static maximoSizeByFichero: number = 0;
     static mimeTypesPermitidos: string[] = [];
     static plantillaPortada: string = "";
@@ -46,21 +46,18 @@ export class AngularAPIHelper {
     }
 
     cargarConfiguracion(injector: Injector) {
-        const locationInitialized = injector.get(LOCATION_INITIALIZED, Promise.resolve(null));
-        return locationInitialized.then(() => {
-            this.http.get('/assets/apiconfig.json').toPromise().
-                then(config => {
-                    console.log("---------------------------prueba---------------------");
-                    let _config = config.json();
-                    AngularAPIHelper.maximoSizeByFichero = _config.maxFileSizeBytes;
-                    AngularAPIHelper.URL = _config.apiURL + ':' + _config.publicApiPort + '/api/';
-                    AngularAPIHelper.mimeTypesPermitidos = _config.mimeTypesPermitidos;
-                    AngularAPIHelper.plantillaPortada = _config.plantillaPortada;
-                    AngularAPIHelper.plantillaEscena = _config.plantillaEscena;
-                });
-        }, error => {
-            console.log(error);
-        });
+        return this.http
+            .get('/assets/apiconfig.json')
+            .map((res: Response) => res.json())
+            .toPromise()
+            .then((_config: any) => {
+                AngularAPIHelper.maximoSizeByFichero = _config.maxFileSizeBytes;
+                AngularAPIHelper.URL = _config.apiURL + ':' + _config.publicApiPort + '/api/';
+                AngularAPIHelper.mimeTypesPermitidos = _config.mimeTypesPermitidos;
+                AngularAPIHelper.plantillaPortada = _config.plantillaPortada;
+                AngularAPIHelper.plantillaEscena = _config.plantillaEscena;
+            })
+            .catch((err: any) => Promise.resolve());
     }
 
     usuarioLogeado(localStorageService: LocalStorageService) {

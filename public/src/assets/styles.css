@@ -113,3 +113,7 @@ form input.ng-pristine {
 textarea.form-control.txtAreaHTML {
   height: 15em;
 }
+
+.breadcrumb-item :first-letter {
+  text-transform: uppercase;
+}

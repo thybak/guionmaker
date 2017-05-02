@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var http_1 = require("@angular/http");
-var common_1 = require("@angular/common");
 var core_1 = require("@angular/core");
 var rxjs_1 = require("rxjs");
 var ResponseStatus;
@@ -41,19 +40,18 @@ var AngularAPIHelper = AngularAPIHelper_1 = (function () {
         return rxjs_1.Observable.throw(errMsg);
     };
     AngularAPIHelper.prototype.cargarConfiguracion = function (injector) {
-        var _this = this;
-        var locationInitialized = injector.get(common_1.LOCATION_INITIALIZED, Promise.resolve(null));
-        return locationInitialized.then(function () {
-            _this.http.get('/assets/apiconfig.json').toPromise().
-                then(function (config) {
-                var _config = config.json();
-                AngularAPIHelper_1.maximoSizeByFichero = _config.maxFileSizeBytes;
-                AngularAPIHelper_1.URL = _config.apiURL + ':' + _config.publicApiPort + '/api/';
-                AngularAPIHelper_1.mimeTypesPermitidos = _config.mimeTypesPermitidos;
-            });
-        }, function (error) {
-            console.log(error);
-        });
+        return this.http
+            .get('/assets/apiconfig.json')
+            .map(function (res) { return res.json(); })
+            .toPromise()
+            .then(function (_config) {
+            AngularAPIHelper_1.maximoSizeByFichero = _config.maxFileSizeBytes;
+            AngularAPIHelper_1.URL = _config.apiURL + ':' + _config.publicApiPort + '/api/';
+            AngularAPIHelper_1.mimeTypesPermitidos = _config.mimeTypesPermitidos;
+            AngularAPIHelper_1.plantillaPortada = _config.plantillaPortada;
+            AngularAPIHelper_1.plantillaEscena = _config.plantillaEscena;
+        })
+            .catch(function (err) { return Promise.resolve(); });
     };
     AngularAPIHelper.prototype.usuarioLogeado = function (localStorageService) {
         var usuario = localStorageService.getPropiedad('usuarioLogeado');
@@ -75,6 +73,10 @@ var AngularAPIHelper = AngularAPIHelper_1 = (function () {
             requestOptions = new http_1.RequestOptions({ headers: headers });
         }
         return requestOptions;
+    };
+    AngularAPIHelper.prototype.esRutaRegistrosUsuario = function () {
+        var pathname = window.location.pathname;
+        return pathname.indexOf("plantillas") >= 0 || pathname.indexOf("proyectos") >= 0;
     };
     AngularAPIHelper.prototype.getAll = function (entity) {
         var _this = this;
@@ -101,9 +103,10 @@ var AngularAPIHelper = AngularAPIHelper_1 = (function () {
     };
     return AngularAPIHelper;
 }());
-AngularAPIHelper.URL = "";
 AngularAPIHelper.maximoSizeByFichero = 0;
 AngularAPIHelper.mimeTypesPermitidos = [];
+AngularAPIHelper.plantillaPortada = "";
+AngularAPIHelper.plantillaEscena = "";
 AngularAPIHelper = AngularAPIHelper_1 = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
