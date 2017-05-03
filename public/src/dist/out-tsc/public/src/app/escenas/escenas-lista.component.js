@@ -19,6 +19,7 @@ var AngularAPIHelper_1 = require("../utils/AngularAPIHelper");
 var LocalStorageService_1 = require("../utils/LocalStorageService");
 var confirmacion_guardado_component_1 = require("../utils/confirmacion-guardado.component");
 var botones_guardado_component_1 = require("../utils/botones-guardado.component");
+var PlantillasModel_1 = require("../plantillas/models/PlantillasModel");
 var ModoColaborador_1 = require("../utils/ModoColaborador");
 var EscenasListComponent = (function (_super) {
     __extends(EscenasListComponent, _super);
@@ -79,7 +80,7 @@ var EscenasListComponent = (function (_super) {
         this.exportacionWindow.document.title = "Vista completa del guión - GuionMaker";
         var plantillaEscena = AngularAPIHelper_1.AngularAPIHelper.plantillaEscena;
         if (plantilla != undefined) {
-            plantillaEscena = plantilla.htmlEscena != undefined ? plantilla.htmlEscena : AngularAPIHelper_1.AngularAPIHelper.plantillaEscena;
+            plantillaEscena = PlantillasModel_1.PlantillaModel.getHtmlEscena(plantilla);
         }
         var _loop_2 = function (escena) {
             var escenaActual = escena;
@@ -116,7 +117,7 @@ var EscenasListComponent = (function (_super) {
             var plantilla = response.consulta[0];
             var plantillaPortada = AngularAPIHelper_1.AngularAPIHelper.plantillaPortada;
             if (plantilla != undefined) {
-                plantillaPortada = plantilla.htmlPortada != undefined ? plantilla.htmlPortada : AngularAPIHelper_1.AngularAPIHelper.plantillaPortada;
+                plantillaPortada = PlantillasModel_1.PlantillaModel.getHtmlPortada(plantilla);
             }
             plantillaPortada = plantillaPortada.replace("{{tituloProyecto}}", _this.localStorageService.getPropiedad('nombreProyectoActual'));
             _this.htmlExportado += plantillaPortada.replace("{{tipoGuion}}", literario ? "Guión literario" : "Guión técnico");

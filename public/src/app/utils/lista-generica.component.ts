@@ -14,14 +14,16 @@ export class ListaGenerica {
     peticion: PeticionJson;
     nuevoElemento: any;
     rutaRetorno: string;
+    propiedadDestacado: string;
 
-    constructor(titulo: string, entidad: string, entidadPorFiltro: string, peticion: PeticionJson, nuevoElemento: any, rutaRetorno: string = '') {
+    constructor(titulo: string, entidad: string, entidadPorFiltro: string, peticion: PeticionJson, nuevoElemento: any, rutaRetorno: string = '', propiedadDestacado: string = '') {
         this.titulo = titulo;
         this.entidad = entidad;
         this.entidadPorFiltro = entidadPorFiltro;
         this.peticion = peticion;
         this.nuevoElemento = nuevoElemento;
         this.rutaRetorno = rutaRetorno;
+        this.propiedadDestacado = propiedadDestacado;
     }
 }
 

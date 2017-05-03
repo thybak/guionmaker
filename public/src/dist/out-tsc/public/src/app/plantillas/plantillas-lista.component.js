@@ -19,7 +19,7 @@ var PlantillasListComponent = (function () {
         this.localStorageService = localStorageService;
         var nuevaPlantilla = new PlantillasModel_1.PlantillaModel();
         nuevaPlantilla.autor = this.localStorageService.getPropiedad('usuarioLogeado');
-        this.listaGenerica = new lista_generica_component_1.ListaGenerica("Listado de plantillas disponibles para este usuario", "plantilla", "plantillasPorFiltro", this.angularAPIHelper.buildPeticion({}, {}), nuevaPlantilla);
+        this.listaGenerica = new lista_generica_component_1.ListaGenerica("Listado de plantillas disponibles para este usuario", "plantilla", "plantillasPorFiltro", this.angularAPIHelper.buildPeticion({}, {}), nuevaPlantilla, '', "porDefecto");
     }
     return PlantillasListComponent;
 }());

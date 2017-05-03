@@ -19,6 +19,8 @@ export class PlantillasListComponent {
             "plantilla",
             "plantillasPorFiltro",
             this.angularAPIHelper.buildPeticion({}, {}),
-            nuevaPlantilla);
+            nuevaPlantilla,
+            '',
+            "porDefecto");
     }
 }

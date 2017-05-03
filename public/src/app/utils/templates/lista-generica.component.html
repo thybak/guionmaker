@@ -15,7 +15,7 @@
             <div class="list-group-item " *ngFor="let elemento of elementos">
               <div class="row">
                 <div class="col-md-12">
-                  {{elemento.nombre}}
+                  {{elemento.nombre}} <i class="glyphicon glyphicon-asterisk" *ngIf="listaGenerica.propiedadDestacado != '' ? elemento[listaGenerica.propiedadDestacado] : ''"></i>
                 </div>
               </div>
               <div class="row">

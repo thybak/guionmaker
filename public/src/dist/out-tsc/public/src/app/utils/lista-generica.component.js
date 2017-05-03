@@ -20,14 +20,16 @@ var botones_guardado_component_1 = require("./botones-guardado.component");
 var LocalStorageService_1 = require("./LocalStorageService");
 var ModoColaborador_1 = require("./ModoColaborador");
 var ListaGenerica = (function () {
-    function ListaGenerica(titulo, entidad, entidadPorFiltro, peticion, nuevoElemento, rutaRetorno) {
+    function ListaGenerica(titulo, entidad, entidadPorFiltro, peticion, nuevoElemento, rutaRetorno, propiedadDestacado) {
         if (rutaRetorno === void 0) { rutaRetorno = ''; }
+        if (propiedadDestacado === void 0) { propiedadDestacado = ''; }
         this.titulo = titulo;
         this.entidad = entidad;
         this.entidadPorFiltro = entidadPorFiltro;
         this.peticion = peticion;
         this.nuevoElemento = nuevoElemento;
         this.rutaRetorno = rutaRetorno;
+        this.propiedadDestacado = propiedadDestacado;
     }
     return ListaGenerica;
 }());

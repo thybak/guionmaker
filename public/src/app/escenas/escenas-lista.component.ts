@@ -72,7 +72,7 @@ export class EscenasListComponent extends ModoColaborador {
         this.exportacionWindow.document.title = "Vista completa del guión - GuionMaker";
         let plantillaEscena = AngularAPIHelper.plantillaEscena;
         if (plantilla != undefined) {
-            plantillaEscena = plantilla.htmlEscena != undefined ? plantilla.htmlEscena : AngularAPIHelper.plantillaEscena;
+            plantillaEscena = PlantillaModel.getHtmlEscena(plantilla);
         }
         for (let escena of this.escenas) {
             let escenaActual: EscenaModel = escena;
@@ -101,7 +101,7 @@ export class EscenasListComponent extends ModoColaborador {
             let plantilla = (response as RespuestaJson).consulta[0] as PlantillaModel;
             let plantillaPortada = AngularAPIHelper.plantillaPortada;
             if (plantilla != undefined) {
-                plantillaPortada = plantilla.htmlPortada != undefined ? plantilla.htmlPortada : AngularAPIHelper.plantillaPortada;
+                plantillaPortada = PlantillaModel.getHtmlPortada(plantilla);
             }
             plantillaPortada = plantillaPortada.replace("{{tituloProyecto}}", this.localStorageService.getPropiedad('nombreProyectoActual'));
             this.htmlExportado += plantillaPortada.replace("{{tipoGuion}}", literario ? "Guión literario" : "Guión técnico");
