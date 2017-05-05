@@ -18,7 +18,7 @@
           <div class="row">
             <div class="col-md-12">
               {{proyecto.nombre}} {{localStorageService.mostrarMarcaColaboracion(proyecto.autor)}} -
-              {{proyecto.fechaModificacion}}
+              {{proyecto.fechaModificacion | date: 'dd/MM/yyyy HH:mm'}}
             </div>
           </div>
           <div class="row">

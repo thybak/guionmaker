@@ -29,7 +29,7 @@
     "jsonwebtoken": "^7.3.0",
     "jssha": "^2.2.0",
     "mime": "^1.3.4",
-    "mongoose": "^4.6.2",
+    "mongoose": "^4.9.7",
     "morgan": "~1.7.0",
     "ng2-breadcrumb": "^0.5.14",
     "ng2-summernote": "^1.11.0",

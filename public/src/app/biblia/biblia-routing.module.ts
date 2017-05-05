@@ -1,6 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { CanActivateIsLoggedGuard } from '../utils/CanActivateIsLoggedGuard';
 import { BibliaComponent } from './biblia.component';
 import { EscenariosListaComponent } from './escenarios-lista.component';
 import { PersonajesListaComponent } from './personajes-lista.component';
@@ -27,7 +28,7 @@ const bibliaRoutes: Routes =
                         { path: ':id', component: DetalleEscenarioComponent }
                      ]
                 }
-            ]
+            ], canActivate: [CanActivateIsLoggedGuard]
         }
     ];
 

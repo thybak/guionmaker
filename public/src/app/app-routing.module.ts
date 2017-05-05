@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './index.component';
 import { LoginComponent } from './login.component';
 import { RegistroComponent } from './registro.component';
+import { CanActivateIsLoggedGuard } from './utils/CanActivateIsLoggedGuard';
 
 const appRoutes: Routes =
     [
-        { path: '', component: IndexComponent },
+        { path: '', component: IndexComponent, canActivate: [CanActivateIsLoggedGuard] },
         { path: 'login', component: LoginComponent },
         { path: 'registro', component: RegistroComponent },
         { path: '**', component: PageNotFoundComponent }

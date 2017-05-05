@@ -26,6 +26,9 @@
               </div>
             </div>
           </div>
+          <div class="alert alert-info" *ngIf="listaGenerica.propiedadDestacado != ''">
+            <i class="glyphicon glyphicon-asterisk"></i>: indica {{listaGenerica.entidad}} por defecto en caso de que exista.
+          </div>
         </div>
       </div>
       <div class="alert alert-info mgn-top-1" *ngIf="elementos == undefined || elementos.length == 0">

@@ -1,7 +1,8 @@
 ﻿<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">GuionMaker</a>
+      <img src="assets/img/GMaker-Isotipo-BN.png" style="height:60px; width: auto; padding-right: 1em;" alt="GuionMaker" />
+      <a class="navbar-brand" routerLink="/">GuionMaker</a>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menuGuionMaker" aria-expanded="false">
         <span class="sr-only">Mostrar/ocultar menú</span>
         <span class="icon-bar"></span>
@@ -10,14 +11,22 @@
     </div>
     <div class="collapse navbar-collapse" id="menuGuionMaker">
       <ul class="nav navbar-nav">
-        <li role="presentation" *ngIf="hayUsuario()"><a href="" routerLink="">Inicio</a></li>
+        <li role="presentation" *ngIf="hayUsuario()"><a routerLink="">Inicio</a></li>
         <li role="presentation" routerLinkActive="active" *ngIf="!hayUsuario()"><a routerLink="/login">Inicia sesión</a></li>
         <li role="presentation" routerLinkActive="active" *ngIf="!hayUsuario()"><a routerLink="/registro">Regístrate</a></li>
         <li role="presentation" routerLinkActive="active" *ngIf="hayUsuario()"><a routerLink="/proyectos">Proyectos</a></li>
         <li role="presentation" routerLinkActive="active" *ngIf="hayProyecto()"><a routerLink="/escenas">Escenas</a></li>
-        <li role="presentation" routerLinkActive="active" *ngIf="hayProyecto()"><a routerLink="/biblia">Biblia literaria</a></li>
+        <li routerLinkActive="active" *ngIf="hayProyecto()" class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Biblia literaria <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li role="presentation" routerLinkActive="active" *ngIf="hayProyecto()"><a routerLink="/biblia/escenarios">Escenarios</a></li>
+            <li role="presentation" routerLinkActive="active" *ngIf="hayProyecto()"><a routerLink="/biblia/personajes">Personajes</a></li>
+          </ul>
+        </li>
         <li role="presentation" routerLinkActive="active" *ngIf="hayUsuario()"><a routerLink="/plantillas">Plantillas</a></li>
-        <li role="presentation" *ngIf="hayUsuario()"><a role="button" (click)="cerrarSesion()"><i class="glyphicon glyphicon-user"></i> ¡Hola {{localStorageService.propiedades['usuarioLogeadoNombre']}}! Cerrar sesión</a></li>
+        <li role="presentation" *ngIf="hayUsuario()"><a role="button" (click)="cerrarSesion()"><i class="glyphicon glyphicon-user"></i> ¡Hola {{localStorageService.getPropiedad('usuarioLogeadoNombre')}}! Cerrar sesión</a></li>
+        <li role="presentation" *ngIf="darkTheme"><a role="button" class="btn btn-default" (click)="cambiarTemplate()"><i class="glyphicon glyphicon-pencil"></i> Cambiar a claro</a></li>
+        <li role="presentation" *ngIf="!darkTheme"><a role="button" class="btn btn-default" (click)="cambiarTemplate()"><i class="glyphicon glyphicon-pencil"></i> Cambiar a oscuro</a></li>
       </ul>
     </div>
   </div>

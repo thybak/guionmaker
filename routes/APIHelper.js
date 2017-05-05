@@ -181,7 +181,7 @@ var APIHelper = (function () {
                         if (filtro.find._id == undefined) {
                             filtro.find._id = req.body._id;
                         }
-                        model.update(filtro.find, req.body, function (err, resp) {
+                        model.findOneAndUpdate(filtro.find, req.body, function (err, resp) {
                             if (err) {
                                 res.json(APIHelper.buildJsonError("Error al intentar actualizar un registro en la entidad " + model.modelName + ". Más info: " + err + ". Modelo: " + req.body));
                             }

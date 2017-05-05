@@ -34,7 +34,6 @@ export class LoginComponent {
             let respuesta = response as RespuestaJson;
             if (respuesta.estado == ResponseStatus.OK) {
                 let respuestaLogin = respuesta.login as RespuestaLogin;
-                console.log(respuestaLogin);
                 this.localStorageService.setPropiedad('usuarioLogeado', respuestaLogin.usuarioLogeado);
                 this.localStorageService.setPropiedad('tokenUsuario', respuestaLogin.tokenUsuario);
                 this.localStorageService.setPropiedad('usuarioLogeadoNombre', respuestaLogin.nombreUsuario);

@@ -26,8 +26,7 @@ export class Plantilla {
             fechaCreacion: { type: Date, default: Date.now },
             fechaModificacion: Date
         });
-        this.schema.post('update', (plantilla) => {
-            console.log(plantilla['CommandResult']);
+        this.schema.post('findOneAndUpdate', function (plantilla) {
             mongoose.model(Plantilla.name).find({ $and: [{ "_id": { "$ne": plantilla['_id'] } }, { "porDefecto": 1 }, { "autor": plantilla['autor'] }] }).exec((err, res) => {
                 if (err) {
                     console.log("Error al obtener la anterior plantilla por defecto del usuario " + err);

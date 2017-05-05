@@ -1,5 +1,5 @@
 ﻿import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER, Injector } from '@angular/core';
+import { NgModule, APP_INITIALIZER, Injector, Inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { EscenasModule } from './escenas/escenas.module';
@@ -9,6 +9,8 @@ import { BibliaModule } from './biblia/biblia.module';
 import { PlantillasModule } from './plantillas/plantillas.module';
 import { AppRoutingModule } from './app-routing.module'
 import { AngularAPIHelper } from './utils/AngularAPIHelper';
+import { LocalStorageService } from './utils/LocalStorageService';
+import { CanActivateIsLoggedGuard } from './utils/CanActivateIsLoggedGuard';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './pageNotFound.component';
@@ -19,6 +21,7 @@ import { RegistroComponent } from './registro.component';
 export function cargarConfiguracion(api: AngularAPIHelper, injector: Injector): Function {
     return () => api.cargarConfiguracion(injector);
 }
+
 @NgModule({
     declarations: [ AppComponent, PageNotFoundComponent, IndexComponent, LoginComponent, RegistroComponent ],
     imports: [
@@ -34,13 +37,14 @@ export function cargarConfiguracion(api: AngularAPIHelper, injector: Injector): 
         AppRoutingModule    
     ],
     bootstrap: [AppComponent],
-    providers: [AngularAPIHelper,
+    providers: [AngularAPIHelper, LocalStorageService,
         {
             provide: APP_INITIALIZER,
             useFactory: cargarConfiguracion,
             deps: [AngularAPIHelper, Injector],
             multi: true
-        }]
+        },
+        CanActivateIsLoggedGuard]
 })
 export class AppModule {
 }

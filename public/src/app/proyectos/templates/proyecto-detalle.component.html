@@ -9,12 +9,13 @@
         <div class="col-md-6">
           <div class="row">
             <div class="col-md-12">
-              <input type="checkbox" [(ngModel)]="proyecto.publico" id="publico" /><label for="publico">&nbsp;Proyecto público</label>
+              <b>Última actualización:</b> {{proyecto.fechaModificacion | date: 'dd/MM/yyyy HH:mm'}}
             </div>
           </div>
+          <div class="mgn-top-1"></div>
           <div class="row">
             <div class="col-md-12">
-              <input type="text" [(ngModel)]="proyecto.fechaModificacion" readonly="readonly" class="form-control" id="fechaModificacion" />
+              <input type="checkbox" [(ngModel)]="proyecto.publico" id="publico" /><label for="publico">&nbsp;Proyecto público</label>
             </div>
           </div>
         </div>

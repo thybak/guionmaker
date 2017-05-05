@@ -173,12 +173,14 @@
     <Content Include="public\src\app\utils\templates\lista-generica.component.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\src\assets\bootstrap\css\bootstrap-darkly.min.css" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.css" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.css.map" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap-theme.min.css.map" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap.css" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap.css.map" />
+    <Content Include="public\src\assets\bootstrap\css\bootstrap-flatly.min.css" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap.min.css" />
     <Content Include="public\src\assets\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="public\src\assets\bootstrap\fonts\glyphicons-halflings-regular.eot" />
@@ -186,6 +188,7 @@
     <Content Include="public\src\assets\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="public\src\assets\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="public\src\assets\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="public\src\assets\img\GMaker-Logo-Color.png" />
     <Content Include="public\src\assets\jquery\jquery.min.map" />
     <Content Include="public\src\assets\styles.css" />
     <Content Include="public\src\assets\summernote\font\summernote.eot" />
@@ -196,7 +199,7 @@
     <Content Include="public\src\assets\summernote\plugin\databasic\summernote-ext-databasic.css" />
     <Content Include="public\src\assets\summernote\plugin\databasic\summernote-ext-databasic.min.css" />
     <Content Include="public\src\assets\summernote\summernote.css" />
-    <Content Include="public\src\favicon.ico" />
+    <Content Include="public\src\favicon.png" />
     <Content Include="public\src\index.html" />
     <Content Include="public\src\styles.css" />
     <Content Include="public\src\tsconfig.json" />
@@ -265,6 +268,7 @@
     <Folder Include="public\src\assets\bootstrap\css\" />
     <Folder Include="public\src\assets\bootstrap\fonts\" />
     <Folder Include="public\src\assets\bootstrap\js\" />
+    <Folder Include="public\src\assets\img\" />
     <Folder Include="public\src\assets\jquery\" />
     <Folder Include="public\src\assets\summernote\" />
     <Folder Include="public\src\assets\summernote\font\" />
@@ -321,6 +325,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\biblia\escenarios-lista.component.ts" />
+    <TypeScriptCompile Include="public\src\app\utils\CanActivateIsLoggedGuard.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="public\src\app\utils\DetalleElemento.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

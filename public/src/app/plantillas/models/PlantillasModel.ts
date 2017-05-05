@@ -17,14 +17,14 @@ export class PlantillaModel {
     }
 
     public static getHtmlPortada(plantilla: PlantillaModel): string {
-        if (plantilla.htmlPortada.indexOf("{{tituloProyecto}}") >= 0 && plantilla.htmlPortada.indexOf("{{tipoGuion}}") >= 0) {
+        if (plantilla.htmlPortada != undefined && plantilla.htmlPortada.indexOf("{{tituloProyecto}}") >= 0 && plantilla.htmlPortada.indexOf("{{tipoGuion}}") >= 0) {
             return plantilla.htmlPortada;
         }
         return AngularAPIHelper.plantillaPortada;
     }
 
     public static getHtmlEscena(plantilla: PlantillaModel): string {
-        if (plantilla.htmlEscena.indexOf("{{tituloEscena}}") >= 0 && plantilla.htmlEscena.indexOf("{{contenidoEscena}}") >= 0) {
+        if (plantilla.htmlEscena != undefined && plantilla.htmlEscena.indexOf("{{tituloEscena}}") >= 0 && plantilla.htmlEscena.indexOf("{{contenidoEscena}}") >= 0) {
             return plantilla.htmlEscena;
         }
         return AngularAPIHelper.plantillaEscena;
