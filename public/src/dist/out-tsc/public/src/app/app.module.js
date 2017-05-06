@@ -16,6 +16,8 @@ var biblia_module_1 = require("./biblia/biblia.module");
 var plantillas_module_1 = require("./plantillas/plantillas.module");
 var app_routing_module_1 = require("./app-routing.module");
 var AngularAPIHelper_1 = require("./utils/AngularAPIHelper");
+var LocalStorageService_1 = require("./utils/LocalStorageService");
+var CanActivateIsLoggedGuard_1 = require("./utils/CanActivateIsLoggedGuard");
 var app_component_1 = require("./app.component");
 var pageNotFound_component_1 = require("./pageNotFound.component");
 var index_component_1 = require("./index.component");
@@ -46,13 +48,14 @@ AppModule = __decorate([
             app_routing_module_1.AppRoutingModule
         ],
         bootstrap: [app_component_1.AppComponent],
-        providers: [AngularAPIHelper_1.AngularAPIHelper,
+        providers: [AngularAPIHelper_1.AngularAPIHelper, LocalStorageService_1.LocalStorageService,
             {
                 provide: core_1.APP_INITIALIZER,
                 useFactory: cargarConfiguracion,
                 deps: [AngularAPIHelper_1.AngularAPIHelper, core_1.Injector],
                 multi: true
-            }]
+            },
+            CanActivateIsLoggedGuard_1.CanActivateIsLoggedGuard]
     })
 ], AppModule);
 exports.AppModule = AppModule;

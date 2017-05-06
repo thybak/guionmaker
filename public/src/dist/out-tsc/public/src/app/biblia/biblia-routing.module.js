@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var CanActivateIsLoggedGuard_1 = require("../utils/CanActivateIsLoggedGuard");
 var biblia_component_1 = require("./biblia.component");
 var escenarios_lista_component_1 = require("./escenarios-lista.component");
 var personajes_lista_component_1 = require("./personajes-lista.component");
@@ -31,7 +32,7 @@ var bibliaRoutes = [
                     { path: ':id', component: escenario_detalle_component_1.DetalleEscenarioComponent }
                 ]
             }
-        ]
+        ], canActivate: [CanActivateIsLoggedGuard_1.CanActivateIsLoggedGuard]
     }
 ];
 var BibliaRoutingModule = (function () {

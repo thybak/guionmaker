@@ -1,14 +1,16 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var ResponseStatus;
 (function (ResponseStatus) {
     ResponseStatus[ResponseStatus["OK"] = 0] = "OK";
     ResponseStatus[ResponseStatus["KO"] = 1] = "KO";
-})(ResponseStatus || (ResponseStatus = {}));
+})(ResponseStatus = exports.ResponseStatus || (exports.ResponseStatus = {}));
 var RespuestaJson = (function () {
     function RespuestaJson() {
     }
     return RespuestaJson;
 }());
+exports.RespuestaJson = RespuestaJson;
 var PeticionJson = (function () {
     function PeticionJson() {
         this.find = {};
@@ -208,6 +210,9 @@ var APIHelper = (function () {
             var borrar = function (err, resultado) {
                 if (err) {
                     res.json(APIHelper.buildJsonError("Ha habido un error al eliminar el registro " + id + ". Más info: " + err));
+                }
+                else if (Object.keys(resultado).length == 0) {
+                    res.json(APIHelper.buildJsonError("Ha habido un error al eliminar el registro " + id + ". No se ha encontrado en la colección"));
                 }
                 else {
                     var _resultado_1;

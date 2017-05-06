@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
 var Usuarios_1 = require("./Usuarios");
 var PlantillaModel = (function () {
@@ -18,8 +19,6 @@ var Plantilla = (function () {
             fechaModificacion: Date
         });
         this.schema.post('findOneAndUpdate', function (plantilla) {
-            console.log(plantilla);
-            console.log("hola");
             mongoose.model(Plantilla.name).find({ $and: [{ "_id": { "$ne": plantilla['_id'] } }, { "porDefecto": 1 }, { "autor": plantilla['autor'] }] }).exec(function (err, res) {
                 if (err) {
                     console.log("Error al obtener la anterior plantilla por defecto del usuario " + err);

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
 var Generos_1 = require("./Generos");
 var Clasificaciones_1 = require("./Clasificaciones");

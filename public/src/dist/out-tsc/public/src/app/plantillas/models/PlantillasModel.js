@@ -6,13 +6,13 @@ var PlantillaModel = (function () {
         this.fechaCreacion = new Date();
     }
     PlantillaModel.getHtmlPortada = function (plantilla) {
-        if (plantilla.htmlPortada.indexOf("{{tituloProyecto}}") >= 0 && plantilla.htmlPortada.indexOf("{{tipoGuion}}") >= 0) {
+        if (plantilla.htmlPortada != undefined && plantilla.htmlPortada.indexOf("{{tituloProyecto}}") >= 0 && plantilla.htmlPortada.indexOf("{{tipoGuion}}") >= 0) {
             return plantilla.htmlPortada;
         }
         return AngularAPIHelper_1.AngularAPIHelper.plantillaPortada;
     };
     PlantillaModel.getHtmlEscena = function (plantilla) {
-        if (plantilla.htmlEscena.indexOf("{{tituloEscena}}") >= 0 && plantilla.htmlEscena.indexOf("{{contenidoEscena}}") >= 0) {
+        if (plantilla.htmlEscena != undefined && plantilla.htmlEscena.indexOf("{{tituloEscena}}") >= 0 && plantilla.htmlEscena.indexOf("{{contenidoEscena}}") >= 0) {
             return plantilla.htmlEscena;
         }
         return AngularAPIHelper_1.AngularAPIHelper.plantillaEscena;

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var jssha = require("jssha");
 var Utils = (function () {
     function Utils() {

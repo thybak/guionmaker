@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var CanActivateIsLoggedGuard_1 = require("../utils/CanActivateIsLoggedGuard");
 var proyectos_lista_component_1 = require("./proyectos-lista.component");
 var proyecto_detalle_component_1 = require("./proyecto-detalle.component");
 var ProyectosRoutingModule = (function () {
@@ -21,7 +22,7 @@ ProyectosRoutingModule = __decorate([
                     children: [
                         { path: '', component: proyectos_lista_component_1.ProyectosListComponent },
                         { path: ':id', component: proyecto_detalle_component_1.DetalleProyectoComponent }
-                    ]
+                    ], canActivate: [CanActivateIsLoggedGuard_1.CanActivateIsLoggedGuard]
                 }])],
         exports: [router_1.RouterModule]
     })

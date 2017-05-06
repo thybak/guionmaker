@@ -3,12 +3,12 @@ import * as mongoose from "mongoose";
 import * as express from "express";
 import { RespuestaLogin } from "../models/Utils";
 
-enum ResponseStatus {
+export enum ResponseStatus {
     OK = 0,
     KO
 }
 
-class RespuestaJson {
+export class RespuestaJson {
     estado: ResponseStatus;
     error: String;
     login: RespuestaLogin;
@@ -195,6 +195,8 @@ export class APIHelper {
             let borrar = function (err, resultado) {
                 if (err) {
                     res.json(APIHelper.buildJsonError("Ha habido un error al eliminar el registro " + id + ". Más info: " + err));
+                } else if (Object.keys(resultado).length == 0) {
+                    res.json(APIHelper.buildJsonError("Ha habido un error al eliminar el registro " + id + ". No se ha encontrado en la colección"));
                 } else {
                     let _resultado: any;
                     if (Object.keys(filtro.populate).length > 0 && filtro.populate.path != "") {

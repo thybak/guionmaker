@@ -7,6 +7,7 @@ var morgan = require("morgan");
 var path = require("path");
 var cors = require("cors");
 var jwtes = require("express-jwt");
+var mockgoose = require("mockgoose");
 var IndexRoute_1 = require("./routes/IndexRoute");
 var ProyectoRoute_1 = require("./routes/ProyectoRoute");
 var UsuarioRoute_1 = require("./routes/UsuarioRoute");
@@ -20,19 +21,30 @@ var PersonajeRoute_1 = require("./routes/PersonajeRoute");
 var EscenarioRoute_1 = require("./routes/EscenarioRoute");
 var Server = (function () {
     function Server() {
+        var _this = this;
+        console.log(process.env.NODE_ENV);
         this.config = require('./public/dist/assets/apiconfig.json');
         this.config.secreto = "g423gj8f_GfsldGLPxcz";
         this.api = express();
         this.setConfig();
         require('mongoose').Promise = global.Promise;
-        mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName);
-        console.log(this.config);
+        if (process.env.NODE_ENV != undefined && process.env.NODE_ENV.trim() === 'test') {
+            new mockgoose.Mockgoose(mongoose).prepareStorage().then(function () {
+                mongoose.connect("mongodb://" + _this.config.dbURL + "/" + _this.config.dbCollectionName);
+            });
+        }
+        else {
+            mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName);
+            console.log(this.config);
+        }
     }
     Server.init = function () {
         return new Server();
     };
     Server.prototype.setModules = function () {
-        this.api.use(morgan('dev'));
+        if (process.env.NODE_ENV == undefined || process.env.NODE_ENV.trim() !== 'test') {
+            this.api.use(morgan('combined'));
+        }
         this.api.use(bodyParser.json({ limit: 1024 * 1024 * 3 }));
         this.api.use(bodyParser.urlencoded({ extended: true }));
         this.api.use(cookieParser());
@@ -79,7 +91,6 @@ var Server = (function () {
         router.get('/api/escenas', _escenasRoute.getEscenas.bind(_escenasRoute.getEscenas));
         router.post('/api/escenasPorFiltro', _escenasRoute.getEscenasByFilterAndSort.bind(_escenasRoute.getEscenasByFilterAndSort));
         router.post('/api/escena/', _escenasRoute.addEscena.bind(_escenasRoute.addEscena));
-        router.post('/api/escena/actualizar/', _escenasRoute.updateEscena.bind(_escenasRoute.updateEscena));
         router.get('/api/escena/:id', _escenasRoute.getEscenaById.bind(_escenasRoute.getEscenaById));
         router.delete('/api/escena/:id', _escenasRoute.deleteEscena.bind(_escenasRoute.deleteEscena));
         router.get('/api/detallesTecnicos', _detallesTecnicosRoute.getDetallesTecnicos.bind(_detallesTecnicosRoute.getDetallesTecnicos));
@@ -109,6 +120,11 @@ var Server = (function () {
         this.api.all('/*', function (req, res) {
             res.sendFile(path.join(__dirname, '/public/dist/index.html'));
         });
+        this.api.use((function (err, req, res, next) {
+            if (err.name === 'UnauthorizedError') {
+                res.status(401).send('No hay token de autorización en la llamada.');
+            }
+        }));
     };
     Server.prototype.setConfig = function () {
         this.setModules();

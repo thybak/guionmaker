@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var CanActivateIsLoggedGuard_1 = require("../utils/CanActivateIsLoggedGuard");
 var plantillas_lista_component_1 = require("./plantillas-lista.component");
 var plantilla_detalle_component_1 = require("./plantilla-detalle.component");
 var plantillasRoute = [
@@ -15,7 +16,7 @@ var plantillasRoute = [
         children: [
             { path: '', component: plantillas_lista_component_1.PlantillasListComponent },
             { path: ':id', component: plantilla_detalle_component_1.PlantillaDetalleComponent }
-        ]
+        ], canActivate: [CanActivateIsLoggedGuard_1.CanActivateIsLoggedGuard]
     },
 ];
 var PlantillasRoutingModule = (function () {

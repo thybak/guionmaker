@@ -37,7 +37,6 @@ var LoginComponent = (function () {
             var respuesta = response;
             if (respuesta.estado == AngularAPIHelper_1.ResponseStatus.OK) {
                 var respuestaLogin = respuesta.login;
-                console.log(respuestaLogin);
                 _this.localStorageService.setPropiedad('usuarioLogeado', respuestaLogin.usuarioLogeado);
                 _this.localStorageService.setPropiedad('tokenUsuario', respuestaLogin.tokenUsuario);
                 _this.localStorageService.setPropiedad('usuarioLogeadoNombre', respuestaLogin.nombreUsuario);

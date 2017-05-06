@@ -11,8 +11,9 @@ var pageNotFound_component_1 = require("./pageNotFound.component");
 var index_component_1 = require("./index.component");
 var login_component_1 = require("./login.component");
 var registro_component_1 = require("./registro.component");
+var CanActivateIsLoggedGuard_1 = require("./utils/CanActivateIsLoggedGuard");
 var appRoutes = [
-    { path: '', component: index_component_1.IndexComponent },
+    { path: '', component: index_component_1.IndexComponent, canActivate: [CanActivateIsLoggedGuard_1.CanActivateIsLoggedGuard] },
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'registro', component: registro_component_1.RegistroComponent },
     { path: '**', component: pageNotFound_component_1.PageNotFoundComponent }

@@ -38,7 +38,7 @@ var EscenasListComponent = (function (_super) {
         var _this = this;
         var _loop_1 = function (escena) {
             var escenaaux = escena;
-            this_1.angularAPIHelper.postEntryOrFilter('escena/actualizar', JSON.stringify(escenaaux)).subscribe(null, function (error) { return _this.confirmacionGuardado.setEstadoMultiguardado(escenaaux.titulo, false); }, function () {
+            this_1.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(escenaaux)).subscribe(null, function (error) { return _this.confirmacionGuardado.setEstadoMultiguardado(escenaaux.titulo, false); }, function () {
                 _this.confirmacionGuardado.setEstadoMultiguardado(escenaaux.titulo, true);
                 _this.cargarEscenas();
             });

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
 var Usuarios_1 = require("./Usuarios");
 var PermisosColaboracion;

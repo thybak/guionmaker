@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var CanActivateIsLoggedGuard_1 = require("../utils/CanActivateIsLoggedGuard");
 var escenas_lista_component_1 = require("./escenas-lista.component");
 var escena_detalle_component_1 = require("./escena-detalle.component");
 var escenasRoutes = [
@@ -15,7 +16,7 @@ var escenasRoutes = [
         children: [
             { path: '', component: escenas_lista_component_1.EscenasListComponent },
             { path: ':id', component: escena_detalle_component_1.DetalleEscenaComponent }
-        ]
+        ], canActivate: [CanActivateIsLoggedGuard_1.CanActivateIsLoggedGuard]
     },
 ];
 var EscenasRoutingModule = (function () {

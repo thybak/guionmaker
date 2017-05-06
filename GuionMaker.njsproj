@@ -242,6 +242,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="models" />
+    <Folder Include="test\" />
     <Folder Include="public" />
     <Folder Include="public\src\" />
     <Folder Include="public\src\app\" />
@@ -426,6 +427,12 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="routes\PlantillaRoute.ts" />
     <TypeScriptCompile Include="routes\ProyectoRoute.ts" />
+    <TypeScriptCompile Include="test\TEscenas.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="models\THelper.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="typings\globals\angular\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\body-parser\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\cookie-parser\index.d.ts" />
