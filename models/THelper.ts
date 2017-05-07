@@ -120,7 +120,6 @@ export class THelper {
                 "_id": THelper.testObjectId
             }
         };
-        console.log(route);
         chai.request(THelper.app)
             .post(route)
             .set('Authorization', THelper.getAuthValue())

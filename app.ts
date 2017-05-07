@@ -59,7 +59,7 @@ class Server {
         let _escenariosRoute: EscenarioRoute = new EscenarioRoute();
         let _personajesRoute: PersonajeRoute = new PersonajeRoute();
 
-        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', /^(?!\/api).+/ ] }));
+        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', /^(?!\/api).+/] }));
 
         router.get('/api/proyectos', _proyectosRoute.getProyectos.bind(_proyectosRoute.getProyectos));
         router.post('/api/proyectosPorFiltro', _proyectosRoute.getProyectosByFilterAndSort.bind(_proyectosRoute.getProyectosByFilterAndSort));
@@ -105,7 +105,7 @@ class Server {
         router.post('/api/personaje/', _personajesRoute.addPersonaje.bind(_personajesRoute.addPersonaje));
         router.get('/api/personaje/:id', _personajesRoute.getPersonajeById.bind(_personajesRoute.getPersonajeById));
         router.delete('/api/personaje/:id', _personajesRoute.deletePersonaje.bind(_personajesRoute.deletePersonaje));
-        
+
         this.api.use(router);
         this.api.all('/*', function (req, res) {
             res.sendFile(path.join(__dirname, '/public/dist/index.html'));
@@ -131,14 +131,18 @@ class Server {
         this.setConfig();
         require('mongoose').Promise = global.Promise;
         if (process.env.NODE_ENV != undefined && process.env.NODE_ENV.trim() === 'test') {
-            let _mockgoose = new mockgoose.Mockgoose(mongoose).prepareStorage().then(() => {
-                mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName);
+            new mockgoose.Mockgoose(mongoose).prepareStorage().then(() => {
+                mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName, (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
             });
         } else {
             mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName);
             console.log(this.config);
         }
-        
+
     }
 }
 

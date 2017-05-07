@@ -108,7 +108,7 @@ var APIHelper = (function () {
         if (filtro === void 0) { filtro = new PeticionJson(); }
         var id = req.params.id;
         if (id != undefined) {
-            filtro.find._id = id;
+            filtro.find["_id"] = id;
             var obtenerPorId = function (err, resultado) {
                 if (err) {
                     res.json(APIHelper.buildJsonError("Error al obtener los registros de la entidad " + model.modelName + ". Más info: " + err));

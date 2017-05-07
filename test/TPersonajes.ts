@@ -114,5 +114,10 @@ describe('Personajes', () => {
             THelper.deleteExistente(done, '/api/' + nombreEntidad + '/' + entidadIDToDelete);
         })
     });
+    describe('/DELETE proyecto/id', () => {
+        it('debe borrar el proyecto con que se han hecho las pruebas', (done) => {
+            THelper.deleteExistente(done, '/api/proyecto/' + THelper.testProjectId);
+        });
+    });
 
 });

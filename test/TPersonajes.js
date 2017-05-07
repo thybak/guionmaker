@@ -113,5 +113,10 @@ describe('Personajes', function () {
             THelper_1.THelper.deleteExistente(done, '/api/' + nombreEntidad + '/' + entidadIDToDelete);
         });
     });
+    describe('/DELETE proyecto/id', function () {
+        it('debe borrar el proyecto con que se han hecho las pruebas', function (done) {
+            THelper_1.THelper.deleteExistente(done, '/api/proyecto/' + THelper_1.THelper.testProjectId);
+        });
+    });
 });
 //# sourceMappingURL=TPersonajes.js.map

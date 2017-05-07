@@ -108,7 +108,7 @@ export class APIHelper {
     public static getById(model: mongoose.Model<mongoose.Document>, req: express.Request, res: express.Response, filtro: PeticionJson = new PeticionJson()): void {
         let id = req.params.id;
         if (id != undefined) {
-            filtro.find._id = id;
+            filtro.find["_id"] = id;
             let obtenerPorId = function (err, resultado) {
                 if (err) {
                     res.json(APIHelper.buildJsonError("Error al obtener los registros de la entidad " + model.modelName + ". Más info: " + err));

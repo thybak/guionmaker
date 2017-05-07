@@ -25,9 +25,7 @@ var Route;
             return filtro;
         };
         UsuarioRoute.alterarFiltro = function (req) {
-            if (req.body.select == undefined || req.body.select == "") {
-                req.body.select = "_id nombreUsuario email";
-            }
+            req.body.select = "_id nombreUsuario email";
             return req;
         };
         UsuarioRoute.prototype.getUsuarios = function (req, res, next) {

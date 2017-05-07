@@ -22,9 +22,7 @@ module Route {
             return filtro;
         }
         public static alterarFiltro(req: express.Request): express.Request {
-            if (req.body.select == undefined || req.body.select == "") {
-                req.body.select = "_id nombreUsuario email";
-            }
+            req.body.select = "_id nombreUsuario email";
             return req;
         }
 

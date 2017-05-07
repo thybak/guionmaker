@@ -27,8 +27,12 @@ var Server = (function () {
         this.setConfig();
         require('mongoose').Promise = global.Promise;
         if (process.env.NODE_ENV != undefined && process.env.NODE_ENV.trim() === 'test') {
-            var _mockgoose = new mockgoose.Mockgoose(mongoose).prepareStorage().then(function () {
-                mongoose.connect("mongodb://" + _this.config.dbURL + "/" + _this.config.dbCollectionName);
+            new mockgoose.Mockgoose(mongoose).prepareStorage().then(function () {
+                mongoose.connect("mongodb://" + _this.config.dbURL + "/" + _this.config.dbCollectionName, function (err) {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
             });
         }
         else {

@@ -26,6 +26,24 @@ describe('Escenas', () => {
         it(THelper.notAuthVerbose, (done) => {
             THelper.postIsAuth(done, '/api/' + nombreEntidad);
         });
+        it('debe devolver un error puesto que no se facilita el identificador de proyecto de la escena', (done) => {
+            let escena = {
+                titulo: "prueba",
+                orden: 0,
+                destacado: false,
+                noche: true,
+                exterior: false
+            }
+            chai.request(THelper.app)
+                .post('/api/' + nombreEntidad)
+                .set('Authorization', THelper.getAuthValue())
+                .send(escena)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.estado.should.be.eql(ResponseStatus.KO);
+                    done();
+                });
+        });
         it('debe devolver el documento guardado en la colección con una fecha de creación', (done) => {
             let escena = {
                 titulo: "prueba",
