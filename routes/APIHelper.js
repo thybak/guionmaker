@@ -74,7 +74,7 @@ var APIHelper = (function () {
         return _resultados;
     };
     APIHelper.getAll = function (model, req, res, filtro) {
-        if (filtro === void 0) { filtro = undefined; }
+        if (filtro === void 0) { filtro = new PeticionJson(); }
         var obtenerTodos = function (err, resultado) {
             if (err) {
                 res.json(APIHelper.buildJsonError("Error al obtener los registros de la entidad " + model.modelName + ". Más info: " + err));

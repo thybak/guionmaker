@@ -79,7 +79,7 @@ export class APIHelper {
         }
         return _resultados;
     }
-    public static getAll(model: mongoose.Model<mongoose.Document>, req: express.Request, res: express.Response, filtro: PeticionJson = undefined): void {
+    public static getAll(model: mongoose.Model<mongoose.Document>, req: express.Request, res: express.Response, filtro: PeticionJson = new PeticionJson()): void {
         let obtenerTodos = function (err, resultado) {
             if (err) {
                 res.json(APIHelper.buildJsonError("Error al obtener los registros de la entidad " + model.modelName + ". Más info: " + err));
