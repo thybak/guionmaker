@@ -13,8 +13,6 @@ var ProyectoRoute_1 = require("./routes/ProyectoRoute");
 var UsuarioRoute_1 = require("./routes/UsuarioRoute");
 var GeneroRoute_1 = require("./routes/GeneroRoute");
 var ClasificacionRoute_1 = require("./routes/ClasificacionRoute");
-var DetalleTecnicoRoute_1 = require("./routes/DetalleTecnicoRoute");
-var DetalleLiterarioRoute_1 = require("./routes/DetalleLiterarioRoute");
 var EscenaRoute_1 = require("./routes/EscenaRoute");
 var PlantillaRoute_1 = require("./routes/PlantillaRoute");
 var PersonajeRoute_1 = require("./routes/PersonajeRoute");
@@ -29,7 +27,7 @@ var Server = (function () {
         this.setConfig();
         require('mongoose').Promise = global.Promise;
         if (process.env.NODE_ENV != undefined && process.env.NODE_ENV.trim() === 'test') {
-            new mockgoose.Mockgoose(mongoose).prepareStorage().then(function () {
+            var _mockgoose = new mockgoose.Mockgoose(mongoose).prepareStorage().then(function () {
                 mongoose.connect("mongodb://" + _this.config.dbURL + "/" + _this.config.dbCollectionName);
             });
         }
@@ -62,8 +60,6 @@ var Server = (function () {
         var _usuariosRoute = new UsuarioRoute_1.UsuarioRoute();
         var _generosRoute = new GeneroRoute_1.GeneroRoute();
         var _clasificacionesRoute = new ClasificacionRoute_1.ClasificacionRoute();
-        var _detallesTecnicosRoute = new DetalleTecnicoRoute_1.DetalleTecnicoRoute();
-        var _detallesLiterariosRoute = new DetalleLiterarioRoute_1.DetalleLiterarioRoute();
         var _escenasRoute = new EscenaRoute_1.EscenaRoute();
         var _plantillasRoute = new PlantillaRoute_1.PlantillaRoute();
         var _escenariosRoute = new EscenarioRoute_1.EscenarioRoute();
@@ -74,11 +70,9 @@ var Server = (function () {
         router.get('/api/proyecto/:id', _proyectosRoute.getProyectoById.bind(_proyectosRoute.getProyectoById));
         router.delete('/api/proyecto/:id', _proyectosRoute.deleteProyecto.bind(_proyectosRoute.deleteProyecto));
         router.post('/api/proyecto/', _proyectosRoute.addProyecto.bind(_proyectosRoute.addProyecto));
-        //router.get('/api/usuarios', _usuariosRoute.getUsuarios.bind(_usuariosRoute.getUsuarios));
         router.post('/api/usuariosPorFiltro', _usuariosRoute.getUsuariosByFilterAndSort.bind(_usuariosRoute.getUsuariosByFilterAndSort));
         router.post('/api/usuario/', _usuariosRoute.addUsuario.bind(_usuariosRoute.addUsuario));
         router.get('/api/usuario/:id', _usuariosRoute.getUsuarioById.bind(_usuariosRoute.getUsuarioById));
-        //router.delete('/api/usuario/:id', _usuariosRoute.deleteUsuario.bind(_usuariosRoute.deleteUsuario));
         router.post('/api/usuario/login', _usuariosRoute.login.bind(_usuariosRoute.login));
         router.get('/api/generos', _generosRoute.getGeneros.bind(_generosRoute.getGeneros));
         router.post('/api/genero/', _generosRoute.addGenero.bind(_generosRoute.addGenero));
@@ -93,14 +87,6 @@ var Server = (function () {
         router.post('/api/escena/', _escenasRoute.addEscena.bind(_escenasRoute.addEscena));
         router.get('/api/escena/:id', _escenasRoute.getEscenaById.bind(_escenasRoute.getEscenaById));
         router.delete('/api/escena/:id', _escenasRoute.deleteEscena.bind(_escenasRoute.deleteEscena));
-        router.get('/api/detallesTecnicos', _detallesTecnicosRoute.getDetallesTecnicos.bind(_detallesTecnicosRoute.getDetallesTecnicos));
-        router.post('/api/detalleTecnico/', _detallesTecnicosRoute.addDetalleTecnico.bind(_detallesTecnicosRoute.addDetalleTecnico));
-        router.get('/api/detalleTecnico/:id', _detallesTecnicosRoute.getDetalleTecnicoById.bind(_detallesTecnicosRoute.getDetalleTecnicoById));
-        router.delete('/api/detalleTecnico/:id', _detallesTecnicosRoute.deleteDetalleTecnico.bind(_detallesTecnicosRoute.deleteDetalleTecnico));
-        router.get('/api/detallesLiterarios', _detallesLiterariosRoute.getDetallesLiterarios.bind(_detallesLiterariosRoute.getDetallesLiterarios));
-        router.post('/api/detalleLiterario/', _detallesLiterariosRoute.addDetalleLiterario.bind(_detallesLiterariosRoute.addDetalleLiterario));
-        router.get('/api/detalleLiterario/:id', _detallesLiterariosRoute.getDetalleLiterarioById.bind(_detallesLiterariosRoute.getDetalleLiterarioById));
-        router.delete('/api/detalleLiterario/:id', _detallesLiterariosRoute.deleteDetalleLiterario.bind(_detallesLiterariosRoute.deleteDetalleLiterario));
         router.get('/api/plantillas', _plantillasRoute.getPlantillas.bind(_plantillasRoute.getPlantillas));
         router.post('/api/plantillasPorFiltro', _plantillasRoute.getPlantillasByFilterAndSort.bind(_plantillasRoute.getPlantillasByFilterAndSort));
         router.post('/api/plantilla/', _plantillasRoute.addPlantilla.bind(_plantillasRoute.addPlantilla));

@@ -13,7 +13,7 @@ var Plantilla = (function () {
             htmlPortada: String,
             htmlEscena: String,
             nombre: String,
-            autor: { type: mongoose.Schema.Types.ObjectId, ref: Usuarios_1.Usuario.name },
+            autor: { type: mongoose.Schema.Types.ObjectId, ref: Usuarios_1.Usuario.name, required: true },
             porDefecto: Boolean,
             fechaCreacion: { type: Date, default: Date.now },
             fechaModificacion: Date

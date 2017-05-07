@@ -24,8 +24,6 @@ export class DetalleEscenaComponent implements DoCheck {
     fichero: Fichero;
     confirmacionGuardado: ConfirmacionGuardado;
     escena: EscenaModel;
-    detalleLiterario: DetalleLiterarioModel;
-    detalleTecnico: DetalleTecnicoModel;
     botonesGuardado: BotonesGuardado;
     ng2sconfig: any;
     elementosBiblia: string[];
@@ -64,11 +62,11 @@ export class DetalleEscenaComponent implements DoCheck {
                     lang: 'es-ES',
                     placeholder: 'Escribe tu texto...',
                     toolbar: [
-                    ['style', ['addclass', 'fontname', 'clear']],
-                    ['fontstyle', ['bold', 'italic', 'paragraph']],
-                    ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']],
-                    ['extra', ['table', 'height']],
-                    ['misc', ['undo', 'redo', 'codeview']]
+                        ['style', ['addclass', 'fontname', 'clear']],
+                        ['fontstyle', ['bold', 'italic', 'paragraph']],
+                        ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']],
+                        ['extra', ['table', 'height']],
+                        ['misc', ['undo', 'redo', 'codeview']]
                     ],
                     fontNames: ['Courier New', 'Arial', 'Arial Black', 'Sans-serif', 'Serif']
                 };
@@ -95,54 +93,22 @@ export class DetalleEscenaComponent implements DoCheck {
         this.escena = (response as RespuestaJson).consulta[0] as EscenaModel;
         if (this.escena != undefined) {
             if (this.escena.detalleLiterario != undefined) {
-                this.angularAPIHelper.getById('detalleLiterario', this.escena.detalleLiterario)
-                    .subscribe(response => {
-                        this.detalleLiterario = (response as RespuestaJson).consulta[0] as DetalleLiterarioModel;
-                        this.detalleLiterario.texto = this.detalleLiterario.texto == "" ? new String('') : this.detalleLiterario.texto; // workaround por culpa del componente ng2-summernote donde con "" no se muestra nada.
-                    },
-                    error => console.log('Error:' + error));
+                this.escena.detalleLiterario.texto = this.escena.detalleLiterario.texto == "" ? new String('') : this.escena.detalleLiterario.texto; // workaround por culpa del componente ng2-summernote donde con "" no se muestra nada.
             } else {
-                this.detalleLiterario = new DetalleLiterarioModel();
+                this.escena.detalleLiterario = new DetalleLiterarioModel();
             }
             if (this.escena.detalleTecnico != undefined) {
-                this.angularAPIHelper.getById('detalleTecnico', this.escena.detalleTecnico)
-                    .subscribe(response => {
-                        this.detalleTecnico = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel;
-                        this.detalleTecnico.texto = this.detalleTecnico.texto == "" ? new String('') : this.detalleTecnico.texto;
-                        this.fichero.base64 = this.detalleTecnico.imagen;
-                        this.fichero.mimeType = this.detalleTecnico.mimeType;
-                    },
-                    error => console.log('Error: ' + error));
+                this.escena.detalleTecnico.texto = this.escena.detalleTecnico.texto == "" ? new String('') : this.escena.detalleTecnico.texto;
+                this.fichero.base64 = this.escena.detalleTecnico.imagen;
+                this.fichero.mimeType = this.escena.detalleTecnico.mimeType;
             } else {
-                this.detalleTecnico = new DetalleTecnicoModel();
+                this.escena.detalleTecnico = new DetalleTecnicoModel();
             }
         }
-    }
-
-    private guardarEscena(response) {
-        let resultadoDetalleTecnico = (response as RespuestaJson).insertado as DetalleTecnicoModel;
-        if (resultadoDetalleTecnico != undefined) {
-            this.escena.detalleTecnico = resultadoDetalleTecnico._id;
-            this.detalleTecnico = resultadoDetalleTecnico;
-        }
-        this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(this.escena)).subscribe(null, error => this.confirmacionGuardado.setEstadoGuardado(false), () => { this.confirmacionGuardado.setEstadoGuardado(true); this.botonesGuardado.mostrarCompleto(); });
-    }
-
-    private guardarDetalles(response) {
-        let resultadoDetalleLiterario = (response as RespuestaJson).insertado as DetalleLiterarioModel;
-        if (resultadoDetalleLiterario != undefined) {
-            this.escena.detalleLiterario = resultadoDetalleLiterario._id;
-            this.detalleLiterario = resultadoDetalleLiterario;
-        }
-        this.angularAPIHelper.postEntryOrFilter('detalleTecnico', JSON.stringify(this.detalleTecnico))
-            .subscribe(response => this.guardarEscena(response),
-            error => this.confirmacionGuardado.setEstadoGuardado(false));
     }
 
     private guardarCambios() {
-        this.angularAPIHelper.postEntryOrFilter('detalleLiterario', JSON.stringify(this.detalleLiterario))
-            .subscribe(response => this.guardarDetalles(response),
-            error => this.confirmacionGuardado.setEstadoGuardado(false));
+        this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(this.escena)).subscribe(null, error => this.confirmacionGuardado.setEstadoGuardado(false), () => { this.confirmacionGuardado.setEstadoGuardado(true); this.botonesGuardado.mostrarCompleto(); });
     }
 
     private rellenarAutocompletar(elementos: any[]) {
@@ -165,8 +131,8 @@ export class DetalleEscenaComponent implements DoCheck {
 
     onAccionGuardado(event) {
         if (event == TipoOperacionGuardado.Guardar) {
-            this.detalleTecnico.imagen = this.fichero.base64;
-            this.detalleTecnico.mimeType = this.fichero.mimeType;
+            this.escena.detalleTecnico.imagen = this.fichero.base64;
+            this.escena.detalleTecnico.mimeType = this.fichero.mimeType;
             this.guardarCambios();
             this.confirmacionGuardado.setTimeoutRetirarAviso();
         } else if (event == TipoOperacionGuardado.Volver) {

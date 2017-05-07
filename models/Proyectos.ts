@@ -29,7 +29,7 @@ export class Proyecto {
             sinopsis: String,
             genero: { type: mongoose.Schema.Types.ObjectId, ref: Genero.name },
             clasificacion: { type: mongoose.Schema.Types.ObjectId, ref: Clasificacion.name },
-            autor: { type: mongoose.Schema.Types.ObjectId, ref: Usuario.name },
+            autor: { type: mongoose.Schema.Types.ObjectId, ref: Usuario.name, required: true },
             colaboradores: [Colaboracion.current.schema],
             publico: Boolean,
             fechaCreacion: { type: Date, default: Date.now() },

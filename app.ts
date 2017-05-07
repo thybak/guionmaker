@@ -17,8 +17,6 @@ import { ProyectoRoute } from "./routes/ProyectoRoute";
 import { UsuarioRoute } from "./routes/UsuarioRoute";
 import { GeneroRoute } from "./routes/GeneroRoute";
 import { ClasificacionRoute } from "./routes/ClasificacionRoute";
-import { DetalleTecnicoRoute } from "./routes/DetalleTecnicoRoute";
-import { DetalleLiterarioRoute } from "./routes/DetalleLiterarioRoute";
 import { EscenaRoute } from "./routes/EscenaRoute";
 import { PlantillaRoute } from "./routes/PlantillaRoute";
 import { PersonajeRoute } from "./routes/PersonajeRoute";
@@ -56,8 +54,6 @@ class Server {
         let _usuariosRoute: UsuarioRoute = new UsuarioRoute();
         let _generosRoute: GeneroRoute = new GeneroRoute();
         let _clasificacionesRoute: ClasificacionRoute = new ClasificacionRoute();
-        let _detallesTecnicosRoute: DetalleTecnicoRoute = new DetalleTecnicoRoute();
-        let _detallesLiterariosRoute: DetalleLiterarioRoute = new DetalleLiterarioRoute();
         let _escenasRoute: EscenaRoute = new EscenaRoute();
         let _plantillasRoute: PlantillaRoute = new PlantillaRoute();
         let _escenariosRoute: EscenarioRoute = new EscenarioRoute();
@@ -71,11 +67,9 @@ class Server {
         router.delete('/api/proyecto/:id', _proyectosRoute.deleteProyecto.bind(_proyectosRoute.deleteProyecto));
         router.post('/api/proyecto/', _proyectosRoute.addProyecto.bind(_proyectosRoute.addProyecto));
 
-        //router.get('/api/usuarios', _usuariosRoute.getUsuarios.bind(_usuariosRoute.getUsuarios));
         router.post('/api/usuariosPorFiltro', _usuariosRoute.getUsuariosByFilterAndSort.bind(_usuariosRoute.getUsuariosByFilterAndSort));
         router.post('/api/usuario/', _usuariosRoute.addUsuario.bind(_usuariosRoute.addUsuario));
         router.get('/api/usuario/:id', _usuariosRoute.getUsuarioById.bind(_usuariosRoute.getUsuarioById));
-        //router.delete('/api/usuario/:id', _usuariosRoute.deleteUsuario.bind(_usuariosRoute.deleteUsuario));
         router.post('/api/usuario/login', _usuariosRoute.login.bind(_usuariosRoute.login));
 
         router.get('/api/generos', _generosRoute.getGeneros.bind(_generosRoute.getGeneros));
@@ -93,16 +87,6 @@ class Server {
         router.post('/api/escena/', _escenasRoute.addEscena.bind(_escenasRoute.addEscena));
         router.get('/api/escena/:id', _escenasRoute.getEscenaById.bind(_escenasRoute.getEscenaById));
         router.delete('/api/escena/:id', _escenasRoute.deleteEscena.bind(_escenasRoute.deleteEscena));
-
-        router.get('/api/detallesTecnicos', _detallesTecnicosRoute.getDetallesTecnicos.bind(_detallesTecnicosRoute.getDetallesTecnicos));
-        router.post('/api/detalleTecnico/', _detallesTecnicosRoute.addDetalleTecnico.bind(_detallesTecnicosRoute.addDetalleTecnico));
-        router.get('/api/detalleTecnico/:id', _detallesTecnicosRoute.getDetalleTecnicoById.bind(_detallesTecnicosRoute.getDetalleTecnicoById));
-        router.delete('/api/detalleTecnico/:id', _detallesTecnicosRoute.deleteDetalleTecnico.bind(_detallesTecnicosRoute.deleteDetalleTecnico));
-
-        router.get('/api/detallesLiterarios', _detallesLiterariosRoute.getDetallesLiterarios.bind(_detallesLiterariosRoute.getDetallesLiterarios));
-        router.post('/api/detalleLiterario/', _detallesLiterariosRoute.addDetalleLiterario.bind(_detallesLiterariosRoute.addDetalleLiterario));
-        router.get('/api/detalleLiterario/:id', _detallesLiterariosRoute.getDetalleLiterarioById.bind(_detallesLiterariosRoute.getDetalleLiterarioById));
-        router.delete('/api/detalleLiterario/:id', _detallesLiterariosRoute.deleteDetalleLiterario.bind(_detallesLiterariosRoute.deleteDetalleLiterario));
 
         router.get('/api/plantillas', _plantillasRoute.getPlantillas.bind(_plantillasRoute.getPlantillas));
         router.post('/api/plantillasPorFiltro', _plantillasRoute.getPlantillasByFilterAndSort.bind(_plantillasRoute.getPlantillasByFilterAndSort));
@@ -147,7 +131,7 @@ class Server {
         this.setConfig();
         require('mongoose').Promise = global.Promise;
         if (process.env.NODE_ENV != undefined && process.env.NODE_ENV.trim() === 'test') {
-            new mockgoose.Mockgoose(mongoose).prepareStorage().then(() => {
+            let _mockgoose = new mockgoose.Mockgoose(mongoose).prepareStorage().then(() => {
                 mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName);
             });
         } else {

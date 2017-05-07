@@ -21,7 +21,7 @@ export class Plantilla {
             htmlPortada: String,
             htmlEscena: String,
             nombre: String,
-            autor: { type: mongoose.Schema.Types.ObjectId, ref: Usuario.name },
+            autor: { type: mongoose.Schema.Types.ObjectId, ref: Usuario.name, required: true },
             porDefecto: Boolean,
             fechaCreacion: { type: Date, default: Date.now },
             fechaModificacion: Date

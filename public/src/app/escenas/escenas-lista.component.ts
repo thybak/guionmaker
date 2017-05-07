@@ -62,7 +62,6 @@ export class EscenasListComponent extends ModoColaborador {
     private generarHtmlImagen(detalle: any): string {
         let htmlImagen: string = "";
         if (detalle.imagen != undefined && detalle.mimeType != undefined) {
-
             htmlImagen = "<img src=\"data:" + detalle.mimeType + ";base64, " + detalle.imagen + "\" style=\"max-height: 20em; width: auto; margin: 0 auto;\" /><br />";
         }
         return htmlImagen;
@@ -78,26 +77,18 @@ export class EscenasListComponent extends ModoColaborador {
             let escenaActual: EscenaModel = escena;
             let plantillaModificada: string = plantillaEscena.replace("{{tituloEscena}}", escenaActual.orden + ". " + this.getSituacionString(escenaActual) + ". " + escenaActual.titulo.toUpperCase() + ". " + this.getTemporalidadString(escenaActual));
             this.htmlExportado += "{" + escenaActual.orden + "}";
-            this.angularAPIHelper.getById(literario ? 'detalleLiterario' : 'detalleTecnico', literario ? escenaActual.detalleLiterario : escenaActual.detalleTecnico).subscribe(response => {
-                let detalle: any;
-                let respuesta = response as RespuestaJson;
-                if (respuesta.estado == ResponseStatus.OK && respuesta.consulta.length > 0) {
-                    if (literario) {
-                        detalle = (response as RespuestaJson).consulta[0] as DetalleLiterarioModel;
-                    } else {
-                        detalle = (response as RespuestaJson).consulta[0] as DetalleTecnicoModel;
-                    }
-                    this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", plantillaModificada.replace("{{contenidoEscena}}", this.generarHtmlImagen(detalle) + detalle.texto));
-                } else {
-                    this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", "");
-                }
-                this.exportacionWindow.document.documentElement.innerHTML = this.htmlExportado;
-            });
+            let detalle: any = literario ? escenaActual.detalleLiterario : escenaActual.detalleTecnico;
+            if (detalle.texto != undefined && detalle.texto != "") {
+                this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", plantillaModificada.replace("{{contenidoEscena}}", this.generarHtmlImagen(detalle) + detalle.texto));
+            } else {
+                this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", "");
+            }
+            this.exportacionWindow.document.documentElement.innerHTML = this.htmlExportado;
         }
     }
     exportarGuion(literario: boolean) {
         this.htmlExportado = "";
-        this.angularAPIHelper.postEntryOrFilter("plantillasPorFiltro", JSON.stringify(this.angularAPIHelper.buildPeticion({ "porDefecto": 1 }, {}))).subscribe(response => { // id variable por join
+        this.angularAPIHelper.postEntryOrFilter("plantillasPorFiltro", JSON.stringify(this.angularAPIHelper.buildPeticion({ "porDefecto": 1 }, {}))).subscribe(response => {
             let plantilla = (response as RespuestaJson).consulta[0] as PlantillaModel;
             let plantillaPortada = AngularAPIHelper.plantillaPortada;
             if (plantilla != undefined) {

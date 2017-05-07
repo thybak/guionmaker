@@ -84,56 +84,27 @@ var DetalleEscenaComponent = (function () {
         }, function (error) { return console.log('Error:' + error); });
     }
     DetalleEscenaComponent.prototype.cargarModelo = function (response) {
-        var _this = this;
         this.escena = response.consulta[0];
         if (this.escena != undefined) {
             if (this.escena.detalleLiterario != undefined) {
-                this.angularAPIHelper.getById('detalleLiterario', this.escena.detalleLiterario)
-                    .subscribe(function (response) {
-                    _this.detalleLiterario = response.consulta[0];
-                    _this.detalleLiterario.texto = _this.detalleLiterario.texto == "" ? new String('') : _this.detalleLiterario.texto; // workaround por culpa del componente ng2-summernote donde con "" no se muestra nada.
-                }, function (error) { return console.log('Error:' + error); });
+                this.escena.detalleLiterario.texto = this.escena.detalleLiterario.texto == "" ? new String('') : this.escena.detalleLiterario.texto; // workaround por culpa del componente ng2-summernote donde con "" no se muestra nada.
             }
             else {
-                this.detalleLiterario = new DetallesLiterariosModel_1.DetalleLiterarioModel();
+                this.escena.detalleLiterario = new DetallesLiterariosModel_1.DetalleLiterarioModel();
             }
             if (this.escena.detalleTecnico != undefined) {
-                this.angularAPIHelper.getById('detalleTecnico', this.escena.detalleTecnico)
-                    .subscribe(function (response) {
-                    _this.detalleTecnico = response.consulta[0];
-                    _this.detalleTecnico.texto = _this.detalleTecnico.texto == "" ? new String('') : _this.detalleTecnico.texto;
-                    _this.fichero.base64 = _this.detalleTecnico.imagen;
-                    _this.fichero.mimeType = _this.detalleTecnico.mimeType;
-                }, function (error) { return console.log('Error: ' + error); });
+                this.escena.detalleTecnico.texto = this.escena.detalleTecnico.texto == "" ? new String('') : this.escena.detalleTecnico.texto;
+                this.fichero.base64 = this.escena.detalleTecnico.imagen;
+                this.fichero.mimeType = this.escena.detalleTecnico.mimeType;
             }
             else {
-                this.detalleTecnico = new DetallesTecnicosModel_1.DetalleTecnicoModel();
+                this.escena.detalleTecnico = new DetallesTecnicosModel_1.DetalleTecnicoModel();
             }
         }
-    };
-    DetalleEscenaComponent.prototype.guardarEscena = function (response) {
-        var _this = this;
-        var resultadoDetalleTecnico = response.insertado;
-        if (resultadoDetalleTecnico != undefined) {
-            this.escena.detalleTecnico = resultadoDetalleTecnico._id;
-            this.detalleTecnico = resultadoDetalleTecnico;
-        }
-        this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(this.escena)).subscribe(null, function (error) { return _this.confirmacionGuardado.setEstadoGuardado(false); }, function () { _this.confirmacionGuardado.setEstadoGuardado(true); _this.botonesGuardado.mostrarCompleto(); });
-    };
-    DetalleEscenaComponent.prototype.guardarDetalles = function (response) {
-        var _this = this;
-        var resultadoDetalleLiterario = response.insertado;
-        if (resultadoDetalleLiterario != undefined) {
-            this.escena.detalleLiterario = resultadoDetalleLiterario._id;
-            this.detalleLiterario = resultadoDetalleLiterario;
-        }
-        this.angularAPIHelper.postEntryOrFilter('detalleTecnico', JSON.stringify(this.detalleTecnico))
-            .subscribe(function (response) { return _this.guardarEscena(response); }, function (error) { return _this.confirmacionGuardado.setEstadoGuardado(false); });
     };
     DetalleEscenaComponent.prototype.guardarCambios = function () {
         var _this = this;
-        this.angularAPIHelper.postEntryOrFilter('detalleLiterario', JSON.stringify(this.detalleLiterario))
-            .subscribe(function (response) { return _this.guardarDetalles(response); }, function (error) { return _this.confirmacionGuardado.setEstadoGuardado(false); });
+        this.angularAPIHelper.postEntryOrFilter('escena', JSON.stringify(this.escena)).subscribe(null, function (error) { return _this.confirmacionGuardado.setEstadoGuardado(false); }, function () { _this.confirmacionGuardado.setEstadoGuardado(true); _this.botonesGuardado.mostrarCompleto(); });
     };
     DetalleEscenaComponent.prototype.rellenarAutocompletar = function (elementos) {
         for (var _i = 0, elementos_1 = elementos; _i < elementos_1.length; _i++) {
@@ -154,8 +125,8 @@ var DetalleEscenaComponent = (function () {
     DetalleEscenaComponent.prototype.onAccionGuardado = function (event) {
         var _this = this;
         if (event == botones_guardado_component_1.TipoOperacionGuardado.Guardar) {
-            this.detalleTecnico.imagen = this.fichero.base64;
-            this.detalleTecnico.mimeType = this.fichero.mimeType;
+            this.escena.detalleTecnico.imagen = this.fichero.base64;
+            this.escena.detalleTecnico.mimeType = this.fichero.mimeType;
             this.guardarCambios();
             this.confirmacionGuardado.setTimeoutRetirarAviso();
         }

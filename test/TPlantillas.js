@@ -6,12 +6,12 @@ var chai = require("chai");
 var chaiHttp = require("chai-http");
 var should = chai.should();
 chai.use(chaiHttp);
-var escenaIDToDelete = "";
-var nombreEntidad = "escena";
+var entidadIDToDelete = "";
+var nombreEntidad = "plantilla";
 var nombreEntidadPlural = nombreEntidad + 's';
-describe('Escenas', function () {
+describe('Plantillas', function () {
     /*
-    * Pruebas sobre la entidad Escena
+    * Pruebas sobre la entidad Plantillas
     */
     describe('/GET ' + nombreEntidadPlural, function () {
         it(THelper_1.THelper.notAuthVerbose, function (done) {
@@ -25,25 +25,42 @@ describe('Escenas', function () {
         it(THelper_1.THelper.notAuthVerbose, function (done) {
             THelper_1.THelper.postIsAuth(done, '/api/' + nombreEntidad);
         });
-        it('debe devolver el documento guardado en la colección con una fecha de creación', function (done) {
-            var escena = {
-                titulo: "prueba",
-                orden: 0,
-                destacado: false,
-                noche: true,
-                exterior: false,
-                proyecto: THelper_1.THelper.testProjectId
+        it('debe devolver un error al no asignar un autor a la entidad', function (done) {
+            var entidad = {
+                nombre: "prueba",
+                porDefecto: true,
+                htmlEscena: "<h2>Hola mundo</h2>",
+                htmlPortada: "<h1>Portada de plantilla por defecto</h1>"
             };
             chai.request(THelper_1.THelper.app)
                 .post('/api/' + nombreEntidad)
                 .set('Authorization', THelper_1.THelper.getAuthValue())
-                .send(escena)
+                .send(entidad)
+                .end(function (err, res) {
+                res.should.have.status(200);
+                res.body.estado.should.be.eql(APIHelper_1.ResponseStatus.KO);
+                done();
+            });
+        });
+        it('debe devolver el documento guardado en la colección con un identificador asignado', function (done) {
+            var entidad = {
+                nombre: "prueba",
+                porDefecto: true,
+                htmlEscena: "<h2>Hola mundo</h2>",
+                htmlPortada: "<h1>Portada de plantilla por defecto</h1>",
+                autor: THelper_1.THelper.testObjectId
+            };
+            chai.request(THelper_1.THelper.app)
+                .post('/api/' + nombreEntidad)
+                .set('Authorization', THelper_1.THelper.getAuthValue())
+                .send(entidad)
                 .end(function (err, res) {
                 res.should.have.status(200);
                 res.body.insertado.should.be.an('object');
-                res.body.insertado.fechaCreacion.should.be.a('string');
+                res.body.insertado._id.should.be.a('string');
+                res.body.insertado._id.length.should.be.eql(THelper_1.THelper.testProjectId.length);
                 res.body.estado.should.be.eql(APIHelper_1.ResponseStatus.OK);
-                escenaIDToDelete = res.body.insertado._id;
+                entidadIDToDelete = res.body.insertado._id;
                 done();
             });
         });
@@ -58,8 +75,8 @@ describe('Escenas', function () {
         it('debe devolver el registro introducido anteriormente con título prueba', function (done) {
             var filtro = {
                 find: {
-                    "_id": escenaIDToDelete,
-                    titulo: "prueba"
+                    "_id": entidadIDToDelete,
+                    nombre: "prueba"
                 }
             };
             chai.request(THelper_1.THelper.app)
@@ -70,7 +87,7 @@ describe('Escenas', function () {
                 res.should.have.status(200);
                 res.body.consulta.should.be.an('array');
                 res.body.consulta.length.should.be.eql(1);
-                res.body.consulta[0].titulo.should.be.eql('prueba');
+                res.body.consulta[0].nombre.should.be.eql('prueba');
                 res.body.estado.should.be.eql(APIHelper_1.ResponseStatus.OK);
                 done();
             });
@@ -83,8 +100,8 @@ describe('Escenas', function () {
         it('debe dar error al no haber ' + nombreEntidad + ' ' + THelper_1.THelper.testObjectId + ' para el usuario test', function (done) {
             THelper_1.THelper.getNoExistente(done, '/api/' + nombreEntidad + '/' + THelper_1.THelper.testObjectId);
         });
-        it('debe devolver el documento generado anteriormente con id ' + escenaIDToDelete, function (done) {
-            THelper_1.THelper.getExistente(done, '/api/' + nombreEntidad + '/' + escenaIDToDelete);
+        it('debe devolver el documento generado anteriormente con id ' + entidadIDToDelete, function (done) {
+            THelper_1.THelper.getExistente(done, '/api/' + nombreEntidad + '/' + entidadIDToDelete);
         });
     });
     describe('/DELETE ' + nombreEntidad + '/id', function () {
@@ -94,6 +111,9 @@ describe('Escenas', function () {
         it('debe dar error al no haber ' + nombreEntidad + ' ' + THelper_1.THelper.testObjectId + ' para el usuario test', function (done) {
             THelper_1.THelper.deleteNoExistente(done, '/api/' + nombreEntidad + '/' + THelper_1.THelper.testObjectId);
         });
+        it('debe devolver la confirmación de borrado para la entidad', function (done) {
+            THelper_1.THelper.deleteExistente(done, '/api/' + nombreEntidad + '/' + entidadIDToDelete);
+        });
     });
 });
-//# sourceMappingURL=TEscenas.js.map
+//# sourceMappingURL=TPlantillas.js.map

@@ -81,7 +81,7 @@ var APIHelper = (function () {
             }
             else {
                 var _resultados = void 0;
-                if (filtro != undefined && filtro.populate.path != "") {
+                if (Object.keys(filtro.populate).length > 0 && filtro.populate.path != "") {
                     _resultados = APIHelper.comprobarAfterPopulate(resultado, filtro.populate.path);
                 }
                 else {
@@ -99,7 +99,9 @@ var APIHelper = (function () {
             model.find({}).exec(obtenerTodos);
         }
         else {
-            model.find(filtro.find).populate(filtro.populate).exec(obtenerTodos);
+            var find = Object.keys(filtro.find).length > 0 ? filtro.find : "";
+            var populate = Object.keys(filtro.populate).length > 0 ? filtro.populate : "";
+            model.find(find).populate(populate).exec(obtenerTodos);
         }
     };
     APIHelper.getById = function (model, req, res, filtro) {
@@ -146,7 +148,6 @@ var APIHelper = (function () {
                 var nuevoRegistro = new model(req.body);
                 nuevoRegistro.save(function (err, _resultado) {
                     if (err) {
-                        console.log(err);
                         res.json(APIHelper.buildJsonError("Error al intentar insertar un nuevo registro en la entidad " + model.modelName + ". Más info: " + err));
                     }
                     else {
@@ -238,11 +239,12 @@ var APIHelper = (function () {
                     }
                 }
             };
+            var find = Object.keys(filtro.find).length > 0 ? filtro.find : "";
             if (Object.keys(filtro.populate).length == 0) {
-                model.find(filtro.find).exec(borrar);
+                model.find(find).exec(borrar);
             }
             else {
-                model.find(filtro.find).populate(filtro.populate).exec(borrar);
+                model.find(find).populate(filtro.populate).exec(borrar);
             }
         }
         else {

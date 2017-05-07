@@ -18,7 +18,7 @@ var Proyecto = (function () {
             sinopsis: String,
             genero: { type: mongoose.Schema.Types.ObjectId, ref: Generos_1.Genero.name },
             clasificacion: { type: mongoose.Schema.Types.ObjectId, ref: Clasificaciones_1.Clasificacion.name },
-            autor: { type: mongoose.Schema.Types.ObjectId, ref: Usuarios_1.Usuario.name },
+            autor: { type: mongoose.Schema.Types.ObjectId, ref: Usuarios_1.Usuario.name, required: true },
             colaboradores: [Colaboraciones_1.Colaboracion.current.schema],
             publico: Boolean,
             fechaCreacion: { type: Date, default: Date.now() },

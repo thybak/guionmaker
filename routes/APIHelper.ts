@@ -85,7 +85,7 @@ export class APIHelper {
                 res.json(APIHelper.buildJsonError("Error al obtener los registros de la entidad " + model.modelName + ". Más info: " + err));
             } else {
                 let _resultados: mongoose.Document[];
-                if (filtro != undefined && filtro.populate.path != "") {
+                if (Object.keys(filtro.populate).length > 0 && filtro.populate.path != "") {
                     _resultados = APIHelper.comprobarAfterPopulate(resultado, filtro.populate.path);
                 } else {
                     _resultados = resultado;
@@ -100,7 +100,9 @@ export class APIHelper {
         if (filtro == undefined || filtro.populate == undefined || filtro.populate.path == "") {
             model.find({}).exec(obtenerTodos);
         } else {
-            model.find(filtro.find).populate(filtro.populate).exec(obtenerTodos);
+            let find = Object.keys(filtro.find).length > 0 ? filtro.find : "";
+            let populate = Object.keys(filtro.populate).length > 0 ? filtro.populate : "";
+            model.find(find).populate(populate).exec(obtenerTodos);
         }
     }
     public static getById(model: mongoose.Model<mongoose.Document>, req: express.Request, res: express.Response, filtro: PeticionJson = new PeticionJson()): void {
@@ -140,7 +142,6 @@ export class APIHelper {
                 let nuevoRegistro = new model(req.body);
                 nuevoRegistro.save(function (err, _resultado) {
                     if (err) {
-                        console.log(err);
                         res.json(APIHelper.buildJsonError("Error al intentar insertar un nuevo registro en la entidad " + model.modelName + ". Más info: " + err));
                     } else {
                         res.json(APIHelper.buildJsonInsercion(_resultado));
@@ -219,10 +220,11 @@ export class APIHelper {
                     }
                 }
             };
+            let find = Object.keys(filtro.find).length > 0 ? filtro.find : "";
             if (Object.keys(filtro.populate).length == 0) {
-                model.find(filtro.find).exec(borrar);
+                model.find(find).exec(borrar);
             } else {
-                model.find(filtro.find).populate(filtro.populate).exec(borrar);
+                model.find(find).populate(filtro.populate).exec(borrar);
             }
         } else {
             res.json(APIHelper.buildJsonError("No se ha aportado ninguna ID de la entidad " + model.modelName + "."));
@@ -248,7 +250,6 @@ export class APIHelper {
                 res.json(APIHelper.buildJsonConsulta(_res));
             }
         };
-
         if (objReqBody.populate == undefined || objReqBody.populate == "") {
             model.find(find).sort(sort).select(objReqBody.select).exec(obtenerPorFiltroYOrden);
         } else {

@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="detalleLiterario != undefined" class="panel panel-primary">
+    <div *ngIf="escena.detalleLiterario != undefined" class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">
                 <a role="button" data-toggle="collapse" href="#detalleLiterario" aria-expanded="false" aria-controls="detalleLiterario">
@@ -41,12 +41,12 @@
         <div class="panel-body collapse in" id="detalleLiterario">
             <table class="table table-responsive">
                 <tr>
-                    <td><ng2-summernote lang="es-ES" [(ngModel)]="detalleLiterario.texto" [config]="ng2sconfig"></ng2-summernote></td>
+                    <td><ng2-summernote lang="es-ES" [(ngModel)]="escena.detalleLiterario.texto" [config]="ng2sconfig"></ng2-summernote></td>
                 </tr>
             </table>
         </div>
     </div>
-    <div *ngIf="detalleTecnico != undefined" class="panel panel-primary">
+    <div *ngIf="escena.detalleTecnico != undefined" class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">
                 <a role="button" data-toggle="collapse" href="#detalleTecnico" aria-controls="detalleTecnico" aria-expanded="false">
@@ -63,7 +63,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <ng2-summernote lang="es-ES" [(ngModel)]="detalleTecnico.texto" [config]="ng2sconfig"></ng2-summernote>
+                        <ng2-summernote lang="es-ES" [(ngModel)]="escena.detalleTecnico.texto" [config]="ng2sconfig"></ng2-summernote>
                     </td>
                 </tr>
             </table>

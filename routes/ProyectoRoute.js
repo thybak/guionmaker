@@ -19,7 +19,7 @@ var Route;
         });
         ProyectoRoute.crearFiltroAutor = function (req) {
             var filtro = new APIHelper_1.PeticionJson();
-            filtro.find = { $or: [{ "autor": req.user.usuarioLogeado }, { "colaboradores.usuario": req.user.usuarioLogeado }] };
+            filtro.find = { $or: [{ "autor": req.user.usuarioLogeado } /*, { "colaboradores.usuario": req.user.usuarioLogeado }*/] };
             return filtro;
         };
         ProyectoRoute.crearFiltroProyecto = function (req) {
@@ -39,10 +39,17 @@ var Route;
             APIHelper_1.APIHelper.getAll(ProyectoRoute.model, req, res, ProyectoRoute.crearFiltroAutor(req));
         };
         ProyectoRoute.prototype.getProyectosByFilterAndSort = function (req, res, next) {
-            req.body.find = {
+            var customFilter = {
                 $and: [{ "cancelado": req.body.find.cancelado == undefined ? false : req.body.find.cancelado },
                     { $or: [{ "autor": req.user.usuarioLogeado }, { "colaboradores.usuario": req.user.usuarioLogeado }] }]
             };
+            if (req.body.find == undefined) {
+                req.body.find = customFilter;
+            }
+            else {
+                customFilter.$and.push(req.body.find);
+                req.body.find = customFilter;
+            }
             APIHelper_1.APIHelper.getByFilterAndSort(ProyectoRoute.model, req, res);
         };
         ProyectoRoute.prototype.getProyectoById = function (req, res, next) {

@@ -16,7 +16,7 @@ module Route {
 
         public static crearFiltroAutor(req: express.Request): PeticionJson {
             let filtro = new PeticionJson();
-            filtro.find = { $or: [{ "autor": req.user.usuarioLogeado }, { "colaboradores.usuario": req.user.usuarioLogeado }] };
+            filtro.find = { $or: [{ "autor": req.user.usuarioLogeado }/*, { "colaboradores.usuario": req.user.usuarioLogeado }*/] };
             return filtro;
         }
 
@@ -39,10 +39,16 @@ module Route {
             APIHelper.getAll(ProyectoRoute.model, req, res, ProyectoRoute.crearFiltroAutor(req));
         }
         public getProyectosByFilterAndSort(req: express.Request, res: express.Response, next: express.NextFunction) {
-            req.body.find = {
+            let customFilter = {
                 $and: [{ "cancelado": req.body.find.cancelado == undefined ? false : req.body.find.cancelado },
                 { $or: [{ "autor": req.user.usuarioLogeado }, { "colaboradores.usuario": req.user.usuarioLogeado }] }]
             };
+            if (req.body.find == undefined) {
+                req.body.find = customFilter;
+            } else {
+                customFilter.$and.push(req.body.find);
+                req.body.find = customFilter;
+            }
             APIHelper.getByFilterAndSort(ProyectoRoute.model, req, res);
         }
         public getProyectoById(req: express.Request, res: express.Response, next: express.NextFunction) {

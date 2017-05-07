@@ -9,8 +9,8 @@ export class EscenaModel {
     destacado: boolean;
     noche: boolean;
     exterior: boolean;
-    detalleTecnico: string;
-    detalleLiterario: string;
+    detalleTecnico: any;
+    detalleLiterario: any;
     proyecto: string;
     nocheString: string;
     exteriorString: string;

@@ -75,39 +75,25 @@ var EscenasListComponent = (function (_super) {
         return htmlImagen;
     };
     EscenasListComponent.prototype.generarHtmlExportacion = function (literario, plantilla) {
-        var _this = this;
         this.exportacionWindow = window.open();
         this.exportacionWindow.document.title = "Vista completa del guión - GuionMaker";
         var plantillaEscena = AngularAPIHelper_1.AngularAPIHelper.plantillaEscena;
         if (plantilla != undefined) {
             plantillaEscena = PlantillasModel_1.PlantillaModel.getHtmlEscena(plantilla);
         }
-        var _loop_2 = function (escena) {
-            var escenaActual = escena;
-            var plantillaModificada = plantillaEscena.replace("{{tituloEscena}}", escenaActual.orden + ". " + this_2.getSituacionString(escenaActual) + ". " + escenaActual.titulo.toUpperCase() + ". " + this_2.getTemporalidadString(escenaActual));
-            this_2.htmlExportado += "{" + escenaActual.orden + "}";
-            this_2.angularAPIHelper.getById(literario ? 'detalleLiterario' : 'detalleTecnico', literario ? escenaActual.detalleLiterario : escenaActual.detalleTecnico).subscribe(function (response) {
-                var detalle;
-                var respuesta = response;
-                if (respuesta.estado == AngularAPIHelper_1.ResponseStatus.OK && respuesta.consulta.length > 0) {
-                    if (literario) {
-                        detalle = response.consulta[0];
-                    }
-                    else {
-                        detalle = response.consulta[0];
-                    }
-                    _this.htmlExportado = _this.htmlExportado.replace("{" + escenaActual.orden + "}", plantillaModificada.replace("{{contenidoEscena}}", _this.generarHtmlImagen(detalle) + detalle.texto));
-                }
-                else {
-                    _this.htmlExportado = _this.htmlExportado.replace("{" + escenaActual.orden + "}", "");
-                }
-                _this.exportacionWindow.document.documentElement.innerHTML = _this.htmlExportado;
-            });
-        };
-        var this_2 = this;
         for (var _i = 0, _a = this.escenas; _i < _a.length; _i++) {
             var escena = _a[_i];
-            _loop_2(escena);
+            var escenaActual = escena;
+            var plantillaModificada = plantillaEscena.replace("{{tituloEscena}}", escenaActual.orden + ". " + this.getSituacionString(escenaActual) + ". " + escenaActual.titulo.toUpperCase() + ". " + this.getTemporalidadString(escenaActual));
+            this.htmlExportado += "{" + escenaActual.orden + "}";
+            var detalle = literario ? escenaActual.detalleLiterario : escenaActual.detalleTecnico;
+            if (detalle.texto != undefined && detalle.texto != "") {
+                this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", plantillaModificada.replace("{{contenidoEscena}}", this.generarHtmlImagen(detalle) + detalle.texto));
+            }
+            else {
+                this.htmlExportado = this.htmlExportado.replace("{" + escenaActual.orden + "}", "");
+            }
+            this.exportacionWindow.document.documentElement.innerHTML = this.htmlExportado;
         }
     };
     EscenasListComponent.prototype.exportarGuion = function (literario) {

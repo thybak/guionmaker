@@ -414,8 +414,6 @@
     <TypeScriptCompile Include="public\src\typings.d.ts" />
     <TypeScriptCompile Include="routes\APIHelper.ts" />
     <TypeScriptCompile Include="routes\ClasificacionRoute.ts" />
-    <TypeScriptCompile Include="routes\DetalleLiterarioRoute.ts" />
-    <TypeScriptCompile Include="routes\DetalleTecnicoRoute.ts" />
     <TypeScriptCompile Include="routes\EscenarioRoute.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -431,6 +429,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="models\THelper.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="test\TProyecto.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="typings\globals\angular\index.d.ts" />
