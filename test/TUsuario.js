@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var THelper_1 = require("../models/THelper");
 var APIHelper_1 = require("../routes/APIHelper");
+var UsuarioRoute_1 = require("../routes/UsuarioRoute");
 var chai = require("chai");
 var chaiHttp = require("chai-http");
 var should = chai.should();
@@ -70,8 +71,8 @@ describe('Usuarios', function () {
         it(THelper_1.THelper.notAuthVerbose, function (done) {
             THelper_1.THelper.getIsAuth(done, '/api/' + nombreEntidad + '/' + entidadId);
         });
-        it('no debe encontrar al ' + nombreEntidad + ' de id ' + THelper_1.THelper.testObjectId, function (done) {
-            THelper_1.THelper.getNoExistente(done, '/api/' + nombreEntidad + '/' + THelper_1.THelper.testObjectId);
+        it('no debe encontrar al ' + nombreEntidad + ' de id 000000000000000000000000', function (done) {
+            THelper_1.THelper.getNoExistente(done, '/api/' + nombreEntidad + '/000000000000000000000000');
         });
         it('debe mostrar la información básica del usuario prueba creado', function (done) {
             THelper_1.THelper.getExistente(done, '/api/' + nombreEntidad + '/' + entidadId);
@@ -198,6 +199,23 @@ describe('Usuarios', function () {
                 res.body.consulta[0]._id.should.be.a('string');
                 should.not.exist(res.body.consulta[0].pass);
                 done();
+            });
+        });
+        after(function (done) {
+            UsuarioRoute_1.UsuarioRoute.model.findById(entidadId).exec(function (err, res) {
+                if (err) {
+                    console.log('Error al limpiar la base de datos después del test ' + err);
+                }
+                else {
+                    if (res != undefined) {
+                        res.remove(function (err, res) {
+                            if (err) {
+                                console.log('Error al borrar el usuario de prueba ' + err);
+                            }
+                            done();
+                        });
+                    }
+                }
             });
         });
     });

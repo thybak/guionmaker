@@ -19,7 +19,7 @@ export class THelper {
         return 'Bearer ' + THelper.testUserToken;
     }
 
-    static getIsAuth(done: DoneFn, route: string) {
+    static getIsAuth(done: MochaDone, route: string) {
         chai.request(THelper.app)
             .get(route)
             .end((err, res) => {
@@ -28,7 +28,7 @@ export class THelper {
             });
     }
 
-    static postIsAuth(done: DoneFn, route: string) {
+    static postIsAuth(done: MochaDone, route: string) {
         chai.request(THelper.app)
             .post(route)
             .end((err, res) => {
@@ -37,7 +37,7 @@ export class THelper {
             });
     }
 
-    static deleteIsAuth(done: DoneFn, route: string) {
+    static deleteIsAuth(done: MochaDone, route: string) {
         chai.request(THelper.app)
             .del(route)
             .end((err, res) => {
@@ -46,7 +46,7 @@ export class THelper {
             });
     }
 
-    static getColeccionVacia(done: DoneFn, route: string) {
+    static getColeccionVacia(done: MochaDone, route: string) {
         chai.request(THelper.app)
             .get(route)
             .set('Authorization', THelper.getAuthValue())
@@ -58,7 +58,7 @@ export class THelper {
             });
     }
 
-    static getNoExistente(done: DoneFn, route: string) {
+    static getNoExistente(done: MochaDone, route: string) {
         chai.request(THelper.app)
             .get(route)
             .set('Authorization', THelper.getAuthValue())
@@ -72,7 +72,7 @@ export class THelper {
             });
     }
 
-    static getExistente(done: DoneFn, route: string, porId: boolean = true) {
+    static getExistente(done: MochaDone, route: string, porId: boolean = true) {
         chai.request(THelper.app)
             .get(route)
             .set('Authorization', THelper.getAuthValue())
@@ -90,7 +90,7 @@ export class THelper {
             });
     }
 
-    static deleteNoExistente(done: DoneFn, route: string) {
+    static deleteNoExistente(done: MochaDone, route: string) {
         chai.request(THelper.app)
             .del(route)
             .set('Authorization', THelper.getAuthValue())
@@ -102,7 +102,7 @@ export class THelper {
             });
     }
 
-    static deleteExistente(done: DoneFn, route: string) {
+    static deleteExistente(done: MochaDone, route: string) {
         chai.request(THelper.app)
             .del(route)
             .set('Authorization', THelper.getAuthValue())
@@ -114,7 +114,7 @@ export class THelper {
             });
     }
 
-    static postFiltroInexistente(done: DoneFn, route: string) {
+    static postFiltroInexistente(done: MochaDone, route: string) {
         let filtro = {
             find: {
                 "_id": THelper.testObjectId
@@ -133,7 +133,7 @@ export class THelper {
             });
     }
 
-    static postFiltroProyectoPrueba(done: DoneFn, route: string) {
+    static postFiltroProyectoPrueba(done: MochaDone, route: string) {
         let filtro = {
             find: {
                 "_id": THelper.testProjectId,

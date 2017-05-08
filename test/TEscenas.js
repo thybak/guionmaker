@@ -112,6 +112,9 @@ describe('Escenas', function () {
         it('debe dar error al no haber ' + nombreEntidad + ' ' + THelper_1.THelper.testObjectId + ' para el usuario test', function (done) {
             THelper_1.THelper.deleteNoExistente(done, '/api/' + nombreEntidad + '/' + THelper_1.THelper.testObjectId);
         });
+        it('debe borrar la ' + nombreEntidad + ' creada anteriormente', function (done) {
+            THelper_1.THelper.deleteExistente(done, '/api/' + nombreEntidad + '/' + escenaIDToDelete);
+        });
     });
 });
 //# sourceMappingURL=TEscenas.js.map

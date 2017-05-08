@@ -7,7 +7,6 @@ var morgan = require("morgan");
 var path = require("path");
 var cors = require("cors");
 var jwtes = require("express-jwt");
-var mockgoose = require("mockgoose");
 var IndexRoute_1 = require("./routes/IndexRoute");
 var ProyectoRoute_1 = require("./routes/ProyectoRoute");
 var UsuarioRoute_1 = require("./routes/UsuarioRoute");
@@ -19,7 +18,6 @@ var PersonajeRoute_1 = require("./routes/PersonajeRoute");
 var EscenarioRoute_1 = require("./routes/EscenarioRoute");
 var Server = (function () {
     function Server() {
-        var _this = this;
         console.log(process.env.NODE_ENV);
         this.config = require('./public/dist/assets/apiconfig.json');
         this.config.secreto = "g423gj8f_GfsldGLPxcz";
@@ -27,13 +25,7 @@ var Server = (function () {
         this.setConfig();
         require('mongoose').Promise = global.Promise;
         if (process.env.NODE_ENV != undefined && process.env.NODE_ENV.trim() === 'test') {
-            new mockgoose.Mockgoose(mongoose).prepareStorage().then(function () {
-                mongoose.connect("mongodb://" + _this.config.dbURL + "/" + _this.config.dbCollectionName, function (err) {
-                    if (err) {
-                        console.log(err);
-                    }
-                });
-            });
+            mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName + 'Test');
         }
         else {
             mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName);
@@ -79,13 +71,9 @@ var Server = (function () {
         router.get('/api/usuario/:id', _usuariosRoute.getUsuarioById.bind(_usuariosRoute.getUsuarioById));
         router.post('/api/usuario/login', _usuariosRoute.login.bind(_usuariosRoute.login));
         router.get('/api/generos', _generosRoute.getGeneros.bind(_generosRoute.getGeneros));
-        router.post('/api/genero/', _generosRoute.addGenero.bind(_generosRoute.addGenero));
         router.get('/api/genero/:id', _generosRoute.getGeneroById.bind(_generosRoute.getGeneroById));
-        router.delete('/api/genero/:id', _generosRoute.deleteGenero.bind(_generosRoute.deleteGenero));
         router.get('/api/clasificaciones', _clasificacionesRoute.getClasificaciones.bind(_clasificacionesRoute.getClasificaciones));
-        router.post('/api/clasificacion/', _clasificacionesRoute.addClasificacion.bind(_clasificacionesRoute.addClasificacion));
         router.get('/api/clasificacion/:id', _clasificacionesRoute.getClasificacionById.bind(_clasificacionesRoute.getClasificacionById));
-        router.delete('/api/clasificacion/:id', _clasificacionesRoute.deleteClasificacion.bind(_clasificacionesRoute.deleteClasificacion));
         router.get('/api/escenas', _escenasRoute.getEscenas.bind(_escenasRoute.getEscenas));
         router.post('/api/escenasPorFiltro', _escenasRoute.getEscenasByFilterAndSort.bind(_escenasRoute.getEscenasByFilterAndSort));
         router.post('/api/escena/', _escenasRoute.addEscena.bind(_escenasRoute.addEscena));

@@ -113,6 +113,9 @@ describe('Escenas', () => {
         it('debe dar error al no haber ' + nombreEntidad + ' ' + THelper.testObjectId + ' para el usuario test', (done) => {
             THelper.deleteNoExistente(done, '/api/' + nombreEntidad + '/' + THelper.testObjectId);
         });
+        it('debe borrar la ' + nombreEntidad + ' creada anteriormente', (done) => {
+            THelper.deleteExistente(done, '/api/' + nombreEntidad + '/' + escenaIDToDelete);
+        });
     });
 
 });

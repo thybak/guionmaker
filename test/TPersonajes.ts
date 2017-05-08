@@ -12,7 +12,7 @@ let nombreEntidad = "personaje";
 let nombreEntidadPlural = nombreEntidad + 's';
 describe('Personajes', () => {
     /*
-    * Pruebas sobre la entidad Personajes
+    * Pruebas sobre la entidad Personaje
     */
     describe('/GET ' + nombreEntidadPlural, () => {
         it(THelper.notAuthVerbose, (done) => {

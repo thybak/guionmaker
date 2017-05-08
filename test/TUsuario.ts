@@ -1,6 +1,7 @@
 import * as mongoose from "mongoose";
 import { THelper } from "../models/THelper";
 import { ResponseStatus } from "../routes/APIHelper";
+import { UsuarioRoute } from "../routes/UsuarioRoute";
 import * as chai from "chai";
 import chaiHttp = require("chai-http");
 
@@ -12,7 +13,7 @@ let nombreEntidadPlural = nombreEntidad + 's';
 let entidadId = "";
 describe('Usuarios', () => {
     /* 
-    * Pruebas sobre la entidad Usuarios
+    * Pruebas sobre la entidad Usuario
     */
     describe('POST ' + nombreEntidad, () => {
         it('no debe permitir guardar un usuario sin sus campos obligatorios', (done) => {
@@ -71,8 +72,8 @@ describe('Usuarios', () => {
         it(THelper.notAuthVerbose, (done) => {
             THelper.getIsAuth(done, '/api/' + nombreEntidad + '/' + entidadId);
         });
-        it('no debe encontrar al ' + nombreEntidad + ' de id ' + THelper.testObjectId, (done) => {
-            THelper.getNoExistente(done, '/api/' + nombreEntidad + '/' + THelper.testObjectId);
+        it('no debe encontrar al ' + nombreEntidad + ' de id 000000000000000000000000', (done) => {
+            THelper.getNoExistente(done, '/api/' + nombreEntidad + '/000000000000000000000000');
         });
         it('debe mostrar la información básica del usuario prueba creado', (done) => {
             THelper.getExistente(done, '/api/' + nombreEntidad + '/' + entidadId);
@@ -155,7 +156,7 @@ describe('Usuarios', () => {
     });
     describe('POST ' + nombreEntidadPlural + 'PorFiltro', () => {
         it('no debe dejar hacer la búsqueda sin token de sesión (401)', (done) => {
-            THelper.postIsAuth(done, '/api/'+ nombreEntidadPlural + 'PorFiltro');
+            THelper.postIsAuth(done, '/api/' + nombreEntidadPlural + 'PorFiltro');
         });
         it('debe mostrar información básica correspondiente al usuario de nombre de usuario prueba', (done) => {
             let filtro = {
@@ -164,19 +165,19 @@ describe('Usuarios', () => {
                 }
             };
             chai.request(THelper.app)
-            .post('/api/'+ nombreEntidadPlural + 'PorFiltro')
-            .set('Authorization', THelper.getAuthValue())
-            .send(filtro)
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.estado.should.be.eql(ResponseStatus.OK);
-                res.body.consulta.should.be.an('array');
-                res.body.consulta.length.should.be.eql(1);
-                res.body.consulta[0].nombreUsuario.should.be.a('string');
-                res.body.consulta[0].email.should.be.a('string');
-                res.body.consulta[0]._id.should.be.a('string');
-                done();
-            });
+                .post('/api/' + nombreEntidadPlural + 'PorFiltro')
+                .set('Authorization', THelper.getAuthValue())
+                .send(filtro)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.estado.should.be.eql(ResponseStatus.OK);
+                    res.body.consulta.should.be.an('array');
+                    res.body.consulta.length.should.be.eql(1);
+                    res.body.consulta[0].nombreUsuario.should.be.a('string');
+                    res.body.consulta[0].email.should.be.a('string');
+                    res.body.consulta[0]._id.should.be.a('string');
+                    done();
+                });
         });
         it('no debe mostrar la contraseña del usuario prueba', (done) => {
             let filtro = {
@@ -186,19 +187,35 @@ describe('Usuarios', () => {
                 select: "_id nombreUsuario pass email"
             };
             chai.request(THelper.app)
-            .post('/api/'+ nombreEntidadPlural + 'PorFiltro')
-            .set('Authorization', THelper.getAuthValue())
-            .send(filtro)
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.estado.should.be.eql(ResponseStatus.OK);
-                res.body.consulta.should.be.an('array');
-                res.body.consulta.length.should.be.eql(1);
-                res.body.consulta[0].nombreUsuario.should.be.a('string');
-                res.body.consulta[0].email.should.be.a('string');
-                res.body.consulta[0]._id.should.be.a('string');
-                should.not.exist(res.body.consulta[0].pass);
-                done();
+                .post('/api/' + nombreEntidadPlural + 'PorFiltro')
+                .set('Authorization', THelper.getAuthValue())
+                .send(filtro)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.estado.should.be.eql(ResponseStatus.OK);
+                    res.body.consulta.should.be.an('array');
+                    res.body.consulta.length.should.be.eql(1);
+                    res.body.consulta[0].nombreUsuario.should.be.a('string');
+                    res.body.consulta[0].email.should.be.a('string');
+                    res.body.consulta[0]._id.should.be.a('string');
+                    should.not.exist(res.body.consulta[0].pass);
+                    done();
+                });
+        });
+        after((done) => {
+            UsuarioRoute.model.findById(entidadId).exec((err, res) => {
+                if (err) {
+                    console.log('Error al limpiar la base de datos después del test ' + err);
+                } else {
+                    if (res != undefined) {
+                        res.remove((err, res) => {
+                            if (err) {
+                                console.log('Error al borrar el usuario de prueba ' + err);
+                            }
+                            done();
+                        });
+                    }
+                }
             });
         });
     });
