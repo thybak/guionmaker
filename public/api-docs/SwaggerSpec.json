@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Bienvenido a la especificación del API Rest de GuionMaker. En ella se describen los diferentes modelos, rutas y métodos con los cuales se puede trabajar.",
+    "description": "Bienvenido a la especificación del API Rest de GuionMaker. En ella se describen los diferentes modelos, rutas y métodos con los cuales se puede trabajar. Para poder tener acceso a los métodos protegidos, incluir cabecera `Authorization: Bearer <JWT obtenido del inicio de sesión>` por medio del botón Authorize.",
     "version": "1.0.0",
     "title": "API de GuionMaker",
     "contact": {
