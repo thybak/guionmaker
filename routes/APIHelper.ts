@@ -232,6 +232,7 @@ export class APIHelper {
     }
     public static getByFilterAndSort(model: mongoose.Model<mongoose.Document>, req: express.Request, res: express.Response): void {
         let reqBody: string = JSON.stringify(req.body);
+        console.log(reqBody);
         let objReqBody = JSON.parse(reqBody) as PeticionJson;
         let sort = objReqBody.sort == undefined ? { "_id": "1" } : objReqBody.sort; // por omisión se ordena por _id
         let find = objReqBody.find == undefined ? { "_id": "1" } : objReqBody.find; // por omisión se busca el _id = 1 forzando error
@@ -241,7 +242,7 @@ export class APIHelper {
                 APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + reqBody + ". Más info: " + err);
             } else {
                 let _res: mongoose.Document[];
-                if (objReqBody.populate != undefined && objReqBody.populate.path != "") {
+                if (objReqBody.populate != undefined && Object.keys(objReqBody.populate).length > 0 && objReqBody.populate.path != "") {
                     _res = APIHelper.comprobarAfterPopulate(resultado, objReqBody.populate.path);
                     _res = APIHelper.aplanarPropiedadesPopulated(_res, objReqBody.populate.path);
                 } else {

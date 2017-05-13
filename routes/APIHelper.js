@@ -263,7 +263,7 @@ var APIHelper = (function () {
             }
             else {
                 var _res = void 0;
-                if (objReqBody.populate != undefined && objReqBody.populate.path != "") {
+                if (objReqBody.populate != undefined && Object.keys(objReqBody.populate).length > 0 && objReqBody.populate.path != "") {
                     _res = APIHelper.comprobarAfterPopulate(resultado, objReqBody.populate.path);
                     _res = APIHelper.aplanarPropiedadesPopulated(_res, objReqBody.populate.path);
                 }
@@ -273,7 +273,6 @@ var APIHelper = (function () {
                 res.json(APIHelper.buildJsonConsulta(_res));
             }
         };
-        console.log(objReqBody.populate == undefined || objReqBody.populate == "");
         if (objReqBody.populate == undefined || Object.keys(objReqBody.populate).length == 0) {
             model.find(find).sort(sort).select(objReqBody.select).exec(obtenerPorFiltroYOrden);
         }
