@@ -235,7 +235,7 @@ export class APIHelper {
         let objReqBody = JSON.parse(reqBody) as PeticionJson;
         let sort = objReqBody.sort == undefined ? { "_id": "1" } : objReqBody.sort; // por omisión se ordena por _id
         let find = objReqBody.find == undefined ? { "_id": "1" } : objReqBody.find; // por omisión se busca el _id = 1 forzando error
-
+        
         let obtenerPorFiltroYOrden = function (err, resultado) {
             if (err) {
                 APIHelper.buildJsonError("Ha habido un error a la hora de obtener registros por el filtro " + reqBody + ". Más info: " + err);
@@ -250,7 +250,7 @@ export class APIHelper {
                 res.json(APIHelper.buildJsonConsulta(_res));
             }
         };
-        if (objReqBody.populate == undefined || objReqBody.populate == "") {
+        if (objReqBody.populate == undefined || Object.keys(objReqBody.populate).length == 0) {
             model.find(find).sort(sort).select(objReqBody.select).exec(obtenerPorFiltroYOrden);
         } else {
             model.find(find).populate(objReqBody.populate).sort(sort).select(objReqBody.select).exec(obtenerPorFiltroYOrden);

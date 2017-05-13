@@ -253,6 +253,7 @@ var APIHelper = (function () {
     };
     APIHelper.getByFilterAndSort = function (model, req, res) {
         var reqBody = JSON.stringify(req.body);
+        console.log(reqBody);
         var objReqBody = JSON.parse(reqBody);
         var sort = objReqBody.sort == undefined ? { "_id": "1" } : objReqBody.sort; // por omisión se ordena por _id
         var find = objReqBody.find == undefined ? { "_id": "1" } : objReqBody.find; // por omisión se busca el _id = 1 forzando error
@@ -272,7 +273,8 @@ var APIHelper = (function () {
                 res.json(APIHelper.buildJsonConsulta(_res));
             }
         };
-        if (objReqBody.populate == undefined || objReqBody.populate == "") {
+        console.log(objReqBody.populate == undefined || objReqBody.populate == "");
+        if (objReqBody.populate == undefined || Object.keys(objReqBody.populate).length == 0) {
             model.find(find).sort(sort).select(objReqBody.select).exec(obtenerPorFiltroYOrden);
         }
         else {
