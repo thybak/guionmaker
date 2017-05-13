@@ -11,7 +11,7 @@ var nombreEntidad = "personaje";
 var nombreEntidadPlural = nombreEntidad + 's';
 describe('Personajes', function () {
     /*
-    * Pruebas sobre la entidad Personajes
+    * Pruebas sobre la entidad Personaje
     */
     describe('/GET ' + nombreEntidadPlural, function () {
         it(THelper_1.THelper.notAuthVerbose, function (done) {

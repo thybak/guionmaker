@@ -24,8 +24,8 @@ export class ProyectoModel {
         this.cancelado = false;
     }
 
-    public static getProyectosByAutorAndEstado(autor: string, cancelado: boolean = false, angularAPIHelper: AngularAPIHelper) {
-        let peticion = angularAPIHelper.buildPeticion({ 'autor': autor, 'cancelado': cancelado }, { 'orden': '1' });
+    public static getProyectosByEstado(cancelado: boolean = false, angularAPIHelper: AngularAPIHelper) {
+        let peticion = angularAPIHelper.buildPeticion({ 'cancelado': cancelado }, { 'orden': '1' });
         return angularAPIHelper.postEntryOrFilter('proyectosPorFiltro', JSON.stringify(peticion));
     }
 

@@ -12,7 +12,7 @@ var nombreEntidadPlural = nombreEntidad + 's';
 var entidadId = "";
 describe('Usuarios', function () {
     /*
-    * Pruebas sobre la entidad Usuarios
+    * Pruebas sobre la entidad Usuario
     */
     describe('POST ' + nombreEntidad, function () {
         it('no debe permitir guardar un usuario sin sus campos obligatorios', function (done) {

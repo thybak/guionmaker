@@ -9,6 +9,9 @@ var nombreEntidadPlural = nombreEntidad + 'es';
 var should = chai.should();
 chai.use(chaiHttp);
 describe('Clasificaciones', function () {
+    /*
+    * Pruebas sobre la entidad Clasificacion
+    */
     describe('GET ' + nombreEntidadPlural, function () {
         it('debe mostrar un error 401 al intentar obtener el listado sin token de sesión', function (done) {
             THelper_1.THelper.getIsAuth(done, '/api/' + nombreEntidadPlural);

@@ -24,7 +24,7 @@ export class ProyectosListComponent {
         this.usuarioLogeado = this.localStorageService.getPropiedad('usuarioLogeado');
     }
     private cargarProyectos() {
-        ProyectoModel.getProyectosByAutorAndEstado(this.usuarioLogeado, this.mostrarCancelados, this.angularAPIHelper).subscribe(
+        ProyectoModel.getProyectosByEstado(this.mostrarCancelados, this.angularAPIHelper).subscribe(
             response => { this.proyectos = (response as RespuestaJson).consulta as ProyectoModel[]; }, null, null);
     }
     private actualizarProyectoAModificar(cancelado: boolean) {

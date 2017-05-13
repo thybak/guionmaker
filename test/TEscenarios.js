@@ -12,7 +12,7 @@ var nombreEntidad = "escenario";
 var nombreEntidadPlural = nombreEntidad + 's';
 describe('Escenarios', function () {
     /*
-    * Pruebas sobre la entidad Escenarios
+    * Pruebas sobre la entidad Escenario
     */
     describe('/GET ' + nombreEntidadPlural, function () {
         it(THelper_1.THelper.notAuthVerbose, function (done) {

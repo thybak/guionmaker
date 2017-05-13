@@ -9,12 +9,10 @@ export class ModoColaborador {
         if (!forceValue) {
             ProyectoModel.getProyectoActual(this.angularAPIHelper, this.localStorageService).subscribe((respuesta) => {
                 let proyectoR = respuesta as RespuestaJson;
-                if (proyectoR != undefined && proyectoR.estado == ResponseStatus.OK) {
+                if (proyectoR != undefined && proyectoR.estado == ResponseStatus.OK && proyectoR.consulta.length == 1) {
                     this.usuarioLogeadoAutor = this.localStorageService.esUsuarioLogeado((proyectoR.consulta[0] as ProyectoModel).autor);
                 }
             });
         }
     }
-
-
 }
