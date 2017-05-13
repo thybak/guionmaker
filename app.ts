@@ -38,6 +38,7 @@ class Server {
         this.api.use(bodyParser.json({ limit: 1024 * 1024 * 3 }));
         this.api.use(bodyParser.urlencoded({ extended: true }));
         this.api.use(cookieParser());
+        this.api.use(express.static(path.join(__dirname, '/public')));
         this.api.use(express.static(path.join(__dirname, '/public/dist')));
         this.api.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
             err.status = 404;
@@ -58,7 +59,7 @@ class Server {
         let _escenariosRoute: EscenarioRoute = new EscenarioRoute();
         let _personajesRoute: PersonajeRoute = new PersonajeRoute();
 
-        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', /^(?!\/api).+/] }));
+        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', '/api-docs', /^(?!\/api).+/] }));
 
         router.get('/api/proyectos', _proyectosRoute.getProyectos.bind(_proyectosRoute.getProyectos));
         router.post('/api/proyectosPorFiltro', _proyectosRoute.getProyectosByFilterAndSort.bind(_proyectosRoute.getProyectosByFilterAndSort));
@@ -100,6 +101,10 @@ class Server {
         router.post('/api/personaje/', _personajesRoute.addPersonaje.bind(_personajesRoute.addPersonaje));
         router.get('/api/personaje/:id', _personajesRoute.getPersonajeById.bind(_personajesRoute.getPersonajeById));
         router.delete('/api/personaje/:id', _personajesRoute.deletePersonaje.bind(_personajesRoute.deletePersonaje));
+
+        router.get('/api-docs', function(req: express.Request, res: express.Response, next: express.NextFunction){
+            res.sendFile(path.join(__dirname, '/public/api-docs/index.html'));
+        });
 
         this.api.use(router);
         this.api.all('/*', function (req, res) {

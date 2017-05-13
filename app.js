@@ -42,6 +42,7 @@ var Server = (function () {
         this.api.use(bodyParser.json({ limit: 1024 * 1024 * 3 }));
         this.api.use(bodyParser.urlencoded({ extended: true }));
         this.api.use(cookieParser());
+        this.api.use(express.static(path.join(__dirname, '/public')));
         this.api.use(express.static(path.join(__dirname, '/public/dist')));
         this.api.use(function (err, req, res, next) {
             err.status = 404;
@@ -60,7 +61,7 @@ var Server = (function () {
         var _plantillasRoute = new PlantillaRoute_1.PlantillaRoute();
         var _escenariosRoute = new EscenarioRoute_1.EscenarioRoute();
         var _personajesRoute = new PersonajeRoute_1.PersonajeRoute();
-        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', /^(?!\/api).+/] }));
+        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', '/api-docs', /^(?!\/api).+/] }));
         router.get('/api/proyectos', _proyectosRoute.getProyectos.bind(_proyectosRoute.getProyectos));
         router.post('/api/proyectosPorFiltro', _proyectosRoute.getProyectosByFilterAndSort.bind(_proyectosRoute.getProyectosByFilterAndSort));
         router.get('/api/proyecto/:id', _proyectosRoute.getProyectoById.bind(_proyectosRoute.getProyectoById));
@@ -94,6 +95,9 @@ var Server = (function () {
         router.post('/api/personaje/', _personajesRoute.addPersonaje.bind(_personajesRoute.addPersonaje));
         router.get('/api/personaje/:id', _personajesRoute.getPersonajeById.bind(_personajesRoute.getPersonajeById));
         router.delete('/api/personaje/:id', _personajesRoute.deletePersonaje.bind(_personajesRoute.deletePersonaje));
+        router.get('/api-docs', function (req, res, next) {
+            res.sendFile(path.join(__dirname, '/public/api-docs/index.html'));
+        });
         this.api.use(router);
         this.api.all('/*', function (req, res) {
             res.sendFile(path.join(__dirname, '/public/dist/index.html'));

@@ -1,0 +1,1803 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Bienvenido a la especificación del API Rest de GuionMaker. En ella se describen los diferentes modelos, rutas y métodos con los cuales se puede trabajar.",
+    "version": "1.0.0",
+    "title": "API de GuionMaker",
+    "contact": {
+      "email": "davidm.martin@outlook.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "guionmaker.duckdns.org",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "proyecto",
+      "description": "Agrupación de escenas y biblias literarias, gestionados por usuarios del sistema"
+    },
+    {
+      "name": "escena",
+      "description": "Escenas pertenecientes a los proyectos"
+    },
+    {
+      "name": "escenario",
+      "description": "Escenarios pertenecientes a la biblia literario de los proyectos"
+    },
+    {
+      "name": "personaje",
+      "description": "Personajes pertenecientes a la biblia literario de los proyectos"
+    },
+    {
+      "name": "género",
+      "description": "Géneros atribuibles a los proyectos"
+    },
+    {
+      "name": "clasificación",
+      "description": "Clasificaciones de edad para los proyectos"
+    },
+    {
+      "name": "usuario",
+      "description": "Usuarios del sistema"
+    },
+    {
+      "name": "plantilla",
+      "description": "Plantillas de exportación para los guiones literarios y técnicos"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/proyectos": {
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "proyecto"
+        ],
+        "summary": "Muestra la lista de proyectos del usuario",
+        "description": "Obtiene todos los registros de la base de datos para el usuario que aparece en el token de sesión y los devuelve como atributo consulta dentro del esquema RespuestaJson.",
+        "operationId": "getProyectos",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve un objeto de respuesta en cuya clave consulta se muestra el array de resultados de la petición. En caso contrario, se devolverá un array vacío con el campo error cumplimentado avisando de que no hay proyectos para el usuario identificado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/proyecto": {
+      "post": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "proyecto"
+        ],
+        "summary": "Añade un nuevo proyecto a GuionMaker o lo actualiza",
+        "description": "Cuando se invoca a esta operación con un proyecto como parámetro, en caso de que no exista se creará. En caso contrario se actualizará el registro con mismo identificador. Dicho registro se asocia al usuario que llega en la cabecera de la petición",
+        "operationId": "addOrUpdateProyecto",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Proyecto"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve un objeto de respuesta en que se indica si ha habido error o no en la transacción. En caso de que haya sido exitosa, se incluye el valor del objeto insertado en la propiedad insertado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/proyecto/{id}": {
+      "delete": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "proyecto"
+        ],
+        "summary": "Elimina el proyecto indicado",
+        "description": "Elimina de entre los registros el proyecto identificado por el parámetro id indicado en la ruta",
+        "operationId": "deleteProyecto",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "format": "ObjectId",
+            "description": "Identificador del proyecto a eliminar"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve la confirmación de si el borrado ha sido exitoso o no a través del esquema RespuestaJson.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      },
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "proyecto"
+        ],
+        "summary": "Obtiene el proyecto indicado",
+        "description": "Obtiene de entre los registros el proyecto identificado por el parámetro id indicado en la ruta",
+        "operationId": "getProyectoById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "format": "ObjectId",
+            "description": "Identificador del proyecto a buscar"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve el esquema de respuesta JSON con el estado de la petición y el array de consulta lleno o vacío en función de si se ha podido obtener el registro con el identificador proporcionado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/proyectosPorFiltro": {
+      "post": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "proyecto"
+        ],
+        "summary": "Obtiene la lista de proyectos de usuario haciendo uso de un filtro",
+        "description": "Filtra, de la lista de proyectos del usuario, aquellos que cumplan las condiciones del filtro. Adicionalmente se puede incluir el orden en que se deben mostrar los registros.",
+        "operationId": "postFiltroProyectos",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PeticionJson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve una respuesta con los resultados de la consulta en la clave consulta. Dicha clave contendrá el array de elementos que cumplen con la condición del filtro establecido y en el orden en que se haya indicado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/generos": {
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "género"
+        ],
+        "summary": "Obtiene listado de géneros",
+        "description": "Obtiene el listado de géneros que se pueden asociar a los proyectos",
+        "operationId": "getGeneros",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve el esquema de respuesta con la propiedad consulta rellena con el array de géneros que existen en base de datos.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición."
+          }
+        }
+      }
+    },
+    "/genero/{id}": {
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "género"
+        ],
+        "summary": "Obtiene el género por identificador",
+        "description": "De toda la lista de géneros disponibles en base de datos, devuelve el género asociado a dicho identificador.",
+        "operationId": "getGeneroById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "format": "ObjectId",
+            "required": true,
+            "description": "Identificador del género que se quiere recuperar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve el esquema de respuesta con la propiedad consulta rellena con el género buscado. En caso de que no haya ninguno asociado con dicho identificador se devolverá la consulta vacía.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición."
+          }
+        }
+      }
+    },
+    "/clasificaciones": {
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "clasificación"
+        ],
+        "summary": "Obtiene listado de clasificaciones",
+        "description": "Obtiene el listado de clasificaciones que se pueden asociar a los proyectos",
+        "operationId": "getClasificaciones",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve el esquema de respuesta con la propiedad consulta rellena con el array de clasificaciones que existen en base de datos.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición."
+          }
+        }
+      }
+    },
+    "/clasificacion/{id}": {
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "clasificación"
+        ],
+        "summary": "Obtiene la clasificación por identificador",
+        "description": "De toda la lista de clasificaciones disponibles en base de datos, devuelve la clasificación asociada a dicho identificador.",
+        "operationId": "getClasificacionById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "format": "ObjectId",
+            "required": true,
+            "description": "Identificador de la clasificación que se quiere recuperar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve el esquema de respuesta con la propiedad consulta rellena con la clasificación buscada. En caso de que no haya ninguna asociada con dicho identificador se devolverá la consulta vacía.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición."
+          }
+        }
+      }
+    },
+    "/escenas": {
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "escena"
+        ],
+        "summary": "Muestra la lista de escenas del usuario",
+        "description": "Obtiene todos los registros de la base de datos para el usuario que aparece en el token de sesión y los devuelve como atributo consulta dentro del esquema RespuestaJson.",
+        "operationId": "getEscenas",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve un objeto de respuesta en cuya clave consulta se muestra el array de resultados de la petición. En caso contrario, se devolverá un array vacío con el campo error cumplimentado avisando de que no hay escenas para el usuario identificado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/escena": {
+      "post": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "escena"
+        ],
+        "summary": "Añade una nueva escena a GuionMaker o la actualiza",
+        "description": "Cuando se invoca a esta operación con una escena como parámetro, en caso de que no exista se creará. En caso contrario se actualizará el registro con mismo identificador. Dicho registro se asocia al proyecto que llega en el cuerpo de la petición.",
+        "operationId": "addOrUpdateEscena",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Escena"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve un objeto de respuesta en que se indica si ha habido error o no en la transacción. En caso de que haya sido exitosa, se incluye el valor del objeto insertado en la propiedad insertado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/escena/{id}": {
+      "delete": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "escena"
+        ],
+        "summary": "Elimina la escena indicada",
+        "description": "Elimina de entre los registros la escena identificada por el parámetro id indicado en la ruta",
+        "operationId": "deleteEscena",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "format": "ObjectId",
+            "description": "Identificador de la escena a eliminar"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve la confirmación de si el borrado ha sido exitoso o no a través del esquema RespuestaJson.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      },
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "escena"
+        ],
+        "summary": "Obtiene la escena indicada",
+        "description": "Obtiene de entre los registros la escena identificada por el parámetro id indicado en la ruta",
+        "operationId": "getEscenaById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "format": "ObjectId",
+            "description": "Identificador de la escena a buscar"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve el esquema de respuesta JSON con el estado de la petición y el array de consulta lleno o vacío en función de si se ha podido obtener el registro con el identificador proporcionado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/escenasPorFiltro": {
+      "post": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "escena"
+        ],
+        "summary": "Obtiene la lista de escenas de usuario haciendo uso de un filtro",
+        "description": "Filtra, de la lista de escenas del usuario, aquellas que cumplan las condiciones del filtro. Adicionalmente se puede incluir el orden en que se deben mostrar los registros.",
+        "operationId": "postFiltroEscenas",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PeticionJson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve una respuesta con los resultados de la consulta en la clave consulta. Dicha clave contendrá el array de elementos que cumplen con la condición del filtro establecido y en el orden en que se haya indicado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/plantillas": {
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "plantilla"
+        ],
+        "summary": "Muestra la lista de plantillas del usuario",
+        "description": "Obtiene todos los registros de la base de datos para el usuario que aparece en el token de sesión y los devuelve como atributo consulta dentro del esquema RespuestaJson.",
+        "operationId": "getPlantillas",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve un objeto de respuesta en cuya clave consulta se muestra el array de resultados de la petición. En caso contrario, se devolverá un array vacío con el campo error cumplimentado avisando de que no hay plantillas para el usuario identificado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/plantilla": {
+      "post": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "plantilla"
+        ],
+        "summary": "Añade una nueva plantilla a GuionMaker o la actualiza",
+        "description": "Cuando se invoca a esta operación con una plantilla como parámetro, en caso de que no exista se creará. En caso contrario se actualizará el registro con mismo identificador. Dicho registro se asocia al usuario que llega en la cabecera de la petición por JWT.",
+        "operationId": "addOrUpdatePlantilla",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Plantilla"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve un objeto de respuesta en que se indica si ha habido error o no en la transacción. En caso de que haya sido exitosa, se incluye el valor del objeto insertado en la propiedad insertado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/plantilla/{id}": {
+      "delete": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "plantilla"
+        ],
+        "summary": "Elimina la plantilla indicada",
+        "description": "Elimina de entre los registros la plantilla identificada por el parámetro id indicado en la ruta",
+        "operationId": "deletePlantilla",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "format": "ObjectId",
+            "description": "Identificador de la plantilla a eliminar"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve la confirmación de si el borrado ha sido exitoso o no a través del esquema RespuestaJson.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      },
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "plantilla"
+        ],
+        "summary": "Obtiene la plantilla indicada",
+        "description": "Obtiene de entre los registros la plantilla identificada por el parámetro id indicado en la ruta",
+        "operationId": "getPlantillaById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "format": "ObjectId",
+            "description": "Identificador de la plantilla a buscar"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve el esquema de respuesta JSON con el estado de la petición y el array de consulta lleno o vacío en función de si se ha podido obtener el registro con el identificador proporcionado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/plantillasPorFiltro": {
+      "post": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "plantilla"
+        ],
+        "summary": "Obtiene la lista de plantillas de usuario haciendo uso de un filtro",
+        "description": "Filtra, de la lista de plantillas del usuario, aquellas que cumplan las condiciones del filtro. Adicionalmente se puede incluir el orden en que se deben mostrar los registros.",
+        "operationId": "postFiltroPlantillas",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PeticionJson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve una respuesta con los resultados de la consulta en la clave consulta. Dicha clave contendrá el array de elementos que cumplen con la condición del filtro establecido y en el orden en que se haya indicado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/escenarios": {
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "escenario"
+        ],
+        "summary": "Muestra la lista de escenarios del usuario",
+        "description": "Obtiene todos los registros de la base de datos para el usuario que aparece en el token de sesión y los devuelve como atributo consulta dentro del esquema RespuestaJson.",
+        "operationId": "getEscenarios",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve un objeto de respuesta en cuya clave consulta se muestra el array de resultados de la petición. En caso contrario, se devolverá un array vacío con el campo error cumplimentado avisando de que no hay escenarios para el usuario identificado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/escenario": {
+      "post": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "escenario"
+        ],
+        "summary": "Añade un nuevo escenario a GuionMaker o lo actualiza",
+        "description": "Cuando se invoca a esta operación con un escenario como parámetro, en caso de que no exista se creará. En caso contrario se actualizará el registro con mismo identificador. Dicho registro se asocia al proyecto que llega en el cuerpo de la petición.",
+        "operationId": "addOrUpdateEscenario",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Escenario"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve un objeto de respuesta en que se indica si ha habido error o no en la transacción. En caso de que haya sido exitosa, se incluye el valor del objeto insertado en la propiedad insertado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/escenario/{id}": {
+      "delete": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "escenario"
+        ],
+        "summary": "Elimina el escenario indicado",
+        "description": "Elimina de entre los registros el escenario identificado por el parámetro id indicado en la ruta",
+        "operationId": "deleteEscenario",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "format": "ObjectId",
+            "description": "Identificador del escenario a eliminar"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve la confirmación de si el borrado ha sido exitoso o no a través del esquema RespuestaJson.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      },
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "escenario"
+        ],
+        "summary": "Obtiene el escenario indicado",
+        "description": "Obtiene de entre los registros el escenario identificado por el parámetro id indicado en la ruta",
+        "operationId": "getEscenarioById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "format": "ObjectId",
+            "description": "Identificador del escenario a buscar"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve el esquema de respuesta JSON con el estado de la petición y el array de consulta lleno o vacío en función de si se ha podido obtener el registro con el identificador proporcionado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/escenariosPorFiltro": {
+      "post": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "escenario"
+        ],
+        "summary": "Obtiene la lista de escenarios del usuario haciendo uso de un filtro",
+        "description": "Filtra, de la lista de escenarios del usuario, aquellos que cumplan las condiciones del filtro. Adicionalmente se puede incluir el orden en que se deben mostrar los registros.",
+        "operationId": "postFiltroEscenarios",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PeticionJson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve una respuesta con los resultados de la consulta en la clave consulta. Dicha clave contendrá el array de elementos que cumplen con la condición del filtro establecido y en el orden en que se haya indicado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/personajes": {
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "personaje"
+        ],
+        "summary": "Muestra la lista de personajes del usuario",
+        "description": "Obtiene todos los registros de la base de datos para el usuario que aparece en el token de sesión y los devuelve como atributo consulta dentro del esquema RespuestaJson.",
+        "operationId": "getPersonajes",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve un objeto de respuesta en cuya clave consulta se muestra el array de resultados de la petición. En caso contrario, se devolverá un array vacío con el campo error cumplimentado avisando de que no hay escenarios para el usuario identificado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/personaje": {
+      "post": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "personaje"
+        ],
+        "summary": "Añade un nuevo personaje a GuionMaker o lo actualiza",
+        "description": "Cuando se invoca a esta operación con un personaje como parámetro, en caso de que no exista se creará. En caso contrario se actualizará el registro con mismo identificador. Dicho registro se asocia al proyecto que llega en el cuerpo de la petición.",
+        "operationId": "addOrUpdatePersonaje",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Personaje"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve un objeto de respuesta en que se indica si ha habido error o no en la transacción. En caso de que haya sido exitosa, se incluye el valor del objeto insertado en la propiedad insertado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/personaje/{id}": {
+      "delete": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "personaje"
+        ],
+        "summary": "Elimina el personaje indicado",
+        "description": "Elimina de entre los registros el personaje identificado por el parámetro id indicado en la ruta",
+        "operationId": "deletePersonaje",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "format": "ObjectId",
+            "description": "Identificador del personaje a eliminar"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve la confirmación de si el borrado ha sido exitoso o no a través del esquema RespuestaJson.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      },
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "personaje"
+        ],
+        "summary": "Obtiene el personaje indicado",
+        "description": "Obtiene de entre los registros el personaje identificado por el parámetro id indicado en la ruta",
+        "operationId": "getPersonajeById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "format": "ObjectId",
+            "description": "Identificador del personaje a buscar"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve el esquema de respuesta JSON con el estado de la petición y el array de consulta lleno o vacío en función de si se ha podido obtener el registro con el identificador proporcionado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/personajesPorFiltro": {
+      "post": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "personaje"
+        ],
+        "summary": "Obtiene la lista de personajes del usuario haciendo uso de un filtro",
+        "description": "Filtra, de la lista de personajes del usuario, aquellos que cumplan las condiciones del filtro. Adicionalmente se puede incluir el orden en que se deben mostrar los registros.",
+        "operationId": "postFiltroPersonajes",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PeticionJson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve una respuesta con los resultados de la consulta en la clave consulta. Dicha clave contendrá el array de elementos que cumplen con la condición del filtro establecido y en el orden en que se haya indicado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/usuario": {
+      "post": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "usuario"
+        ],
+        "summary": "Añade un nuevo usuario a GuionMaker o lo actualiza",
+        "description": "Cuando se invoca a esta operación con un usuario como parámetro, en caso de que no exista se creará. En caso contrario se actualizará el registro con mismo identificador.",
+        "operationId": "addOrUpdateUsuario",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Usuario"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve un objeto de respuesta en que se indica si ha habido error o no en la transacción. En caso de que haya sido exitosa, se incluye el valor del objeto insertado en la propiedad insertado.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          }
+        }
+      }
+    },
+    "/usuario/{id}": {
+      "get": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "usuario"
+        ],
+        "summary": "Obtiene el usuario indicado",
+        "description": "Obtiene de entre los registros el usuario identificado por el parámetro id indicado en la ruta",
+        "operationId": "getUsuarioById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "format": "ObjectId",
+            "description": "Identificador del usuario a buscar"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve el esquema de respuesta JSON con el estado de la petición y el array de consulta lleno o vacío en función de si se ha podido obtener el registro con el identificador proporcionado. Sólo son públicos algunos atributos del usuario.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/usuariosPorFiltro": {
+      "post": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "usuario"
+        ],
+        "summary": "Obtiene la lista de usuarios haciendo uso de un filtro",
+        "description": "Filtra, de la lista de usuarios, aquellos que cumplan las condiciones del filtro. Adicionalmente se puede incluir el orden en que se deben mostrar los registros.",
+        "operationId": "postFiltroUsuarios",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PeticionJson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve una respuesta con los resultados de la consulta en la clave consulta. Dicha clave contendrá el array de elementos que cumplen con la condición del filtro establecido y en el orden en que se haya indicado. Sólo son públicos algunos atributos del usuario.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaJson"
+            }
+          },
+          "401": {
+            "description": "No se ha facilitado un token válido de sesión en la cabecera de la petición"
+          }
+        }
+      }
+    },
+    "/usuario/login": {
+      "post": {
+        "schemes": [
+          "https"
+        ],
+        "tags": [
+          "usuario"
+        ],
+        "summary": "Obtiene un token de sesión para identificar al usuario",
+        "description": "Si el usuario y contraseña existen en la base de datos, la aplicación devuelve el token de sesión entre otra información al cliente.",
+        "operationId": "postLogin",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PeticionLogin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Se devuelve el esquema de respuesta con una clave login con el token de sesión entre otra información relevante del usuario.",
+            "schema": {
+              "$ref": "#/definitions/RespuestaLogin"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Usuario": {
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string"
+        },
+        "apellidos": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "Email"
+        },
+        "nombreUsuario": {
+          "type": "string"
+        },
+        "pass": {
+          "type": "string"
+        }
+      }
+    },
+    "Colaborador": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Identificador de entidad"
+        },
+        "usuario": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Referencia al usuario"
+        },
+        "fecha": {
+          "type": "object",
+          "format": "Fecha"
+        },
+        "permisos": {
+          "type": "integer",
+          "format": "Enumeración (sólo lectura, edición)"
+        }
+      }
+    },
+    "Proyecto": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Identificador de entidad"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "sinopsis": {
+          "type": "string"
+        },
+        "genero": {
+          "type": "string"
+        },
+        "clasificacion": {
+          "type": "string"
+        },
+        "autor": {
+          "type": "string"
+        },
+        "colaboradores": {
+          "type": "array",
+          "$ref": "#/definitions/Colaborador"
+        },
+        "publico": {
+          "type": "boolean"
+        },
+        "fechaCreacion": {
+          "type": "object",
+          "format": "Fecha"
+        },
+        "fechaModificacion": {
+          "type": "object",
+          "format": "Fecha"
+        },
+        "cancelado": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DetalleTecnico": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Identificador de entidad"
+        },
+        "imagen": {
+          "type": "string",
+          "format": "Cadena Base64"
+        },
+        "mimeType": {
+          "type": "string",
+          "format": "MimeType"
+        },
+        "texto": {
+          "type": "string",
+          "default": ""
+        }
+      }
+    },
+    "DetalleLiterario": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Identificador de entidad"
+        },
+        "texto": {
+          "type": "string",
+          "default": ""
+        }
+      }
+    },
+    "Escena": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Identificador de entidad"
+        },
+        "titulo": {
+          "type": "string"
+        },
+        "orden": {
+          "type": "integer"
+        },
+        "destacado": {
+          "type": "boolean"
+        },
+        "noche": {
+          "type": "boolean"
+        },
+        "exterior": {
+          "type": "boolean"
+        },
+        "fechaCreacion": {
+          "type": "object"
+        },
+        "detalleTecnico": {
+          "type": "object",
+          "$ref": "#/definitions/DetalleTecnico"
+        },
+        "detalleLiterario": {
+          "type": "object",
+          "$ref": "#/definitions/DetalleLiterario"
+        },
+        "proyecto": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Referencia al proyecto al que pertenece la escena"
+        }
+      }
+    },
+    "Escenario": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Identificador de entidad"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "ubicacion": {
+          "type": "string"
+        },
+        "descripcion": {
+          "type": "string"
+        },
+        "imagen": {
+          "type": "string",
+          "format": "Cadena Base64"
+        },
+        "mimeType": {
+          "type": "string",
+          "format": "MimeType"
+        },
+        "proyecto": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Referencia al proyecto al que pertenece la escena"
+        }
+      }
+    },
+    "Personaje": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Identificador de entidad"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "edad": {
+          "type": "integer"
+        },
+        "procedencia": {
+          "type": "string"
+        },
+        "biografia": {
+          "type": "string"
+        },
+        "descripcionFisica": {
+          "type": "string"
+        },
+        "descripcionPsicologica": {
+          "type": "string"
+        },
+        "imagen": {
+          "type": "string",
+          "format": "Cadena Base64"
+        },
+        "mimeType": {
+          "type": "string",
+          "format": "MimeType"
+        },
+        "proyecto": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Referencia al proyecto al que pertenece la escena"
+        }
+      }
+    },
+    "Plantilla": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Identificador de entidad"
+        },
+        "htmlPortada": {
+          "type": "string",
+          "format": "Html escapado"
+        },
+        "htmlEscena": {
+          "type": "string",
+          "format": "Html escapado"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "autor": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Referencia al usuario al que pertenece la plantilla"
+        },
+        "porDefecto": {
+          "type": "boolean"
+        },
+        "fechaCreacion": {
+          "type": "object",
+          "format": "Fecha"
+        },
+        "fechaModificacion": {
+          "type": "object",
+          "format": "Fecha"
+        }
+      }
+    },
+    "RespuestaLogin": {
+      "type": "object",
+      "properties": {
+        "tokenUsuario": {
+          "type": "string",
+          "format": "JWT"
+        },
+        "usuarioLogeado": {
+          "type": "string",
+          "format": "ObjectId",
+          "description": "Identificador del usuario que está logeado"
+        },
+        "nombreUsuario": {
+          "type": "string"
+        }
+      }
+    },
+    "PeticionLogin": {
+      "type": "object",
+      "properties": {
+        "nombreUsuario": {
+          "type": "string"
+        },
+        "pass": {
+          "type": "string",
+          "format": "SHA3-256"
+        }
+      }
+    },
+    "RespuestaJson": {
+      "type": "object",
+      "properties": {
+        "estado": {
+          "type": "integer",
+          "format": "ResponseStatus;"
+        },
+        "error": {
+          "type": "string"
+        },
+        "login": {
+          "type": "object",
+          "$ref": "#/definitions/RespuestaLogin"
+        },
+        "consulta": {
+          "type": "array",
+          "default": [],
+          "format": "ArrayObjetosSolicitados"
+        },
+        "insertado": {
+          "type": "object",
+          "format": "ObjetoInsertado"
+        }
+      }
+    },
+    "PeticionJson": {
+      "type": "object",
+      "properties": {
+        "find": {
+          "type": "object",
+          "description": "Contiene los valores y las claves del filtro"
+        },
+        "sort": {
+          "type": "object",
+          "description": "Contiene las claves del objeto por las cuales se debe ordenar. Como valor 1 (asc)/-1(desc) en función de criterio ascendente o descendente."
+        },
+        "select": {
+          "type": "string",
+          "description": "Cadena que contiene los campos que se devolverían en una hipotética respuesta"
+        },
+        "populate": {
+          "type": "object",
+          "description": "Objeto que sirve para consultar otros documentos durante la consulta a una colección de documentos."
+        }
+      }
+    }
+  }
+}
