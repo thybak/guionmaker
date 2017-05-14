@@ -6,7 +6,6 @@ var DetalleLiterario = (function () {
         this.schema = new mongoose.Schema({
             texto: { type: String, default: new String('') }
         });
-        mongoose.model(DetalleLiterario.name, this.schema);
     }
     return DetalleLiterario;
 }());

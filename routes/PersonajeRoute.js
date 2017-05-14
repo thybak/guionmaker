@@ -25,10 +25,10 @@ var Route;
             APIHelper_1.APIHelper.getById(PersonajeRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroProyecto(req));
         };
         PersonajeRoute.prototype.addPersonaje = function (req, res, next) {
-            APIHelper_1.APIHelper.add(PersonajeRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroProyecto(req));
+            APIHelper_1.APIHelper.add(PersonajeRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroProyectoManipulacion(req));
         };
         PersonajeRoute.prototype.deletePersonaje = function (req, res, next) {
-            APIHelper_1.APIHelper.delete(PersonajeRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroProyecto(req));
+            APIHelper_1.APIHelper.delete(PersonajeRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroProyectoManipulacion(req));
         };
         PersonajeRoute.prototype.getPersonajesByFilterAndSort = function (req, res, next) {
             APIHelper_1.APIHelper.getByFilterAndSort(PersonajeRoute.model, ProyectoRoute_1.ProyectoRoute.alterarFiltroConProyecto(req), res);

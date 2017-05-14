@@ -20,7 +20,5 @@ export class Colaboracion {
             fecha: Date,
             permisos: Number
         });
-
-        mongoose.model(Colaboracion.name, this.schema);
     }
 }

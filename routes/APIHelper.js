@@ -184,7 +184,7 @@ var APIHelper = (function () {
                         if (filtro.find._id == undefined) {
                             filtro.find._id = req.body._id;
                         }
-                        model.findOneAndUpdate(filtro.find, req.body, function (err, resp) {
+                        model.findOneAndUpdate(filtro.find, req.body, { new: true }, function (err, resp) {
                             if (err) {
                                 res.json(APIHelper.buildJsonError("Error al intentar actualizar un registro en la entidad " + model.modelName + ". Más info: " + err + ". Modelo: " + req.body));
                             }
@@ -253,7 +253,6 @@ var APIHelper = (function () {
     };
     APIHelper.getByFilterAndSort = function (model, req, res) {
         var reqBody = JSON.stringify(req.body);
-        console.log(reqBody);
         var objReqBody = JSON.parse(reqBody);
         var sort = objReqBody.sort == undefined ? { "_id": "1" } : objReqBody.sort; // por omisión se ordena por _id
         var find = objReqBody.find == undefined ? { "_id": "1" } : objReqBody.find; // por omisión se busca el _id = 1 forzando error

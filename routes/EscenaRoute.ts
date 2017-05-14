@@ -25,13 +25,13 @@ module Route {
             APIHelper.getById(EscenaRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public addEscena(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.add(EscenaRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
+            APIHelper.add(EscenaRoute.model, req, res, ProyectoRoute.crearFiltroProyectoManipulacion(req));
         }
         public deleteEscena(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.delete(EscenaRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
+            APIHelper.delete(EscenaRoute.model, req, res, ProyectoRoute.crearFiltroProyectoManipulacion(req));
         }
         public updateEscena(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.update(EscenaRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
+            APIHelper.update(EscenaRoute.model, req, res, ProyectoRoute.crearFiltroProyectoManipulacion(req));
         }
     }
 }

@@ -25,10 +25,10 @@ var Route;
             APIHelper_1.APIHelper.getById(EscenarioRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroProyecto(req));
         };
         EscenarioRoute.prototype.addEscenario = function (req, res, next) {
-            APIHelper_1.APIHelper.add(EscenarioRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroProyecto(req));
+            APIHelper_1.APIHelper.add(EscenarioRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroProyectoManipulacion(req));
         };
         EscenarioRoute.prototype.deleteEscenario = function (req, res, next) {
-            APIHelper_1.APIHelper.delete(EscenarioRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroProyecto(req));
+            APIHelper_1.APIHelper.delete(EscenarioRoute.model, req, res, ProyectoRoute_1.ProyectoRoute.crearFiltroProyectoManipulacion(req));
         };
         EscenarioRoute.prototype.getEscenariosByFilterAndSort = function (req, res, next) {
             APIHelper_1.APIHelper.getByFilterAndSort(EscenarioRoute.model, ProyectoRoute_1.ProyectoRoute.alterarFiltroConProyecto(req), res);

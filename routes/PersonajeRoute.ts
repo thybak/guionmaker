@@ -22,10 +22,10 @@ module Route {
             APIHelper.getById(PersonajeRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
         }
         public addPersonaje(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.add(PersonajeRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
+            APIHelper.add(PersonajeRoute.model, req, res, ProyectoRoute.crearFiltroProyectoManipulacion(req));
         }
         public deletePersonaje(req: express.Request, res: express.Response, next: express.NextFunction) {
-            APIHelper.delete(PersonajeRoute.model, req, res, ProyectoRoute.crearFiltroProyecto(req));
+            APIHelper.delete(PersonajeRoute.model, req, res, ProyectoRoute.crearFiltroProyectoManipulacion(req));
         }
         public getPersonajesByFilterAndSort(req: express.Request, res: express.Response, next: express.NextFunction) {
             APIHelper.getByFilterAndSort(PersonajeRoute.model, ProyectoRoute.alterarFiltroConProyecto(req), res);

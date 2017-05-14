@@ -11,6 +11,5 @@ export class DetalleTecnico {
             mimeType: String,
             texto: { type: String, default: new String('') }
         });
-        mongoose.model(DetalleTecnico.name, this.schema);
     }
 }
