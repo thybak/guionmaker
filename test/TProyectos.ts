@@ -1,5 +1,4 @@
-﻿import * as mongoose from "mongoose";
-import { THelper } from "../models/THelper";
+﻿import { THelper } from "../models/THelper";
 import { ResponseStatus } from "../routes/APIHelper";
 import { PermisosColaboracion } from "../models/Colaboraciones";
 import * as chai from "chai";
