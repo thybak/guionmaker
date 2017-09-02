@@ -28,6 +28,7 @@ class Server {
     config: any;
 
     public static init(): Server {
+        console.log('prueba');
         return new Server();
     }
 
