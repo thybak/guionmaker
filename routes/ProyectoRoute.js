@@ -4,7 +4,7 @@ var Proyectos_1 = require("../models/Proyectos");
 var APIHelper_1 = require("./APIHelper");
 var Route;
 (function (Route) {
-    var ProyectoRoute = (function () {
+    var ProyectoRoute = /** @class */ (function () {
         function ProyectoRoute() {
         }
         Object.defineProperty(ProyectoRoute, "model", {

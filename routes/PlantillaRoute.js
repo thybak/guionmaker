@@ -5,7 +5,7 @@ var APIHelper_1 = require("./APIHelper");
 var ProyectoRoute_1 = require("./ProyectoRoute");
 var Route;
 (function (Route) {
-    var PlantillaRoute = (function () {
+    var PlantillaRoute = /** @class */ (function () {
         function PlantillaRoute() {
         }
         Object.defineProperty(PlantillaRoute, "model", {

@@ -16,7 +16,7 @@ var EscenaRoute_1 = require("./routes/EscenaRoute");
 var PlantillaRoute_1 = require("./routes/PlantillaRoute");
 var PersonajeRoute_1 = require("./routes/PersonajeRoute");
 var EscenarioRoute_1 = require("./routes/EscenarioRoute");
-var Server = (function () {
+var Server = /** @class */ (function () {
     function Server() {
         console.log(process.env.NODE_ENV);
         this.config = require('./public/dist/assets/apiconfig.json');
@@ -25,10 +25,10 @@ var Server = (function () {
         this.setConfig();
         require('mongoose').Promise = global.Promise;
         if (process.env.NODE_ENV != undefined && process.env.NODE_ENV.trim() === 'test') {
-            mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName + 'Test');
+            mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName + 'Test', { useMongoClient: true });
         }
         else {
-            mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName);
+            mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName, { useMongoClient: true });
             console.log(this.config);
         }
     }
@@ -61,7 +61,7 @@ var Server = (function () {
         var _plantillasRoute = new PlantillaRoute_1.PlantillaRoute();
         var _escenariosRoute = new EscenarioRoute_1.EscenarioRoute();
         var _personajesRoute = new PersonajeRoute_1.PersonajeRoute();
-        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', '/api-docs', /^(?!\/api).+/] }));
+        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', '/api-docs', /^\/api\/usuario\/recuperar\/.+/, /^(?!\/api).+/] }));
         router.get('/api/proyectos', _proyectosRoute.getProyectos.bind(_proyectosRoute.getProyectos));
         router.post('/api/proyectosPorFiltro', _proyectosRoute.getProyectosByFilterAndSort.bind(_proyectosRoute.getProyectosByFilterAndSort));
         router.get('/api/proyecto/:id', _proyectosRoute.getProyectoById.bind(_proyectosRoute.getProyectoById));
@@ -71,6 +71,8 @@ var Server = (function () {
         router.post('/api/usuario/', _usuariosRoute.addUsuario.bind(_usuariosRoute.addUsuario));
         router.get('/api/usuario/:id', _usuariosRoute.getUsuarioById.bind(_usuariosRoute.getUsuarioById));
         router.post('/api/usuario/login', _usuariosRoute.login.bind(_usuariosRoute.login));
+        router.get('/api/usuario/recuperar/:identificadorUsuario', _usuariosRoute.generarTokenRecuperacion.bind(_usuariosRoute.generarTokenRecuperacion));
+        router.get('/api/usuario/recuperar/:identificadorUsuario/:tokenRecuperacion', _usuariosRoute.verificarTokenRecuperacion.bind(_usuariosRoute.verificarTokenRecuperacion));
         router.get('/api/generos', _generosRoute.getGeneros.bind(_generosRoute.getGeneros));
         router.get('/api/genero/:id', _generosRoute.getGeneroById.bind(_generosRoute.getGeneroById));
         router.get('/api/clasificaciones', _clasificacionesRoute.getClasificaciones.bind(_clasificacionesRoute.getClasificaciones));

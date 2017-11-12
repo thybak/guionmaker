@@ -6,6 +6,9 @@ export class Utils {
         oJssha.update(texto);
         return oJssha.getHash("HEX");
     }
+    static diferenciaDiasEntre(fechaVieja: Date, fechaNueva: Date){
+        return (fechaNueva.getTime() - fechaVieja.getTime()) / (1000 * 3600 * 24);
+    }
 }
 
 export class PeticionLogin {

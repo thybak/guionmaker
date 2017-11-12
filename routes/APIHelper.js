@@ -5,13 +5,13 @@ var ResponseStatus;
     ResponseStatus[ResponseStatus["OK"] = 0] = "OK";
     ResponseStatus[ResponseStatus["KO"] = 1] = "KO";
 })(ResponseStatus = exports.ResponseStatus || (exports.ResponseStatus = {}));
-var RespuestaJson = (function () {
+var RespuestaJson = /** @class */ (function () {
     function RespuestaJson() {
     }
     return RespuestaJson;
 }());
 exports.RespuestaJson = RespuestaJson;
-var PeticionJson = (function () {
+var PeticionJson = /** @class */ (function () {
     function PeticionJson() {
         this.find = {};
         this.sort = {};
@@ -22,7 +22,7 @@ var PeticionJson = (function () {
     return PeticionJson;
 }());
 exports.PeticionJson = PeticionJson;
-var APIHelper = (function () {
+var APIHelper = /** @class */ (function () {
     function APIHelper() {
     }
     APIHelper.buildJsonGeneric = function (estado) {

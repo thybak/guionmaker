@@ -12,6 +12,8 @@ export class Usuario {
             email: { type: String, required: true },
             nombreUsuario: { type: String, required: true },
             pass: { type: String, required: true },
+            tokenRecuperacion: String,
+            fechaTokenRecuperacion: Date
         }, {collection: 'usuarios'});
         this.schema.index({ nombreUsuario: 1 }, { unique: true });
         this.schema.index({ email: 1 }, { unique: true });

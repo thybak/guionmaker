@@ -6,7 +6,7 @@ var Utils_1 = require("../models/Utils");
 var jsonwebtoken = require("jsonwebtoken");
 var Route;
 (function (Route) {
-    var UsuarioRoute = (function () {
+    var UsuarioRoute = /** @class */ (function () {
         function UsuarioRoute() {
         }
         Object.defineProperty(UsuarioRoute, "model", {
@@ -42,6 +42,54 @@ var Route;
         };
         UsuarioRoute.prototype.getUsuariosByFilterAndSort = function (req, res, next) {
             APIHelper_1.APIHelper.getByFilterAndSort(UsuarioRoute.model, UsuarioRoute.alterarFiltro(req), res);
+        };
+        UsuarioRoute.prototype.generarTokenRecuperacion = function (req, res, next) {
+            var identificadorUsuario = req.params.identificadorUsuario;
+            if (identificadorUsuario !== undefined) {
+                UsuarioRoute.model.find({ $or: [{ 'nombreUsuario': identificadorUsuario }, { 'email': identificadorUsuario }] }).exec(function (err, _res) {
+                    if (err) {
+                        res.json(APIHelper_1.APIHelper.buildJsonError("Ha habido un error recuperando la contraseña del usuario: " + identificadorUsuario));
+                    }
+                    else {
+                        if (_res && _res.length == 1) {
+                            var usuario = _res[0];
+                            var fechaCreacionToken = new Date();
+                            usuario.tokenRecuperacion = Utils_1.Utils.firmarTexto(usuario.nombreUsuario + fechaCreacionToken);
+                            usuario.fechaTokenRecuperacion = fechaCreacionToken;
+                            req.body = usuario;
+                            APIHelper_1.APIHelper.update(UsuarioRoute.model, req, res);
+                        }
+                        else {
+                            res.json(APIHelper_1.APIHelper.buildJsonError("No se puede recuperar la contraseña de este usuario."));
+                        }
+                    }
+                });
+            }
+        };
+        UsuarioRoute.prototype.verificarTokenRecuperacion = function (req, res, next) {
+            var identificadorUsuario = req.params.identificadorUsuario;
+            var tokenRecuperacion = req.params.tokenRecuperacion;
+            if (identificadorUsuario !== undefined && tokenRecuperacion !== undefined) {
+                UsuarioRoute.model.find({
+                    $and: [
+                        { $or: [{ 'nombreUsuario': identificadorUsuario }, { 'email': identificadorUsuario }] },
+                        { 'tokenRecuperacion': tokenRecuperacion }
+                    ]
+                }).exec(function (err, _res) {
+                    if (_res && _res.length == 1) {
+                        var usuario = _res[0];
+                        if (Utils_1.Utils.diferenciaDiasEntre(usuario.fechaTokenRecuperacion, new Date()) > 1.0) {
+                            res.json(APIHelper_1.APIHelper.buildJsonError("El token de recuperación ha caducado"));
+                        }
+                        else {
+                            res.json(APIHelper_1.APIHelper.buildJsonConsulta(_res));
+                        }
+                    }
+                    else {
+                        res.json(APIHelper_1.APIHelper.buildJsonError("No se ha podido verificar que este token pertenezca al usuario facilitado"));
+                    }
+                });
+            }
         };
         UsuarioRoute.prototype.login = function (req, res, next) {
             if (req.body != undefined) {

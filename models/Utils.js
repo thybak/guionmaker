@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var jssha = require("jssha");
-var Utils = (function () {
+var Utils = /** @class */ (function () {
     function Utils() {
     }
     Utils.firmarTexto = function (texto) {
@@ -9,10 +9,13 @@ var Utils = (function () {
         oJssha.update(texto);
         return oJssha.getHash("HEX");
     };
+    Utils.diferenciaDiasEntre = function (fechaVieja, fechaNueva) {
+        return (fechaNueva.getTime() - fechaVieja.getTime()) / (1000 * 3600 * 24);
+    };
     return Utils;
 }());
 exports.Utils = Utils;
-var PeticionLogin = (function () {
+var PeticionLogin = /** @class */ (function () {
     function PeticionLogin(nombreUsuario, pass) {
         if (nombreUsuario === void 0) { nombreUsuario = ""; }
         if (pass === void 0) { pass = ""; }
@@ -22,7 +25,7 @@ var PeticionLogin = (function () {
     return PeticionLogin;
 }());
 exports.PeticionLogin = PeticionLogin;
-var RespuestaLogin = (function () {
+var RespuestaLogin = /** @class */ (function () {
     function RespuestaLogin(tokenUsuario, usuarioLogeado, nombreUsuario) {
         this.tokenUsuario = tokenUsuario;
         this.usuarioLogeado = usuarioLogeado;

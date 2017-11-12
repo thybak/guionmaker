@@ -28,7 +28,6 @@ class Server {
     config: any;
 
     public static init(): Server {
-        console.log('prueba');
         return new Server();
     }
 
@@ -60,7 +59,7 @@ class Server {
         let _escenariosRoute: EscenarioRoute = new EscenarioRoute();
         let _personajesRoute: PersonajeRoute = new PersonajeRoute();
 
-        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', '/api-docs', /^(?!\/api).+/] }));
+        this.api.use(jwtes({ "secret": this.config.secreto }).unless({ path: ['/api/usuario/login', '/api/usuario', '/api-docs', /^\/api\/usuario\/recuperar\/.+/, /^(?!\/api).+/] }));
 
         router.get('/api/proyectos', _proyectosRoute.getProyectos.bind(_proyectosRoute.getProyectos));
         router.post('/api/proyectosPorFiltro', _proyectosRoute.getProyectosByFilterAndSort.bind(_proyectosRoute.getProyectosByFilterAndSort));
@@ -72,6 +71,8 @@ class Server {
         router.post('/api/usuario/', _usuariosRoute.addUsuario.bind(_usuariosRoute.addUsuario));
         router.get('/api/usuario/:id', _usuariosRoute.getUsuarioById.bind(_usuariosRoute.getUsuarioById));
         router.post('/api/usuario/login', _usuariosRoute.login.bind(_usuariosRoute.login));
+        router.get('/api/usuario/recuperar/:identificadorUsuario', _usuariosRoute.generarTokenRecuperacion.bind(_usuariosRoute.generarTokenRecuperacion));
+        router.get('/api/usuario/recuperar/:identificadorUsuario/:tokenRecuperacion', _usuariosRoute.verificarTokenRecuperacion.bind(_usuariosRoute.verificarTokenRecuperacion));
 
         router.get('/api/generos', _generosRoute.getGeneros.bind(_generosRoute.getGeneros));
         router.get('/api/genero/:id', _generosRoute.getGeneroById.bind(_generosRoute.getGeneroById));
@@ -132,9 +133,9 @@ class Server {
         this.setConfig();
         require('mongoose').Promise = global.Promise;
         if (process.env.NODE_ENV != undefined && process.env.NODE_ENV.trim() === 'test') {
-            mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName + 'Test');
+            mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName + 'Test', { useMongoClient: true });
         } else {
-            mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName);
+            mongoose.connect("mongodb://" + this.config.dbURL + "/" + this.config.dbCollectionName, { useMongoClient: true });
             console.log(this.config);
         }
 

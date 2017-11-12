@@ -16,8 +16,8 @@ export class Escena {
             noche: Boolean,
             exterior: Boolean,
             fechaCreacion: { type: Date, default: Date.now() },
-            detalleTecnico: DetalleTecnico.current.schema,
-            detalleLiterario: DetalleLiterario.current.schema,
+            detalleTecnico: DetalleTecnico.current.schema as Object,
+            detalleLiterario: DetalleLiterario.current.schema as Object,
             proyecto: { type: mongoose.Schema.Types.ObjectId, ref: Proyecto.name, required: true }
         });
         mongoose.model(Escena.name, this.schema);

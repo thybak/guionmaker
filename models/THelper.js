@@ -5,7 +5,7 @@ var APIHelper_1 = require("../routes/APIHelper");
 var chaiHttp = require("chai-http");
 var should = chai.should();
 chai.use(chaiHttp);
-var THelper = (function () {
+var THelper = /** @class */ (function () {
     function THelper() {
     }
     THelper.getAuthValue = function () {
@@ -138,14 +138,14 @@ var THelper = (function () {
             done();
         });
     };
+    THelper.testUserToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmVVc3VhcmlvIjoidGVzdCIsInBhc3MiOiIzNmYwMjg1ODBiYjAyY2M4MjcyYTlhMDIwZjQyMDBlMzQ2ZTI3NmFlNjY0ZTQ1ZWU4MDc0NTU3NGUyZjVhYjgwIiwidXN1YXJpb0xvZ2VhZG8iOiI1OTBlMDc4ZjZmMjJkMDEwOTBmNjM1ZDMiLCJpYXQiOjE0OTQwOTE2Njh9.CkmrNkXtm5YW3TTuYy934T6MXCWXBvz5YdqN2X8PiYY";
+    THelper.testUsername = "test";
+    THelper.testPassword = "test";
+    THelper.testObjectId = "590e078f6f22d01090f635d3";
+    THelper.testProjectId = "";
+    THelper.app = require("../app");
+    THelper.notAuthVerbose = "debe dar error 401 al no proporcionar cabecera de autenticación";
     return THelper;
 }());
-THelper.testUserToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmVVc3VhcmlvIjoidGVzdCIsInBhc3MiOiIzNmYwMjg1ODBiYjAyY2M4MjcyYTlhMDIwZjQyMDBlMzQ2ZTI3NmFlNjY0ZTQ1ZWU4MDc0NTU3NGUyZjVhYjgwIiwidXN1YXJpb0xvZ2VhZG8iOiI1OTBlMDc4ZjZmMjJkMDEwOTBmNjM1ZDMiLCJpYXQiOjE0OTQwOTE2Njh9.CkmrNkXtm5YW3TTuYy934T6MXCWXBvz5YdqN2X8PiYY";
-THelper.testUsername = "test";
-THelper.testPassword = "test";
-THelper.testObjectId = "590e078f6f22d01090f635d3";
-THelper.testProjectId = "";
-THelper.app = require("../app");
-THelper.notAuthVerbose = "debe dar error 401 al no proporcionar cabecera de autenticación";
 exports.THelper = THelper;
 //# sourceMappingURL=THelper.js.map
