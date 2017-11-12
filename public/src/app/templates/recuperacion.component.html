@@ -1,0 +1,83 @@
+<div class="well">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h1 class="panel-title">Registro de nuevo usuario en GuionMaker</h1>
+        </div>
+        <div class="panel-body" *ngIf="!restablecimientoPass">
+            <div class="alert info">
+                <p>¿Has olvidado tu contraseña? Pon a continuación tu nombre o email para recuperarla. En el caso de que exista
+                    recibirás un email con un enlace.</p>
+            </div>
+            <table class="table table-responsive">
+                <tr>
+                    <td>
+                        <label for="identificadorUsuario">Nombre / Email
+                            <i class="glyphicon glyphicon-asterisk" *ngIf="!formInicioRecuperacion.controls['identificadorUsuario'].valid"></i>
+                        </label>
+
+                    </td>
+                    <td>
+                        <input type="text" [(ngModel)]="identificadorUsuario" class="form-control" id="identificadorUsuario" [formControl]="formInicioRecuperacion.controls['identificadorUsuario']"
+                            required />
+                    </td>
+                </tr>
+            </table>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 text-center">
+                    <button type="button" class="btn btn-primary" (click)="recuperarPass()" [disabled]="!formInicioRecuperacion.valid">
+                        <i class="glyphicon glyphicon-save"></i> Recuperar contraseña</button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        <div class="panel-body" *ngIf="restablecimientoPass">
+            <div class="alert alert-info">
+                <p>¡Hola! Verificada tu identidad, es hora de que establezcas la nueva contraseña para acceder a la plataforma.</p>
+            </div>
+            <div class="alert alert-danger" *ngIf="errorRestablecimiento">
+                <p>¡Las contraseñas deben coincidir!</p>
+            </div>
+            <table class="table table-responsive">
+                <tr>
+                    <td>
+                        <label for="pass">Nueva contraseña
+                            <i class="glyphicon glyphicon-asterisk" *ngIf="!formRestablecimientoPass.controls['pass'].valid"></i>
+                        </label>
+                    </td>
+                    <td>
+                        <input type="password" [(ngModel)]="pass" class="form-control" id="pass" [formControl]="formRestablecimientoPass.controls['pass']"
+                            required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="passConfirm">Repetir nueva contraseña
+                            <i class="glyphicon glyphicon-asterisk" *ngIf="!formRestablecimientoPass.controls['passConfirm'].valid"></i>
+                        </label>
+                    </td>
+                    <td>
+                        <input type="password" [(ngModel)]="passConfirm" class="form-control" id="passConfirm" [formControl]="formRestablecimientoPass.controls['passConfirm']"
+                            required />
+                    </td>
+                </tr>
+            </table>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 text-center">
+                    <button type="button" class="btn btn-primary" (click)="restablecerPass()" [disabled]="!formRestablecimientoPass.valid">
+                        <i class="glyphicon glyphicon-save"></i> Restablecer contraseña</button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        <div class="panel-body" *ngIf="passRestablecida || tokenRecuperacionCreado">
+            <div class="alert alert-success" *ngIf="passRestablecida">
+                <p>¡Tu contraseña ha sido restablecida con éxito! ¿Por qué no pruebas a <a routerLink="/login" class="alert-link">iniciar sesión</a> con ella?</p>
+            </div>
+            <div class="alert alert-success" *ngIf="tokenRecuperacionCreado">
+                <p>En el caso de que el identificador de usuario esté asociada a una cuenta dentro del sistema, te llegará un email con las instrucciones para restablecer tu contraseña.</p>
+            </div>
+        </div>
+    </div>
+</div>

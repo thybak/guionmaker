@@ -97,6 +97,10 @@ export class AngularAPIHelper {
         return this.http.get(AngularAPIHelper.URL + entity + "/" + id, this.crearCabeceraAuth()).map(response => this.parse(response.text())).catch(this.handleError);
     }
 
+    getByParams(entity: string, params: [string]){
+        return this.http.get(AngularAPIHelper.URL + entity + "/" + params.join('/')).map(response => this.parse(response.text())).catch(this.handleError);
+    }
+
     deleteById(entity: string, id: string) {
         return this.http.delete(AngularAPIHelper.URL + entity + '/' + id, this.crearCabeceraAuth()).map(response => this.parse(response.text())).catch(this.handleError);
     }

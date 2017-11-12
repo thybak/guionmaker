@@ -7,6 +7,8 @@ export class UsuarioModel {
     email: string;
     nombreUsuario: string;
     pass: string;
+    tokenRecuperacion: string;
+    fechaTokenRecuperacion: Date;
 
     constructor() { }
 

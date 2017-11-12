@@ -3,9 +3,9 @@ import { AngularAPIHelper, ResponseStatus, RespuestaJson } from "./AngularAPIHel
 import { LocalStorageService } from "./LocalStorageService";
 
 export class ModoColaborador {
-    protected usuarioLogeadoAutor: boolean;
+    usuarioLogeadoAutor: boolean;
 
-    constructor(protected angularAPIHelper: AngularAPIHelper, protected localStorageService: LocalStorageService, forceValue: boolean = false) {
+    constructor(public angularAPIHelper: AngularAPIHelper, public localStorageService: LocalStorageService, forceValue: boolean = false) {
         if (!forceValue) {
             ProyectoModel.getProyectoActual(this.angularAPIHelper, this.localStorageService).subscribe((respuesta) => {
                 let proyectoR = respuesta as RespuestaJson;

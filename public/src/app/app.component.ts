@@ -13,7 +13,7 @@ import { BreadcrumbService } from 'ng2-breadcrumb/ng2-breadcrumb';
 export class AppComponent {
     darkTheme: boolean;
 
-    constructor(private localStorageService: LocalStorageService, private angularAPIHelper: AngularAPIHelper, private router: Router, private breadcrumbService: BreadcrumbService, @Inject(DOCUMENT) private doc) {
+    constructor(public localStorageService: LocalStorageService, private angularAPIHelper: AngularAPIHelper, private router: Router, private breadcrumbService: BreadcrumbService, @Inject(DOCUMENT) private doc) {
         this.breadcrumbService.addCallbackForRouteRegex('^(.)+$', (str) => {
             let reg = new RegExp("^.*([A-Fa-f]|[0-9]){24}$");
             if (reg.test(str)) {

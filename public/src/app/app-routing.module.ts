@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './index.component';
 import { LoginComponent } from './login.component';
 import { RegistroComponent } from './registro.component';
+import { RecuperacionComponent } from './recuperacion.component';
+
 import { CanActivateIsLoggedGuard } from './utils/CanActivateIsLoggedGuard';
 
 const appRoutes: Routes =
@@ -13,6 +15,13 @@ const appRoutes: Routes =
         { path: '', component: IndexComponent, canActivate: [CanActivateIsLoggedGuard] },
         { path: 'login', component: LoginComponent },
         { path: 'registro', component: RegistroComponent },
+        {
+            path: 'recuperacion',
+            children: [
+                { path: '', component: RecuperacionComponent },
+                { path: ':identificadorUsuario/:tokenRecuperacion', component: RecuperacionComponent }
+            ]
+        },
         { path: '**', component: PageNotFoundComponent }
     ]
 

@@ -39,6 +39,7 @@ lib
 bin
 obj
 .vs
+.vscode
 .tscache
 
 # Optional npm cache directory
@@ -53,3 +54,6 @@ obj
 # Source maps
 *.js.map
 .idea
+
+# Manual http tests
+*.request
