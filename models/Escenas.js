@@ -4,7 +4,7 @@ var mongoose = require("mongoose");
 var DetallesTecnicos_1 = require("./DetallesTecnicos");
 var DetallesLiterarios_1 = require("./DetallesLiterarios");
 var Proyectos_1 = require("./Proyectos");
-var Escena = (function () {
+var Escena = /** @class */ (function () {
     function Escena() {
         this.schema = new mongoose.Schema({
             titulo: String,
@@ -19,8 +19,8 @@ var Escena = (function () {
         });
         mongoose.model(Escena.name, this.schema);
     }
+    Escena.current = new Escena();
     return Escena;
 }());
-Escena.current = new Escena();
 exports.Escena = Escena;
 //# sourceMappingURL=Escenas.js.map

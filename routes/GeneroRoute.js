@@ -4,7 +4,7 @@ var Generos_1 = require("../models/Generos");
 var APIHelper_1 = require("./APIHelper");
 var Route;
 (function (Route) {
-    var GeneroRoute = (function () {
+    var GeneroRoute = /** @class */ (function () {
         function GeneroRoute() {
         }
         Object.defineProperty(GeneroRoute, "model", {

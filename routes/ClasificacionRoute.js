@@ -4,7 +4,7 @@ var Clasificaciones_1 = require("../models/Clasificaciones");
 var APIHelper_1 = require("./APIHelper");
 var Route;
 (function (Route) {
-    var ClasificacionRoute = (function () {
+    var ClasificacionRoute = /** @class */ (function () {
         function ClasificacionRoute() {
         }
         Object.defineProperty(ClasificacionRoute, "model", {

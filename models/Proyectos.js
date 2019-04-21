@@ -5,13 +5,13 @@ var Generos_1 = require("./Generos");
 var Clasificaciones_1 = require("./Clasificaciones");
 var Colaboraciones_1 = require("./Colaboraciones");
 var Usuarios_1 = require("./Usuarios");
-var ProyectoModel = (function () {
+var ProyectoModel = /** @class */ (function () {
     function ProyectoModel() {
     }
     return ProyectoModel;
 }());
 exports.ProyectoModel = ProyectoModel;
-var Proyecto = (function () {
+var Proyecto = /** @class */ (function () {
     function Proyecto() {
         this.schema = new mongoose.Schema({
             nombre: String,
@@ -27,8 +27,8 @@ var Proyecto = (function () {
         });
         mongoose.model(Proyecto.name, this.schema);
     }
+    Proyecto.current = new Proyecto();
     return Proyecto;
 }());
-Proyecto.current = new Proyecto();
 exports.Proyecto = Proyecto;
 //# sourceMappingURL=Proyectos.js.map

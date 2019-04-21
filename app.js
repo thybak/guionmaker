@@ -16,7 +16,7 @@ var EscenaRoute_1 = require("./routes/EscenaRoute");
 var PlantillaRoute_1 = require("./routes/PlantillaRoute");
 var PersonajeRoute_1 = require("./routes/PersonajeRoute");
 var EscenarioRoute_1 = require("./routes/EscenarioRoute");
-var Server = (function () {
+var Server = /** @class */ (function () {
     function Server() {
         console.log(process.env.NODE_ENV);
         this.config = require('./public/dist/assets/apiconfig.json');
@@ -36,7 +36,7 @@ var Server = (function () {
         return new Server();
     };
     Server.prototype.setModules = function () {
-        if (process.env.NODE_ENV == undefined || process.env.NODE_ENV.trim() !== 'test') {
+        if (process.env.NODE_ENV == undefined || (process.env.NODE_ENV.trim() !== 'test' && process.env.NODE_ENV.trim() !== 'prod')) {
             this.api.use(morgan('combined'));
         }
         this.api.use(bodyParser.json({ limit: 1024 * 1024 * 3 }));

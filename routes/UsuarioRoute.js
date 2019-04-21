@@ -6,7 +6,7 @@ var Utils_1 = require("../models/Utils");
 var jsonwebtoken = require("jsonwebtoken");
 var Route;
 (function (Route) {
-    var UsuarioRoute = (function () {
+    var UsuarioRoute = /** @class */ (function () {
         function UsuarioRoute() {
         }
         Object.defineProperty(UsuarioRoute, "model", {

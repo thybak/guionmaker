@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
-var Usuario = (function () {
+var Usuario = /** @class */ (function () {
     function Usuario() {
         this.schema = new mongoose.Schema({
             nombre: { type: String, required: true },
@@ -14,8 +14,8 @@ var Usuario = (function () {
         this.schema.index({ email: 1 }, { unique: true });
         mongoose.model(Usuario.name, this.schema);
     }
+    Usuario.current = new Usuario();
     return Usuario;
 }());
-Usuario.current = new Usuario();
 exports.Usuario = Usuario;
 //# sourceMappingURL=Usuarios.js.map

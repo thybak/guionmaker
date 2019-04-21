@@ -1,7 +1,7 @@
 "use strict";
 var Route;
 (function (Route) {
-    var IndexRoute = (function () {
+    var IndexRoute = /** @class */ (function () {
         function IndexRoute() {
         }
         IndexRoute.prototype.index = function (req, res, next) {

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
 var Proyectos_1 = require("./Proyectos");
-var Escenario = (function () {
+var Escenario = /** @class */ (function () {
     function Escenario() {
         this.schema = new mongoose.Schema({
             nombre: String,
@@ -14,8 +14,8 @@ var Escenario = (function () {
         });
         mongoose.model(Escenario.name, this.schema);
     }
+    Escenario.current = new Escenario();
     return Escenario;
 }());
-Escenario.current = new Escenario();
 exports.Escenario = Escenario;
 //# sourceMappingURL=Escenarios.js.map

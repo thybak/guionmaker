@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
 var Usuarios_1 = require("./Usuarios");
-var PlantillaModel = (function () {
+var PlantillaModel = /** @class */ (function () {
     function PlantillaModel() {
     }
     return PlantillaModel;
 }());
-var Plantilla = (function () {
+var Plantilla = /** @class */ (function () {
     function Plantilla() {
         this.schema = new mongoose.Schema({
             htmlPortada: String,
@@ -40,8 +40,8 @@ var Plantilla = (function () {
         });
         mongoose.model(Plantilla.name, this.schema);
     }
+    Plantilla.current = new Plantilla();
     return Plantilla;
 }());
-Plantilla.current = new Plantilla();
 exports.Plantilla = Plantilla;
 //# sourceMappingURL=Plantillas.js.map
