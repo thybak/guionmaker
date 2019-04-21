@@ -32,7 +32,7 @@ class Server {
     }
 
     private setModules(): void {
-        if (process.env.NODE_ENV == undefined || process.env.NODE_ENV.trim() !== 'test') {
+        if (process.env.NODE_ENV == undefined || (process.env.NODE_ENV.trim() !== 'test' && process.env.NODE_ENV.trim() !== 'prod')) {
             this.api.use(morgan('combined'));
         }
         this.api.use(bodyParser.json({ limit: 1024 * 1024 * 3 }));
@@ -128,7 +128,6 @@ class Server {
     constructor() {
         console.log(process.env.NODE_ENV);
         this.config = require('./public/dist/assets/apiconfig.json');
-        this.config.secreto = "g423gj8f_GfsldGLPxcz";
         this.api = express();
         this.setConfig();
         require('mongoose').Promise = global.Promise;
